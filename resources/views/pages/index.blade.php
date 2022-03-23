@@ -2,9 +2,9 @@
     @section('content')
     <div class="row">
         <div class="col">
-
+            <img class="w-100 h-100" src="https://www.timeshighereducation.com/unijobs/getasset/68fdfdc4-4442-449a-8ad5-2a994eff3e57/" alt="">
         </div>
-        <div class="col p-5 justify-content-center text-center text-primary">
+        <div class="col justify-content-center text-center text-primary">
             <h1 class="pt-5 mt-5">OASYS</h1>
             <h2>HELLO NEM</h2>
             <h2>G APEX</h2>
@@ -19,5 +19,6 @@
             <br>
             <button type="button" class="btn btn-outline-primary w-25 m-1">SEND APPLICATION</button>
         </div>
+        
     </div>
     @endsection
