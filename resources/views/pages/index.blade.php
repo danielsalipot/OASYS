@@ -1,14 +1,11 @@
 @extends('layout.app')
     @section('content')
     <div class="row">
-        <div class="col">
+        <div class="col" style="height: 100vh">
             <img class="w-100 h-100" src="https://www.timeshighereducation.com/unijobs/getasset/68fdfdc4-4442-449a-8ad5-2a994eff3e57/" alt="">
         </div>
         <div class="col justify-content-center text-center text-primary">
             <h1 class="pt-5 mt-5">OASYS</h1>
-            <h2>HELLO NEM</h2>
-            <h2>G APEX</h2>
-            <h3>Naol may GF</h3>
 
             <p>Overall Administering System</p>
             <p class="m-auto w-75 mt-5 pt-3 mb-5 ">A Human Resource Records and Information Management System. 
