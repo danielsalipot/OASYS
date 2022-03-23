@@ -6,7 +6,7 @@
         </div>
         <div class="col justify-content-center text-center text-primary">
             <h1 class="pt-5 mt-5">OASYS</h1>
-            <h2>TANG INA MO IAN</h2>
+            
 
             <p>Overall Administering System</p>
             <p class="m-auto w-75 mt-5 pt-3 mb-5 ">A Human Resource Records and Information Management System. 
