@@ -8,6 +8,8 @@
         <h6>step 2 out of 3</h6> 
     </div>
 
+    {{session('user_type')}}
+
     <form>
     <div class='row m-auto w-75 pt-5'>
         
