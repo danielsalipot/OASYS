@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\CrudController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,5 @@ use App\Http\Controllers\PagesController;
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/signup', [PagesController::class, 'signup']);
 Route::get('/application', [PagesController::class, 'application']);
+Route::get('/user', [CrudController::class, 'index']);
+Route::post('add',[CrudController::class, 'add']);
