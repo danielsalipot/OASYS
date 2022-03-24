@@ -1,7 +1,7 @@
 @extends('layout.app')
     @section('content')
-    <div class='row m-auto w-75 pt-5'>
-        <h1 class="display-3">Introduce Your Self</h1>
+    <div class='row m-auto w-75 pt-5 text-primary'>
+        <h1 class="h1">Introduce Your Self</h1>
         <h6>step 2 out of 3</h6> 
     </div>
 
@@ -47,6 +47,7 @@
             </div>
          
         </div>
+
           <div class='row m-auto w-75 pt-5'>
             
                 <div class="row">
@@ -59,6 +60,7 @@
                     <label for="inputState">Educational Attainment</label>
                     <input type="text" class="form-control" placeholder="Educational Attainment">
                   </div>
+
                   <div class="col-2">
                     <label class="custom-file-label" for="validatedCustomFile">Picture</label>
                     <input type="file" class="custom-file-input" id="validatedCustomFile" required>
@@ -66,7 +68,22 @@
                 </div>
             </div>
            
+            {{-- -----Buttons --}}
+            <div class='d-flex justify-content-around mt-4'>
+            
+                <div class="row">
+                    <div class="col ">
+                        <a href="/login" class="btn btn-primary w-100 m-1 ps-5 pe-5">PROCEED</a>
+                    </div>
+                    <div class="col">
+                        <a href="/signup" class="btn btn-outline-primary w-100 m-1 ps-5 pe-5">CANCEL</a>
+                    </div>
+                </div>
+                
+                
+            </div>
         
+
         </form>   
 
     </div>
