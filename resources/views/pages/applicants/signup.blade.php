@@ -25,6 +25,7 @@
                 <span class="text-danger">@error('repass'){{$message}}@enderror</span>
 
                 <button type="submit" class="btn btn-primary w-25 mt-3 ">Sign up</button>
+                <br><button type="cancel" class="btn btn-outline-primary w-25 mt-1 ">Cancel</button>
             </form>
         </div>
     @endsection
