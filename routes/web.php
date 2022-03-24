@@ -25,16 +25,9 @@ Route::post('add',[CrudController::class, 'add']);
 //Applicants Routes
 Route::get('/signup', [PagesController::class, 'signup']);
 Route::get('/application', [PagesController::class, 'application']);
-<<<<<<< HEAD
-Route::get('/introduce', [PagesController::class, 'introduce']);
-Route::get('/applying', [PagesController::class, 'applying']);
-Route::get('/applicanthome', [PagesController::class, 'applicanthome']);
 
-=======
-Route::get('/user', [CrudController::class, 'index']);
 Route::post('introduce',[CrudController::class, 'add']);
 
 Route::get('/introduce', [PagesController::class, 'introduce']);
 Route::get('/applying', [PagesController::class, 'applying']);
 Route::get('/applicanthome', [PagesController::class, 'applicanthome']);
->>>>>>> c4ecd66bb23d7106f902c1d0a56a0ab1832b3eb9
