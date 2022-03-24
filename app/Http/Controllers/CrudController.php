@@ -19,13 +19,14 @@ class CrudController extends Controller
 
         $query = DB::table('user_tbl')->insert([
             //check if the username is unique
+
             'username'=>$request->input('user'),
             'password'=>$request->input('pass'),
             'user_type'=>'applicant',
         ]);
 
         if($query){
-            return back()->with('success','Data has been inserted successfuly');
+            return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
         }else{
             return back()->with('fail','Something went wrong');
         }

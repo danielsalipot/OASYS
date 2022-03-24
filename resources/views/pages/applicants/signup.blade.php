@@ -4,16 +4,12 @@
             <h1 class="display-3 p-3">Create your Account</h1>
             <h6>step 1 out of 3</h6>
 
-            @if(Session::get('success'))
-                <div class="alert alert-success w-50 m-auto">{{Session::get('success')}}</div>
-            @endif
-
             @if(Session::get('fail'))
                 <div class="alert alert-success w-50 m-auto">{{Session::get('fail')}}</div>
             @endif
 
 
-            <form class="p-1 mt-4" action="add" method="post">
+            <form class="p-1 mt-4" action="introduce" method="post">
                 @csrf
                 <input class="m-auto form-control w-25 mt-3 p-2" type="text" name="user" placeholder="Username" value="{{old('user')}}">
                 <span class="text-danger">@error('user'){{$message}}@enderror</span>

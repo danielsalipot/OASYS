@@ -1,7 +1,10 @@
 @extends('layout.app')
     @section('content')
-    <div class='row m-auto w-75 pt-5 text-primary'>
-        <h1 class="h1">Introduce Your Self</h1>
+    @if(Session::get('success'))
+      <div class="alert alert-success w-50 m-auto">{{Session::get('success')}}</div>
+    @endif
+    <div class='row m-auto w-75 pt-5'>
+        <h1 class="display-3">Introduce Your Self</h1>
         <h6>step 2 out of 3</h6> 
     </div>
 
@@ -85,7 +88,6 @@
         
 
         </form>   
-
     </div>
         
 
