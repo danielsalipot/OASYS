@@ -8,9 +8,11 @@ class PagesController extends Controller
 {
     function index(){
         return view('pages.index');
-        
     }
-    function applicants(){
-        return view('pages.applicants.index');
+    function signup(){
+        return view('pages.applicants.signup');
+    }
+    function application(){
+        return view('pages.applicants.application');
     }
 }

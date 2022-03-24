@@ -15,4 +15,5 @@ use App\Http\Controllers\PagesController;
 */
 
 Route::get('/', [PagesController::class, 'index']);
-Route::get('/applicants', [PagesController::class, 'applicants']);
+Route::get('/signup', [PagesController::class, 'signup']);
+Route::get('/application', [PagesController::class, 'application']);

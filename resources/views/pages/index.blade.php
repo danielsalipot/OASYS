@@ -14,7 +14,7 @@
                 both management and staff.</p>
             <button type="button " class="btn btn-primary w-25 m-1">LOGIN</button>
             <br>
-            <button type="button" class="btn btn-outline-primary w-25 m-1">SEND APPLICATION</button>
+            <a href="/signup" class="btn btn-outline-primary w-25 m-1">SEND APPLICATION</a>
         </div>
         
     </div>
