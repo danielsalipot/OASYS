@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\CrudController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,11 @@ Route::get('/login', [PagesController::class, 'login']);
 //Applicants Routes
 Route::get('/signup', [PagesController::class, 'signup']);
 Route::get('/application', [PagesController::class, 'application']);
+<<<<<<< HEAD
+Route::get('/user', [CrudController::class, 'index']);
+Route::post('add',[CrudController::class, 'add']);
+=======
 Route::get('/introduce', [PagesController::class, 'introduce']);
 Route::get('/applying', [PagesController::class, 'applying']);
 Route::get('/applicanthome', [PagesController::class, 'applicanthome']);
+>>>>>>> 5eaf0a1ff6ce106888ac813446f773e2af67f5d6
