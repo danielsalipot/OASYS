@@ -1,0 +1,127 @@
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 65px;
+  padding: 0 2px;
+  background: #fffefe;
+  border-style: solid;
+  border-top: #838383;
+  border-color:#727272;
+}
+#main {
+  margin-left: 300px;
+}
+@media (max-width: 1199px) {
+  #header {
+    left: -300px;
+  }
+  #main {
+    margin-left: 0;
+  }
+}
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+.nav-menu {
+  padding: 30px 0 0 0;
+}
+.nav-menu * {
+  padding: 0;
+  top: 95px;
+  list-style: none;
+}
+.nav-menu > ul > li {
+  position: relative;
+  white-space: nowrap;
+}
+.nav-menu a, .nav-menu a:focus {
+  display: flex;
+  align-items: center;
+  padding: 15px 15px;
+  margin-bottom: -20px;
+  font-size: 15px;
+}
+.nav-menu a i, .nav-menu a:focus i {
+  font-size: 23px;
+  color: #0275d8;
+}
+.nav-menu a:hover, .nav-menu .active, .nav-menu .active:focus, .nav-menu li:hover > a {
+  text-decoration: none;
+  color: #fff;
+}
+.nav-menu a:hover i, .nav-menu .active i, .nav-menu .active:focus i, .nav-menu li:hover > a i {
+  color: #00ccff;
+}
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-bg {
+  background: #f5f8fd;
+}
+
+.section-title {
+  padding-bottom: 30px;
+}
+.section-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  color: #173b6c;
+}
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #149ddd;
+  bottom: 0;
+  left: 0;
+}
+.section-title p {
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# About
+--------------------------------------------------------------*/
+.about .content h3 {
+  font-weight: 700;
+  font-size: 26px;
+  color: #173b6c;
+}
+.about .content ul {
+  list-style: none;
+  padding: 0;
+}
+.about .content ul li {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+.about .content ul strong {
+  margin-right: 10px;
+}
+.about .content ul i {
+  font-size: 16px;
+  margin-right: 5px;
+  color: #149ddd;
+  line-height: 0;
+}
+.about .content p:last-child {
+  margin-bottom: 0;
+}
