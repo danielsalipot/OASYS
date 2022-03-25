@@ -64,4 +64,5 @@ class PagesController extends Controller
     function applicanthome(){
         return view('pages.applicants.applicanthome');
     }
+
 }
