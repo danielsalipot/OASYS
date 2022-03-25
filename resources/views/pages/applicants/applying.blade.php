@@ -11,9 +11,9 @@
               <div class='row  text-primary m-auto w-50 mt-3 mb-3'>
                   <label for="inputState">Choose a position</label>
                   <select id="inputState" name="position" class="form-control">
-                      <option selected>Teacher</option>
-                      <option>Staff</option>    
-                    <option>Principal</option>
+                      <option class="dropdown-item" selected>Teacher</option>
+                      <option class="dropdown-item">Staff</option>    
+                      <option class="dropdown-item">Principal</option>
                   </select>
                 </div>
               </div>
@@ -34,7 +34,7 @@
                 </div>
               </div> 
 
-              <div class='row p-1 h-25'> </div>
+              <div class='row' style="height: 21vh"> </div>
                   <div class="row">
                       <div class="col">
                         <a href="/" class="btn btn-outline-primary w-25 m-1 ps-5 pe-5">CANCEL</a>

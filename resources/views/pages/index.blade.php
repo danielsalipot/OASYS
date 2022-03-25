@@ -14,7 +14,7 @@
                 both management and staff.</p>
             <a href="/login" class="btn btn-primary w-25 m-1">LOGIN</a>
             <br>
-            <a href="/signup" class="btn btn-outline-primary w-26 m-1">SEND APPLICATION</a>
+            <a href="/signup" class="btn btn-outline-primary w-25 m-1">SEND APPLICATION</a>
         </div>
         
     </div>
