@@ -19,8 +19,16 @@ use App\Http\Controllers\CrudController;
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/login', [PagesController::class, 'login']);
 
+//Create User Routes
+Route::get('/user', [CrudController::class, 'index']);
+Route::post('add', [CrudController::class, 'add']);
+
 //Applicants Routes
+Route::get('/introduce', [PagesController::class, 'introduce']);
 Route::get('/signup', [PagesController::class, 'signup']);
 Route::get('/application', [PagesController::class, 'application']);
-Route::get('/user', [CrudController::class, 'index']);
-Route::post('add',[CrudController::class, 'add']);
+Route::get('/applying', [PagesController::class, 'applying']);
+Route::get('/applicanthome', [PagesController::class, 'applicanthome']);
+
+//Logout 
+Route::get('/logout', [PagesController::class, 'logout']);

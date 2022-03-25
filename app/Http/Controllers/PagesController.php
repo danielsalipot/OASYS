@@ -13,10 +13,19 @@ class PagesController extends Controller
         return view('pages.login');
     }
     
-        //Applicants Functions
+    //Applicants Functions
     function signup(){
+        if(session()->has('user_id')){
+            return redirect('introduce');
+        }
         return view('pages.applicants.signup');
     }
+
+    function logout(Request $request){
+        $request->session()->flush();
+        return redirect('/');
+    }
+
     function application(){
         return view('pages.applicants.application');
     }
