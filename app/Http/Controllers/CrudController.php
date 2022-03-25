@@ -7,10 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CrudController extends Controller
 {
-    function index(){
-        return view('pages.applicants.signup');
-    }
-    function add(Request $request){
+    function crudsignup(Request $request){
         $request->validate([
            'user'=>'required',
            'pass'=>'required',
@@ -49,5 +46,32 @@ class CrudController extends Controller
         }
 
 
+    }
+
+    function crudintroduce(Request $request){
+        $request->validate([
+            'fname'=>'required',
+            'mname'=>'required',
+            'lname'=>'required',
+            'sex'=>'required',
+            'age'=>'required',
+            'email'=>'required',
+            'cnum'=>'required',
+            'pic'=>'required',
+            'educ'=>'required'
+         ]);
+
+         // Store in flash session to pass to the next page
+         $request->session()->flash('fname', $request->input('fname'));
+         $request->session()->flash('mname', $request->input('mname'));
+         $request->session()->flash('lname', $request->input('lname'));
+         $request->session()->flash('sex', $request->input('sex'));
+         $request->session()->flash('age', $request->input('age'));
+         $request->session()->flash('email', $request->input('email'));
+         $request->session()->flash('cnum', $request->input('cnum'));
+         $request->session()->flash('pic', $request->input('pic'));
+         $request->session()->flash('educ', $request->input('educ'));
+
+         return redirect('/applying');
     }
 }
