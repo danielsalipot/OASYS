@@ -5,7 +5,7 @@
     @endif
     <div class='row m-auto w-75 pt-5'>
         <h1 class='text-primary'>Introduce Your Self</h1>
-        <h6>step 2 out of 3</h6> 
+        <h6 class='text-primary'>step 2 out of 3</h6> 
     </div>
 
     <form action="crudintroduce" method="post">
@@ -17,6 +17,7 @@
                 <input type="text" class="form-control" name="fname" placeholder="First name" value="{{old('fname')}}">
                 <span class="text-danger">@error('fname'){{"This Field is required"}}@enderror</span>
               </div>
+
               <div class="col-2">
                 <label for="inputState">Sex</label>
                 <select id="inputState" name="sex" class="form-control">
