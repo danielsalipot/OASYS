@@ -13,6 +13,32 @@ class PagesController extends Controller
         return view('pages.login');
     }
     
+    //Payroll Manager Functions
+    function payroll(){
+        return view('pages.payroll_manager.payroll');
+    }
+    function employeelist(){
+        return view('pages.payroll_manager.employeelist');
+    }
+    function deduction(){
+        return view('pages.payroll_manager.deduction');
+    }
+    function overtime(){
+        return view('pages.payroll_manager.overtime');
+    }
+    function cashadvance(){
+        return view('pages.payroll_manager.cashadvance');
+    }
+    function deductiontype(){
+        return view('pages.payroll_manager.deductiontype');
+    }
+    function message(){
+        return view('pages.payroll_manager.message');
+    }
+    function notification(){
+        return view('pages.payroll_manager.notification');
+    }
+
     //Applicants Functions
     function signup(){
         if(session()->has('user_id')){

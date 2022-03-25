@@ -21,7 +21,17 @@ Route::get('/login', [PagesController::class, 'login']);
 
 //Create User Routes
 Route::get('/user', [CrudController::class, 'index']);
-Route::post('add', [CrudController::class, 'add']);
+Route::post('/add', [CrudController::class, 'add']);
+
+//Payroll Manager Routes
+Route::get('/deductiontype', [PagesController::class, 'deductiontype']);
+Route::get('/message', [PagesController::class, 'message']);
+Route::get('/notification', [PagesController::class, 'notification']);
+Route::get('/cashadvance', [PagesController::class, 'cashadvance']);
+Route::get('/overtime', [PagesController::class, 'overtime']);
+Route::get('/deduction', [PagesController::class, 'deduction']);
+Route::get('/employeelist', [PagesController::class, 'employeelist']);
+Route::get('/payroll', [PagesController::class, 'payroll']);
 
 //Applicants Routes
 Route::get('/introduce', [PagesController::class, 'introduce']);
