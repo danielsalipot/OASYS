@@ -5,7 +5,7 @@
     </a>
 
     <ul class="nav nav-pills">
-      <li class="nav-item"><a href="#" class="nav-link text-white">Home</a></li>
+      <li class="nav-item"><a href="/" class="nav-link text-white">Home</a></li>
       <li class="nav-item"><a href="#" class="nav-link text-white">Features</a></li>
       <li class="nav-item"><a href="#" class="nav-link text-white">FAQs</a></li>
       <li class="nav-item"><a href="#" class="nav-link text-white">About</a></li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
@@ -44,6 +45,7 @@ class PagesController extends Controller
         if(session()->has('user_id')){
             return redirect('introduce');
         }
+        
         return view('pages.applicants.signup');
     }
 
@@ -55,7 +57,11 @@ class PagesController extends Controller
     function application(){
         return view('pages.applicants.application');
     }
+
     function introduce(){
+        if(session()->has('fname')){
+            return redirect('applying');
+        }
         return view('pages.applicants.introduce');
     }
     function applying(){
@@ -64,4 +70,5 @@ class PagesController extends Controller
     function applicanthome(){
         return view('pages.applicants.applicanthome');
     }
+
 }

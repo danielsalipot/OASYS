@@ -7,6 +7,9 @@
             @if(Session::get('fail'))
                 <div class="alert alert-danger w-50 m-auto">{{Session::get('fail')}}</div>
             @endif
+            @if(Session::get('pass'))
+                <div class="alert alert-danger w-50 m-auto">{{Session::get('pass')}}</div>
+            @endif
 
             <h1 class="display-3 p-3">Create your Account</h1>
             <h6>step 1 out of 3</h6>
@@ -23,7 +26,7 @@
                 <span class="text-danger">@error('repass'){{"This Field is required"}}@enderror</span><br>
 
                 <button type="submit" class="btn btn-primary w-25 mt-3 ">Sign up</button>
-                <br><button type="cancel" class="btn btn-outline-primary w-25 mt-1 ">Cancel</button>
+                <br><a href="/" class="btn btn-outline-primary w-25 mt-1 ">Cancel</a>
             </form>
         </div>
     @endsection

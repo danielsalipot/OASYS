@@ -11,7 +11,7 @@ class CrudController extends Controller
         $request->validate([
            'user'=>'required',
            'pass'=>'required',
-           'repass'=>'required'
+           'repass'=>'required',
         ]);
 
         $usernames = DB::select('select username from user_tbl');
@@ -22,23 +22,27 @@ class CrudController extends Controller
         }
 
         if(!in_array($request->input('user'),$unArr)){
-            $query = DB::table('user_tbl')->insert([
-                //check if the username is unique         
-                'username'=>$request->input('user'),
-                'password'=>$request->input('pass'),
-                'user_type'=>'applicant',
-            ]);
-            // if insert is Okay go to /introduce   
-            if($query){
-                //get user id of newly created user account
-                    $user_id = DB::select("select * from user_tbl where username = '{$request->input('user')}'");
-                // make session using data
-                    $request->session()->put('user_id',$user_id[0]->id);
-                    $request->session()->put('user_type',$user_id[0]->user_type);
-                // before redirecting, create session to login the newly created user        
-                return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
+            if($request->input('pass') == $request->input('repass')){
+                $query = DB::table('user_tbl')->insert([
+                    //check if the username is unique         
+                    'username'=>$request->input('user'),
+                    'password'=>$request->input('pass'),
+                    'user_type'=>'applicant',
+                ]);
+                // if insert is Okay go to /introduce   
+                if($query){
+                    //get user id of newly created user account
+                        $user_id = DB::select("select * from user_tbl where username = '{$request->input('user')}'");
+                    // make session using data
+                        $request->session()->put('user_id',$user_id[0]->id);
+                        $request->session()->put('user_type',$user_id[0]->user_type);
+                    // before redirecting, create session to login the newly created user        
+                    return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
+                }else{
+                    return back()->with('fail','something went wrong');
+                }
             }else{
-                return back()->with('fail','something went wrong');
+                return back()->with('pass','Password did not match');
             }
         }else{
             // return to user creation if username is already taken
@@ -77,7 +81,7 @@ class CrudController extends Controller
 
     function crudapply(Request $request){
         $query = DB::table('applicants_tbl')->insert([
-            'id' => session('id'), 
+            'user_id' => session('user_id'), 
             'fname' => session('fname'), 
             'mname' => session('mname'), 
             'lname' => session('lname'), 
