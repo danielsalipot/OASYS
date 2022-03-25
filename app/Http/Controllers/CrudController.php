@@ -88,14 +88,14 @@ class CrudController extends Controller
             'email' => session('email'), 
             'Applyingfor' => $request->input('position'),
             'picture' => session('pic'),  
-            'resume' => $request->input('resume'),
+            'resume' => $request->input('resume')
         ]);
 
         if($query){      
             // Redirect to applicant dashboard
             return redirect('/')->with('success', 'Data has been inserted successfuly');
         }else{
-            return back()->with('fail',cd 'something went wrong');
+            return back()->with('fail','something went wrong');
         }
     }
 }
