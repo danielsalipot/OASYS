@@ -77,7 +77,7 @@ class CrudController extends Controller
 
     function crudapply(Request $request){
         $query = DB::table('applicants_tbl')->insert([
-            'id' => session('id'), 
+            'user_id' => session('user_id'), 
             'fname' => session('fname'), 
             'mname' => session('mname'), 
             'lname' => session('lname'), 
