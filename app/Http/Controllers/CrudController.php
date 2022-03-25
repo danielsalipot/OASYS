@@ -29,7 +29,7 @@ class CrudController extends Controller
                 'user_type'=>'applicant',
             ]);
             // if insert is Okay go to /introduce   
-            if(true){
+            if($query){
                 //get user id of newly created user account
                     $user_id = DB::select("select * from user_tbl where username = '{$request->input('user')}'");
                 // make session using data
@@ -61,17 +61,41 @@ class CrudController extends Controller
             'educ'=>'required'
          ]);
 
-         // Store in flash session to pass to the next page
-         $request->session()->flash('fname', $request->input('fname'));
-         $request->session()->flash('mname', $request->input('mname'));
-         $request->session()->flash('lname', $request->input('lname'));
-         $request->session()->flash('sex', $request->input('sex'));
-         $request->session()->flash('age', $request->input('age'));
-         $request->session()->flash('email', $request->input('email'));
-         $request->session()->flash('cnum', $request->input('cnum'));
-         $request->session()->flash('pic', $request->input('pic'));
-         $request->session()->flash('educ', $request->input('educ'));
+         // Store in put session to pass to the next page
+         $request->session()->put('fname', $request->input('fname'));
+         $request->session()->put('mname', $request->input('mname'));
+         $request->session()->put('lname', $request->input('lname'));
+         $request->session()->put('sex', $request->input('sex'));
+         $request->session()->put('age', $request->input('age'));
+         $request->session()->put('email', $request->input('email'));
+         $request->session()->put('cnum', $request->input('cnum'));
+         $request->session()->put('pic', $request->input('pic'));
+         $request->session()->put('educ', $request->input('educ'));
 
          return redirect('/applying');
+    }
+
+    function crudapply(Request $request){
+        $query = DB::table('applicants_tbl')->insert([
+            'id' => session('id'), 
+            'fname' => session('fname'), 
+            'mname' => session('mname'), 
+            'lname' => session('lname'), 
+            'sex' =>  session('sex'), 
+            'age' => session('age'), 
+            'educ' => session('educ'),  
+            'cnum' => session('cnum'), 
+            'email' => session('email'), 
+            'Applyingfor' => $request->input('position'),
+            'picture' => session('pic'),  
+            'resume' => $request->input('resume'),
+        ]);
+
+        if($query){      
+            // Redirect to applicant dashboard
+            return redirect('/')->with('success', 'Data has been inserted successfuly');
+        }else{
+            return back()->with('fail',cd 'something went wrong');
+        }
     }
 }

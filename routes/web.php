@@ -23,6 +23,7 @@ Route::get('/login', [PagesController::class, 'login']);
 Route::get('/user', [CrudController::class, 'index']);
 Route::post('add', [CrudController::class, 'crudsignup']);
 Route::post('crudintroduce', [CrudController::class, 'crudintroduce']);
+Route::post('crudapply', [CrudController::class, 'crudapply']);
 
 //Payroll Manager Routes
 Route::get('/deductiontype', [PagesController::class, 'deductiontype']);
