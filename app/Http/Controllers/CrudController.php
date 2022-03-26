@@ -9,9 +9,9 @@ class CrudController extends Controller
 {
     function crudsignup(Request $request){
         $request->validate([
-           'user'=>'required',
-           'pass'=>'required',
-           'repass'=>'required',
+            'user'=>'required',
+            'pass'=>'required',
+            'repass'=>'required',
         ]);
 
         $usernames = DB::select('select username from user_tbl');
@@ -61,45 +61,67 @@ class CrudController extends Controller
             'age'=>'required',
             'email'=>'required',
             'cnum'=>'required',
-            'pic'=>'required',
+            'bday'=>'required',
             'educ'=>'required'
-         ]);
+        ]);
 
-         // Store in put session to pass to the next page
-         $request->session()->put('fname', $request->input('fname'));
-         $request->session()->put('mname', $request->input('mname'));
-         $request->session()->put('lname', $request->input('lname'));
-         $request->session()->put('sex', $request->input('sex'));
-         $request->session()->put('age', $request->input('age'));
-         $request->session()->put('email', $request->input('email'));
-         $request->session()->put('cnum', $request->input('cnum'));
-         $request->session()->put('pic', $request->input('pic'));
-         $request->session()->put('educ', $request->input('educ'));
+        // Store in put session to pass to the next page
+        $request->session()->put('fname', $request->input('fname'));
+        $request->session()->put('mname', $request->input('mname'));
+        $request->session()->put('lname', $request->input('lname'));
+        $request->session()->put('sex', $request->input('sex'));
+        $request->session()->put('age', $request->input('age'));
+        $request->session()->put('email', $request->input('email'));
+        $request->session()->put('cnum', $request->input('cnum'));
+        $request->session()->put('educ', $request->input('educ'));
+        $request->session()->put('bday', $request->input('bday'));
 
-         return redirect('/applying');
+        return redirect('/applying');
     }
 
     function crudapply(Request $request){
+
+        //FILE NAMES user id + file extension
+        $picfilename =  session('user_id').".".$request->file('picinput')->getClientOriginalExtension();
+        $resumefilename =  session('user_id').".".$request->file('resume')->getClientOriginalExtension();
+
+        // saves the picture into storage/public
+        $request->file('picinput')->storeAs('public/pictures', $picfilename);
+        $request->file('resume')->storeAs('public/resumes', $resumefilename);
+
+        //file path plus name for saving in the database
+        $picfilepath= "storage/pictures/" . $picfilename;
+        $resumefilepath= "storage/resume/" . $resumefilename;
+
+        // SQL insert record to applicants_tbl
         $query = DB::table('applicants_tbl')->insert([
             'user_id' => session('user_id'), 
             'fname' => session('fname'), 
             'mname' => session('mname'), 
             'lname' => session('lname'), 
             'sex' =>  session('sex'), 
-            'age' => session('age'), 
+            'age' => session('age'),
+            'bday' => session('bday'),  
             'educ' => session('educ'),  
             'cnum' => session('cnum'), 
             'email' => session('email'), 
             'Applyingfor' => $request->input('position'),
-            'picture' => session('pic'),  
-            'resume' => $request->input('resume')
+            'picture' => $picfilepath,  
+            'resume' => $resumefilepath
         ]);
 
         if($query){      
             // Redirect to applicant dashboard
-            return redirect('/')->with('success', 'Data has been inserted successfuly');
+            return redirect('/applicanthome')->with('success', 'Data has been inserted successfuly');
         }else{
             return back()->with('fail','something went wrong');
         }
+    }
+
+    public function deleteApplication(){
+        $id = (int) session('user_id');
+        DB::delete("delete from user_tbl where id = {$id}");
+        DB::delete("delete from applicants_tbl where user_id = {$id}");
+        return redirect('/logout');
     }
 }

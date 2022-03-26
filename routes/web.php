@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CrudController;
+use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\DB;
 
 
 /*
@@ -17,13 +19,19 @@ use App\Http\Controllers\CrudController;
 */
 
 Route::get('/', [PagesController::class, 'index']);
+
+//Login routes
 Route::get('/login', [PagesController::class, 'login']);
+Route::post('crudlogin', [LoginController::class, 'crudlogin']);
+
 
 //Create User Routes
-Route::get('/user', [CrudController::class, 'index']);
 Route::post('add', [CrudController::class, 'crudsignup']);
 Route::post('crudintroduce', [CrudController::class, 'crudintroduce']);
 Route::post('crudapply', [CrudController::class, 'crudapply']);
+
+//Delete applicant's account
+Route::get('deleteApplication', [CrudController::class, 'deleteApplication']);
 
 //Payroll Manager Routes
 Route::get('/deductiontype', [PagesController::class, 'deductiontype']);

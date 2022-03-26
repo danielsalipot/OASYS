@@ -11,6 +11,7 @@ class PagesController extends Controller
         return view('pages.index');
     }
     function login(){
+        // check if a user is logged in, redirect them accourdingly
         return view('pages.login');
     }
     
@@ -65,10 +66,23 @@ class PagesController extends Controller
         return view('pages.applicants.introduce');
     }
     function applying(){
+        // if user id in session is already in the applicant database redirect to login
+        // to prevent duplicate entries
+        $checkuser = DB::select('select user_id from applicants_tbl where user_id = ' . session('user_id'));
+        if($checkuser){
+            return view('pages.login');
+        }
         return view('pages.applicants.applying');
     }
     function applicanthome(){
-        return view('pages.applicants.applicanthome');
+        // check if their is a logged in user
+        if(session()->has('user_id') && session('user_type') == 'applicant'){
+            //SQL query the data of the logged user for the dashboard
+            $user = DB::select('select * from applicants_tbl where user_id = ' . session('user_id'));
+
+            return view('pages.applicants.applicanthome',['user'=>$user[0]]);
+        }
+        return redirect('/');
     }
 
 }
