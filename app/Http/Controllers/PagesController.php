@@ -66,21 +66,25 @@ class PagesController extends Controller
         return view('pages.applicants.introduce');
     }
     function applying(){
-        // if user id in session is already in the applicant database redirect to login
-        // to prevent duplicate entries
-        $checkuser = DB::select('select user_id from applicants_tbl where user_id = ' . session('user_id'));
-        if($checkuser){
-            return view('pages.login');
-        }
+        // // if user id in session is already in the applicant database redirect to login
+        // // to prevent duplicate entries
+        // $checkuser = DB::select('select user_id from applicants_tbl where user_id = ' . session('user_id'));
+        // if($checkuser){
+        //     return view('pages.login');
+        // }
         return view('pages.applicants.applying');
     }
     function applicanthome(){
         // check if their is a logged in user
         if(session()->has('user_id') && session('user_type') == 'applicant'){
             //SQL query the data of the logged user for the dashboard
-            $user = DB::select('select * from applicants_tbl where user_id = ' . session('user_id'));
+            $info = DB::select('select * from information_tbl where login_id = ' . session('user_id'));
+            $applicants = DB::select('select Applyingfor,picture,resume from applicants_tbl where login_id = ' . session('user_id'));
+            $user = (object)array_merge((Array)$info[0],(Array)$applicants[0]);
 
-            return view('pages.applicants.applicanthome',['user'=>$user[0]]);
+            //Search for notifications 
+            $notif = DB::select('select * from notif_tbl where receiver_id = ' . session('user_id'));
+            return view('pages.applicants.applicanthome',['user'=>$user,'notif'=>$notif]);
         }
         return redirect('/');
     }

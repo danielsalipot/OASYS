@@ -15,7 +15,7 @@ class LoginController extends Controller
         ]);
 
         //search if the username and password exist and match up
-        $check = DB::select("select * from user_tbl where username ='{$request->input('user')}' and password = '{$request->input('pass')}'");
+        $check = DB::select("select * from login_tbl where username ='{$request->input('user')}' and password = '{$request->input('pass')}'");
         if($check){
             // if login credentials is correct, create session
             $request->session()->put('user_id',$check[0]->id);

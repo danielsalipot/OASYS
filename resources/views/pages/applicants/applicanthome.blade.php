@@ -15,67 +15,84 @@
                         <div class='col'>
                             <div class='row text-primary'>
                                 <h1 class="h4">Full Name</h1>
-                                <p class='h3 text-justify text-secondary' name='name'>{{$user->fname}} {{$user->mname}} {{$user->lname}}</p>
+                                <p class='display-6 text-justify text-dark' name='name'>{{$user->fname}} {{$user->mname}} {{$user->lname}}</p>
                             </div>
                             <div class='row text-left text-primary'>
                                 <div class='col'>
                                     <p class="h4">Sex</p>
-                                    <p class='h3 text-justify text-secondary' name='sex'>{{$user->sex}}</p>
+                                    <p class='display-6 text-justify text-dark' name='sex'>{{$user->sex}}</p>
                                 </div>
                                 <div class='col'>
                                     <p class="h4">Age</p>
-                                    <p class='h3 text-justify text-secondary' name='age'>{{$user->age}}</p>
+                                    <p class='display-6 text-justify text-dark' name='age'>{{$user->age}}</p>
                                 </div>
-                                <div class='col-5'>
+                                <div class='col-6'>
                                     <p class="h4">Birthday</p>
-                                    <p class='h3 text-justify text-secondary' name='age'>{{$user->bday}}</p>
+                                    <p class='display-6 text-justify text-dark' name='age'>{{$user->bday}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class='row text-primary pb-2'>
+                            <h4>Educational Attainment</h4>
+                            <p class='display-6 text-justify text-dark' name='educational'>{{$user->educ}}</p>
+                        </div>
+    
+                        <div class='row text-primary pb-2'>
+                            <h4>Contact Number</h4>
+                            <p class='display-6 text-justify text-dark' name='cpnum'>{{$user->cnum}}</p>
+                        </div>
+    
+                        <div class='row text-primary'>
+                            <h4>Email Address</h4>
+                            <p class='text-justify text-dark' style="font-size:20px;"name='email'>{{$user->email}}</p>
+                        </div> 
+                    </div>
+                    <div class="col text-center">
+                        <div class="row">
+                            <h2 class="text-primary">Applying for</h2>
+                            <h2 class="display-6 text-justify text-dark pb-4" name='position'>{{$user->Applyingfor}}</h2> 
+                        </div>
+                        <div class="row">
+                            <a href="/#" class="btn btn-primary w-50 m-auto"> Download Resume </a>
+                        </div>
+                    </div>    
                 </div>            
-                    <div class='row m-auto text-center text-primary pb-2'>
-                        <h4>Educational Attainment</h4>
-                        <p class='h3 text-justify text-secondary' name='educational'>{{$user->educ}}</p>
-                    </div>
-
-                    <div class='row m-auto text-center text-primary pb-2'>
-                        <h4>Contact Number</h4>
-                        <p class='h3 text-justify text-secondary' name='cpnum'>{{$user->cnum}}</p>
-                    </div>
-
-                    <div class='row m-auto text-center text-primary'>
-                        <h4>Email Address</h4>
-                        <p class='h3 text-justify text-secondary' name='email'>{{$user->email}}</p>
-                    </div> 
+                    
                 </div>
             </div>
 
-        <div class ='col p-5 pe-3'>
-            <div class='p-4'>
-            </div>
-            <h2 class="text-primary pt-4">Applying for</h2>
-            <h2 class="text-secondary pb-4" name='position'>{{$user->Applyingfor}}</h2>  
-            
+        <div class ='col text-center '>
+            <div class='p-5'></div>
 
-            <div class='card shadow h-50 w-75 bg-white border border-primary mb-4'>
+            <div style="overflow-y:auto; overflow-x:hidden;"  class='m-auto card shadow h-50 w-75 bg-white border border-primary'>
                 <div class='row'>
                     <div class='col'>
                         <h2 class="text-center text-white w-100 bg-primary p-2">
                             Notification
                         </h2>
+                        @foreach ($notif as $item)
+                        <div class="card shadow border border-secondary rounded m-2">
+                            <h4 class="h6 text-white m-1 rounded bg-secondary p-1">{{$item->title}}</h4>
+                            <p class="m-1 text-start text-secondary">Date sent: {{$item->date_sent}}</p>
+                            <p class="m-1 text-start">{{$item->message}}</p>
+                        </div>
+                        @endforeach
                     </div>
                 </div>             
             </div>
             
-            <div class='row pt-5'>
+            <div class='row pt-5 m-auto'>
                 <div class="col">
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Delete Application
-                      </button>
+                    </button>
                 </div>
                 <div class="col">
-                    <a href='/logout' type="submit" class="btn btn-primary w-50 m-1 ps-2 pe-2">LOGOUT</a>
+                    <a href='/logout' type="submit" class="btn btn-primary text-center w-50 m-1 ps-2 pe-2">LOGOUT</a>
                 </div>
             </div>  
         </div>
@@ -83,8 +100,7 @@
     
     <!-- Button trigger modal -->
 
-  
-  <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">

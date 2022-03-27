@@ -14,7 +14,7 @@ class CrudController extends Controller
             'repass'=>'required',
         ]);
 
-        $usernames = DB::select('select username from user_tbl');
+        $usernames = DB::select('select username from login_tbl');
         // push usernames into an array
         $unArr = Array();
         foreach ($usernames as $item) {
@@ -23,7 +23,7 @@ class CrudController extends Controller
 
         if(!in_array($request->input('user'),$unArr)){
             if($request->input('pass') == $request->input('repass')){
-                $query = DB::table('user_tbl')->insert([
+                $query = DB::table('login_tbl')->insert([
                     //check if the username is unique         
                     'username'=>$request->input('user'),
                     'password'=>$request->input('pass'),
@@ -32,7 +32,7 @@ class CrudController extends Controller
                 // if insert is Okay go to /introduce   
                 if($query){
                     //get user id of newly created user account
-                        $user_id = DB::select("select * from user_tbl where username = '{$request->input('user')}'");
+                        $user_id = DB::select("select * from login_tbl where username = '{$request->input('user')}'");
                     // make session using data
                         $request->session()->put('user_id',$user_id[0]->id);
                         $request->session()->put('user_type',$user_id[0]->user_type);
@@ -93,9 +93,9 @@ class CrudController extends Controller
         $picfilepath= "storage/pictures/" . $picfilename;
         $resumefilepath= "storage/resume/" . $resumefilename;
 
-        // SQL insert record to applicants_tbl
-        $query = DB::table('applicants_tbl')->insert([
-            'user_id' => session('user_id'), 
+        //SQL query for information table
+        $query = DB::table('information_tbl')->insert([
+            'login_id' => session('user_id'), 
             'fname' => session('fname'), 
             'mname' => session('mname'), 
             'lname' => session('lname'), 
@@ -105,6 +105,13 @@ class CrudController extends Controller
             'educ' => session('educ'),  
             'cnum' => session('cnum'), 
             'email' => session('email'), 
+        ]);
+        // SQL insert record to applicants_tbl
+        
+        $info_id = DB::select("select id from information_tbl where login_id = ?",[session('user_id')]);
+        $query = DB::table('applicants_tbl')->insert([
+            'login_id' => session('user_id'), 
+            'information_id' =>$info_id[0]->id,
             'Applyingfor' => $request->input('position'),
             'picture' => $picfilepath,  
             'resume' => $resumefilepath
@@ -120,8 +127,9 @@ class CrudController extends Controller
 
     public function deleteApplication(){
         $id = (int) session('user_id');
-        DB::delete("delete from user_tbl where id = {$id}");
-        DB::delete("delete from applicants_tbl where user_id = {$id}");
+        DB::delete("delete from login_tbl where id = {$id}");
+        DB::delete("delete from information_tbl where login_id = {$id}");
+        DB::delete("delete from applicants_tbl where login_id = {$id}");
         return redirect('/logout');
     }
 }

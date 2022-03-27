@@ -13,13 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applicants_tbl', function (Blueprint $table) {
+        Schema::create('information_tbl', function (Blueprint $table) {
             $table->id();
             $table->string('login_id');
-            $table->string('information_id');
-            $table->string('Applyingfor');
-            $table->string('picture');
-            $table->string('resume');
+            $table->string('fname');
+            $table->string('mname');
+            $table->string('lname');
+            $table->string('sex');
+            $table->string('age');
+            $table->string('bday');
+            $table->string('educ');
+            $table->string('cnum');
+            $table->string('email');
         });
     }
 
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicants_tbl');
+        Schema::dropIfExists('information_tbl');
     }
 };

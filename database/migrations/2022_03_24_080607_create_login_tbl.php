@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_tbl', function (Blueprint $table) {
+        Schema::create('login_tbl', function (Blueprint $table) {
             $table->id();
             $table->string('username');
             $table->string('password');
             $table->string('user_type');
+            $table->date('created_at')->default(DB::raw('CURRENT_DATE()'));
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_tbl');
+        Schema::dropIfExists('login_tbl');
     }
 };

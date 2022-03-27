@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applicants_tbl', function (Blueprint $table) {
+        Schema::create('notif_tbl', function (Blueprint $table) {
             $table->id();
-            $table->string('login_id');
-            $table->string('information_id');
-            $table->string('Applyingfor');
-            $table->string('picture');
-            $table->string('resume');
+            $table->string('sender_id');
+            $table->string('receiver_id');
+            $table->TEXT('title');
+            $table->LONGTEXT('message');
+            $table->timestamp('date_sent')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicants_tbl');
+        Schema::dropIfExists('notif_tbl');
     }
 };
