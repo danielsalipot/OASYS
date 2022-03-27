@@ -12,6 +12,9 @@ class PagesController extends Controller
     }
     function login(){
         // check if a user is logged in, redirect them accourdingly
+        if(session()->has('user_id') && session('user_type') == 'applicant'){
+            return redirect('/applicanthome');
+        }
         return view('pages.login');
     }
     
@@ -57,7 +60,6 @@ class PagesController extends Controller
         if(session()->has('user_id')){
             return redirect('introduce');
         }
-        
         return view('pages.applicants.signup');
     }
 
@@ -71,18 +73,9 @@ class PagesController extends Controller
     }
 
     function introduce(){
-        if(session()->has('fname')){
-            return redirect('applying');
-        }
         return view('pages.applicants.introduce');
     }
     function applying(){
-        // // if user id in session is already in the applicant database redirect to login
-        // // to prevent duplicate entries
-        // $checkuser = DB::select('select user_id from applicants_tbl where user_id = ' . session('user_id'));
-        // if($checkuser){
-        //     return view('pages.login');
-        // }
         return view('pages.applicants.applying');
     }
     function applicanthome(){

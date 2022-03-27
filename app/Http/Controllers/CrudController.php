@@ -86,12 +86,12 @@ class CrudController extends Controller
         $resumefilename =  session('user_id').".".$request->file('resume')->getClientOriginalExtension();
 
         // saves the picture into storage/public
-        $request->file('picinput')->storeAs('public/pictures', $picfilename);
-        $request->file('resume')->storeAs('public/resumes', $resumefilename);
+        $request->file('picinput')->storeAs('pictures', $picfilename,'public_uploads');
+        $request->file('resume')->storeAs('resumes', $resumefilename,'public_uploads');
 
         //file path plus name for saving in the database
-        $picfilepath= "storage/pictures/" . $picfilename;
-        $resumefilepath= "storage/resume/" . $resumefilename;
+        $picfilepath= "pictures/" . $picfilename;
+        $resumefilepath= "resume/" . $resumefilename;
 
         //SQL query for information table
         $query = DB::table('information_tbl')->insert([
