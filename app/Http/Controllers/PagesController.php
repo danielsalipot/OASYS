@@ -41,6 +41,17 @@ class PagesController extends Controller
         return view('pages.payroll_manager.notification');
     }
 
+    //HR Admin Functions
+    function hradminhome(){
+        return view('pages.hr_admin.hradminhome');
+    }
+    function hradminattendance(){
+        return view('pages.hr_admin.hradminattendance');
+    }
+    function hradminperformance(){
+        return view('pages.hr_admin.hradminperformance');
+    }
+
     //Applicants Functions
     function signup(){
         if(session()->has('user_id')){
