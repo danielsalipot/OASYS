@@ -14,14 +14,13 @@ class CrudController extends Controller
             'repass'=>'required',
         ]);
 
-        $usernames = DB::select('select username from login_tbl');
-        // push usernames into an array
-        $unArr = Array();
-        foreach ($usernames as $item) {
-            array_push($unArr,$item->username);    
-        }
-
-        if(!in_array($request->input('user'),$unArr)){
+        // Check if username is already taken
+        $usernames = DB::table('login_tbl')
+            ->where('username',$request->input('user'))
+            ->get('username');
+        
+        // if $username is empty then username is not taken
+        if(!empty($usernames)){
             if($request->input('pass') == $request->input('repass')){
                 $query = DB::table('login_tbl')->insert([
                     //check if the username is unique         
@@ -32,10 +31,12 @@ class CrudController extends Controller
                 // if insert is Okay go to /introduce   
                 if($query){
                     //get user id of newly created user account
-                        $user_id = DB::select("select * from login_tbl where username = '{$request->input('user')}'");
+                    $user_id = DB::table('login_tbl')
+                        ->where('username',$request->input('user'))
+                        ->first();
                     // make session using data
-                        $request->session()->put('user_id',$user_id[0]->id);
-                        $request->session()->put('user_type',$user_id[0]->user_type);
+                    $request->session()->put('user_id',$user_id->id);
+                    $request->session()->put('user_type',$user_id->user_type);
                     // before redirecting, create session to login the newly created user        
                     return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
                 }else{
@@ -66,7 +67,7 @@ class CrudController extends Controller
         ]);
 
         // Store in put session to pass to the next page
-        $request->session()->put('fname', $request->input('fname'));
+        $request->session()->put('fname',$request->input('fname'));
         $request->session()->put('mname', $request->input('mname'));
         $request->session()->put('lname', $request->input('lname'));
         $request->session()->put('sex', $request->input('sex'));
@@ -106,12 +107,16 @@ class CrudController extends Controller
             'cnum' => session('cnum'), 
             'email' => session('email'), 
         ]);
+
         // SQL insert record to applicants_tbl
-        
-        $info_id = DB::select("select id from information_tbl where login_id = ?",[session('user_id')]);
+        $info_id = DB::table('information_tbl')
+            ->where('login_id',session('user_id'))
+            ->get('login_id')
+            ->first();
+            
         $query = DB::table('applicants_tbl')->insert([
             'login_id' => session('user_id'), 
-            'information_id' =>$info_id[0]->id,
+            'information_id' =>$info_id->login_id,
             'Applyingfor' => $request->input('position'),
             'picture' => $picfilepath,  
             'resume' => $resumefilepath
@@ -127,9 +132,19 @@ class CrudController extends Controller
 
     public function deleteApplication(){
         $id = (int) session('user_id');
-        DB::delete("delete from login_tbl where id = {$id}");
-        DB::delete("delete from information_tbl where login_id = {$id}");
-        DB::delete("delete from applicants_tbl where login_id = {$id}");
+
+        DB::table('login_tbl')->where('id', $id)->delete();
+        DB::table('information_tbl')->where('login_id', $id)->delete();
+        DB::table('applicants_tbl')->where('login_id', $id)->detele();
+
         return redirect('/logout');
+    }
+
+    public function test(){
+        $check = DB::table('login_tbl')
+        ->where('username','danielsalipot')
+        ->where('password','123')
+        ->get();
+        return $check;
     }
 }

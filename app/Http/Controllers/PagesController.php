@@ -82,12 +82,15 @@ class PagesController extends Controller
         // check if their is a logged in user
         if(session()->has('user_id') && session('user_type') == 'applicant'){
             //SQL query the data of the logged user for the dashboard
-            $info = DB::select('select * from information_tbl where login_id = ' . session('user_id'));
-            $applicants = DB::select('select Applyingfor,picture,resume from applicants_tbl where login_id = ' . session('user_id'));
-            $user = (object)array_merge((Array)$info[0],(Array)$applicants[0]);
+            $info = DB::table('information_tbl')->where('login_id',session('user_id'))->get();
+            $applicants = DB::table('applicants_tbl')
+                ->where('login_id', session('user_id'))
+                ->get(['Applyingfor','picture','resume']);
 
+            $user = (object)array_merge((Array)$info[0],(Array)$applicants[0]);
             //Search for notifications 
-            $notif = DB::select('select * from notif_tbl where receiver_id = ' . session('user_id'));
+
+            $notif = DB::table('notif_tbl')->where('receiver_id',session('user_id'))->get();
             return view('pages.applicants.applicanthome',['user'=>$user,'notif'=>$notif]);
         }
         return redirect('/');

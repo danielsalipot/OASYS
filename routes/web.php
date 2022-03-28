@@ -26,7 +26,7 @@ Route::post('crudlogin', [LoginController::class, 'crudlogin']);
 
 
 //Create User Routes
-Route::post('add', [CrudController::class, 'crudsignup']);
+Route::post('crudsignup', [CrudController::class, 'crudsignup']);
 Route::post('crudintroduce', [CrudController::class, 'crudintroduce']);
 Route::post('crudapply', [CrudController::class, 'crudapply']);
 
@@ -57,3 +57,6 @@ Route::get('/applicanthome', [PagesController::class, 'applicanthome']);
 
 //Logout 
 Route::get('/logout', [PagesController::class, 'logout']);
+
+//Test
+Route::get('/test', [CrudController::class, 'test']);
