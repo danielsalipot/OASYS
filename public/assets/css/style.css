@@ -47,6 +47,11 @@
   margin-bottom: -20px;
   font-size: 15px;
 }
+.nav-menu i{
+  font-size: 22px;
+  color: #0275d8;
+}
+
 .nav-menu a i, .nav-menu a:focus i {
   font-size: 23px;
   color: #0275d8;
@@ -58,6 +63,12 @@
 .nav-menu a:hover i, .nav-menu .active i, .nav-menu .active:focus i, .nav-menu li:hover > a i {
   color: #00ccff;
 }
+
+.dropdown-item {
+  color: #000000;
+  background-color: #aceeff;
+}
+
 
 /*--------------------------------------------------------------
 # Sections General

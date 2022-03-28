@@ -44,9 +44,18 @@ Route::get('/employeelist', [PagesController::class, 'employeelist']);
 Route::get('/payroll', [PagesController::class, 'payroll']);
 
 //HR Admin Routes
-Route::get('/hradminhome', [PagesController::class, 'hradminhome']);
-Route::get('/hradminattendance', [PagesController::class, 'hradminattendance']);
-Route::get('/hradminperformance', [PagesController::class, 'hradminperformance']);
+Route::get('/adminhome', [PagesController::class, 'adminhome']);
+Route::get('/attendance', [PagesController::class, 'attendance']);
+Route::get('/performance', [PagesController::class, 'performance']);
+Route::get('/peopleorientation', [PagesController::class, 'peopleorientation']);
+Route::get('/moduleorientation', [PagesController::class, 'moduleorientation']);
+Route::get('/peopletraining', [PagesController::class, 'peopletraining']);
+Route::get('/moduletraining', [PagesController::class, 'moduletraining']);
+Route::get('/peoplecorrection', [PagesController::class, 'peoplecorrection']);
+Route::get('/modulecorrection', [PagesController::class, 'modulecorrection']);
+Route::get('/adminmessage', [PagesController::class, 'adminmessage']);
+Route::get('/adminnotification', [PagesController::class, 'adminnotification']);
+
 
 //Applicants Routes
 Route::get('/introduce', [PagesController::class, 'introduce']);
