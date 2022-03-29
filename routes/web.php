@@ -56,6 +56,27 @@ Route::get('/modulecorrection', [PagesController::class, 'modulecorrection']);
 Route::get('/adminmessage', [PagesController::class, 'adminmessage']);
 Route::get('/adminnotification', [PagesController::class, 'adminnotification']);
 
+//HR Staff Routes
+Route::get('/staffhome', [PagesController::class, 'staffhome']);
+Route::get('/onboarding', [PagesController::class, 'staffonboarding']);
+Route::get('/termination', [PagesController::class, 'stafftermination']);
+Route::get('/offboarding', [PagesController::class, 'staffoffboarding']);
+Route::get('/schedules', [PagesController::class, 'staffschedules']);
+Route::get('/interview', [PagesController::class, 'staffinterview']);
+Route::get('/department', [PagesController::class, 'staffdepartment']);
+Route::get('/position', [PagesController::class, 'staffposition']);
+Route::get('/staffmessage', [PagesController::class, 'staffmessage']);
+Route::get('/staffnotification', [PagesController::class, 'staffnotification']);
+
+
+//Employee Routes
+Route::get('/employeehome', [PagesController::class, 'employeehome']);
+Route::get('/employeeorientation', [PagesController::class, 'employeeorientation']);
+Route::get('/employeetraining', [PagesController::class, 'employeetraining']);
+Route::get('/employeecorrection', [PagesController::class, 'employeecorrection']);
+Route::get('/employeemessage', [PagesController::class, 'employeemessage']);
+Route::get('/employeeprofile', [PagesController::class, 'employeeprofile']);
+
 
 //Applicants Routes
 Route::get('/introduce', [PagesController::class, 'introduce']);
