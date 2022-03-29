@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applicants_tbl', function (Blueprint $table) {
-            $table->id('applicant_id');
+        Schema::create('employee_tbl', function (Blueprint $table) {
+            $table->id('employee_id');
             $table->string('login_id');
             $table->string('information_id');
-            $table->string('Applyingfor');
+            $table->string('position');
+            $table->string('department');
+            $table->string('employment_status');
             $table->string('picture');
             $table->string('resume');
-            $table->timestamp('applied_on')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicants_tbl');
+        Schema::dropIfExists('employee_tbl');
     }
 };

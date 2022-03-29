@@ -16,13 +16,13 @@ class LoginController extends Controller
 
         //search if the username and password exist and match up
         $check = DB::table('login_tbl')
-        ->where('username','danielsalipot')
-        ->where('password','123')
+        ->where('username',$request->input('user'))
+        ->where('password',$request->input('pass'))
         ->first();
 
         if($check){
             // if login credentials is correct, create session
-            $request->session()->put('user_id', $check->id);
+            $request->session()->put('user_id', $check->login_id);
             $request->session()->put('username',$check->username);
             $request->session()->put('password',$check->password);
             $request->session()->put('user_type',$check->user_type);

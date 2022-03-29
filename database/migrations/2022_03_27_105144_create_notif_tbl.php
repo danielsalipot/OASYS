@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('notif_tbl', function (Blueprint $table) {
-            $table->id();
+            $table->id('notif_id');
             $table->string('sender_id');
             $table->string('receiver_id');
             $table->TEXT('title');
             $table->LONGTEXT('message');
-            $table->timestamp('date_sent')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('timestamp_sent')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('login_tbl', function (Blueprint $table) {
-            $table->id();
+            $table->id('login_id');
             $table->string('username');
             $table->string('password');
             $table->string('user_type');

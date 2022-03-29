@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class CrudController extends Controller
 {
@@ -35,7 +36,7 @@ class CrudController extends Controller
                         ->where('username',$request->input('user'))
                         ->first();
                     // make session using data
-                    $request->session()->put('user_id',$user_id->id);
+                    $request->session()->put('user_id',$user_id->login_id);
                     $request->session()->put('user_type',$user_id->user_type);
                     // before redirecting, create session to login the newly created user        
                     return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
@@ -111,12 +112,12 @@ class CrudController extends Controller
         // SQL insert record to applicants_tbl
         $info_id = DB::table('information_tbl')
             ->where('login_id',session('user_id'))
-            ->get('login_id')
+            ->get('information_id')
             ->first();
             
         $query = DB::table('applicants_tbl')->insert([
             'login_id' => session('user_id'), 
-            'information_id' =>$info_id->login_id,
+            'information_id' =>$info_id->information_id,
             'Applyingfor' => $request->input('position'),
             'picture' => $picfilepath,  
             'resume' => $resumefilepath
@@ -133,7 +134,7 @@ class CrudController extends Controller
     public function deleteApplication(){
         $id = (int) session('user_id');
 
-        DB::table('login_tbl')->where('id', $id)->delete();
+        DB::table('login_tbl')->where('login-id', $id)->delete();
         DB::table('information_tbl')->where('login_id', $id)->delete();
         DB::table('applicants_tbl')->where('login_id', $id)->detele();
 
@@ -141,10 +142,7 @@ class CrudController extends Controller
     }
 
     public function test(){
-        $check = DB::table('login_tbl')
-        ->where('username','danielsalipot')
-        ->where('password','123')
-        ->get();
-        return $check;
+        $faker = Faker::create();
+        return $faker->FirstName;
     }
 }
