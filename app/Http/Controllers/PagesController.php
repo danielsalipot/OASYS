@@ -79,6 +79,59 @@ class PagesController extends Controller
         return view('pages.hr_admin.adminnotification');
     }
 
+    //HR Staff Functions
+    function staffhome(){
+        return view('pages.hr_staff.staffhome');
+    }
+    function staffonboarding(){
+        return view('pages.hr_staff.staffonboarding');
+    }
+    function stafftermination(){
+        return view('pages.hr_staff.stafftermination');
+    }
+    function staffoffboarding(){
+        return view('pages.hr_staff.staffoffboarding');
+    }
+    function staffschedules(){
+        return view('pages.hr_staff.staffschedules');
+    }
+    function staffinterview(){
+        return view('pages.hr_staff.staffinterview');
+    }
+    function staffdepartment(){
+        return view('pages.hr_staff.staffdepartment');
+    }
+    function staffposition(){
+        return view('pages.hr_staff.staffposition');
+    }
+    function staffmessage(){
+        return view('pages.hr_staff.staffmessage');
+    }
+    function staffnotification(){
+        return view('pages.hr_staff.staffnotification');
+    }
+
+    //Employee Functions
+    function employeehome(){
+        return view('pages.employee.employeehome');
+    }
+    function employeeorientation(){
+        return view('pages.employee.employeeorientation');
+    }
+    function employeetraining(){
+        return view('pages.employee.employeetraining');
+    }
+    function employeecorrection(){
+        return view('pages.employee.employeecorrection');
+    }
+    function employeemessage(){
+        return view('pages.employee.employeemessage');
+    }
+    function employeeprofile(){
+        return view('pages.employee.employeeprofile');
+    }
+
+
     //Applicants Functions
     function signup(){
         if(session()->has('user_id')){
