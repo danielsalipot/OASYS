@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(ManagerSeeder::class);
+        $this->call(PayrollSeeder::class);
+        $this->call(StaffSeeder::class);
+
         for ($i=0; $i < 10; $i++) { 
             $this->call(ApplicantSeeder::class);
             $this->call(EmployeeSeeder::class);

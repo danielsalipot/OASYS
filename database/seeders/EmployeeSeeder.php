@@ -34,19 +34,19 @@ class EmployeeSeeder extends Seeder
             'sex' =>  'male', 
             'age' => '20',
             'bday' => $faker->date($format = 'Y-m-d'),  
-            'educ' => 'College',  
             'cnum' => $faker->e164PhoneNumber, 
             'email' => $faker->email, 
+            'picture' => 'pictures/1.png',  
         ]);
     
         $info_id = DB::table('information_tbl')->where('login_id',  $login_id)->first('information_id')->information_id;
         DB::table('employee_tbl')->insert([
             'login_id' => $login_id, 
             'information_id' =>$info_id,
+            'educ' => 'College',  
             'position' => 'Teacher',
             'department' => 'Faculty',  
             'employment_status' => 'regular',
-            'picture' => 'pictures/1.png',  
             'resume' => 'resume/1.pdf'
         ]); 
     }

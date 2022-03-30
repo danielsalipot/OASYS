@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id('applicant_id');
             $table->string('login_id');
             $table->string('information_id');
+            $table->string('educ');
             $table->string('Applyingfor');
-            $table->string('picture');
             $table->string('resume');
             $table->timestamp('applied_on')->default(DB::raw('CURRENT_TIMESTAMP'));
         });

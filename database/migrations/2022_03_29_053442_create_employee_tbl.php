@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id('employee_id');
             $table->string('login_id');
             $table->string('information_id');
+            $table->string('educ');
             $table->string('position');
             $table->string('department');
             $table->string('employment_status');
-            $table->string('picture');
             $table->string('resume');
         });
     }

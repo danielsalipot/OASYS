@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('sex');
             $table->string('age');
             $table->string('bday');
-            $table->string('educ');
             $table->string('cnum');
             $table->string('email');
+            $table->string('picture');
         });
     }
 

@@ -104,9 +104,9 @@ class CrudController extends Controller
             'sex' =>  session('sex'), 
             'age' => session('age'),
             'bday' => session('bday'),  
-            'educ' => session('educ'),  
             'cnum' => session('cnum'), 
-            'email' => session('email'), 
+            'email' => session('email'),
+            'picture' => $picfilepath,   
         ]);
 
         // SQL insert record to applicants_tbl
@@ -118,8 +118,8 @@ class CrudController extends Controller
         $query = DB::table('applicants_tbl')->insert([
             'login_id' => session('user_id'), 
             'information_id' =>$info_id->information_id,
+            'educ' => session('educ'),  
             'Applyingfor' => $request->input('position'),
-            'picture' => $picfilepath,  
             'resume' => $resumefilepath
         ]);
 
