@@ -58,13 +58,13 @@ Route::get('/adminnotification', [PagesController::class, 'adminnotification']);
 
 //HR Staff Routes
 Route::get('/staffhome', [PagesController::class, 'staffhome']);
-Route::get('/onboarding', [PagesController::class, 'staffonboarding']);
-Route::get('/termination', [PagesController::class, 'stafftermination']);
-Route::get('/offboarding', [PagesController::class, 'staffoffboarding']);
-Route::get('/schedules', [PagesController::class, 'staffschedules']);
-Route::get('/interview', [PagesController::class, 'staffinterview']);
-Route::get('/department', [PagesController::class, 'staffdepartment']);
-Route::get('/position', [PagesController::class, 'staffposition']);
+Route::get('/onboarding', [PagesController::class, 'onboarding']);
+Route::get('/termination', [PagesController::class, 'termination']);
+Route::get('/offboarding', [PagesController::class, 'offboarding']);
+Route::get('/schedules', [PagesController::class, 'schedules']);
+Route::get('/interview', [PagesController::class, 'interview']);
+Route::get('/department', [PagesController::class, 'department']);
+Route::get('/position', [PagesController::class, 'position']);
 Route::get('/staffmessage', [PagesController::class, 'staffmessage']);
 Route::get('/staffnotification', [PagesController::class, 'staffnotification']);
 

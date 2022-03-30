@@ -83,26 +83,26 @@ class PagesController extends Controller
     function staffhome(){
         return view('pages.hr_staff.staffhome');
     }
-    function staffonboarding(){
-        return view('pages.hr_staff.staffonboarding');
+    function onboarding(){
+        return view('pages.hr_staff.onboarding');
     }
-    function stafftermination(){
-        return view('pages.hr_staff.stafftermination');
+    function termination(){
+        return view('pages.hr_staff.termination');
     }
-    function staffoffboarding(){
-        return view('pages.hr_staff.staffoffboarding');
+    function offboarding(){
+        return view('pages.hr_staff.offboarding');
     }
-    function staffschedules(){
-        return view('pages.hr_staff.staffschedules');
+    function schedules(){
+        return view('pages.hr_staff.schedules');
     }
-    function staffinterview(){
-        return view('pages.hr_staff.staffinterview');
+    function interview(){
+        return view('pages.hr_staff.interview');
     }
-    function staffdepartment(){
-        return view('pages.hr_staff.staffdepartment');
+    function department(){
+        return view('pages.hr_staff.department');
     }
-    function staffposition(){
-        return view('pages.hr_staff.staffposition');
+    function position(){
+        return view('pages.hr_staff.position');
     }
     function staffmessage(){
         return view('pages.hr_staff.staffmessage');
