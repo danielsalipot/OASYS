@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', [PagesController::class, 'index']);
+Route::get('/about', [PagesController::class, 'about']);
+Route::get('/features', [PagesController::class, 'features']);
 
 //Login routes
 Route::get('/login', [PagesController::class, 'login']);

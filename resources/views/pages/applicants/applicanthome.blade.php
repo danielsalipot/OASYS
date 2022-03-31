@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.applicant_app')
     @section('content')
     <div style="overflow-y:hidden; overflow-x:hidden; height:100vh">
     <div class='row'>
