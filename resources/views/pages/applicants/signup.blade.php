@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.applicant_app')
     @section('content')
         <div class="text-center text-primary m-auto">
             @if(Session::get('taken'))

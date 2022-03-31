@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.applicant_app')
     @section('content')
     @if(Session::get('success'))
       <div class="alert alert-success w-50 m-auto">{{Session::get('success')}}</div>
