@@ -6,7 +6,6 @@
             <div class='row m-auto text-primary'>
                 <h1 class='h1'>Applicant Dasboard</h1>
             </div>
-
             <div class='col'>
                 <div class='card shadow h-50 m-4 border border-primary rounded p-4'>
                     <div class='row'>
@@ -69,7 +68,7 @@
         <div class ='col text-center '>
             <div class='p-5'></div>
 
-            <div style="overflow-y:auto; overflow-x:hidden;"  class='m-auto card h-25 w-75 shadow bg-white border border-primary'>
+            <div style="overflow-y:auto; overflow-x:hidden; height:30vh"  class='m-auto card h-25 w-75 shadow bg-white border border-primary'>
                 <div class='row'>
                     <div class='col'>
                         <h2 class="text-center text-white w-100 bg-primary p-2">

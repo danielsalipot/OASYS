@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
+
+use App\Models\UserCredential;
+use App\Models\UserDetail;
+use App\Models\ApplicantDetail;
 
 class CrudController extends Controller
 {
@@ -15,44 +17,31 @@ class CrudController extends Controller
             'repass'=>'required',
         ]);
 
-        // Check if username is already taken
-        $usernames = DB::table('login_tbl')
-            ->where('username',$request->input('user'))
-            ->get('username');
-        
-        // if $username is empty then username is not taken
-        if(!empty($usernames)){
+        // if the query fails then username is unique so insert new record
+        $usernames = UserCredential::where('username',$request->input('user'))->first();
+        if(empty($usernames)){
             if($request->input('pass') == $request->input('repass')){
-                $query = DB::table('login_tbl')->insert([
-                    //check if the username is unique         
+                UserCredential::create([     
                     'username'=>$request->input('user'),
                     'password'=>$request->input('pass'),
                     'user_type'=>'applicant',
                 ]);
-                // if insert is Okay go to /introduce   
-                if($query){
-                    //get user id of newly created user account
-                    $user_id = DB::table('login_tbl')
-                        ->where('username',$request->input('user'))
-                        ->first();
-                    // make session using data
-                    $request->session()->put('user_id',$user_id->login_id);
-                    $request->session()->put('user_type',$user_id->user_type);
-                    // before redirecting, create session to login the newly created user        
-                    return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
-                }else{
-                    return back()->with('fail','something went wrong');
-                }
+
+                
+                //get user id of newly created user account
+                $user_id = UserCredential::where('username',$request->input('user'))
+                            ->first();
+                // make session using data
+                $request->session()->put('user_id',$user_id->login_id);
+                $request->session()->put('user_type',$user_id->user_type);
+
+                // before redirecting, create session to login the newly created user        
+                return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
             }else{
-                return back()->with('pass','Password did not match');
+                return back()->with('taken','Username is already taken');
             }
-        }else{
-            // return to user creation if username is already taken
-            return back()->with('taken','Username is already taken');
         }
-
-
-    }
+    }  
 
     function crudintroduce(Request $request){
         $request->validate([
@@ -96,7 +85,7 @@ class CrudController extends Controller
         $resumefilepath= "resume/" . $resumefilename;
 
         //SQL query for information table
-        $query = DB::table('information_tbl')->insert([
+        $query1 = UserDetail::create([
             'login_id' => session('user_id'), 
             'fname' => session('fname'), 
             'mname' => session('mname'), 
@@ -110,12 +99,11 @@ class CrudController extends Controller
         ]);
 
         // SQL insert record to applicants_tbl
-        $info_id = DB::table('information_tbl')
-            ->where('login_id',session('user_id'))
+        $info_id = UserDetail::where('login_id',session('user_id'))
             ->get('information_id')
             ->first();
             
-        $query = DB::table('applicants_tbl')->insert([
+        $query2 = ApplicantDetail::create([
             'login_id' => session('user_id'), 
             'information_id' =>$info_id->information_id,
             'educ' => session('educ'),  
@@ -123,7 +111,7 @@ class CrudController extends Controller
             'resume' => $resumefilepath
         ]);
 
-        if($query){      
+        if($query1 && $query2){      
             // Redirect to applicant dashboard
             return redirect('/applicanthome')->with('success', 'Data has been inserted successfuly');
         }else{
@@ -134,15 +122,14 @@ class CrudController extends Controller
     public function deleteApplication(){
         $id = (int) session('user_id');
 
-        DB::table('login_tbl')->where('login-id', $id)->delete();
-        DB::table('information_tbl')->where('login_id', $id)->delete();
-        DB::table('applicants_tbl')->where('login_id', $id)->detele();
+        UserCredential::where('login_id', $id)->delete();
+        UserDetail::where('login_id', $id)->delete();
+        ApplicantDetail::where('login_id', $id)->delete();
 
         return redirect('/logout');
     }
 
     public function test(){
-        $faker = Faker::create();
-        return $faker->FirstName;
+        return $login_id = UserCredential::where('username','asdd3')->first('login_id');
     }
 }

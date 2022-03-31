@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+
+use App\Models\Notification;
+
 use Faker\Factory as Faker;
-use Illuminate\Support\Str;
 
 class NotifSeeder extends Seeder
 {
@@ -18,7 +18,8 @@ class NotifSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        DB::table('notif_tbl')->insert([
+        
+        Notification::create([
             'sender_id' => rand(4,50),
             'receiver_id' => rand(1,10),
             'title' => $faker->realText(100),

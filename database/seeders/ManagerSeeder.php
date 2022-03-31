@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+
+use App\Models\UserCredential;
+use App\Models\UserDetail;
+
 use Faker\Factory as Faker;
-use Illuminate\Support\Str;
 
 class ManagerSeeder extends Seeder
 {
@@ -18,15 +19,18 @@ class ManagerSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $username = $faker->username;
-        DB::table('login_tbl')->insert([      
+
+        UserCredential::create([
             'username' => 'HRAdmin',
             'password' => 'password123',
             'user_type' => 'admin'
         ]);
     
-        $login_id = DB::table('login_tbl')->where('username','HRAdmin')->first('login_id')->login_id;
-        DB::table('information_tbl')->insert([
+        $login_id = UserCredential::where('username','HRAdmin')
+                    ->first('login_id')
+                    ->login_id;
+        
+        UserDetail::create([
             'login_id' => $login_id, 
             'fname' => $faker->FirstName, 
             'mname' => $faker->LastName, 

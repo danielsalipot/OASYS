@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\UserCredential;
+use App\Models\UserDetail;
 
 class LoginController extends Controller
 {
@@ -15,10 +17,9 @@ class LoginController extends Controller
         ]);
 
         //search if the username and password exist and match up
-        $check = DB::table('login_tbl')
-        ->where('username',$request->input('user'))
-        ->where('password',$request->input('pass'))
-        ->first();
+        $check = UserCredential::where('username',$request->input('user'))
+                ->where('password',$request->input('pass'))
+                ->first();
 
         if($check){
             // if login credentials is correct, create session

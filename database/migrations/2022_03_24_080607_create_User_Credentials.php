@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notif_tbl', function (Blueprint $table) {
-            $table->id('notif_id');
-            $table->string('sender_id');
-            $table->string('receiver_id');
-            $table->TEXT('title');
-            $table->LONGTEXT('message');
-            $table->timestamp('timestamp_sent')->default(DB::raw('CURRENT_TIMESTAMP'));
+        Schema::create('User_Credentials', function (Blueprint $table) {
+            $table->id('login_id');
+            $table->string('username');
+            $table->string('password');
+            $table->string('user_type');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notif_tbl');
+        Schema::dropIfExists('login_tbl');
     }
 };

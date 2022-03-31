@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('information_tbl', function (Blueprint $table) {
+        Schema::create('User_Details', function (Blueprint $table) {
             $table->id('information_id');
             $table->string('login_id');
             $table->string('fname');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('cnum');
             $table->string('email');
             $table->string('picture');
+            $table->timestamps();
         });
     }
 
