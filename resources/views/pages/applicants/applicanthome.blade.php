@@ -1,13 +1,14 @@
 @extends('layout.app')
     @section('content')
+    <div style="overflow-y:hidden; overflow-x:hidden; height:100vh">
     <div class='row'>
-        <div class ='col p-5'>
+        <div class ='col ps-5 pt-3'>
             <div class='row m-auto text-primary'>
                 <h1 class='h1'>Applicant Dasboard</h1>
             </div>
 
             <div class='col'>
-                <div class='card shadow h-50 m-1 border border-primary rounded p-4 mb-4'>
+                <div class='card shadow h-50 m-4 border border-primary rounded p-4'>
                     <div class='row'>
                         <div class='col-4'>
                             <img style='height:200px; width:200px;' class='shadow rounded-circle' src="{{$user->picture}}">
@@ -68,7 +69,7 @@
         <div class ='col text-center '>
             <div class='p-5'></div>
 
-            <div style="overflow-y:auto; overflow-x:hidden;"  class='m-auto card shadow h-50 w-75 bg-white border border-primary'>
+            <div style="overflow-y:auto; overflow-x:hidden;"  class='m-auto card h-25 w-75 shadow bg-white border border-primary'>
                 <div class='row'>
                     <div class='col'>
                         <h2 class="text-center text-white w-100 bg-primary p-2">
@@ -77,7 +78,7 @@
                         @foreach ($notif as $item)
                         <div class="card shadow border border-secondary rounded m-2">
                             <h4 class="h6 text-white m-1 rounded bg-secondary p-1">{{$item->title}}</h4>
-                            <p class="m-1 text-start text-secondary">Date sent: {{$item->date_sent}}</p>
+                            <p class="m-1 text-start text-secondary">Date sent: {{$item->timestamp_sent}}</p>
                             <p class="m-1 text-start">{{$item->message}}</p>
                         </div>
                         @endforeach
@@ -117,6 +118,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
     @endsection

@@ -162,7 +162,7 @@ class PagesController extends Controller
             $info = DB::table('information_tbl')->where('login_id',session('user_id'))->get();
             $applicants = DB::table('applicants_tbl')
                 ->where('login_id', session('user_id'))
-                ->get(['Applyingfor','picture','resume']);
+                ->get(['Applyingfor','educ','resume']);
 
             $user = (object)array_merge((Array)$info[0],(Array)$applicants[0]);
             //Search for notifications 

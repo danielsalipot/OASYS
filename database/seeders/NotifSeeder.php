@@ -19,7 +19,7 @@ class NotifSeeder extends Seeder
     {
         $faker = Faker::create();
         DB::table('notif_tbl')->insert([
-            'sender_id' => rand(1,10),
+            'sender_id' => rand(4,50),
             'receiver_id' => rand(1,10),
             'title' => $faker->realText(100),
             'message' => $faker->realText(500)

@@ -20,12 +20,12 @@ class ManagerSeeder extends Seeder
         $faker = Faker::create();
         $username = $faker->username;
         DB::table('login_tbl')->insert([      
-            'username' => 'HRManager',
+            'username' => 'HRAdmin',
             'password' => 'password123',
-            'user_type' => 'manager'
+            'user_type' => 'admin'
         ]);
     
-        $login_id = DB::table('login_tbl')->where('username','HRManager')->first('login_id')->login_id;
+        $login_id = DB::table('login_tbl')->where('username','HRAdmin')->first('login_id')->login_id;
         DB::table('information_tbl')->insert([
             'login_id' => $login_id, 
             'fname' => $faker->FirstName, 

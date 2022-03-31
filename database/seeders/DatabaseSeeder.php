@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
         for ($i=0; $i < 10; $i++) { 
             $this->call(ApplicantSeeder::class);
             $this->call(EmployeeSeeder::class);
+        }
+
+        for ($i=0; $i < 30; $i++) { 
             $this->call(NotifSeeder::class);
         }
     }

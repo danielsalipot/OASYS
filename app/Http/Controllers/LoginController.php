@@ -32,6 +32,18 @@ class LoginController extends Controller
                 case 'applicant':
                     return redirect('/applicanthome');
                     break;
+                case 'employee':
+                    return redirect('/employeehome');
+                    break;
+                case 'payroll':
+                    return redirect('/payroll');
+                    break;
+                case 'admin':
+                    return redirect('/adminhome');
+                    break;
+                case 'staff':
+                    return redirect('/staffhome');
+                    break;
                 // add more cases for other user type
                 default:
                     return redirect('/logout');
