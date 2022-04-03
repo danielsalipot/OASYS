@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\UserCredential;
 use App\Models\UserDetail;
 use App\Models\ApplicantDetail;
+use Fpdf\Fpdf;
 
 class CrudController extends Controller
 {
@@ -130,6 +131,20 @@ class CrudController extends Controller
     }
 
     public function test(){
-        return $login_id = UserCredential::where('username','asdd3')->first('login_id');
+        $pdf = new FPDF();
+  
+//Add a new page
+$pdf->AddPage();
+
+// Set the font for the text
+$pdf->SetFont('Arial', 'B', 18);
+  
+// Prints a cell with given text 
+$pdf->Cell(60,20,'Hello GeeksforGeeks!');
+$pdf->Cell(60,20,'Hello GeeksforGeeks!');
+  
+// return the generated output
+$pdf->Output();
+  exit;
     }
 }

@@ -1,22 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\LoginController;
-use Illuminate\Support\Facades\DB;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
@@ -36,39 +28,39 @@ Route::post('crudapply', [CrudController::class, 'crudapply']);
 Route::get('deleteApplication', [CrudController::class, 'deleteApplication']);
 
 //Payroll Manager Routes
-Route::get('/deductiontype', [PagesController::class, 'deductiontype']);
-Route::get('/message', [PagesController::class, 'message']);
-Route::get('/notification', [PagesController::class, 'notification']);
-Route::get('/cashadvance', [PagesController::class, 'cashadvance']);
-Route::get('/overtime', [PagesController::class, 'overtime']);
-Route::get('/deduction', [PagesController::class, 'deduction']);
-Route::get('/employeelist', [PagesController::class, 'employeelist']);
-Route::get('/payroll', [PagesController::class, 'payroll']);
+Route::get('/deductiontype', [PayrollController::class, 'deductiontype']);
+Route::get('/message', [PayrollController::class, 'message']);
+Route::get('/notification', [PayrollController::class, 'notification']);
+Route::get('/cashadvance', [PayrollController::class, 'cashadvance']);
+Route::get('/overtime', [PayrollController::class, 'overtime']);
+Route::get('/deduction', [PayrollController::class, 'deduction']);
+Route::get('/employeelist', [PayrollController::class, 'employeelist']);
+Route::get('/payroll', [PayrollController::class, 'payroll']);
 
 //HR Admin Routes
-Route::get('/adminhome', [PagesController::class, 'adminhome']);
-Route::get('/attendance', [PagesController::class, 'attendance']);
-Route::get('/performance', [PagesController::class, 'performance']);
-Route::get('/peopleorientation', [PagesController::class, 'peopleorientation']);
-Route::get('/moduleorientation', [PagesController::class, 'moduleorientation']);
-Route::get('/peopletraining', [PagesController::class, 'peopletraining']);
-Route::get('/moduletraining', [PagesController::class, 'moduletraining']);
-Route::get('/peoplecorrection', [PagesController::class, 'peoplecorrection']);
-Route::get('/modulecorrection', [PagesController::class, 'modulecorrection']);
-Route::get('/adminmessage', [PagesController::class, 'adminmessage']);
-Route::get('/adminnotification', [PagesController::class, 'adminnotification']);
+Route::get('/adminhome', [AdminController::class, 'adminhome']);
+Route::get('/attendance', [AdminController::class, 'attendance']);
+Route::get('/performance', [AdminController::class, 'performance']);
+Route::get('/peopleorientation', [AdminController::class, 'peopleorientation']);
+Route::get('/moduleorientation', [AdminController::class, 'moduleorientation']);
+Route::get('/peopletraining', [AdminController::class, 'peopletraining']);
+Route::get('/moduletraining', [AdminController::class, 'moduletraining']);
+Route::get('/peoplecorrection', [AdminController::class, 'peoplecorrection']);
+Route::get('/modulecorrection', [AdminController::class, 'modulecorrection']);
+Route::get('/adminmessage', [AdminController::class, 'adminmessage']);
+Route::get('/adminnotification', [AdminController::class, 'adminnotification']);
 
 //HR Staff Routes
-Route::get('/staffhome', [PagesController::class, 'staffhome']);
-Route::get('/onboarding', [PagesController::class, 'onboarding']);
-Route::get('/termination', [PagesController::class, 'termination']);
-Route::get('/offboarding', [PagesController::class, 'offboarding']);
-Route::get('/schedules', [PagesController::class, 'schedules']);
-Route::get('/interview', [PagesController::class, 'interview']);
-Route::get('/department', [PagesController::class, 'department']);
-Route::get('/position', [PagesController::class, 'position']);
-Route::get('/staffmessage', [PagesController::class, 'staffmessage']);
-Route::get('/staffnotification', [PagesController::class, 'staffnotification']);
+Route::get('/staffhome', [StaffController::class, 'staffhome']);
+Route::get('/onboarding', [StaffController::class, 'onboarding']);
+Route::get('/termination', [StaffController::class, 'termination']);
+Route::get('/offboarding', [StaffController::class, 'offboarding']);
+Route::get('/schedules', [StaffController::class, 'schedules']);
+Route::get('/interview', [StaffController::class, 'interview']);
+Route::get('/department', [StaffController::class, 'department']);
+Route::get('/position', [StaffController::class, 'position']);
+Route::get('/staffmessage', [StaffController::class, 'staffmessage']);
+Route::get('/staffnotification', [StaffController::class, 'staffnotification']);
 
 
 //Employee Routes
