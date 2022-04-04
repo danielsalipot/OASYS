@@ -8,15 +8,15 @@ use Illuminate\Support\Facades\DB;
 
 class PayrollController extends Controller
 {
-        //Payroll Manager Functions
         function payroll(){
-            
-            $completeEmployeeDetail = EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-                                    ->paginate(6);
-            return view('pages.payroll_manager.payroll',['employees' => $completeEmployeeDetail]);
+            $employees = $completeEmployeeDetail = EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+            ->paginate(6);
+            return view('pages.payroll_manager.payroll',['employees' => $employees]);
         }
         function employeelist(){
-            return view('pages.payroll_manager.employeelist');
+            $employees = $completeEmployeeDetail = EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+            ->paginate(6);
+            return view('pages.payroll_manager.employeelist',['employees' => $employees]);
         }
         function deduction(){
             return view('pages.payroll_manager.deduction');

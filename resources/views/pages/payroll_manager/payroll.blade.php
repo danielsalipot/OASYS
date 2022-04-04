@@ -44,11 +44,11 @@
                     <td>{{$employee->fname}} {{$employee->mname}} {{$employee->lname}}</td>
                     <td>{{$employee->position}}</td>
                     <td>60 hours</td>
-                    <td>₱1,000</td>
+                    <td>₱{{ $employee->rate }}</td>
                     <td>₱100,000</td>  
                     <td>₱2,000</td>
                     <td>₱5,000</td>
-                    <td>50,000</td>
+                    <td>₱50,000</td>
                   </tr>
                 @endforeach
               </tbody>

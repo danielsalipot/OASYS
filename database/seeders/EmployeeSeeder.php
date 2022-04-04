@@ -55,7 +55,8 @@ class EmployeeSeeder extends Seeder
             'information_id' =>$info_id,
             'educ' => 'College',  
             'position' => 'Teacher',
-            'department' => 'Faculty',  
+            'department' => 'Faculty',
+            'rate' => rand(1000,10000),  
             'employment_status' => 'regular',
             'resume' => 'resume/1.pdf'
         ]);

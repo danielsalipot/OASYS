@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('educ');
             $table->string('position');
             $table->string('department');
+            $table->decimal('rate',9,2);
             $table->string('employment_status');
             $table->string('resume');
             $table->timestamps();
