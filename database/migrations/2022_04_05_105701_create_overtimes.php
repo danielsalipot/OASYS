@@ -13,18 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('Employee_Details', function (Blueprint $table) {
-            $table->id('employee_id');
-            $table->string('login_id');
-            $table->string('information_id');
-            $table->string('educ');
-            $table->string('position');
-            $table->string('department');
-            $table->decimal('rate',9,2);
-            $table->string('employment_status');
-            $table->string('resume');
+        Schema::create('overtimes', function (Blueprint $table) {
+            $table->id('overtime_id');
+            $table->string('employee_id');
             $table->string('schedule_Timein');
             $table->string('schedule_Timeout');
+            $table->string('Time_in');
+            $table->string('Time_out');
             $table->timestamps();
         });
     }
@@ -36,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_tbl');
+        Schema::dropIfExists('overtimes');
     }
 };

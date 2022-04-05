@@ -21,44 +21,46 @@ class EmployeeSeeder extends Seeder
     {
         $faker = Faker::create();
         $username = $faker->username;
-        
+
         UserCredential::create([
             'username' => $username,
             'password' => 'password123',
             'user_type' => 'employee'
         ]);
-    
-        
+
+
         $login_id = UserCredential::where('username',$username)
                     ->first('login_id')
                     ->login_id;
 
         UserDetail::create([
-            'login_id' => $login_id, 
-            'fname' => $faker->FirstName, 
-            'mname' => $faker->LastName, 
-            'lname' => $faker->LastName, 
-            'sex' =>  'male', 
+            'login_id' => $login_id,
+            'fname' => $faker->FirstName,
+            'mname' => $faker->LastName,
+            'lname' => $faker->LastName,
+            'sex' =>  'male',
             'age' => '20',
-            'bday' => $faker->date($format = 'Y-m-d'),  
-            'cnum' => $faker->e164PhoneNumber, 
-            'email' => $faker->email, 
-            'picture' => 'pictures/1.png',  
+            'bday' => $faker->date($format = 'Y-m-d'),
+            'cnum' => $faker->e164PhoneNumber,
+            'email' => $faker->email,
+            'picture' => 'pictures/1.png',
         ]);
-    
+
         $info_id = UserDetail::where('login_id',$login_id)
                     ->first('information_id')
                     ->information_id;
 
         EmployeeDetail::create([
-            'login_id' => $login_id, 
+            'login_id' => $login_id,
             'information_id' =>$info_id,
-            'educ' => 'College',  
+            'educ' => 'College',
             'position' => 'Teacher',
             'department' => 'Faculty',
-            'rate' => rand(1000,10000),  
+            'rate' => rand(1000,10000),
             'employment_status' => 'regular',
-            'resume' => 'resume/1.pdf'
+            'resume' => 'resume/1.pdf',
+            'schedule_Timein' => date('h:i A', rand(23400,28800)),
+            'schedule_Timeout' => date('h:i A', rand(64800,72000))
         ]);
     }
 }

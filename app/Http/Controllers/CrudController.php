@@ -22,13 +22,13 @@ class CrudController extends Controller
         $usernames = UserCredential::where('username',$request->input('user'))->first();
         if(empty($usernames)){
             if($request->input('pass') == $request->input('repass')){
-                UserCredential::create([     
+                UserCredential::create([
                     'username'=>$request->input('user'),
                     'password'=>$request->input('pass'),
                     'user_type'=>'applicant',
                 ]);
 
-                
+
                 //get user id of newly created user account
                 $user_id = UserCredential::where('username',$request->input('user'))
                             ->first();
@@ -36,13 +36,13 @@ class CrudController extends Controller
                 $request->session()->put('user_id',$user_id->login_id);
                 $request->session()->put('user_type',$user_id->user_type);
 
-                // before redirecting, create session to login the newly created user        
+                // before redirecting, create session to login the newly created user
                 return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
             }else{
                 return back()->with('taken','Username is already taken');
             }
         }
-    }  
+    }
 
     function crudintroduce(Request $request){
         $request->validate([
@@ -87,32 +87,32 @@ class CrudController extends Controller
 
         //SQL query for information table
         $query1 = UserDetail::create([
-            'login_id' => session('user_id'), 
-            'fname' => session('fname'), 
-            'mname' => session('mname'), 
-            'lname' => session('lname'), 
-            'sex' =>  session('sex'), 
+            'login_id' => session('user_id'),
+            'fname' => session('fname'),
+            'mname' => session('mname'),
+            'lname' => session('lname'),
+            'sex' =>  session('sex'),
             'age' => session('age'),
-            'bday' => session('bday'),  
-            'cnum' => session('cnum'), 
+            'bday' => session('bday'),
+            'cnum' => session('cnum'),
             'email' => session('email'),
-            'picture' => $picfilepath,   
+            'picture' => $picfilepath,
         ]);
 
         // SQL insert record to applicants_tbl
         $info_id = UserDetail::where('login_id',session('user_id'))
             ->get('information_id')
             ->first();
-            
+
         $query2 = ApplicantDetail::create([
-            'login_id' => session('user_id'), 
+            'login_id' => session('user_id'),
             'information_id' =>$info_id->information_id,
-            'educ' => session('educ'),  
+            'educ' => session('educ'),
             'Applyingfor' => $request->input('position'),
             'resume' => $resumefilepath
         ]);
 
-        if($query1 && $query2){      
+        if($query1 && $query2){
             // Redirect to applicant dashboard
             return redirect('/applicanthome')->with('success', 'Data has been inserted successfuly');
         }else{
@@ -132,19 +132,19 @@ class CrudController extends Controller
 
     public function test(){
         $pdf = new FPDF();
-  
-//Add a new page
-$pdf->AddPage();
 
-// Set the font for the text
-$pdf->SetFont('Arial', 'B', 18);
-  
-// Prints a cell with given text 
-$pdf->Cell(60,20,'Hello GeeksforGeeks!');
-$pdf->Cell(60,20,'Hello GeeksforGeeks!');
-  
-// return the generated output
-$pdf->Output();
-  exit;
+        //Add a new page
+        $pdf->AddPage();
+
+        // Set the font for the text
+        $pdf->SetFont('Arial', 'B', 18);
+
+        // Prints a cell with given text
+        $pdf->Cell(60,20,'Hello GeeksforGeeks!');
+        $pdf->Cell(60,20,'Hello GeeksforGeeks!');
+
+        // return the generated output
+        $pdf->Output();
+        exit;
     }
 }
