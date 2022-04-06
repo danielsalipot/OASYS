@@ -16,7 +16,7 @@
                         <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
                     </div>
                     <div class="col-3 d-flex">
-
+                        <input type='date' name="date" class="form-control"/>
                     </div>
                 </div>
 
@@ -43,12 +43,12 @@
                                     </td>
                                     <td>{{ $data->department }}</td>
                                     <td>
-                                        <h5 class="text-success">{{ $data->Time_in }}</h5>
+                                        <h5 class="text-success">{{ $data->time_in }}</h5>
                                         <h6>Schedule</h6>
                                         <p>{{ $data->schedule_Timein }}</p>
                                     </td>
                                     <td>
-                                        <h5 class="text-success">{{ $data->Time_out }}</h5>
+                                        <h5 class="text-success">{{ $data->time_out }}</h5>
                                         <h6>Schedule</h6>
                                         <p>{{ $data->schedule_Timeout }}</p>
                                     </td>

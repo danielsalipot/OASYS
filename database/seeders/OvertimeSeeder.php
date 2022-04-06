@@ -23,11 +23,8 @@ class OvertimeSeeder extends Seeder
             $employee = EmployeeDetail::where('employee_id',$i)->first();
             $attendance = Attendance::where('employee_id',$i)->first();
             Overtime::create([
-                'employee_id' => $i,
-                'schedule_Timein' => $employee->schedule_Timein,
-                'schedule_Timeout' => $employee->schedule_Timeout,
-                'Time_in' => $attendance->time_in,
-                'Time_out' => $attendance->time_out,
+                'employee_id' => $employee->employee_id,
+                'attendance_id' => $attendance->attendance_id
             ]);
         }
     }

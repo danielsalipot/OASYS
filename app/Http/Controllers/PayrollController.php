@@ -34,8 +34,10 @@ class PayrollController extends Controller
         function overtime(){
             $employeesOvertime = Overtime::join('employee_details','employee_details.employee_id','=','overtimes.employee_id')
                                 ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+                                ->join('attendances','attendances.attendance_id','=','overtimes.attendance_id')
                                 ->get();
-            foreach ($employeesOvertime as $data) {
+
+            foreach ($employeesOvertime as $key => $data) {
                 //Attendance
                 list($timein_hours, $timein_minutes, $timein_seconds) = explode(':',$data->time_in);
                 $timein = $timein_hours * 3600 + $timein_minutes * 60 + $timein_seconds;
@@ -48,11 +50,13 @@ class PayrollController extends Controller
                 $stimein = $stimein_hours * 3600 + $stimein_minutes * 60 + $stimein_seconds;
 
                 list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$data->schedule_Timeout);
-                $stimein = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
+                $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
 
-
+                if($stimein - $timein < 0 || $timeout - $stimeout < 0){
+                    unset($employeesOvertime[$key]);
+                }
             }
-            return view('pages.payroll_manager.overtime',['employeesOvertime'=>$employeesOvertime]);
+            return view('pages.payroll_manager.overtime',['employeesOvertime' => $employeesOvertime]);
         }
         function cashadvance(){
             return view('pages.payroll_manager.cashadvance');

@@ -16,10 +16,7 @@ return new class extends Migration
         Schema::create('overtimes', function (Blueprint $table) {
             $table->id('overtime_id');
             $table->string('employee_id');
-            $table->string('schedule_Timein');
-            $table->string('schedule_Timeout');
-            $table->string('Time_in');
-            $table->string('Time_out');
+            $table->string('attendance_id');
             $table->timestamps();
         });
     }
