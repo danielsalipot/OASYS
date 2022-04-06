@@ -59,8 +59,8 @@ class EmployeeSeeder extends Seeder
             'rate' => rand(1000,10000),
             'employment_status' => 'regular',
             'resume' => 'resume/1.pdf',
-            'schedule_Timein' => date('h:i A', rand(23400,28800)),
-            'schedule_Timeout' => date('h:i A', rand(64800,72000))
+            'schedule_Timein' => date('H:i:s', 25200),
+            'schedule_Timeout' => date('H:i:s', 68400)
         ]);
     }
 }

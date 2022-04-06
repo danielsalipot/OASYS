@@ -20,8 +20,8 @@ class AttendanceSeeder extends Seeder
         for ($i=1; $i <= 10; $i++) {
             Attendance::create([
                 'employee_id' => $i,
-                'time_in' => date('h:i A', rand(23400,28800)),
-                'time_out' => date('h:i A', rand(64800,72000)),
+                'time_in' => date('H:i:s', rand(24200,25200)),
+                'time_out' => date('H:i:s', rand(64800,72000)),
             ]);
         }
     }

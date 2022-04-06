@@ -16,11 +16,7 @@
                         <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
                     </div>
                     <div class="col-3 d-flex">
-                        <select id="inputState" name="position" class="border-secondary p-1 w-100 rounded ">
-                            <option class="dropdown-item" selected>Monday, March 14, 2022</option>
-                            <option class="dropdown-item">Tuesday, March 15, 2022</option>
-                            <option class="dropdown-item">Wednesday, March 16, 2022</option>
-                        </select>
+
                     </div>
                 </div>
 
@@ -37,26 +33,28 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            <tr>
-                                <td><img src="pictures/1.png" class="rounded-circle" style="height: 100px; width:100px;"></td>
-                                <td>
-                                    ID: 123 <br>
-                                    Juan Dela Cruz <br>
-                                    Architect
-                                </td>
-                                <td>Marketing Department</td>
-                                <td>
-                                    <h5 class="text-success">6:56</h5>
-                                    <h6>Schedule</h6>
-                                    <p>7:00 am</p>
-                                </td>
-                                <td>
-                                    <h5 class="text-success">8:00</h5>
-                                    <h6>Schedule</h6>
-                                    <p>7:00pm</p>
-                                </td>
-                                <td>1 hour</td>
-                            </tr>
+                            @foreach ($employeesOvertime as $data)
+                                <tr>
+                                    <td><img src="{{$data->picture}}" class="rounded-circle" style="height: 100px; width:100px;"></td>
+                                    <td>
+                                        ID: {{ $data->employee_id }} <br>
+                                        {{ $data->fname }} {{ $data->mname }} {{ $data->lname }} <br>
+                                        {{ $data->position }}
+                                    </td>
+                                    <td>{{ $data->department }}</td>
+                                    <td>
+                                        <h5 class="text-success">{{ $data->Time_in }}</h5>
+                                        <h6>Schedule</h6>
+                                        <p>{{ $data->schedule_Timein }}</p>
+                                    </td>
+                                    <td>
+                                        <h5 class="text-success">{{ $data->Time_out }}</h5>
+                                        <h6>Schedule</h6>
+                                        <p>{{ $data->schedule_Timeout }}</p>
+                                    </td>
+                                    <td>1 hour</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

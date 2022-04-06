@@ -28,14 +28,21 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
+                        @foreach ($employeeDeductions as $record)
                         <tr>
-                            <td>asd</td>
-                            <td>asd</td>
-                            <td>asd</td>
-                            <td>asd</td>
+                            <td>
+                                {{ $record->employee_id }}<br>
+                                {{ $record->fname }} {{ $record->mname }} {{ $record->lname }}<br>
+                                {{ $record->position }}
+                            </td>
+                            <td>{{ $record->deduction_name }}</td>
+                            <td>{{ $record->created_at }}</td>
+                            <td>{{ $record->deduction_amount }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                {{ $employeeDeductions->links() }}
             </div>
 
             <div class="col-5 border rounded me-4">
