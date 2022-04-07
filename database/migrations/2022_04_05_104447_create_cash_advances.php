@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('cashAdvances_id');
             $table->string('payrollManager_id');
             $table->string('employee_id');
-            $table->decimal('deduction_amount',9,2);
+            $table->decimal('cashAdvance_amount',9,2);
             $table->timestamps();
         });
     }

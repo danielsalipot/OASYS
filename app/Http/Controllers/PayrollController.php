@@ -9,19 +9,25 @@ use App\Models\EmployeeDetail;
 use App\Models\Deduction;
 use App\Models\Overtime;
 use App\Models\Attendance;
+use App\Models\CashAdvance;
 
 class PayrollController extends Controller
 {
-    function getCompleteEmployeeDetails(){
-        // User information + Employee Details = Complete Employee Info
-        return EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-        ->paginate(6);;
+
+    function getTest($id){
+
     }
+
         function payroll(){
-            return view('pages.payroll_manager.payroll',['employees' => $this->getCompleteEmployeeDetails()]);
+            $employeeDetails = EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+            ->paginate(6);
+            return view('pages.payroll_manager.payroll',['employees' => $employeeDetails]);
         }
+
         function employeelist(){
-            return view('pages.payroll_manager.employeelist',['employees' => $this->getCompleteEmployeeDetails()]);
+            $employeeDetails = EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+            ->paginate(6);
+            return view('pages.payroll_manager.employeelist',['employees' => $employeeDetails]);
         }
 
         function deduction(){
@@ -52,14 +58,21 @@ class PayrollController extends Controller
                 list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$data->schedule_Timeout);
                 $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
 
+                //Remove all of the records that is not overtime
                 if($stimein - $timein < 0 || $timeout - $stimeout < 0){
                     unset($employeesOvertime[$key]);
+                }else{
+                    $employeesOvertime[$key]->total_hours = $timeout - $stimeout;
                 }
             }
             return view('pages.payroll_manager.overtime',['employeesOvertime' => $employeesOvertime]);
         }
+
         function cashadvance(){
-            return view('pages.payroll_manager.cashadvance');
+            $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
+                                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+                                            ->paginate(6);
+            return view('pages.payroll_manager.cashadvance',['cashAdvanceRecord'=>$cashAdvanceRecord]);
         }
         function deductiontype(){
             return view('pages.payroll_manager.deductiontype');

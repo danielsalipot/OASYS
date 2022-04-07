@@ -79,8 +79,10 @@ Route::get('/application', [PagesController::class, 'application']);
 Route::get('/applying', [PagesController::class, 'applying']);
 Route::get('/applicanthome', [PagesController::class, 'applicanthome']);
 
-//Logout 
+//Logout
 Route::get('/logout', [PagesController::class, 'logout']);
 
 //Test
 Route::get('/test', [CrudController::class, 'test']);
+
+Route::get('/getTest/{id}',[PayrollController::class,'getTest']);

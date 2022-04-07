@@ -52,7 +52,7 @@
                                         <h6>Schedule</h6>
                                         <p>{{ $data->schedule_Timeout }}</p>
                                     </td>
-                                    <td>1 hour</td>
+                                    <td>{{ round($data->total_hours / 3600 , 2) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -13,40 +13,34 @@
                             <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
                         </div>
                     <div class="col"></div>
-                   
                 </div>
 
                 <table class="table table-striped table-dark">
                     <thead>
-                      <tr>
+                    <tr>
                         <th scope="col">Employee Details</th>
                         <th scope="col">Department</th>
                         <th scope="col">Cash Advance Date</th>
                         <th scope="col">Cash Advance Amount</th>
-                      </tr>
+                    </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+                        @foreach ($cashAdvanceRecord as $data)
+                            <tr>
+                                <td>
+                                    ID: {{ $data->employee_id }} <br>
+                                    {{ $data->fname }} {{ $data->mname }} {{ $data->lname }} <br>
+                                    {{ $data->position }}
+                                </td>
+                                <td>{{ $data->department }}</td>
+                                <td>{{ $data->created_at }}</td>
+                                <td>₱{{ $data->cashAdvance_amount }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
-                  </table>
-                  <div class="d-flex justify-content-end pt-5">
+                </table>
+                {{ $cashAdvanceRecord->links()}}
+                <div class="d-flex justify-content-end pt-5">
                     <button class="btn w-25 btn-danger">Delete</button>
                 </div>
             </div>
