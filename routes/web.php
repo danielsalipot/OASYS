@@ -9,6 +9,8 @@ use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\LoginController;
 
+use App\Http\Controllers\SearchController;
+
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
@@ -36,6 +38,8 @@ Route::get('/overtime', [PayrollController::class, 'overtime']);
 Route::get('/deduction', [PayrollController::class, 'deduction']);
 Route::get('/employeelist', [PayrollController::class, 'employeelist']);
 Route::get('/payroll', [PayrollController::class, 'payroll']);
+
+Route::post('/filterSearch',[SearchController::class,'filterSearch']);
 
 //HR Admin Routes
 Route::get('/adminhome', [AdminController::class, 'adminhome']);

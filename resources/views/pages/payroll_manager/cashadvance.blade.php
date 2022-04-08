@@ -8,10 +8,15 @@
             <div class="row">
                 <div class="col">
                     <div class="row p-4">
-                        <div class="col-5 d-flex">
-                            <input type="text" class="rounded-left w-100" placeholder="Search">
-                            <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
-                        </div>
+                        <form action="filterSearch" method="POST" class="col-5 d-flex">
+                            @csrf
+                            {{-- Table name --}}
+                            {{ Form::hidden('table_name', 'user_details') }}
+                            {{ Form::hidden('field_name', 'fname') }}
+
+                            <input type="text" name="filter" class="rounded-left w-100" placeholder="Search">
+                            <button type="submit" class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
+                        </form>
                     <div class="col"></div>
                 </div>
 

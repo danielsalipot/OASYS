@@ -13,11 +13,6 @@ use App\Models\CashAdvance;
 
 class PayrollController extends Controller
 {
-
-    function getTest($id){
-
-    }
-
         function payroll(){
             $employeeDetails = EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
             ->paginate(6);
@@ -74,6 +69,7 @@ class PayrollController extends Controller
                                             ->paginate(6);
             return view('pages.payroll_manager.cashadvance',['cashAdvanceRecord'=>$cashAdvanceRecord]);
         }
+
         function deductiontype(){
             return view('pages.payroll_manager.deductiontype');
         }
