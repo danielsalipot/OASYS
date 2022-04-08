@@ -1,7 +1,7 @@
-@extends('layout.applicant_app')
+@extends('layout.employee_app')
     @section('content')
     <div style="overflow-y:hidden; overflow-x:hidden; height:100vh">
-    <div class='row'>
+    <div class='row px-5'>
         <div class ='col ps-5 pt-3'>
             <div class='col'>
                 
