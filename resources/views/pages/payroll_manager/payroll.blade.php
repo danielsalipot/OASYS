@@ -5,71 +5,93 @@
         <div class="col">
             <h1>Payroll Management</h1>
 
-            {{-- CONTROLS --}}
-            <div class="row m-4">
-                <div class="col-3 text-center border-dark border">
-                    <p class="p-2 m-0"> March 15, 2022 - March 30, 2022</p>
-                </div>
-
-                <form action="filterSearch" method="POST" class="col-6 d-flex justify-content-center">
-                    @csrf
-
-                    {{ Form::hidden('table_name', 'user_details') }}
-
-                    <select id="inputState" name="field_name">
-                        <option value="employee_id">Employee ID</option>
-                        <option value="fname">First Name</option>
-                        <option value="mname">Middle Name</option>
-                        <option value="lname">Last Name</option>
-                        <option value="rate">Rate</option>
-                    </select>
-                    <input type="text" name='filter' class="rounded-left ms-1 w-25" placeholder="Search">
-                    <button type="submit" class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
-                </form>
-
-                <div class="col-3 d-flex justify-content-center">
-                    <button class="btn w-50 me-1 btn-success">Payroll</button>
-                    <button class="btn w-50 ms-1 btn-primary">Payslip</button>
-                </div>
-            </div>
-
-            <div class="row w-100">
-                <table class="table table-striped table-dark w-100">
+            <div class="container w-100 mt-4">
+                <table class="table text-center table-bordered table-striped" id="payroll_table">
                     <thead>
                         <tr>
-                            <th scope="col">Employee ID</th>
-                            <th scope="col">Picture</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Position</th>
-                            <th scope="col">Total Hours</th>
-                            <th scope="col">Rate/hr</th>
-                            <th scope="col">Gross Pay</th>
-                            <th scope="col">Deduction</th>
-                            <th scope="col">Cash Advance</th>
-                            <th scope="col">Net Pay</th>
+                            <th>Employee ID</th>
+                            <th>Employee Picture</th>
+                            <th>Employee Details</th>
+                            <th>Total Hours</th>
+                            <th>Rate</th>
+                            <th>Gross Pay</th>
+                            <th>Taxes</th>
+                            <th>Deductions</th>
+                            <th>Cash Advance</th>
+                            <th>Net Pay</th>
                         </tr>
-                </thead>
-                <tbody>
-                    @foreach ($employees as $employee)
-                    <tr>
-                        <th scope="row">{{$employee->employee_id}}</th>
-                        <td><img src="{{$employee->picture}}" class="rounded-circle" style="height: 50px; width:50px;"></td>
-                        <td>{{$employee->fname}} {{$employee->mname}} {{$employee->lname}}</td>
-                        <td>{{$employee->position}}</td>
-                        <td>60 hours</td>
-                        <td>₱{{ $employee->rate }}</td>
-                        <td>₱100,000</td>
-                        <td>₱2,000</td>
-                        <td>₱5,000</td>
-                        <td>₱50,000</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{$employees->links()}}
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
+
+
+    <script>
+        $(document).ready( function () {
+            $('#payroll_table').DataTable( {
+                ajax: {
+                    url: '/payrolljson',
+                    dataSrc: ''
+                },
+                columns: [
+                    { data: 'employee_id',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'user_detail.picture',
+                        render : (data,type,row)=>{
+                            return `<img src="${data}" class="rounded" width="50" height="50">`
+                        }
+                    },
+                    { data: 'full_name',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b><br>
+                                    ${row.position}<br>
+                                    ${row.department}
+                                    `
+                        }
+                    },
+                    { data: 'complete_hours',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b><br>`
+                        }
+                    },
+                    { data: 'rate',
+                        render : (data,type,row)=>{
+                            return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                        }
+                    },
+                    { data: 'gross_pay',
+                        render : (data,type,row)=>{
+                            return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                        }
+                    },
+                    { data: 'tax_deduction',
+                        render : (data,type,row)=>{
+                            return `₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                        }
+                    },
+                    { data: 'total_deduction',
+                        render : (data,type,row)=>{
+                            return `₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                        }
+                    },
+                    { data: 'total_cash_advance',
+                        render : (data,type,row)=>{
+                            return `₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                        }
+                    },
+                    { data: 'net_pay',
+                        render : (data,type,row)=>{
+                            return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
 
 
     @endsection

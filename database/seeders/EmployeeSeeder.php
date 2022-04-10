@@ -50,13 +50,16 @@ class EmployeeSeeder extends Seeder
                     ->first('information_id')
                     ->information_id;
 
+        $decimals = 2; // number of decimal places
+	    $div = pow(10, $decimals);
+
         EmployeeDetail::create([
             'login_id' => $login_id,
             'information_id' =>$info_id,
             'educ' => 'College',
             'position' => 'Teacher',
             'department' => 'Faculty',
-            'rate' => rand(1000,10000),
+            'rate' => rand(1000,10000) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
             'employment_status' => 'regular',
             'resume' => 'resume/1.pdf',
             'schedule_Timein' => date('H:i:s', 25200),

@@ -22,6 +22,10 @@ class PagesController extends Controller
         return view('pages.features');
     }
 
+    function datatable(){
+        return view('test');
+    }
+
     function login(){
         // check if a user is logged in, redirect them accourdingly
         if(session()->has('user_id') && session('user_type') == 'applicant'){
@@ -29,7 +33,7 @@ class PagesController extends Controller
         }
         return view('pages.login');
     }
-    
+
 
     //Employee Functions
     function employeehome(){
@@ -83,8 +87,8 @@ class PagesController extends Controller
                     ->get(['user_details.*','applicant_details.*'])
                     ->where('login_id',session('user_id'))
                     ->first();
-                    
-            //Search for notifications 
+
+            //Search for notifications
             $notif = Notification::where('receiver_id',session('user_id'))->get();
             return view('pages.applicants.applicanthome',['user'=>$user,'notif'=>$notif]);
         }

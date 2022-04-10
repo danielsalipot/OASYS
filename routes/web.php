@@ -11,6 +11,10 @@ use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\SearchController;
 
+use App\Http\Controllers\JsonController;
+
+Route::get('/datatable', [PagesController::class, 'datatable']);
+Route::get('/payrolljson', [JsonController::class,'payroll']);
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);

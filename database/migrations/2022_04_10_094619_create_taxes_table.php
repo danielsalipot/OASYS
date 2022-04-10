@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('deductions', function (Blueprint $table) {
-            $table->id('deduction_id');
-            $table->string('payrollManager_id');
+        Schema::create('taxes', function (Blueprint $table) {
+            $table->id('tax_id');
+            $table->string('payrollHR_id');
             $table->string('employee_id');
-            $table->string('deduction_name');
-            $table->decimal('deduction_amount',9,2);
+            $table->string('tax_amount');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deductions');
+        Schema::dropIfExists('taxes');
     }
 };
