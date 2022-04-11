@@ -70,7 +70,8 @@
                     },
                     { data: 'tax_deduction',
                         render : (data,type,row)=>{
-                            return `₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                            return `<b>${row.taxes.tax_amount}</b><br>
+                                    ₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
                         }
                     },
                     { data: 'total_deduction',
