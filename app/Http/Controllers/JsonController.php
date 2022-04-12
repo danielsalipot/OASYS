@@ -78,4 +78,32 @@ class JsonController extends Controller
             return $PayrollDetails;
         }
     }
+    
+    public function CashAdvance(){
+
+    }
+
+    public function Deduction(){
+
+    }
+
+    public function DeductionType(){
+
+    }
+
+    public function EmployeeList(){
+
+    }
+    
+    public function Message(){
+
+    }
+
+    public function Notification(){
+
+    }
+
+    public function Overtime(){
+        
+    }
 }

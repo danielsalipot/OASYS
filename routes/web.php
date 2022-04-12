@@ -13,10 +13,18 @@ use App\Http\Controllers\SearchController;
 
 use App\Http\Controllers\JsonController;
 
-Route::get('/datatable', [PagesController::class, 'datatable']);
-Route::get('/payrolljson', [JsonController::class,'payroll']);
+
 Route::get('/payroll1', [JsonController::class,'payroll1']);
 
+// Json Payroll Routes
+Route::get('/payrolljson', [JsonController::class,'payroll']);
+Route::get('/cashadvancejson', [JsonController::class,'CashAdvance']);
+Route::get('/deductionjson', [JsonController::class,'Deduction']);
+Route::get('/deductiontypejson', [JsonController::class,'DeductionType']);
+Route::get('/employeelistjson', [JsonController::class,'EmployeeList']);
+Route::get('/messagejson', [JsonController::class,'Message']);
+Route::get('/notificationjson', [JsonController::class,'Notification']);
+Route::get('/overtimejson', [JsonController::class,'Overtime']);
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
