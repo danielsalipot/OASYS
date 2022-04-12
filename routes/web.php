@@ -15,6 +15,8 @@ use App\Http\Controllers\JsonController;
 
 Route::get('/datatable', [PagesController::class, 'datatable']);
 Route::get('/payrolljson', [JsonController::class,'payroll']);
+Route::get('/payroll1', [JsonController::class,'payroll1']);
+
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);

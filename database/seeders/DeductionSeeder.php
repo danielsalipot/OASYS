@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 use App\Models\Deduction;
+use Faker\Factory as Faker;
 
 class DeductionSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class DeductionSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create();
         $decimals = 2; // number of decimal places
 	    $div = pow(10, $decimals);
 
@@ -24,7 +26,8 @@ class DeductionSeeder extends Seeder
                 'payrollManager_id' => '3',
                 'employee_id' => rand(1,10),
                 'deduction_name' => 'Loan',
-                'deduction_amount' => rand(1000,10000) + mt_rand(0.01 * $div, 0.05 * $div) / $div
+                'deduction_amount' => rand(1000,10000) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
+                'deduction_date' => $faker->date($format = 'Y-m-d', $max = 'now')
             ]);
         }
     }

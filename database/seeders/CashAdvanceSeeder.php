@@ -22,7 +22,8 @@ class CashAdvanceSeeder extends Seeder
         CashAdvance::create([
             'payrollManager_id' => '3',
             'employee_id' => rand(1,10),
-            'cashAdvance_amount' => $faker->randomFloat(2, 1,50000)
+            'cashAdvance_amount' => $faker->randomFloat(2, 1,50000),
+            'cash_advance_date' => $faker->date($format = 'Y-m-d', $max = 'now')
         ]);
     }
 }

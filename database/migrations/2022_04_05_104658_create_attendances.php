@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('time_in');
             $table->string('time_out');
             $table->decimal('total_hours',9,5);
+            $table->date('attendance_date');
             $table->timestamps();
         });
     }

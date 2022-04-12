@@ -17,6 +17,7 @@ class AttendanceSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create();
         $decimals = 5; // number of decimal places
 	    $div = pow(10, $decimals);
 
@@ -27,6 +28,7 @@ class AttendanceSeeder extends Seeder
                     'time_in' => date('H:i:s', rand(24200,25200)),
                     'time_out' => date('H:i:s', rand(64800,72000)),
                     'total_hours' => 7 + mt_rand(0.01 * $div, 0.05 * $div) / $div,
+                    'attendance_date'=> $faker->date($format = 'Y-m-d', $max = 'now')
                 ]);
             }
         }
