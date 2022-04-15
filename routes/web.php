@@ -14,10 +14,13 @@ use App\Http\Controllers\JsonController;
 
 
 Route::get('/payroll1', [JsonController::class,'payroll1']);
-Route::post('/test', [DocumentController::class, 'test']);
+Route::post('/payrollPDF', [DocumentController::class, 'payrollPdf']);
+Route::post('/payslipPdf', [DocumentController::class, 'payslipPdf']);
 
 // Json Payroll Routes
 Route::get('/payrolljson', [JsonController::class,'payroll']);
+Route::get('/payslipjson', [JsonController::class,'payslip']);
+
 Route::get('/cashadvancejson', [JsonController::class,'CashAdvance']);
 Route::get('/deductionjson', [JsonController::class,'Deduction']);
 Route::get('/deductiontypejson', [JsonController::class,'DeductionType']);

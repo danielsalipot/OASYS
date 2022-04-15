@@ -8,10 +8,16 @@
                 <div class="row w-100 h-100">
                     <div class="col-md-2"><p class="text-center pt-2 h-100 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
                     <div class="col-md-1">
-                        <button type="button"  name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+                        <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+                        {!! Form::open(['action'=>'App\Http\Controllers\DocumentController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
+                            {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payrollGenerate']) !!}
+                        {!! Form::close() !!}
                     </div>
                     <div class="col-md-1">
                         <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
+                        {!! Form::open(['action'=>'App\Http\Controllers\DocumentController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
+                            {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payslipGenerate']) !!}
+                        {!! Form::close() !!}
                     </div>
                     <div class="col-md-2"></div>
 
@@ -46,134 +52,103 @@
                     </thead>
                 </table>
             </div>
-            {!! Form::open(['action'=>'App\Http\Controllers\DocumentController@payroll','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
-                {!! Form::submit('submit', ['class'=>'']) !!}
-            {!! Form::close() !!}
         </div>
     <script>
-        $('#payroll_form').html(
-            $('#payroll_form').html()
-            + `<input type="hidden" id="date" name="date" value="">`
-            + `<input type="hidden" id="col1" name="col1" value="">`
-            + `<input type="hidden" id="col2" name="col2" value="">`
-            + `<input type="hidden" id="col3" name="col3" value="">`
-            + `<input type="hidden" id="col4" name="col4" value="">`
-            + `<input type="hidden" id="col5" name="col5" value="">`
-            + `<input type="hidden" id="col6" name="col6" value="">`
-            + `<input type="hidden" id="col7" name="col7" value="">`
-            + `<input type="hidden" id="col8" name="col8" value="">`
-            + `<input type="hidden" id="col9" name="col9" value="">`
-        )
 
-        $('#payroll').click(()=>{
-            var table = $('#payroll_table').DataTable();
-            var today = new Date();
-            var start_date = ''
-            var end_date = ''
+        function generatePostForm(table,col){
+            $(table).html(
+                $(table).html()
+                    + `<input type="hidden" id="${col[0]}" name="${col[0]}" value="">`
+                    + `<input type="hidden" id="${col[2]}" name="${col[2]}" value="">`
+                    + `<input type="hidden" id="${col[3]}" name="${col[3]}" value="">`
+                    + `<input type="hidden" id="${col[4]}" name="${col[4]}" value="">`
+                    + `<input type="hidden" id="${col[5]}" name="${col[5]}" value="">`
+                    + `<input type="hidden" id="${col[6]}" name="${col[6]}" value="">`
+                    + `<input type="hidden" id="${col[7]}" name="${col[7]}" value="">`
+                    + `<input type="hidden" id="${col[8]}" name="${col[8]}" value="">`
+                    + `<input type="hidden" id="${col[9]}" name="${col[9]}" value="">`
+                    + `<input type="hidden" id="${col[10]}" name="${col[10]}" value="">`
+            )
+        }
 
-            $('#date').val("")
-            $('#col1').val("")
-            $('#col2').val("")
-            $('#col3').val("")
-            $('#col4').val("")
-            $('#col5').val("")
-            $('#col6').val("")
-            $('#col7').val("")
-            $('#col8').val("")
-            $('#col9').val("")
+        let arr1 = ['pr_col1','','pr_col2','pr_col3','pr_col4','pr_col5','pr_col6','pr_col7','pr_col8','pr_col9','pr_date']
+        generatePostForm('#payroll_form',arr1);
 
-            if(today.getDate() < 16){
-                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1;
-                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15;
+        let arr2 = ['ps_col1','','ps_col2','ps_col3','ps_col4','ps_col5','ps_col6','ps_col7','ps_col8','ps_col9','ps_date']
+        generatePostForm('#payslip_form',arr2 );
+
+        $('#payslip').click(()=>{
+            $('#payslipGenerate').removeClass('d-none');
+            $('#payslip').addClass('d-none')
+
+            if($('#from_date').val() == ""){
+                let { start_date, end_date } = getDateToday();
+
+                $.ajax({
+                    url: 'payslipjson',
+                    type: 'get',
+                    data: {start_date: start_date,end_date: end_date},
+                    success: function(response){
+                        $('#ps_col1').val(JSON.stringify(response))
+                        $('#ps_col2').val(`${start_date} - ${end_date}`)
+                    }
+                });
             }
             else{
-                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16;
-                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30;
+                $.ajax({
+                    url: 'payslipjson',
+                    type: 'get',
+                    data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
+                    success: function(response){
+                        $('#ps_col1').val(JSON.stringify(response))
+                        $('#ps_col2').val(`${$('#from_date').val()} - ${$('#to_date').val()}`)
+                    }
+                });
+            }
+        })
+
+
+        $('#payslipGenerate').click(()=>{
+            $('#payslip').removeClass('d-none');
+            $('#payslipGenerate').addClass('d-none')
+        })
+
+        $('#payrollGenerate').click(()=>{
+            $('#payroll').removeClass('d-none');
+            $('#payrollGenerate').addClass('d-none')
+        })
+
+        $('#payroll').click(()=>{
+            $('#payrollGenerate').removeClass('d-none');
+            $('#payroll').addClass('d-none')
+            var table = $('#payroll_table').DataTable();
+
+            let arr = ['#pr_col1','','#pr_col2','#pr_col3','#pr_col4','#pr_col5','#pr_col6','#pr_col7','#pr_col8','#pr_col9','#pr_date']
+            for (let i = 0; i < arr.length; i++) {
+                if (i == 1) {
+                    continue;
+                }
+                $(arr[i]).val("")
             }
 
-            $('#date').val(`${start_date} - ${end_date}`)
-
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
-
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col1').val($('#col1').val() + table.columns(0).data()[0][index])
-                    }else{
-                        $('#col1').val($('#col1').val() + table.columns(0).data()[0][index] + ";")
-                    }
-
+            for(let i = 0; i < arr.length; i++){
+                if (i == 1) {
+                    continue;
                 }
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
-
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col2').val($('#col2').val() + table.columns(2).data()[0][index])
-                    }else{
-                        $('#col2').val($('#col2').val() + table.columns(2).data()[0][index] + ";")
-                    }
-
+                if(i+1 == arr.length){
+                    let { start_date, end_date } = getDateToday();
+                    $(arr[i]).val(`${start_date} - ${end_date}`)
+                    continue;
                 }
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
+                for (let index = 0; index < table.columns(i).data()[0].length; index++) {
 
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col3').val($('#col3').val() + table.columns(3).data()[0][index])
+                    if(index == table.columns(i).data()[0].length - 1){
+                        $(arr[i]).val($(arr[i]).val() + table.columns(i).data()[0][index])
                     }else{
-                        $('#col3').val($('#col3').val() + table.columns(3).data()[0][index] + ";")
+                        $(arr[i]).val($(arr[i]).val() + table.columns(i).data()[0][index] + ";")
                     }
-
                 }
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
-
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col4').val($('#col4').val() + table.columns(4).data()[0][index])
-                    }else{
-                        $('#col4').val($('#col4').val() + table.columns(4).data()[0][index] + ";")
-                    }
-
-                }
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
-
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col5').val($('#col5').val() + table.columns(5).data()[0][index])
-                    }else{
-                        $('#col5').val($('#col5').val() + table.columns(5).data()[0][index] + ";")
-                    }
-
-                }
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
-
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col6').val($('#col6').val() + table.columns(6).data()[0][index])
-                    }else{
-                        $('#col6').val($('#col6').val() + table.columns(6).data()[0][index] + ";")
-                    }
-
-                }
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
-
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col7').val($('#col7').val() + table.columns(7).data()[0][index])
-                    }else{
-                        $('#col7').val($('#col7').val() + table.columns(7).data()[0][index] + ";")
-                    }
-
-                }
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
-
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col8').val($('#col8').val() + table.columns(8).data()[0][index])
-                    }else{
-                        $('#col8').val($('#col8').val() + table.columns(8).data()[0][index] + ";")
-                    }
-
-                }
-                for (let index = 0; index < table.columns(2).data()[0].length; index++) {
-
-                    if(index == table.columns(2).data()[0].length - 1){
-                        $('#col9').val($('#col9').val() + table.columns(9).data()[0][index])
-                    }else{
-                        $('#col9').val($('#col9').val() + table.columns(9).data()[0][index] + ";")
-                    }
-
-                }
+            }
         })
 
         // DATATABLES FUNCTIONS
@@ -184,18 +159,8 @@
                 autoclose:true
             });
 
-            var today = new Date();
-            var start_date = ''
-            var end_date = ''
+            let { start_date, end_date } = getDateToday();
 
-            if(today.getDate() < 16){
-                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1;
-                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15;
-            }
-            else{
-                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16;
-                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30;
-            }
             $('#cutOffDate').html(`Current Cut Off Duration: <br> <b> ${start_date} - ${end_date}</b>`)
 
             load_data(start_date,end_date);
@@ -283,7 +248,16 @@
             });
 
             $('#refresh').click(function(){
-                var today = new Date();
+                let { start_date, end_date } = getDateToday();
+                $('#from_date').val('');
+                $('#to_date').val('');
+                $('#payroll_table').DataTable().destroy();
+                load_data(start_date,end_date);
+            });
+        });
+
+        function getDateToday(){
+            var today = new Date();
                 var start_date = ''
                 var end_date = ''
 
@@ -296,12 +270,8 @@
                     end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30;
                 }
 
-                $('#from_date').val('');
-                $('#to_date').val('');
-                $('#payroll_table').DataTable().destroy();
-                load_data(start_date,end_date);
-            });
-        });
+                return {start_date,end_date};
+        }
     </script>
     @endsection
 
