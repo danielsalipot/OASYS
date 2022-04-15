@@ -21,7 +21,7 @@ class DeductionSeeder extends Seeder
         $decimals = 2; // number of decimal places
 	    $div = pow(10, $decimals);
 
-        for ($i=1; $i <= 10 ; $i++) {
+        for ($i=1; $i <= 20 ; $i++) {
             Deduction::create([
                 'payrollManager_id' => '3',
                 'employee_id' => rand(1,10),

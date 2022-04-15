@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PayrollSeeder::class);
         $this->call(StaffSeeder::class);
 
-        for ($i=0; $i < 10; $i++) {
+        for ($i=0; $i < 20; $i++) {
             $this->call(ApplicantSeeder::class);
             $this->call(EmployeeSeeder::class);
         }

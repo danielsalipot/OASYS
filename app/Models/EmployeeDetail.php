@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\UserDetail;
+
 use App\Models\Attendance;
 use App\Models\Deduction;
 use App\Models\CashAdvance;
@@ -41,7 +42,7 @@ class EmployeeDetail extends Model
     }
 
     public function FilteredDeductions($id,$start_date,$end_date) {
-        return Deductions::where('employee_id',$id)->whereBetween('deduction_date',array($start_date,$end_date))->get();
+        return Deduction::where('employee_id',$id)->whereBetween('deduction_date',array($start_date,$end_date))->get();
     }
 
     public function FilteredCashAdvance($id,$start_date,$end_date) {

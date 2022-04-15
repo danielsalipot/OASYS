@@ -21,7 +21,7 @@ class AttendanceSeeder extends Seeder
         $decimals = 5; // number of decimal places
 	    $div = pow(10, $decimals);
 
-        for ($i=1; $i <= 10; $i++) {
+        for ($i=1; $i <= 20; $i++) {
             for ($j=0; $j < 15; $j++) {
                 Attendance::create([
                     'employee_id' => $i,

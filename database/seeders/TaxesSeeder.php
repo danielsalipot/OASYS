@@ -16,7 +16,7 @@ class TaxesSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i <= 10; $i++) {
+        for ($i=1; $i <= 20; $i++) {
             Taxes::create([
                 'payrollHR_id' => '3',
                 'employee_id' => $i,

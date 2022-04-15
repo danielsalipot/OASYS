@@ -19,7 +19,7 @@ class OvertimeSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i <= 10; $i++) {
+        for ($i=1; $i <= 20; $i++) {
             $employee = EmployeeDetail::where('employee_id',$i)->first();
             $attendance = Attendance::where('employee_id',$i)->first();
             Overtime::create([

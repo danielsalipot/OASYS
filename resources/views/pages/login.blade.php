@@ -17,17 +17,5 @@
                 <br><a href="/" class="btn btn-outline-primary w-25 mt-1 ">Cancel</a>
             {!! Form::close() !!}
             </div>
-            {{-- <form class="p-1 mt-4" action="crudlogin" method="POST">
-                @csrf
-                <input class="m-auto form-control w-25 mt-3 p-2" type="text" name="user" placeholder="Username" value="{{old('user')}}">
-                <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
-
-                <input class="m-auto form-control w-25 mt-3 p-2" type="password" name="pass" placeholder="Password" value="{{old('pass')}}">
-                <span class="text-danger">@error('pass'){{"This Field is required"}}@enderror</span>
-
-                <br><button type="submit" class="btn btn-primary w-25 mt-3 ">Login</button>
-                <br><a href="/" class="btn btn-outline-primary w-25 mt-1 ">Cancel</a>
-            </form> --}}
-
         </div>
     @endsection

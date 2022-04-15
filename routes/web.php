@@ -8,13 +8,13 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\SearchController;
-
 use App\Http\Controllers\JsonController;
 
 
 Route::get('/payroll1', [JsonController::class,'payroll1']);
+Route::post('/test', [DocumentController::class, 'test']);
 
 // Json Payroll Routes
 Route::get('/payrolljson', [JsonController::class,'payroll']);
@@ -99,8 +99,3 @@ Route::get('/applicanthome', [PagesController::class, 'applicanthome']);
 
 //Logout
 Route::get('/logout', [PagesController::class, 'logout']);
-
-//Test
-Route::get('/test', [CrudController::class, 'test']);
-
-Route::get('/getTest/{id}',[PayrollController::class,'getTest']);

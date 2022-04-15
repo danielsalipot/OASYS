@@ -11,29 +11,30 @@ class JsonController extends Controller
 {
 
     function Payroll1(){
-        $PayrollDetails = EmployeeDetail::with('UserDetail','CashAdvance','Taxes','Deduction')->get();
-
+        $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
         foreach ($PayrollDetails as $key => $value) {
-            $value->attendance = $value->FilteredAttendance($value->employee_id, '2012-1-1','2022-1-1');
-            if(!count($value->attendance) > 0){
-                $json_arr = json_decode($PayrollDetails,true);
-                unset($json_arr[$key]);
-                $PayrollDetails = array_values($json_arr);
-            }
+            $value->attendance = $value->FilteredAttendance($value->employee_id,'1000-1-1','2022-1-1');
+            $value->deduction = $value->FilteredDeductions($value->employee_id,'1000-1-1','2022-1-1');
+            $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id,'1000-1-1','2022-1-1');
         }
 
-        return $PayrollDetails;
+        foreach ($PayrollDetails as $key => $value) {
+            foreach ($value->CashAdvance as $key => $el) {
+                echo $el;
+                echo '<br><br>';
+            }
+        }
     }
 
     //FILTERED THE DATES OF ATTENDANCE, cash advance, and deductions
     function payroll(Request $request){
         if(request()->ajax()){
             if(!empty($request->from_date)){
-                $PayrollDetails = EmployeeDetail::with('UserDetail','CashAdvance','Taxes','Deduction')->get();
+                $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
                 foreach ($PayrollDetails as $key => $value) {
                     $value->attendance = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
-                    $value->deduction = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
-                    $value->cashAdvance = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
+                    $value->deduction = $value->FilteredDeductions($value->employee_id, $request->from_date,$request->to_date);
+                    $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id, $request->from_date,$request->to_date);
                 }
             }
             else{
@@ -61,7 +62,7 @@ class JsonController extends Controller
                 $detail->total_cash_advance = 0;
                 foreach($detail->cashAdvance as $key => $cash_advance){
                     $detail->total_cash_advance += $cash_advance->cashAdvance_amount;
-                    $detail->total_cash_advance = round($detail->cashAdvance_amount,2);
+                    $detail->total_cash_advance = round($detail->total_cash_advance,2);
                 };
 
                 //Full name of employee
@@ -78,7 +79,7 @@ class JsonController extends Controller
             return $PayrollDetails;
         }
     }
-    
+
     public function CashAdvance(){
 
     }
@@ -94,7 +95,7 @@ class JsonController extends Controller
     public function EmployeeList(){
 
     }
-    
+
     public function Message(){
 
     }
@@ -104,6 +105,6 @@ class JsonController extends Controller
     }
 
     public function Overtime(){
-        
+
     }
 }
