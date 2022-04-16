@@ -120,6 +120,7 @@ class JsonController extends Controller
             $detail->tax_deduction = round($detail->gross_pay * floatval(substr_replace($detail->taxes->tax_amount ,"", -1)) / 100,2);
 
             $detail->net_pay = round($detail->gross_pay - $detail->total_deduction - $detail->total_cash_advance - $detail->tax_deduction,2);
+            $detail->prm_id = session('user_id');
         }
         return $PayrollDetails;
     }

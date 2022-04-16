@@ -23,7 +23,7 @@ class DeductionSeeder extends Seeder
 
         for ($i=1; $i <= 20 ; $i++) {
             Deduction::create([
-                'payrollManager_id' => '3',
+                'payrollManager_id' => '2',
                 'employee_id' => rand(1,10),
                 'deduction_name' => 'Loan',
                 'deduction_amount' => rand(1000,10000) + mt_rand(0.01 * $div, 0.05 * $div) / $div,

@@ -18,7 +18,7 @@ class TaxesSeeder extends Seeder
     {
         for ($i=1; $i <= 20; $i++) {
             Taxes::create([
-                'payrollHR_id' => '3',
+                'payrollHR_id' => '2',
                 'employee_id' => $i,
                 'tax_amount' => '5%'
             ]);

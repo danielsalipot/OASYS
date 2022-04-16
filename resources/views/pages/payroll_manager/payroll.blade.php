@@ -87,7 +87,7 @@
                 $.ajax({
                     url: 'payslipjson',
                     type: 'get',
-                    data: {start_date: start_date,end_date: end_date},
+                    data: {start_date: start_date,end_date: end_date },
                     success: function(response){
                         $('#ps_col1').val(JSON.stringify(response))
                         $('#ps_col2').val(`${start_date} - ${end_date}`)
@@ -121,33 +121,30 @@
         $('#payroll').click(()=>{
             $('#payrollGenerate').removeClass('d-none');
             $('#payroll').addClass('d-none')
-            var table = $('#payroll_table').DataTable();
 
-            let arr = ['#pr_col1','','#pr_col2','#pr_col3','#pr_col4','#pr_col5','#pr_col6','#pr_col7','#pr_col8','#pr_col9','#pr_date']
-            for (let i = 0; i < arr.length; i++) {
-                if (i == 1) {
-                    continue;
-                }
-                $(arr[i]).val("")
-            }
+            if($('#from_date').val() == ""){
+                let { start_date, end_date } = getDateToday();
 
-            for(let i = 0; i < arr.length; i++){
-                if (i == 1) {
-                    continue;
-                }
-                if(i+1 == arr.length){
-                    let { start_date, end_date } = getDateToday();
-                    $(arr[i]).val(`${start_date} - ${end_date}`)
-                    continue;
-                }
-                for (let index = 0; index < table.columns(i).data()[0].length; index++) {
-
-                    if(index == table.columns(i).data()[0].length - 1){
-                        $(arr[i]).val($(arr[i]).val() + table.columns(i).data()[0][index])
-                    }else{
-                        $(arr[i]).val($(arr[i]).val() + table.columns(i).data()[0][index] + ";")
+                $.ajax({
+                    url: 'payslipjson',
+                    type: 'get',
+                    data: {start_date: start_date,end_date: end_date },
+                    success: function(response){
+                        $('#pr_col1').val(JSON.stringify(response))
+                        $('#pr_col2').val(`${start_date} - ${end_date}`)
                     }
-                }
+                });
+            }
+            else{
+                $.ajax({
+                    url: 'payslipjson',
+                    type: 'get',
+                    data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
+                    success: function(response){
+                        $('#pr_col1').val(JSON.stringify(response))
+                        $('#pr_col2').val(`${$('#from_date').val()} - ${$('#to_date').val()}`)
+                    }
+                });
             }
         })
 

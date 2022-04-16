@@ -14,6 +14,7 @@ use App\Http\Controllers\JsonController;
 
 
 Route::get('/payroll1', [JsonController::class,'payroll1']);
+Route::get('/test', [LoginController::class,'test']);
 Route::post('/payrollPDF', [DocumentController::class, 'payrollPdf']);
 Route::post('/payslipPdf', [DocumentController::class, 'payslipPdf']);
 

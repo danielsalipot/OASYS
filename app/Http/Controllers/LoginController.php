@@ -53,4 +53,7 @@ class LoginController extends Controller
             return back()->with('fail','incorrect login credentials');
         }
     }
+    public function test(){
+        return session('user_id');
+    }
 }
