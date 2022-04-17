@@ -1,27 +1,11 @@
 @extends('layout.payroll_app')
     @section('content')
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about">
-            <div class="container">
+    <div class="row mt-4">
+        <div class="col-1" style="width:6vw"></div>
+        <div class="col">
+            <div class="container p-2">
                 <h1>Overtime Management</h1>
-
-                <div class="row p-4">
-                    <div class="col-3 d-flex justify-content-center">
-                        <button class="btn w-75 btn-primary me-1">Pay Overtime</button>
-                        <button class="btn w-75 btn-danger ms-1">Reject</button>
-                    </div>
-                    <div class="col-3 d-flex"></div>
-                    <div class="col-3 d-flex">
-                        <input type="text" class="rounded-left w-100" placeholder="Search">
-                        <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
-                    </div>
-                    <div class="col-3 d-flex">
-                        <input type='date' name="date" class="form-control"/>
-                    </div>
-                </div>
-
-                <div class="card shadow border border-secondary p-2">
-                    <table class="table table-striped table-dark">
+                    <table class="table table-striped table-dark" id="overtime_table">
                         <thead>
                             <tr class="text-center">
                                 <th scope="col">Picture</th>
@@ -32,31 +16,53 @@
                                 <th scope="col">Total Overtime Hours</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center">
-                            @foreach ($employeesOvertime as $data)
-                                <tr>
-                                    <td><img src="{{$data->picture}}" class="rounded-circle" style="height: 100px; width:100px;"></td>
-                                    <td>
-                                        ID: {{ $data->employee_id }} <br>
-                                        {{ $data->fname }} {{ $data->mname }} {{ $data->lname }} <br>
-                                        {{ $data->position }}
-                                    </td>
-                                    <td>{{ $data->department }}</td>
-                                    <td>
-                                        <h5 class="text-success">{{ $data->time_in }}</h5>
-                                        <h6>Schedule</h6>
-                                        <p>{{ $data->schedule_Timein }}</p>
-                                    </td>
-                                    <td>
-                                        <h5 class="text-success">{{ $data->time_out }}</h5>
-                                        <h6>Schedule</h6>
-                                        <p>{{ $data->schedule_Timeout }}</p>
-                                    </td>
-                                    <td>{{ round($data->total_hours / 3600 , 2) }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#overtime_table').DataTable({
+                ajax: {
+                        url: '/overtimejson',
+                        dataSrc: ''
+                    },
+                columns: [
+                    { data: 'overtime_id',
+                        render : (data,type,row)=>{
+                            return `${data}`
+                        }
+                    },
+                    { data: 'overtime_id',
+                        render : (data,type,row)=>{
+                            return `${data}`
+                        }
+                    },
+                    { data: 'overtime_id',
+                        render : (data,type,row)=>{
+                            return `${data}`
+                        }
+                    },
+                    { data: 'overtime_id',
+                        render : (data,type,row)=>{
+                            return `${data}`
+                        }
+                    },
+                    { data: 'overtime_id',
+                        render : (data,type,row)=>{
+                            return `${data}`
+                        }
+                    },
+                    { data: 'overtime_id',
+                        render : (data,type,row)=>{
+                            return `${data}`
+                        }
+                    },
+
+                ]
+            })
+        })
+    </script>
 @endsection

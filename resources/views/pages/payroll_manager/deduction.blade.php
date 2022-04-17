@@ -1,24 +1,11 @@
 @extends('layout.payroll_app')
     @section('content')
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about">
-        <div class="ms-5 ps-5">
-            <h1>Deduction Management</h1>
-
-            <div class="row">
-                <div class="col">
-                    <div class="row p-4">
-                        <div class="col-5 d-flex">
-                            <input type="text" class="rounded-left w-100" placeholder="Search">
-                            <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
-                        </div>
-                    <div class="col"></div>
-                    <div class="col-3 d-flex">
-                        <button class="btn w-100 btn-danger">Delete</button>
-                    </div>
-                </div>
-
-                <table class="table table-striped table-dark">
+    <div class="row mt-4">
+        <div class="col-1" style="width:6vw"></div>
+        <div class="col">
+            <div class="container p-2">
+                <h1>Deduction Management</h1>
+                <table class="table table-striped text-center table-dark" id="deduction_table">
                     <thead>
                         <tr class="text-center">
                             <th scope="col">Employee Details</th>
@@ -27,23 +14,57 @@
                             <th scope="col">Deduction Amount</th>
                         </tr>
                     </thead>
-                    <tbody class="text-center">
-                        @foreach ($employeeDeductions as $record)
-                        <tr>
-                            <td>
-                                {{ $record->employee_id }}<br>
-                                {{ $record->fname }} {{ $record->mname }} {{ $record->lname }}<br>
-                                {{ $record->position }}
-                            </td>
-                            <td>{{ $record->deduction_name }}</td>
-                            <td>{{ $record->created_at }}</td>
-                            <td>{{ $record->deduction_amount }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
                 </table>
-                {{ $employeeDeductions->links() }}
             </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#deduction_table').DataTable({
+                ajax: {
+                        url: '/deductionjson',
+                        dataSrc: ''
+                    },
+                columns: [
+                    { data: 'fname',
+                        render : (data,type,row)=>{
+                            return `<b>${row.fname} ${row.mname} ${row.lname}</b><br>
+                                        ${row.department}<br>
+                                        ${row.position}`
+                        }
+                    },
+                    { data: 'deduction_name',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'deduction_date',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'deduction_amount',
+                        render : (data,type,row)=>{
+                            return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                        }
+                    },
+                ]
+            })
+        })
+    </script>
+@endsection
+
+
+
+
+
+
+
+
+
+
+{{--
 
             <div class="col-5 border rounded me-4">
                 <h1 class="h1 w-100 text-center text-primary p-3">Add new Deduction</h1>
@@ -82,5 +103,4 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    </div> --}}

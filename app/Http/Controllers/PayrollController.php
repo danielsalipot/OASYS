@@ -14,15 +14,16 @@ use App\Models\CashAdvance;
 class PayrollController extends Controller
 {
         function payroll(){
-            $employeeDetails = EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-            ->paginate(6);
-            return view('pages.payroll_manager.payroll',['employees' => $employeeDetails]);
+            return view('pages.payroll_manager.payroll');
         }
 
         function employeelist(){
-            $employeeDetails = EmployeeDetail::join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-            ->paginate(6);
-            return view('pages.payroll_manager.employeelist',['employees' => $employeeDetails]);
+            return view('pages.payroll_manager.employeelist');
+        }
+
+        function editrate(Request $request){
+            $employee = EmployeeDetail::where('employee_id',$request->emp_id)->update(['rate' => $request->rate]);
+            return redirect('/employeelist')->with('success','Post Created');
         }
 
         function deduction(){

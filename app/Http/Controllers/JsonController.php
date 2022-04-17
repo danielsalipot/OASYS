@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Models\EmployeeDetail;
 use App\Models\Attendance;
-//TODO: PAYROLL AND PAYSLIP FUNCTIONS
+use App\Models\Deduction;
+use App\Models\Overtime;
+
 class JsonController extends Controller
 {
 
@@ -130,7 +132,9 @@ class JsonController extends Controller
     }
 
     public function Deduction(){
-
+        return Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
+                        ->join('user_details','user_details.information_id','=','employee_details.information_id')
+                        ->get();
     }
 
     public function DeductionType(){
@@ -138,7 +142,11 @@ class JsonController extends Controller
     }
 
     public function EmployeeList(){
+        return $employeeDetails = EmployeeDetail::with('UserDetail')->get();
+    }
 
+    public function fetchSingleEmployee(Request $request){
+        return $employeeDetails = EmployeeDetail::where('employee_id',$request->employee_id)->with('UserDetail')->first();
     }
 
     public function Message(){
@@ -150,6 +158,8 @@ class JsonController extends Controller
     }
 
     public function Overtime(){
-
+        $employee_schedules = EmployeeDetail::all();
+        $employee_overtime;
+        return $employee_schedules;
     }
 }

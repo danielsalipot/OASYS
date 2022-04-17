@@ -59,23 +59,12 @@
             $(table).html(
                 $(table).html()
                     + `<input type="hidden" id="${col[0]}" name="${col[0]}" value="">`
-                    + `<input type="hidden" id="${col[2]}" name="${col[2]}" value="">`
-                    + `<input type="hidden" id="${col[3]}" name="${col[3]}" value="">`
-                    + `<input type="hidden" id="${col[4]}" name="${col[4]}" value="">`
-                    + `<input type="hidden" id="${col[5]}" name="${col[5]}" value="">`
-                    + `<input type="hidden" id="${col[6]}" name="${col[6]}" value="">`
-                    + `<input type="hidden" id="${col[7]}" name="${col[7]}" value="">`
-                    + `<input type="hidden" id="${col[8]}" name="${col[8]}" value="">`
-                    + `<input type="hidden" id="${col[9]}" name="${col[9]}" value="">`
-                    + `<input type="hidden" id="${col[10]}" name="${col[10]}" value="">`
+                    + `<input type="hidden" id="${col[1]}" name="${col[1]}" value="">`
             )
         }
 
-        let arr1 = ['pr_col1','','pr_col2','pr_col3','pr_col4','pr_col5','pr_col6','pr_col7','pr_col8','pr_col9','pr_date']
-        generatePostForm('#payroll_form',arr1);
-
-        let arr2 = ['ps_col1','','ps_col2','ps_col3','ps_col4','ps_col5','ps_col6','ps_col7','ps_col8','ps_col9','ps_date']
-        generatePostForm('#payslip_form',arr2 );
+        generatePostForm('#payroll_form',['pr_col1','pr_col2']);
+        generatePostForm('#payslip_form',['ps_col1','ps_col2',]);
 
         $('#payslip').click(()=>{
             $('#payslipGenerate').removeClass('d-none');
@@ -159,10 +148,13 @@
             let { start_date, end_date } = getDateToday();
 
             $('#cutOffDate').html(`Current Cut Off Duration: <br> <b> ${start_date} - ${end_date}</b>`)
+            $('#from_date').val(start_date);
+            $('#to_date').val(end_date);
 
             load_data(start_date,end_date);
 
             function load_data(from_date = '', to_date = ''){
+                $('#cutOffDate').html(`Current Cut Off Duration: <br> <b> ${from_date} - ${to_date}</b>`)
                 $('#payroll_table').DataTable({
                     processing: true,
                     serverSide: false,
@@ -246,8 +238,8 @@
 
             $('#refresh').click(function(){
                 let { start_date, end_date } = getDateToday();
-                $('#from_date').val('');
-                $('#to_date').val('');
+                $('#from_date').val(start_date);
+                $('#to_date').val(end_date);
                 $('#payroll_table').DataTable().destroy();
                 load_data(start_date,end_date);
             });

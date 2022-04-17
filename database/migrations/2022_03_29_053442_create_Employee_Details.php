@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('rate',9,2);
             $table->string('employment_status');
             $table->string('resume');
+            $table->date('start_date');
             $table->string('schedule_Timein');
             $table->string('schedule_Timeout');
             $table->timestamps();

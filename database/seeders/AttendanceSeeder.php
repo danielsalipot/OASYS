@@ -28,7 +28,7 @@ class AttendanceSeeder extends Seeder
                     'time_in' => date('H:i:s', rand(24200,25200)),
                     'time_out' => date('H:i:s', rand(64800,72000)),
                     'total_hours' => 7 + mt_rand(0.01 * $div, 0.05 * $div) / $div,
-                    'attendance_date'=> $faker->date($format = 'Y-m-d', $max = 'now')
+                    'attendance_date'=> $faker->dateTimeInInterval('-7 weeks', '+14 weeks')
                 ]);
             }
         }

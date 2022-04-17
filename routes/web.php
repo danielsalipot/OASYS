@@ -21,14 +21,17 @@ Route::post('/payslipPdf', [DocumentController::class, 'payslipPdf']);
 // Json Payroll Routes
 Route::get('/payrolljson', [JsonController::class,'payroll']);
 Route::get('/payslipjson', [JsonController::class,'payslip']);
+Route::get('/fetchSingleEmployee', [JsonController::class,'fetchSingleEmployee']);
 
 Route::get('/cashadvancejson', [JsonController::class,'CashAdvance']);
 Route::get('/deductionjson', [JsonController::class,'Deduction']);
+Route::get('/overtimejson', [JsonController::class,'Overtime']);
+
 Route::get('/deductiontypejson', [JsonController::class,'DeductionType']);
 Route::get('/employeelistjson', [JsonController::class,'EmployeeList']);
 Route::get('/messagejson', [JsonController::class,'Message']);
 Route::get('/notificationjson', [JsonController::class,'Notification']);
-Route::get('/overtimejson', [JsonController::class,'Overtime']);
+
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
@@ -50,10 +53,13 @@ Route::get('deleteApplication', [CrudController::class, 'deleteApplication']);
 //Payroll Manager Routes
 Route::get('/deductiontype', [PayrollController::class, 'deductiontype']);
 Route::get('/message', [PayrollController::class, 'message']);
+Route::post('/editrate', [PayrollController::class, 'editrate']);
+
+Route::get('/deduction', [PayrollController::class, 'deduction']);
 Route::get('/notification', [PayrollController::class, 'notification']);
 Route::get('/cashadvance', [PayrollController::class, 'cashadvance']);
 Route::get('/overtime', [PayrollController::class, 'overtime']);
-Route::get('/deduction', [PayrollController::class, 'deduction']);
+
 Route::get('/employeelist', [PayrollController::class, 'employeelist']);
 Route::get('/payroll', [PayrollController::class, 'payroll']);
 
