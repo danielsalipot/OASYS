@@ -162,4 +162,8 @@ class JsonController extends Controller
         $employee_overtime;
         return $employee_schedules;
     }
+
+    public function DoublePay(){
+
+    }
 }
