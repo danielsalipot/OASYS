@@ -28,8 +28,8 @@
                             <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
                         </div>
                         <div class="col-2 input-daterange">
-                            <button type="button" name="filter" id="filter" class="btn p-3 pe-5 ps-5 h-100 btn-outline-primary">Filter</button>
-                            <button type="button" name="refresh" id="refresh" class="btn p-3 pe-5 ps-5 h-100  btn-outline-success">Refresh</button>
+                            <button type="button" name="filter" id="filter" class="btn p-3 h-100 btn-outline-primary">Filter</button>
+                            <button type="button" name="refresh" id="refresh" class="btn p-3 h-100  btn-outline-success">Refresh</button>
                         </div>
                 </div>
 

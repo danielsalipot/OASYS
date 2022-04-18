@@ -19,13 +19,13 @@ class OvertimeSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i <= 20; $i++) {
-            $employee = EmployeeDetail::where('employee_id',$i)->first();
-            $attendance = Attendance::where('employee_id',$i)->first();
-            Overtime::create([
-                'employee_id' => $employee->employee_id,
-                'attendance_id' => $attendance->attendance_id
-            ]);
-        }
+        // for ($i=1; $i <= 20; $i++) {
+        //     $employee = EmployeeDetail::where('employee_id',$i)->first();
+        //     $attendance = Attendance::where('employee_id',$i)->first();
+        //     Overtime::create([
+        //         'employee_id' => $employee->employee_id,
+        //         'attendance_id' => $attendance->attendance_id
+        //     ]);
+        // }
     }
 }

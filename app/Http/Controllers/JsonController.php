@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\EmployeeDetail;
+use App\Models\UserDetail;
 use App\Models\Attendance;
 use App\Models\Deduction;
 use App\Models\Overtime;
@@ -128,7 +129,9 @@ class JsonController extends Controller
     }
 
     public function CashAdvance(){
-
+        return $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
+                                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+                                            ->get();
     }
 
     public function Deduction(){
@@ -157,9 +160,44 @@ class JsonController extends Controller
 
     }
 
-    public function Overtime(){
+    public function Overtime(Request $request){
         $employee_schedules = EmployeeDetail::all();
-        $employee_overtime;
-        return $employee_schedules;
+        $employee_overtime =[];
+        foreach ($employee_schedules as $key => $employee) {
+            list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$employee->schedule_Timeout);
+                $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
+                // Add 30 mins for minimum overtime
+                $stimeout += 1800;
+
+            array_push($employee_overtime,Attendance::where('employee_id',$employee->employee_id)
+                                        ->whereBetween('attendance_date',[$request->from_date,$request->to_date])
+                                        ->whereBetween('time_in',['00:00:00',$employee->schedule_Timein])
+                                        ->whereBetween('time_out',[date('H:i:s',$stimeout),'24:00:00'])
+                                        ->get());
+        }
+
+        foreach ($employee_overtime as $key => $employee) {
+            foreach ($employee as $key => $value) {
+                $value->user_details = EmployeeDetail::where('employee_id', $value->employee_id)
+                                        ->join('user_details','user_details.information_id','=','employee_details.information_id')->first();
+
+                list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$value->time_out);
+                $timeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
+
+                list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$value->user_details->schedule_Timeout);
+                $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
+
+                $value->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
+            }
+        }
+
+        $output_arr = [];
+        foreach ($employee_overtime as $key => $employee) {
+            foreach($employee as $key => $value){
+                array_push($output_arr,$value);
+            }
+        }
+
+        return $output_arr;
     }
 }

@@ -1,85 +1,86 @@
 @extends('layout.payroll_app')
     @section('content')
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about">
-        <div class="ms-5 ps-5">
-            <h1>Employee Cash Advance</h1>
+    <div class="row mt-4">
+        <div class="col-1" style="width:6vw"></div>
 
-            <div class="row">
-                <div class="col">
-                    <div class="row p-4">
-                        <form action="filterSearch" method="POST" class="col-5 d-flex">
-                            @csrf
-                            {{-- Table name --}}
-                            {{ Form::hidden('table_name', 'user_details') }}
-                            {{ Form::hidden('field_name', 'fname') }}
+        <div class="col">
+            <h1 class="display-2 pb-5">Employee Cash Advance</h1>
 
-                            <input type="text" name="filter" class="rounded-left w-100" placeholder="Search">
-                            <button type="submit" class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
-                        </form>
-                    <div class="col"></div>
-                </div>
-
-                <table class="table table-striped table-dark">
+            <div class="container">
+                <table class="table table-striped table-dark" id="cash_advance_table">
                     <thead>
-                    <tr>
-                        <th scope="col">Employee Details</th>
-                        <th scope="col">Department</th>
-                        <th scope="col">Cash Advance Date</th>
-                        <th scope="col">Cash Advance Amount</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Employee Details</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Cash Advance Date</th>
+                            <th scope="col">Cash Advance Amount</th>
+                        </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($cashAdvanceRecord as $data)
-                            <tr>
-                                <td>
-                                    ID: {{ $data->employee_id }} <br>
-                                    {{ $data->fname }} {{ $data->mname }} {{ $data->lname }} <br>
-                                    {{ $data->position }}
-                                </td>
-                                <td>{{ $data->department }}</td>
-                                <td>{{ $data->created_at }}</td>
-                                <td>₱{{ $data->cashAdvance_amount }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
-                {{ $cashAdvanceRecord->links()}}
-                <div class="d-flex justify-content-end pt-5">
-                    <button class="btn w-25 btn-danger">Delete</button>
-                </div>
             </div>
 
-            <div class="col-5 border rounded me-4">
-                <h1 class="h1 w-100 text-center text-primary p-3">Add new Record</h1>
-                <div class="d-flex w-50 m-auto">
-                    <input type="text" class="rounded-left w-100" placeholder="Search">
-                    <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
-                </div>
-                <div class="row p-5">
-                    <div class="col">
-                        <img src="pictures/1.png" style="height: 150px; width:150px">
-                    </div>
-                <div class="col">
-                    <h2>Name</h2>
-                    <h5>Employee ID</h5>
-                    <h5>Employee Position</h5>
-                    <h5>Employment Status</h5>
-                </div>
-
-                <div class="ps-5 pe-5 pt-4">
-                    <h3 class="w-100">Cash Advance Amount</h3>
-                    <input type="text" class="mb-3 p-1 w-100 rounded" placeholder="Cash Advance Amount">
-                </div>
-                <div class="row text-center ps-5 pe-5 pb-2">
-                    <div class="col pt-5">
-                        <button class="btn btn-success w-75">Add</button>
-                    </div>
-                    <div class="col pt-5">
-                        <button class="btn btn-danger w-75">Cancel</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#cash_advance_table').DataTable({
+                ajax: {
+                        url: '/cashadvancejson',
+                        dataSrc: ''
+                    },
+                columns: [
+                    { data: 'employee_id',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'user_detail.picture',
+                        render : (data,type,row)=>{
+                            return `<img src="${data}" class="rounded" width="50" height="50">`
+                        }
+                    },
+                    { data: 'user_detail.fname',
+                        render : (data,type,row)=>{
+                            return  `
+                                        <b>${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}</b><br>
+                                            Sex: ${row.user_detail.sex}<br>
+                                            age: ${row.user_detail.age}
+                                    `
+                        }
+                    },
+                    { data: 'department',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'position',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'rate',
+                        render : (data,type,row)=>{
+                            return `<b class="h5">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                        }
+                    },
+                    { data: 'start_date',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'employment_status',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'employee_id',
+                        render : (data,type,row)=>{
+                            return `<button type="button" id="${data}" onclick="editRate(${data})" class="btn btn-primary" data-toggle="modal" data-target="#edit_modal">Edit Rate</button>`
+                        }
+                    },
+                ]
+            })
+        })
+    </script>
 @endsection

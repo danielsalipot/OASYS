@@ -123,7 +123,7 @@
                     },
                     { data: 'employee_id',
                         render : (data,type,row)=>{
-                            return `<button type="button" id="${data}" onclick="editRate(${data})" class="btn btn-primary" data-toggle="modal" data-target="#edit_modal"> Open modal </button>`
+                            return `<button type="button" id="${data}" onclick="editRate(${data})" class="btn btn-primary" data-toggle="modal" data-target="#edit_modal">Edit Rate</button>`
                         }
                     },
                 ]
