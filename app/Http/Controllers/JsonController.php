@@ -200,4 +200,12 @@ class JsonController extends Controller
 
         return $output_arr;
     }
+
+    public function DoublePay(){
+
+    }
+
+    public function Bonus(){
+
+    }
 }

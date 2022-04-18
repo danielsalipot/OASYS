@@ -27,11 +27,13 @@ Route::get('/cashadvancejson', [JsonController::class,'CashAdvance']);
 Route::get('/deductionjson', [JsonController::class,'Deduction']);
 Route::get('/overtimejson', [JsonController::class,'Overtime']);
 
+
 Route::get('/deductiontypejson', [JsonController::class,'DeductionType']);
 Route::get('/employeelistjson', [JsonController::class,'EmployeeList']);
 Route::get('/messagejson', [JsonController::class,'Message']);
 Route::get('/notificationjson', [JsonController::class,'Notification']);
-
+Route::get('/doublepayjson', [JsonController::class,'DoublePay']);
+Route::get('/bonusjson', [JsonController::class,'Bonus']);
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
