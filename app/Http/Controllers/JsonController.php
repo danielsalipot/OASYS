@@ -166,4 +166,8 @@ class JsonController extends Controller
     public function DoublePay(){
 
     }
+
+    public function Bonus(){
+
+    }
 }
