@@ -61,7 +61,7 @@ class PagesController extends Controller
 
     //Applicants Functions
     function signup(){
-        if(session->has('user_id')){
+        if(session()->has('user_id')){
             return redirect('introduce');
         }
         return view('pages.applicants.signup');

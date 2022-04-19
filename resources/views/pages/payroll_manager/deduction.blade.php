@@ -5,6 +5,18 @@
         <div class="col">
             <div class="container p-2">
                 <h1 class="display-2 pb-5 pt-5">Deduction Management</h1>
+                <div class="row w-100 h-100">
+                    <div class="col-md-2 input-daterange">
+                        <input type="text" name="from_date" id="from_date" class="form-control h-100" placeholder="From Date" readonly />
+                    </div>
+                    <div class="col-md-2 input-daterange">
+                        <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
+                    </div>
+                    <div class="col-2 input-daterange">
+                        <button type="button" name="filter" id="filter" class="btn p-3 h-100 btn-outline-primary">Filter</button>
+                        <button type="button" name="refresh" id="refresh" class="btn p-3 h-100  btn-outline-success">Refresh</button>
+                    </div>
+                </div>
                 <table class="table table-striped text-center table-dark" id="deduction_table">
                     <thead>
                         <tr class="text-center">
@@ -51,6 +63,25 @@
                     },
                 ]
             })
+
+            $('#filter').click(function(){
+                var from_date = $('#from_date').val();
+                var to_date = $('#to_date').val();
+                if(from_date != '' &&  to_date != ''){
+                    $('#payroll_table').DataTable().destroy();
+                    load_data(from_date, to_date);
+                }else{
+                    alert('Both Date is required');
+                }
+            });
+
+            $('#refresh').click(function(){
+                let { start_date, end_date } = getDateToday();
+                $('#from_date').val(start_date);
+                $('#to_date').val(end_date);
+                $('#payroll_table').DataTable().destroy();
+                load_data(start_date,end_date);
+            });
         })
     </script>
 @endsection
