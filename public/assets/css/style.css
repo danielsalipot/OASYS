@@ -72,6 +72,10 @@
   width: 152px;
 }
 
+.nav{
+  padding-right: 38px;
+}
+
 .dropdown-menu a:hover{
   background-color: #0275d8;
 }
@@ -80,6 +84,36 @@
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
+.index h1{
+  font-size: 50px;
+  font-weight: bold;
+  color: #0063a5;
+}
+
+.index p{
+  color: #0063a5;
+}
+
+.page {
+  margin-top: 65px;
+  font-size: 60px;
+  font-weight: bold;
+  color: #0063a5;
+}
+
+.s-page{
+  margin-top: -12px;
+  color: #7fcefc;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.a-page{
+  font-size: 40px;
+  font-weight: bold;
+  color: #0063a5;
+}
+
 section {
   padding: 60px 0;
   overflow: hidden;
@@ -90,29 +124,18 @@ section {
 }
 
 .section-title {
+  padding-top: 20px;
   padding-bottom: 30px;
 }
 .section-title h2 {
-  font-size: 32px;
+  font-size: 40px;
   font-weight: bold;
   margin-bottom: 20px;
   padding-bottom: 20px;
   position: relative;
   color: #173b6c;
 }
-.section-title h2::after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: #149ddd;
-  bottom: 0;
-  left: 0;
-}
-.section-title p {
-  margin-bottom: 0;
-}
+
 
 /*--------------------------------------------------------------
 # About

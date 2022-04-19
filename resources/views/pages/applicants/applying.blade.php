@@ -6,9 +6,9 @@
         <form action="crudapply" method="post" enctype="multipart/form-data">
           @csrf
           <div class='row m-auto text-primary'>
-            <h1 class='display-3'>I am applying for</h1>
+            <h1 class='page'>I am applying for</h1>
 
-              <div class='row  text-primary m-auto w-50 mt-3 mb-3'>
+              <div class='row m-auto w-50 mt-3 mb-3'>
                   <label for="inputState">Choose a position</label>
                   <select id="inputState" name="position" class="border-primary p-3 rounded ">
                       <option class="dropdown-item" selected>Teacher</option>
@@ -19,7 +19,7 @@
               </div>
 
               <div class='row m-auto pt-4'>
-                <h3 class='text-primary'>Send us your resume</h3>
+                <h3 class='a-page'>Send us your resume</h3>
               </div>
           
               <div class='col justify-content-center'>
@@ -43,7 +43,7 @@
               </div>
 
         <div class ='col text-center p-5'>
-            <h6 class="text-primary p-4">step 3 out of 3</h6>
+            <h6 class="s-page p-4 pt-4 mt-1">Step 3 out of 3</h6>
             <img src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" style="object-fit: cover;" id="output" height="300px" width="300px" class="rounded-circle border border-primary"/>
             <div class='row m-auto pt-4'>
               <h5 class='text-primary'>Upload your picture</h5>
