@@ -25,8 +25,10 @@ Route::get('/fetchSingleEmployee', [JsonController::class,'fetchSingleEmployee']
 
 Route::get('/cashadvancejson', [JsonController::class,'CashAdvance']);
 Route::get('/deductionjson', [JsonController::class,'Deduction']);
-Route::get('/overtimejson', [JsonController::class,'Overtime']);
 
+Route::get('/overtimejson', [JsonController::class,'Overtime']);
+Route::get('/insertovertime', [JsonController::class,'InsertOvertime']);
+Route::get('/getPaidOvertime', [JsonController::class,'getPaidOvertime']);
 
 Route::get('/deductiontypejson', [JsonController::class,'DeductionType']);
 Route::get('/employeelistjson', [JsonController::class,'EmployeeList']);

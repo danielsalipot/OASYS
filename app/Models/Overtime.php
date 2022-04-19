@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Overtime extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['employee_id','attendance_id'];
+
 }

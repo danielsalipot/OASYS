@@ -161,44 +161,76 @@ class JsonController extends Controller
     }
 
     public function Overtime(Request $request){
+        $paid_overtime = Overtime::all();
         $employee_schedules = EmployeeDetail::all();
-        $employee_overtime =[];
+        $employee_overtime_arr =[];
+        $paid_overtime_arr =[];
+
         foreach ($employee_schedules as $key => $employee) {
             list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$employee->schedule_Timeout);
                 $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
                 // Add 30 mins for minimum overtime
-                $stimeout += 1800;
+                $stimeout += $request->time_filter;
 
-            array_push($employee_overtime,Attendance::where('employee_id',$employee->employee_id)
-                                        ->whereBetween('attendance_date',[$request->from_date,$request->to_date])
-                                        ->whereBetween('time_in',['00:00:00',$employee->schedule_Timein])
-                                        ->whereBetween('time_out',[date('H:i:s',$stimeout),'24:00:00'])
-                                        ->get());
+            $temp = Attendance::where('employee_id',$employee->employee_id)
+                    ->whereBetween('attendance_date',[$request->from_date,$request->to_date])
+                    ->whereBetween('time_in',['00:00:00',$employee->schedule_Timein])
+                    ->whereBetween('time_out',[date('H:i:s',$stimeout),'24:00:00'])
+                    ->get();
+
+            foreach ($temp as $key => $value) {
+                if(Overtime::where('attendance_id',$value->attendance_id)->first()){
+                    array_push($paid_overtime_arr,$value);
+                }else{
+                    array_push($employee_overtime_arr,$value);
+                }
+            }
         }
 
-        foreach ($employee_overtime as $key => $employee) {
-            foreach ($employee as $key => $value) {
-                $value->user_details = EmployeeDetail::where('employee_id', $value->employee_id)
-                                        ->join('user_details','user_details.information_id','=','employee_details.information_id')->first();
+        foreach ($employee_overtime_arr as $key => $employee) {
+            $employee->user_details = EmployeeDetail::where('employee_id', $employee->employee_id)
+                                    ->join('user_details','user_details.information_id','=','employee_details.information_id')->first();
 
-                list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$value->time_out);
+                list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$employee->time_out);
                 $timeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
 
-                list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$value->user_details->schedule_Timeout);
+                list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$employee->user_details->schedule_Timeout);
                 $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
 
-                $value->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
-            }
+                $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
         }
 
-        $output_arr = [];
-        foreach ($employee_overtime as $key => $employee) {
-            foreach($employee as $key => $value){
-                array_push($output_arr,$value);
-            }
-        }
+        return $employee_overtime_arr;
+    }
 
-        return $output_arr;
+    public function getPaidOvertime(){
+        $paid_overtime_arr = Overtime::join('attendances','attendances.attendance_id','=','overtimes.attendance_id')
+                ->join('employee_details','employee_details.employee_id','=','overtimes.employee_id')
+                ->join('user_details','user_details.information_id','=','employee_details.information_id')
+                ->get();
+
+        foreach ($paid_overtime_arr as $key => $employee) {
+            $employee->user_details = EmployeeDetail::where('employee_id', $employee->employee_id)
+                                            ->join('user_details','user_details.information_id','=','employee_details.information_id')->first();
+
+            list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$employee->time_out);
+            $timeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
+
+            list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$employee->user_details->schedule_Timeout);
+            $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
+
+            $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
+        }
+        return $paid_overtime_arr;
+    }
+
+    public function InsertOvertime(Request $request){
+        Overtime::create([
+            'employee_id' => $request->emp_id,
+            'attendance_id' => $request->attendance_id
+        ]);
+
+        return redirect('/overtime');
     }
 
     public function DoublePay(){

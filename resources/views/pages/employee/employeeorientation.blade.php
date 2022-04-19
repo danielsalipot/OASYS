@@ -20,7 +20,7 @@
 
                     <div class="col pt-5">
                         <h3 class="text-secondary">1. Introduction</h3>
-                        <h5> This video serves as an Introduction to the subject matter</h5>
+                        <p> This video serves as an Introduction to the subject matter</p>
 
                         {!! Form::open() !!}
                         <div class='row'>
@@ -45,7 +45,7 @@
 
                     <div class="col pt-5">
                         <h3 class="text-secondary">2.Rules and Regulation</h3>
-                        <h5> This video serves as an Introduction to the subject matter</h5>
+                        <p> This video serves as an Introduction to the subject matter</p>
 
                         {!! Form::open() !!}
                         <div class='row'>
