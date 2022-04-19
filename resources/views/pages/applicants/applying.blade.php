@@ -19,11 +19,11 @@
                 </div>
             </div>
 
-            <div class='row m-auto pt-4'>
-                <h3 class='a-page'>Send us your resume</h3>
-            </div>
-
-            <div class='col justify-content-center'>
+              <div class='row m-auto pt-4'>
+                <h3 class='section-title-2'>Send us your resume</h3>
+              </div>
+          
+              <div class='col justify-content-center'>
                 <input type="file" name="resume" class="input-resume m-auto" id="resume">
                 <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
             </div>
@@ -42,6 +42,16 @@
                         <a href="/" class="btn btn-outline-primary w-25 m-1 ps-5 pe-5">CANCEL</a>
                     </div>
                 </div>
+<<<<<<< HEAD
+              </div>
+
+        <div class ='col text-center p-5'>
+            <h6 class="section-title-3 p-4 pt-4 mt-1">Step 3 out of 3</h6>
+            <img src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" style="object-fit: cover;" id="output" height="300px" width="300px" class="rounded-circle border border-primary"/>
+            <div class='row m-auto pt-4'>
+              <h5 class='text-primary'>Upload your picture</h5>
+=======
+>>>>>>> 1677c0719d6dbe9a0a51d92d3fb7470872f4865d
             </div>
 
             <div class ='col text-center p-5'>

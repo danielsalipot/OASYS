@@ -3,7 +3,7 @@
         <!-- ======= About Section ======= -->
         <section id="about" class="about">
         <div class="ms-5 ps-5">
-            <h1>Deductions</h1>
+            <h1 class="section-title mt-5 pb-5">Deductions</h1>
 
             <div class="row">
                 <div class="col">

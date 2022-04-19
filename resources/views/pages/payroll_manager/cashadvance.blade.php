@@ -4,7 +4,7 @@
         <div class="col-1" style="width:6vw"></div>
 
         <div class="col">
-            <h1 class="display-2 pb-5">Employee Cash Advance</h1>
+            <h1 class="section-title mt-5 pb-5">Employee Cash Advance</h1>
 
             <div class="container">
                 <table class="table table-striped table-dark" id="cash_advance_table">

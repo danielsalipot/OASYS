@@ -103,52 +103,30 @@
                                 <div class ="col">
                                     <h6 id="dateout"> 5:30pm  </h6>
                                 </div>
-
-                            </div>
-                        </div>
-                        <br>
-                        <div class="col m-3 border border-secondary m-auto pb-2">
-                            <div class ="col border-secondary bg-light text-center border-bottom">
-                                <h6>Mon, 3/14/2022</h6>
-                            </div>
-                            <div class="row m-auto text-center">
-                                <div class ="col">
-                                    <p> Schedule </p>
-                                </div>
-                                <div class ="col">
-                                    <p> Time in </p>
-                                </div>
-                                <div class ="col">
-                                    <p> Date </p>
-                                </div>
-                                <div class ="col">
-                                    <p> Time out </p>
-                                </div>
-                            </div>
-                            <div class="row m-auto text-center">
-                                <div class ="col">
-                                    <h6> 7:00am </h6>
-                                </div>
-                                <div class ="col">
-                                    <h6 id="clocktimeout">  </h6>
-                                </div>
-                                <div class ="col">
-                                    <h6 id="dateout">  </h6>
-                                </div>
-                                <div class ="col">
-                                    <h6 id="dateout"> 5:30pm  </h6>
-                                </div>
-
                             </div>
                         </div>
                     </div>
 
                     <div class ="col m-3 border border-secondary" style='overflow-y:scroll;'>
                             <h4 class="text-primary text-center pt-2"> Payslips History</h4>
+                            <div class="col border border-secondary">
+                                <div class="row">
+                                <div class="col">
+                                    <p class="text-center pt-2" style='font-size:11px;'>Payslip 03/14/2022 - 03/30/2022</p>
+                                </div>
+                                <div class="col-4 pt-1">
+                                    {!! Form::open() !!}
+                                    {!! Form::submit('Download', ['class'=>'btn btn-primary btn-sm ']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                                </div>
+                            </div>
                     </div>
 
                     <div class ="col m-3 border border-secondary" style='overflow-y:scroll;'>
                             <h4 class="text-primary text-center pt-2"> Notification</h4>
+                            <div class="col border border-secondary p-3">
+                            </div>
                     </div>
                 </div>
                 </div>
