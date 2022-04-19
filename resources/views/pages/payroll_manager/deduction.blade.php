@@ -4,7 +4,7 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container p-2">
-                <h1 class="display-2 pb-5 pt-5">Deduction Management</h1>
+                <h1 class="section-title mt-4 pb-1 pt-4">Deduction Management</h1>
                 <div class="row w-100 h-100">
                     <div class="col-md-2 input-daterange">
                         <input type="text" name="from_date" id="from_date" class="form-control h-100" placeholder="From Date" readonly />

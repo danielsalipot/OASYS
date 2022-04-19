@@ -38,7 +38,7 @@
         <li><a href="/adminmessage" class="nav-link py-3 pt-1" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i></a></li>
         <li><a href="/adminnotification" class="nav-link py-3" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>      </ul>
       <ul>
-        <li><a href="/" class="nav-link pt-5 mt-5" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left"></i></a></li>
+        <li><a href="/logout" class="nav-link pt-5 mt-5" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left"></i></a></li>
       </ul>
     </nav><!-- .nav-menu -->
   </div>

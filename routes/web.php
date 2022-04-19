@@ -56,6 +56,8 @@ Route::get('deleteApplication', [CrudController::class, 'deleteApplication']);
 
 //Payroll Manager Routes
 Route::get('/deductiontype', [PayrollController::class, 'deductiontype']);
+Route::get('/bonus', [PayrollController::class, 'bonus']);
+Route::get('/doublepay', [PayrollController::class, 'doublepay']);
 Route::get('/message', [PayrollController::class, 'message']);
 Route::post('/editrate', [PayrollController::class, 'editrate']);
 

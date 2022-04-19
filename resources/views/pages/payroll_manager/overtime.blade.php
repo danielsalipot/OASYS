@@ -3,7 +3,7 @@
     <div class="row mt-4">
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
-                <h1 class="display-2 p-5 w-100 text-center">Overtime Management</h1>
+                <h1 class="section-title mt-4 pb-1 w-100 text-center">Overtime Management</h1>
 
                 <div id="myCarousel" class="carousel carousel-dark  slide" data-interval="false" data-ride="carousel">
                     <!-- Wrapper for slides -->

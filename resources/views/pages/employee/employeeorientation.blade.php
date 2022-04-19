@@ -4,7 +4,7 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container w-100 p-2">
-                <h1 class="section-title">Orientation Module</h1>
+                <h1 class="section-title mt-2 pb-1">Orientation Module</h1>
                 <div class="col-5 pb-2 w-100">
                     <h4>Orientation Progress</h4>
                 <div class="progress">

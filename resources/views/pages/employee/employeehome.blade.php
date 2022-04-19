@@ -4,11 +4,11 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container w-100 p-2">
-                <h1 class="display-4 pb-2">Employee Dashboard</h1>
+                <h1 class="section-title mt-2 pb-1">Employee Dashboard</h1>
 
                 <div class ="row">
                     <div class ="col ">
-                        <div class=' m-3 border border-primary p-2  '>
+                        <div class='m-3 border border-primary p-2 '>
                             <h4 class="text-primary text-center">Time In</h4>
                             <div class="row m-auto text-center">
                                 <div class ="col">

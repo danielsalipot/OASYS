@@ -16,7 +16,7 @@
         <li><a href="/staffnotification" class="nav-link py-3" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
       </ul>
       <ul>
-        <li><a href="/" class="nav-link pt-4 mt-3" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left"></i></a></li>
+        <li><a href="/logout" class="nav-link pt-4 mt-3" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left"></i></a></li>
       </ul>
     </nav><!-- .nav-menu -->
   </div>

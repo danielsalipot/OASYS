@@ -47,6 +47,12 @@ class PayrollController extends Controller
         function deductiontype(){
             return view('pages.payroll_manager.deductiontype');
         }
+        function bonus(){
+            return view('pages.payroll_manager.bonus');
+        }
+        function doublepay(){
+            return view('pages.payroll_manager.doublepay');
+        }
         function message(){
             return view('pages.payroll_manager.message');
         }

@@ -3,8 +3,8 @@
     <div style="overflow-y:hidden; overflow-x:hidden; height:100vh">
     <div class='row'>
         <div class ='col ps-5 pt-3'>
-            <div class='row m-auto text-primary'>
-                <h1 class='h1'>Applicant Dasboard</h1>
+            <div class='row m-auto'>
+                <h1 class='section-title'>Applicant Dasboard</h1>
             </div>
             <div class='col'>
                 <div class='card shadow h-50 m-4 border border-primary rounded p-4'>

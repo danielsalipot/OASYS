@@ -2,8 +2,8 @@
     @section('content')
     <div class="row mt-4">
         <div class="col-1" style="width:6vw"></div>
-
         <div class="col">
+            <div class="container p-2">
             <h1 class="section-title mt-5 pb-5">Employee Cash Advance</h1>
 
             <div class="container">

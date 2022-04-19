@@ -5,7 +5,7 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container w-100 p-2">
-                <h1 class="section-title mt-5 pb-5">Notification</h1>
+                <h1 class="section-title mt-5 pb-2">Notification</h1>
 
             <div class="row">
                 <div class ="col-4">

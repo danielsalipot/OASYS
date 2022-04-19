@@ -1,9 +1,10 @@
 @extends('layout.payroll_app')
     @section('content')
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about">
-        <div class="ms-5 ps-5">
-            <h1 class="section-title mt-5 pb-5">Deductions</h1>
+    <div class="row mt-5">
+      <div class="col-1" style="width:6vw"></div>
+      <div class="col">
+          <div class="container p-1">
+            <h1 class="section-title mt-4 pb-1">Deductions</h1>
 
             <div class="row">
                 <div class="col">
