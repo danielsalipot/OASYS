@@ -3,11 +3,11 @@
 <!-- ======= Features Section ======= -->
     <section id="features" class="features">
         <div class="container">
-  
-          <div class="section-title" data-aos="fade-up">
-            <h2>Features</h2>
-            <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
-          </div>
+          <div class="text-center">
+            <div class="section-title" data-aos="fade-up">
+              <h2>Features</h2>
+              <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
+            </div>
   
           <div class="row" data-aos="fade-up" data-aos-delay="300">
             <div class="col-lg-3 col-md-4">
@@ -83,7 +83,7 @@
               </div>
             </div>
           </div>
-  
+          </div>
         </div>
       </section><!-- End Features Section -->
 @endsection  
