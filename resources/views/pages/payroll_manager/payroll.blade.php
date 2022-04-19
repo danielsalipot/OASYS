@@ -4,7 +4,7 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container w-100 p-2">
-                <h1 class="display-2 pb-5">Payroll Management</h1>
+                <h1 class="section-title mt-5 pb-5">Payroll Management</h1>
                 <div class="row w-100 h-100">
                     <div class="col-md-2"><p class="text-center pt-2 h-100 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
                     <div class="col-md-1">

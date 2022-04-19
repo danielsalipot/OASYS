@@ -94,24 +94,24 @@
   color: #0063a5;
 }
 
-.page {
+.section-title {
   margin-top: 65px;
   font-size: 60px;
   font-weight: bold;
   color: #0063a5;
 }
 
-.s-page{
-  margin-top: -12px;
-  color: #7fcefc;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.a-page{
+.section-title-2{
   font-size: 40px;
   font-weight: bold;
   color: #0063a5;
+}
+
+.section-title-3{
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: -12px;
+  color: #7fcefc;
 }
 
 section {
@@ -123,11 +123,11 @@ section {
   background: #f5f8fd;
 }
 
-.section-title {
+.i-section-title {
   padding-top: 20px;
   padding-bottom: 30px;
 }
-.section-title h2 {
+.i-section-title h2 {
   font-size: 40px;
   font-weight: bold;
   margin-bottom: 20px;

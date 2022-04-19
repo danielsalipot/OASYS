@@ -11,8 +11,8 @@
                 <div class="alert alert-danger w-50 m-auto">{{Session::get('pass')}}</div>
             @endif
 
-            <h1 class="page">Create your Account</h1>
-            <h5 class="s-page">Step 1 out of 3</h5>
+            <h1 class="section-title">Create your Account</h1>
+            <h5 class="section-title-3">Step 1 out of 3</h5>
 
             <form class="p-1 mt-4" action="crudsignup" method="post">
                 @csrf

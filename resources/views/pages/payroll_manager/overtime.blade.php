@@ -4,7 +4,7 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container p-2">
-                <h1 class="display-2 pb-5">Overtime Management</h1>
+                <h1 class="section-title mt-5 pb-5">Overtime Management</h1>
                 <div class="row mb-2">
                     <div class="col-md-1">
                         <select id="time_filter" class="w-100 p-3">

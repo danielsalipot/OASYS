@@ -4,7 +4,7 @@
     <section id="features" class="features">
         <div class="container">
           <div class="text-center">
-            <div class="section-title" data-aos="fade-up">
+            <div class="i-section-title" data-aos="fade-up">
               <h2>Features</h2>
               <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
             </div>
