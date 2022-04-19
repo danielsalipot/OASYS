@@ -49,7 +49,7 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container w-100 p-2">
-                <h1 class="display-2 pb-5">Employee List</h1>
+                <h1 class="display-2 pb-5 pt-5">Employee List</h1>
                 <table class="table table-striped table-dark text-center w-100" id="employee_table">
                     <thead>
                         <tr class="text-center">
