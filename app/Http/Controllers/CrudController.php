@@ -72,6 +72,12 @@ class CrudController extends Controller
     }
 
     function crudapply(Request $request){
+        $request->validate([
+            'position'=>'required',
+            'picinput'=>'required',
+            'resume'=>'required'
+        ]);
+
         //FILE NAMES user id + file extension
         $picfilename =  session('user_id').".".$request->file('picinput')->getClientOriginalExtension();
         $resumefilename =  session('user_id').".".$request->file('resume')->getClientOriginalExtension();

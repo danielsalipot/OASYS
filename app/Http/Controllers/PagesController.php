@@ -31,6 +31,9 @@ class PagesController extends Controller
         if(session()->has('user_id') && session('user_type') == 'applicant'){
             return redirect('/applicanthome');
         }
+        if(session()->has('user_id') && session('user_type') == 'payroll'){
+            return redirect('/payroll');
+        }
         return view('pages.login');
     }
 
@@ -58,14 +61,14 @@ class PagesController extends Controller
 
     //Applicants Functions
     function signup(){
-        if(session()->has('user_id')){
+        if(session->has('user_id')){
             return redirect('introduce');
         }
         return view('pages.applicants.signup');
     }
 
     function logout(Request $request){
-        $request->session()->flush();
+        session()->flush();
         return redirect('/');
     }
 

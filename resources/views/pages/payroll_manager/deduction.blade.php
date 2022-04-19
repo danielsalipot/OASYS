@@ -4,7 +4,7 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container p-2">
-                <h1 class="display-2 pb-5 pt-5">Deduction Management</h1>
+                <h1 class="section-title mt-5 pb-5">Deduction Management</h1>
                 <table class="table table-striped text-center table-dark" id="deduction_table">
                     <thead>
                         <tr class="text-center">
