@@ -4,7 +4,7 @@
             @if(Session::get('fail'))
                 <div class="alert alert-danger w-50 m-auto">{{Session::get('fail')}}</div>
             @endif
-            <h1 class="display-3 p-3">Login</h1>
+            <h1 class="section-title p-4">Login</h1>
             <div class='container'>
             {!! Form::open(['action'=> 'App\Http\Controllers\LoginController@crudlogin','method'=>'POST']) !!}
                 {!! Form::text('user', '', ['class' => 'm-auto form-control w-25 mt-3 p-2','placeholder' => 'username']) !!}
