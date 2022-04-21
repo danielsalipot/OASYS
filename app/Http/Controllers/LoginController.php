@@ -31,19 +31,19 @@ class LoginController extends Controller
             //
             switch(session('user_type')){
                 case 'applicant':
-                    return redirect('/applicanthome');
+                    return redirect('/applicant/home');
                     break;
                 case 'employee':
-                    return redirect('/employeehome');
+                    return redirect('/employee/home');
                     break;
                 case 'payroll':
-                    return redirect('/payroll');
+                    return redirect('/payroll/home');
                     break;
                 case 'admin':
-                    return redirect('/adminhome');
+                    return redirect('/admin/home');
                     break;
                 case 'staff':
-                    return redirect('/staffhome');
+                    return redirect('/staff/home');
                     break;
                 // add more cases for other user type
                 default:

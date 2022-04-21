@@ -113,8 +113,12 @@ class DocumentController extends Controller
     }
 
     public function payslipPdf(Request $request){
+
+        if(!file_exists("payslips/".$request->ps_col2)){
+            mkdir("payslips/".$request->ps_col2);
+        }
+
         $EmployeePaylipDetails = json_decode($request->ps_col1);
-        mkdir("payslips/".$request->ps_col2);
         foreach ($EmployeePaylipDetails as $key => $employee) {
             $pdf = new FPDF();
 

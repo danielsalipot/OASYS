@@ -10,7 +10,7 @@
                 <div class='card shadow h-50 m-4 border border-primary rounded p-4'>
                     <div class='row'>
                         <div class='col-4'>
-                            <img style='height:200px; width:200px;' class='shadow rounded-circle' src="{{$user->picture}}">
+                            <img style='height:200px; width:200px;' class='shadow rounded-circle' src="{{ URL::asset($user->picture)}}">
                         </div>
                         <div class='col'>
                             <div class='row text-primary'>
@@ -40,28 +40,28 @@
                             <h4>Educational Attainment</h4>
                             <p class='display-6 text-justify text-dark' name='educational'>{{$user->educ}}</p>
                         </div>
-    
+
                         <div class='row text-primary pb-2'>
                             <h4>Contact Number</h4>
                             <p class='display-6 text-justify text-dark' name='cpnum'>{{$user->cnum}}</p>
                         </div>
-    
+
                         <div class='row text-primary'>
                             <h4>Email Address</h4>
                             <p class='text-justify text-dark' style="font-size:20px;"name='email'>{{$user->email}}</p>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col text-center">
                         <div class="row">
                             <h2 class="text-primary">Applying for</h2>
-                            <h2 class="display-6 text-justify text-dark pb-4" name='position'>{{$user->Applyingfor}}</h2> 
+                            <h2 class="display-6 text-justify text-dark pb-4" name='position'>{{$user->Applyingfor}}</h2>
                         </div>
                         <div class="row">
                             <a href="/#" class="btn btn-primary w-50 m-auto"> Download Resume </a>
                         </div>
-                    </div>    
-                </div>            
-                    
+                    </div>
+                </div>
+
                 </div>
             </div>
 
@@ -82,9 +82,9 @@
                         </div>
                         @endforeach
                     </div>
-                </div>             
+                </div>
             </div>
-            
+
             <div class='row pt-5 m-auto'>
                 <div class="col">
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -94,10 +94,10 @@
                 <div class="col">
                     <a href='/logout' type="submit" class="btn btn-primary text-center w-50 m-1 ps-2 pe-2">LOGOUT</a>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
-    
+
     <!-- Button trigger modal -->
 
     <!-- Modal -->
@@ -122,4 +122,3 @@
 
     @endsection
 
-    

@@ -28,7 +28,7 @@
                                 </div>
                             </div>
 
-                            {!! Form::open(['action'=>'App\Http\Controllers\PayrollController@editrate']) !!}
+                            {!! Form::open(['action'=>'App\Http\Controllers\UpdateController@editrate']) !!}
                                 {{ Form::hidden('emp_id', '',['id' => 'emp_id']) }}
                                 {{Form::label('', 'Employee Rate', 'rate')}}
                                 {!! Form::text('rate','', ['id'=>'rate_txt','class'=>'form-control w-75']) !!}
@@ -84,7 +84,7 @@
                     },
                     { data: 'user_detail.picture',
                         render : (data,type,row)=>{
-                            return `<img src="${data}" class="rounded" width="50" height="50">`
+                            return `<img src="{{ URL::asset('${data}') }}" class="rounded" width="50" height="50">`
                         }
                     },
                     { data: 'user_detail.fname',
@@ -132,11 +132,11 @@
 
         function editRate(id){
             $.ajax({
-                url: 'fetchSingleEmployee',
+                url: '/fetchSingleEmployee',
                 type: 'get',
                 data: {employee_id: id},
                 success: function(response){
-                    $('#edit_pic').html(` <img src="${response.user_detail.picture}" class="border rounded-circle"height="100px" width="100px" >`)
+                    $('#edit_pic').html(` <img src="{{ URL::asset('${response.user_detail.picture}')}}" class="border rounded-circle"height="100px" width="100px" >`)
                     $('#emp_id').val(response.employee_id)
                     $('#id_txt').html(`<b>Employee ID: </b> <br>${response.employee_id}`)
                     $('#name_txt').html(`<b>Employee Name: </b> <br>${response.user_detail.fname} ${response.user_detail.mname} ${response.user_detail.lname}`)

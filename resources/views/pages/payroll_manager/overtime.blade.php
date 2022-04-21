@@ -47,7 +47,7 @@
                                 </thead>
                             </table>
                         </div>
-                        </div>
+                    </div>
 
                         <div class="item">
                             <div class="container w-100 text-center">
@@ -113,7 +113,7 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col">
-                            {!! Form::open(['action'=>'App\Http\Controllers\JsonController@InsertOvertime', 'method'=>'GET']) !!}
+                            {!! Form::open(['action'=>'App\Http\Controllers\InsertController@InsertOvertime', 'method'=>'GET']) !!}
                                 {!! Form::hidden('emp_id','',['id'=>'emp_id']) !!}
                                 {!! Form::hidden('attendance_id','',['id'=>'attendance_id']) !!}
                                 {!! Form::submit('Pay Overtime', ['class' => ' w-100 btn btn-primary']) !!}

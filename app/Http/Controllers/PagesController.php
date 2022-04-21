@@ -29,10 +29,10 @@ class PagesController extends Controller
     function login(){
         // check if a user is logged in, redirect them accourdingly
         if(session()->has('user_id') && session('user_type') == 'applicant'){
-            return redirect('/applicanthome');
+            return redirect('/applicant/home');
         }
         if(session()->has('user_id') && session('user_type') == 'payroll'){
-            return redirect('/payroll');
+            return redirect('/payroll/home');
         }
         return view('pages.login');
     }
@@ -42,6 +42,7 @@ class PagesController extends Controller
     function employeehome(){
         return view('pages.employee.employeehome');
     }
+
     function employeeorientation(){
         return view('pages.employee.employeeorientation');
     }

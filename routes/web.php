@@ -11,25 +11,73 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\JsonController;
+use App\Http\Controllers\InsertController;
+use App\Http\Controllers\UpdateController;
+
+
+// Employee Routes
+Route::prefix('')->group(function () {
+    include 'employee.php';
+});
+
+// Payroll Routes
+Route::prefix('')->group(function () {
+    include 'payroll.php';
+});
+
+// Applicant Routes
+Route::prefix('')->group(function () {
+    include 'applicants.php';
+});
+
+// Admin Routes
+Route::prefix('')->group(function () {
+    include 'admin.php';
+});
+
+// Staff Routes
+Route::prefix('')->group(function () {
+    include 'staff.php';
+});
+
+
 
 
 Route::get('/payroll1', [JsonController::class,'payroll1']);
 Route::get('/test', [LoginController::class,'test']);
+
+                    /////////////////////////
+                    //PDF generation ROUTES//
+                    /////////////////////////
+                            /////////
 Route::post('/payrollPDF', [DocumentController::class, 'payrollPdf']);
 Route::post('/payslipPdf', [DocumentController::class, 'payslipPdf']);
 
-// Json Payroll Routes
+                //////////////////////////////////////
+                //Json Payroll Routes for datatables//
+                //////////////////////////////////////
+                            //////////////
+// Payroll Page JSON ROUTE
 Route::get('/payrolljson', [JsonController::class,'payroll']);
 Route::get('/payslipjson', [JsonController::class,'payslip']);
+
+//Employee List JSON ROUTE
 Route::get('/fetchSingleEmployee', [JsonController::class,'fetchSingleEmployee']);
 
-Route::get('/cashadvancejson', [JsonController::class,'CashAdvance']);
+// Deduction JSON ROUTE
 Route::get('/deductionjson', [JsonController::class,'Deduction']);
+Route::post('/insertdeduction', [InsertController::class,'InsertDeduction']);
+Route::get('/employeedetailsjson', [JsonController::class,'EmployeeDetails']);
 
+//Cash Adavance JSON ROUTE
+Route::get('/cashadvancejson', [JsonController::class,'CashAdvance']);
+
+// Overtime JSON ROUTE
 Route::get('/overtimejson', [JsonController::class,'Overtime']);
-Route::get('/insertovertime', [JsonController::class,'InsertOvertime']);
+Route::get('/insertovertime', [InsertController::class,'InsertOvertime']);
 Route::get('/getPaidOvertime', [JsonController::class,'getPaidOvertime']);
 
+// Not yet done ROUTES for payroll
 Route::get('/deductiontypejson', [JsonController::class,'DeductionType']);
 Route::get('/employeelistjson', [JsonController::class,'EmployeeList']);
 Route::get('/messagejson', [JsonController::class,'Message']);
@@ -37,81 +85,44 @@ Route::get('/notificationjson', [JsonController::class,'Notification']);
 Route::get('/doublepayjson', [JsonController::class,'DoublePay']);
 Route::get('/bonusjson', [JsonController::class,'Bonus']);
 
+
+Route::post('applicant/crudsignup', [CrudController::class, 'crudsignup']);
+Route::post('applicant/crudintroduce', [CrudController::class, 'crudintroduce']);
+Route::post('applicant/crudapply', [CrudController::class, 'crudapply']);
+
+                ////////////////////////
+                //Landing Pages routes//
+                ////////////////////////
+                        ///////
+// Landing Pages
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
 Route::get('/features', [PagesController::class, 'features']);
 
+                //////////////////////
+                //Login Pages routes//
+                //////////////////////
+                        //////
 //Login routes
 Route::get('/login', [PagesController::class, 'login']);
 Route::post('crudlogin', [LoginController::class, 'crudlogin']);
 
-
-//Create User Routes
+            //////////////////////////
+            //Applicant Pages Routes//
+            //////////////////////////
+                    /////////
+// STEP 1 BACKEND ROUTE
 Route::post('crudsignup', [CrudController::class, 'crudsignup']);
+// STEP 2 BACKEND ROUTE
 Route::post('crudintroduce', [CrudController::class, 'crudintroduce']);
+// STEP 3 BACKEND ROUTE
 Route::post('crudapply', [CrudController::class, 'crudapply']);
 
 //Delete applicant's account
 Route::get('deleteApplication', [CrudController::class, 'deleteApplication']);
 
-//Payroll Manager Routes
-Route::get('/deductiontype', [PayrollController::class, 'deductiontype']);
-Route::get('/bonus', [PayrollController::class, 'bonus']);
-Route::get('/doublepay', [PayrollController::class, 'doublepay']);
-Route::get('/message', [PayrollController::class, 'message']);
-Route::post('/editrate', [PayrollController::class, 'editrate']);
-
-Route::get('/deduction', [PayrollController::class, 'deduction']);
-Route::get('/notification', [PayrollController::class, 'notification']);
-Route::get('/cashadvance', [PayrollController::class, 'cashadvance']);
-Route::get('/overtime', [PayrollController::class, 'overtime']);
-
-Route::get('/employeelist', [PayrollController::class, 'employeelist']);
-Route::get('/payroll', [PayrollController::class, 'payroll']);
-
-Route::post('/filterSearch',[SearchController::class,'filterSearch']);
-
-//HR Admin Routes
-Route::get('/adminhome', [AdminController::class, 'adminhome']);
-Route::get('/attendance', [AdminController::class, 'attendance']);
-Route::get('/performance', [AdminController::class, 'performance']);
-Route::get('/peopleorientation', [AdminController::class, 'peopleorientation']);
-Route::get('/moduleorientation', [AdminController::class, 'moduleorientation']);
-Route::get('/peopletraining', [AdminController::class, 'peopletraining']);
-Route::get('/moduletraining', [AdminController::class, 'moduletraining']);
-Route::get('/peoplecorrection', [AdminController::class, 'peoplecorrection']);
-Route::get('/modulecorrection', [AdminController::class, 'modulecorrection']);
-Route::get('/adminmessage', [AdminController::class, 'adminmessage']);
-Route::get('/adminnotification', [AdminController::class, 'adminnotification']);
-
-//HR Staff Routes
-Route::get('/staffhome', [StaffController::class, 'staffhome']);
-Route::get('/onboarding', [StaffController::class, 'onboarding']);
-Route::get('/termination', [StaffController::class, 'termination']);
-Route::get('/offboarding', [StaffController::class, 'offboarding']);
-Route::get('/schedules', [StaffController::class, 'schedules']);
-Route::get('/interview', [StaffController::class, 'interview']);
-Route::get('/department', [StaffController::class, 'department']);
-Route::get('/position', [StaffController::class, 'position']);
-Route::get('/staffmessage', [StaffController::class, 'staffmessage']);
-Route::get('/staffnotification', [StaffController::class, 'staffnotification']);
-
-
-//Employee Routes
-Route::get('/employeehome', [PagesController::class, 'employeehome']);
-Route::get('/employeeorientation', [PagesController::class, 'employeeorientation']);
-Route::get('/employeetraining', [PagesController::class, 'employeetraining']);
-Route::get('/employeecorrection', [PagesController::class, 'employeecorrection']);
-Route::get('/employeemessage', [PagesController::class, 'employeemessage']);
-Route::get('/employeeprofile', [PagesController::class, 'employeeprofile']);
-
-
-//Applicants Routes
-Route::get('/introduce', [PagesController::class, 'introduce']);
-Route::get('/signup', [PagesController::class, 'signup']);
-Route::get('/application', [PagesController::class, 'application']);
-Route::get('/applying', [PagesController::class, 'applying']);
-Route::get('/applicanthome', [PagesController::class, 'applicanthome']);
+// Update Controller for updating Employee Rates
+Route::post('/editrate', [UpdateController::class, 'editrate']);
 
 //Logout
 Route::get('/logout', [PagesController::class, 'logout']);

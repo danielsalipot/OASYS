@@ -37,7 +37,7 @@ class CrudController extends Controller
                 $request->session()->put('user_type',$user_id->user_type);
 
                 // before redirecting, create session to login the newly created user
-                return redirect('/introduce')->with('success', 'Data has been inserted successfuly');
+                return redirect('/applicant/introduce')->with('success', 'Data has been inserted successfuly');
             }else{
                 return back()->with('taken','Username is already taken');
             }
@@ -68,7 +68,7 @@ class CrudController extends Controller
         $request->session()->put('educ', $request->input('educ'));
         $request->session()->put('bday', $request->input('bday'));
 
-        return redirect('/applying');
+        return redirect('/applicant/applying');
     }
 
     function crudapply(Request $request){
@@ -119,7 +119,7 @@ class CrudController extends Controller
 
         if($query1 && $query2){
             // Redirect to applicant dashboard
-            return redirect('/applicanthome')->with('success', 'Data has been inserted successfuly');
+            return redirect('/applicant/home')->with('success', 'Data has been inserted successfuly');
         }else{
             return back()->with('fail','something went wrong');
         }

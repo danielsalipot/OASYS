@@ -134,9 +134,14 @@ class JsonController extends Controller
                                             ->get();
     }
 
-    public function Deduction(){
+    public function EmployeeDetails(){
+        return EmployeeDetail::with('UserDetail')->get();
+    }
+
+    public function Deduction(Request $request){
         return Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
                         ->join('user_details','user_details.information_id','=','employee_details.information_id')
+                        ->whereBetween('deductions.deduction_date',[$request->from_date,$request->to_date])
                         ->get();
     }
 
@@ -222,15 +227,6 @@ class JsonController extends Controller
             $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
         }
         return $paid_overtime_arr;
-    }
-
-    public function InsertOvertime(Request $request){
-        Overtime::create([
-            'employee_id' => $request->emp_id,
-            'attendance_id' => $request->attendance_id
-        ]);
-
-        return redirect('/overtime');
     }
 
     public function DoublePay(){

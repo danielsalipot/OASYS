@@ -70,30 +70,15 @@
             $('#payslipGenerate').removeClass('d-none');
             $('#payslip').addClass('d-none')
 
-            if($('#from_date').val() == ""){
-                let { start_date, end_date } = getDateToday();
-
-                $.ajax({
-                    url: 'payslipjson',
-                    type: 'get',
-                    data: {start_date: start_date,end_date: end_date },
-                    success: function(response){
-                        $('#ps_col1').val(JSON.stringify(response))
-                        $('#ps_col2').val(`${start_date} - ${end_date}`)
-                    }
-                });
-            }
-            else{
-                $.ajax({
-                    url: 'payslipjson',
-                    type: 'get',
-                    data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
-                    success: function(response){
-                        $('#ps_col1').val(JSON.stringify(response))
-                        $('#ps_col2').val(`${$('#from_date').val()} - ${$('#to_date').val()}`)
-                    }
-                });
-            }
+            $.ajax({
+                url: '/payslipjson',
+                type: 'get',
+                data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
+                success: function(response){
+                    $('#ps_col1').val(JSON.stringify(response))
+                    $('#ps_col2').val(`${$('#from_date').val()} - ${$('#to_date').val()}`)
+                }
+            });
         })
 
 
@@ -111,30 +96,15 @@
             $('#payrollGenerate').removeClass('d-none');
             $('#payroll').addClass('d-none')
 
-            if($('#from_date').val() == ""){
-                let { start_date, end_date } = getDateToday();
-
-                $.ajax({
-                    url: 'payslipjson',
-                    type: 'get',
-                    data: {start_date: start_date,end_date: end_date },
-                    success: function(response){
-                        $('#pr_col1').val(JSON.stringify(response))
-                        $('#pr_col2').val(`${start_date} - ${end_date}`)
-                    }
-                });
-            }
-            else{
-                $.ajax({
-                    url: 'payslipjson',
-                    type: 'get',
-                    data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
-                    success: function(response){
-                        $('#pr_col1').val(JSON.stringify(response))
-                        $('#pr_col2').val(`${$('#from_date').val()} - ${$('#to_date').val()}`)
-                    }
-                });
-            }
+            $.ajax({
+                url: '/payslipjson',
+                type: 'get',
+                data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
+                success: function(response){
+                    $('#pr_col1').val(JSON.stringify(response))
+                    $('#pr_col2').val(`${$('#from_date').val()} - ${$('#to_date').val()}`)
+                }
+            });
         })
 
         // DATATABLES FUNCTIONS
@@ -174,7 +144,7 @@
                         },
                         { data: 'user_detail.picture',
                             render : (data,type,row)=>{
-                                return `<img src="${data}" class="rounded" width="50" height="50">`
+                                return `<img src="{{ URL::asset('${data}')}}" class="rounded" width="50" height="50">`
                         }
                         },
                         { data: 'full_name',
@@ -247,19 +217,19 @@
 
         function getDateToday(){
             var today = new Date();
-                var start_date = ''
-                var end_date = ''
+            var start_date = ''
+            var end_date = ''
 
-                if(today.getDate() < 16){
-                    start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1;
-                    end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15;
-                }
-                else{
-                    start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16;
-                    end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30;
-                }
+            if(today.getDate() < 16){
+                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1;
+                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15;
+            }
+            else{
+                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16;
+                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30;
+            }
 
-                return {start_date,end_date};
+            return {start_date,end_date};
         }
     </script>
     @endsection

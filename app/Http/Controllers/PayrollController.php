@@ -21,11 +21,6 @@ class PayrollController extends Controller
             return view('pages.payroll_manager.employeelist');
         }
 
-        function editrate(Request $request){
-            $employee = EmployeeDetail::where('employee_id',$request->emp_id)->update(['rate' => $request->rate]);
-            return redirect('/employeelist')->with('success','Post Created');
-        }
-
         function deduction(){
             $employeeDeductions = Deduction::join('employee_details','employee_details.employee_id','=','deductions.employee_id')
                             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
