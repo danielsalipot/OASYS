@@ -74,7 +74,6 @@
                                     </div>
                                     <div class="container">
                                         <h1 class="display-5 m-3 text-center w-100">Deduction Details</h1>
-                                        {!! Form::open() !!}
                                         <div class="m-5 ps-5 pe-5">
                                             {!! Form::label('deduction_start_date_input', 'Deduction Date', ['class'=>'w-100 text-center']) !!}
                                             <div class="row mb-3 w-100">
@@ -102,7 +101,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {!! Form::close() !!}
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +126,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title w-100">Continue to Add Deduction</h4>
+                    <h4 class="modal-title w-100">Continue to Add Cash Advance</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -323,6 +321,7 @@
                     ]
                 })
         })
+
         function selectEmployee(btn, emp_id, emp_picture, emp_name, emp_department, emp_position){
             if(btn.innerHTML == "Select"){
                 btn.innerHTML = 'Selected'
@@ -331,7 +330,6 @@
                 $('#hidden_emp_id').val(`${$('#hidden_emp_id').val()}${emp_id};`)
 
                 $('#modal_emp_id').html(`${$('#modal_emp_id').html()}${emp_id}<br>`)
-
                 $('#modal_emp_names').html(`${$('#modal_emp_names').html()}${emp_name}<br>`)
 
                 $('#selected_employee_table').html(
@@ -352,7 +350,6 @@
                 $('#hidden_emp_id').val($('#hidden_emp_id').val().replace(`${emp_id};`,''))
 
                 $('#modal_emp_id').html(`${$('#modal_emp_id').html().replace(`${emp_id}<br>`,'')}`)
-
                 $('#modal_emp_names').html(`${$('#modal_emp_names').html().replace(`${emp_name}<br>`,'')}`)
 
                 $('#selected_employee_table').html($('#selected_employee_table').html().replace(`<tr>
@@ -364,6 +361,7 @@
                 </tr>`,''))
             }
         }
+
         function updateDeductionDate(){
             var today = new Date();
             $('#deduction_start_date_input').val(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\EmployeeDetail;
 use App\Models\UserDetail;
+use App\Models\CashAdvance;
 use App\Models\Attendance;
 use App\Models\Deduction;
 use App\Models\Overtime;
@@ -128,9 +129,10 @@ class JsonController extends Controller
         return $PayrollDetails;
     }
 
-    public function CashAdvance(){
+    public function CashAdvance(Request $request){
         return $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
                                             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+                                            ->whereBetween('cash_advances.cash_advance_date',[$request->from_date,$request->to_date])
                                             ->get();
     }
 

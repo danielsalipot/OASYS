@@ -71,6 +71,7 @@ Route::get('/employeedetailsjson', [JsonController::class,'EmployeeDetails']);
 
 //Cash Adavance JSON ROUTE
 Route::get('/cashadvancejson', [JsonController::class,'CashAdvance']);
+Route::post('/insertcashadvance', [InsertController::class,'InsertCashAdvance']);
 
 // Overtime JSON ROUTE
 Route::get('/overtimejson', [JsonController::class,'Overtime']);
