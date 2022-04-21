@@ -4,7 +4,7 @@
 
     <nav id="navbar" class="nav-menu navbar">
       <ul>
-        <li><a href="/staffhome"  class="nav-link py-3 pt-0" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
+        <li><a href="/staffhome"  class="nav-link py-3 pt-0" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill"></i></a></li>
         <li><a href="/onboarding"  class="nav-link py-3" title="Onboarding" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-check-fill"></i></a></li>
         <li><a href="/termination" class="nav-link py-3" title="Termination/Resignation" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-dash-circle-fill"></i></a></li>
         <li><a href="/offboarding" class="nav-link py-3" title="Offboarding" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-x-fill"></i></a></li>

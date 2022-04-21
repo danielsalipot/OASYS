@@ -6,7 +6,7 @@
         <form action="/crudapply" method="post" enctype="multipart/form-data">
             @csrf
             <div class='row m-auto text-primary'>
-            <h1 class='page'>I am applying for</h1>
+            <h1 class='section-title'>I am applying for</h1>
 
             <div class='row m-auto w-50 mt-3 mb-3'>
                 <label for="inputState">Choose a position</label>
