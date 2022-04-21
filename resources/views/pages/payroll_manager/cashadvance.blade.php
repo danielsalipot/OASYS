@@ -291,10 +291,9 @@
             $('#filter').click(function(){
                 var from_date = $('#from_date').val();
                 var to_date = $('#to_date').val();
-                var time_filter = $('#time_filter').find(":selected").val()
                 if(from_date != '' &&  to_date != ''){
-                    $('#overtime_table').DataTable().destroy();
-                    load_table(from_date, to_date,time_filter);
+                    $('#cash_advance_table').DataTable().destroy();
+                    load_table(from_date, to_date);
                 }else{
                     alert('Both Date is required');
                 }
@@ -304,9 +303,8 @@
                 let { start_date, end_date } = getDateToday();
                 $('#from_date').val(start_date);
                 $('#to_date').val(end_date);
-                $("#time_filter").val('1800').change();;
-                $('#overtime_table').DataTable().destroy();
-                load_table(start_date,end_date,1800);
+                $('#cash_advance_table').DataTable().destroy();
+                load_table(start_date,end_date);
             });
         })
 
