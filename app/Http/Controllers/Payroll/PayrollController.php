@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payroll;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,10 +23,7 @@ class PayrollController extends Controller
         }
 
         function deduction(){
-            $employeeDeductions = Deduction::join('employee_details','employee_details.employee_id','=','deductions.employee_id')
-                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-                            ->paginate(6);
-            return view('pages.payroll_manager.deduction',['employeeDeductions' => $employeeDeductions]);
+            return view('pages.payroll_manager.deduction');
         }
 
         function overtime(){
@@ -33,24 +31,25 @@ class PayrollController extends Controller
         }
 
         function cashadvance(){
-            $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
-                                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-                                            ->paginate(6);
-            return view('pages.payroll_manager.cashadvance',['cashAdvanceRecord'=>$cashAdvanceRecord]);
+            return view('pages.payroll_manager.cashadvance');
         }
 
         function deductiontype(){
             return view('pages.payroll_manager.deductiontype');
         }
+
         function bonus(){
             return view('pages.payroll_manager.bonus');
         }
+
         function doublepay(){
             return view('pages.payroll_manager.doublepay');
         }
+
         function message(){
             return view('pages.payroll_manager.message');
         }
+
         function notification(){
             return view('pages.payroll_manager.notification');
         }

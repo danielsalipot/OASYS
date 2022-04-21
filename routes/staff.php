@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\StaffController;
+use App\Http\Controllers\Staff\StaffController;
 
 Route::prefix('staff')->group(function () {
     Route::get('/home', [StaffController::class, 'staffhome']);

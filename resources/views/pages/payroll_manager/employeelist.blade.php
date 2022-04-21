@@ -28,7 +28,7 @@
                                 </div>
                             </div>
 
-                            {!! Form::open(['action'=>'App\Http\Controllers\UpdateController@editrate']) !!}
+                            {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@editrate']) !!}
                                 {{ Form::hidden('emp_id', '',['id' => 'emp_id']) }}
                                 {{Form::label('', 'Employee Rate', 'rate')}}
                                 {!! Form::text('rate','', ['id'=>'rate_txt','class'=>'form-control w-75']) !!}

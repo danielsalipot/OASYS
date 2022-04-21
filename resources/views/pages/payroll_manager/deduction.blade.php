@@ -176,7 +176,7 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col">
-                            {!! Form::open(['action'=>'App\Http\Controllers\InsertController@InsertDeduction']) !!}
+                            {!! Form::open(['action'=>'App\Http\Controllers\PayrollInsertController@InsertDeduction']) !!}
                                 {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
                                 {!! Form::hidden('hidden_deduction_start_date','',['id'=>'hidden_deduction_start_date']) !!}
                                 {!! Form::hidden('hidden_deduction_end_date','',['id'=>'hidden_deduction_end_date']) !!}

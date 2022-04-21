@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payroll;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Overtime;
 use App\Models\CashAdvance;
 use App\Models\Deduction;
 
-
-class InsertController extends Controller
+class PayrollInsertController extends Controller
 {
     public function InsertOvertime(Request $request){
         Overtime::create([
@@ -50,4 +50,3 @@ class InsertController extends Controller
         return redirect('/payroll/cashadvance');
     }
 }
-

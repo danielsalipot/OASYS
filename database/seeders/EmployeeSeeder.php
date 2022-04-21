@@ -59,7 +59,7 @@ class EmployeeSeeder extends Seeder
             'educ' => 'College',
             'position' => (rand(0,1)) ? 'Manager' : 'Teacher',
             'department' => (rand(0,1)) ? 'Faculty' : 'Marketing',
-            'rate' => rand(1000,10000) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
+            'rate' => rand(500,1500) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
             'employment_status' => (rand(0,1)) ? 'Onboardee' : 'regular',
             'resume' => 'resume/1.pdf',
             'start_date' => $faker->date('Y-m-d','now'),

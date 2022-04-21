@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\PagesController;
+use App\Http\Controllers\Employee\EmployeeController;
 
 Route::prefix('employee')->group(function () {
-    Route::get('/home', [PagesController::class, 'employeehome']);
-    Route::get('/orientation', [PagesController::class, 'employeeorientation']);
-    Route::get('/training', [PagesController::class, 'employeetraining']);
-    Route::get('/correction', [PagesController::class, 'employeecorrection']);
-    Route::get('/message', [PagesController::class, 'employeemessage']);
-    Route::get('/profile', [PagesController::class, 'employeeprofile']);
+    Route::get('/home', [EmployeeController::class, 'employeehome']);
+    Route::get('/orientation', [EmployeeController::class, 'employeeorientation']);
+    Route::get('/training', [EmployeeController::class, 'employeetraining']);
+    Route::get('/correction', [EmployeeController::class, 'employeecorrection']);
+    Route::get('/message', [EmployeeController::class, 'employeemessage']);
+    Route::get('/profile', [EmployeeController::class, 'employeeprofile']);
 });

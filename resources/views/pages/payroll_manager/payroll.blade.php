@@ -9,13 +9,13 @@
                     <div class="col-md-2"><p class="text-center pt-2 h-100 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
                     <div class="col-md-1">
                         <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
-                        {!! Form::open(['action'=>'App\Http\Controllers\DocumentController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
+                        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYROLLPDFController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
                             {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payrollGenerate']) !!}
                         {!! Form::close() !!}
                     </div>
                     <div class="col-md-1">
                         <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
-                        {!! Form::open(['action'=>'App\Http\Controllers\DocumentController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
+                        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
                             {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payslipGenerate']) !!}
                         {!! Form::close() !!}
                     </div>

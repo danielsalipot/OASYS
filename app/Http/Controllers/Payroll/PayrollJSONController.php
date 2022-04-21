@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payroll;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\EmployeeDetail;
@@ -11,9 +12,9 @@ use App\Models\Attendance;
 use App\Models\Deduction;
 use App\Models\Overtime;
 
-class JsonController extends Controller
-{
 
+class PayrollJSONController extends Controller
+{
     function Payroll1(){
         $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
         foreach ($PayrollDetails as $key => $value) {

@@ -83,7 +83,7 @@
                                 <div class="container">
                                     <h1 class="display-5 mb-3 text-center w-100">Cash Advance Details</h1>
                                     <div class="m-5 ps-5 pe-5">
-                                        {!! Form::label('cash_advance_date_input', 'Deduction Date', ['class'=>'w-100 text-center']) !!}
+                                        {!! Form::label('cash_advance_date_input', 'Cash Advance Date', ['class'=>'w-100 text-center']) !!}
                                         <div class="row mb-3 w-100">
                                             <div class="input-daterange">
                                                 <input type="text" name="cash_advance_date_input" id="cash_advance_date_input" class="form-control h-100 ms-2 p-3 m-auto" placeholder="From Date" readonly />
@@ -170,7 +170,7 @@
                     <div class="modal-footer">
                         <div class="row">
                             <div class="col">
-                                {!! Form::open(['action'=>'App\Http\Controllers\InsertController@InsertCashAdvance']) !!}
+                                {!! Form::open(['action'=>'App\Http\Controllers\PayrollInsertController@InsertCashAdvance']) !!}
                                     {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
                                     {!! Form::hidden('hidden_cash_advance_date','',['id'=>'hidden_cash_advance_date']) !!}
                                     {!! Form::hidden('hidden_cash_advance_amount','',['id'=>'hidden_cash_advance_amount']) !!}

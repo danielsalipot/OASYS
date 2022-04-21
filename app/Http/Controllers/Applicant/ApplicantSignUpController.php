@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Applicant;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\UserCredential;
 use App\Models\UserDetail;
 use App\Models\ApplicantDetail;
-use App\Models\EmployeeDetail;
 
-class CrudController extends Controller
+class ApplicantSignUpController extends Controller
 {
     function crudsignup(Request $request){
         $request->validate([
@@ -133,9 +133,5 @@ class CrudController extends Controller
         ApplicantDetail::where('login_id', $id)->delete();
 
         return redirect('/logout');
-    }
-
-    public function test(){
-        return EmployeeDetail::with('Attendance')->get();
     }
 }
