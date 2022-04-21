@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\AdminController;
 
 Route::prefix('admin')->group(function () {
     Route::get('/home', [AdminController::class, 'adminhome']);
