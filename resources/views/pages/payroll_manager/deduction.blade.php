@@ -28,7 +28,8 @@
                                     <tr class="text-center">
                                         <th scope="col">Employee Details</th>
                                         <th scope="col">Deduction Name</th>
-                                        <th scope="col">Deduction Date</th>
+                                        <th scope="col">Deduction Start Date</th>
+                                        <th scope="col">Deduction End Date</th>
                                         <th scope="col">Deduction Amount</th>
                                     </tr>
                                 </thead>
@@ -75,10 +76,14 @@
                                         <h1 class="display-5 m-3 text-center w-100">Deduction Details</h1>
                                         {!! Form::open() !!}
                                         <div class="m-5 ps-5 pe-5">
-                                            {!! Form::label('deduction_date_input', 'Deduction Date', ['class'=>'w-100 text-center']) !!}
-                                            <div class="w-100">
-                                                <div class="input-daterange">
-                                                    <input type="text" name="deduction_date_input" id="deduction_date_input" class="form-control h-100 p-3 w-25 mb-3 m-auto" placeholder="To Date" readonly />
+                                            {!! Form::label('deduction_start_date_input', 'Deduction Date', ['class'=>'w-100 text-center']) !!}
+                                            <div class="row mb-3 w-100">
+                                                <div class="col input-daterange">
+                                                    <input type="text" name="deduction_start_date_input" id="deduction_start_date_input" class="form-control h-100 p-3 w-75 m-auto" placeholder="From Date" readonly />
+                                                </div>
+                                                <div class="col-1 text-center h2 pt-2">-</div>
+                                                <div class="col input-daterange">
+                                                    <input type="text" name="deduction_end_date_input" id="deduction_end_date_input" class="form-control h-100 p-3 w-75 m-auto" placeholder="To Date" readonly />
                                                 </div>
                                             </div>
 
@@ -123,7 +128,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title w-100">Continue to Pay Overtime</h4>
+                    <h4 class="modal-title w-100">Continue to Add Deduction</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -149,7 +154,16 @@
                             <hr>
 
                             <h6>Deduction Date</h6>
-                            {!! Form::text('modal_deduction_date', 'date', ['disabled','id'=>'modal_deduction_date','class'=>'p-2 w-100 text-center']) !!}
+                            <div class="row">
+                                <div class="col">
+                                    {!! Form::text('modal_deduction_start_date', 'from date', ['disabled','id'=>'modal_deduction_start_date','class'=>'p-2 w-100 text-center']) !!}
+                                </div>
+                                <div class="col-1 h2">-</div>
+                                <div class="col">
+                                    {!! Form::text('modal_deduction_end_date', 'to date', ['disabled','id'=>'modal_deduction_end_date','class'=>'p-2 w-100 text-center']) !!}
+                                </div>
+                            </div>
+
                             <hr>
                             <h6>Deduction Name</h6>
                             {!! Form::text('modal_deduction_name', 'date', ['disabled','id'=>'modal_deduction_name','class'=>'p-2 w-100 text-center']) !!}
@@ -166,7 +180,8 @@
                         <div class="col">
                             {!! Form::open(['action'=>'App\Http\Controllers\InsertController@InsertDeduction']) !!}
                                 {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
-                                {!! Form::hidden('hidden_deduction_date','',['id'=>'hidden_deduction_date']) !!}
+                                {!! Form::hidden('hidden_deduction_start_date','',['id'=>'hidden_deduction_start_date']) !!}
+                                {!! Form::hidden('hidden_deduction_end_date','',['id'=>'hidden_deduction_end_date']) !!}
                                 {!! Form::hidden('hidden_deduction_name','',['id'=>'hidden_deduction_name']) !!}
                                 {!! Form::hidden('hidden_deduction_amount','',['id'=>'hidden_deduction_amount']) !!}
                                 {!! Form::submit('Confirm Deduction', ['class' => ' w-100 btn btn-success']) !!}
@@ -220,7 +235,12 @@
                                 return `<b>${data}</b>`
                             }
                         },
-                        { data: 'deduction_date',
+                        { data: 'deduction_start_date',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'deduction_end_date',
                             render : (data,type,row)=>{
                                 return `<b>${data}</b>`
                             }
@@ -346,7 +366,8 @@
         }
         function updateDeductionDate(){
             var today = new Date();
-            $('#deduction_date_input').val(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`)
+            $('#deduction_start_date_input').val(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`)
+            $('#deduction_end_date_input').val(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30)
         }
 
         function getDateToday(){
@@ -367,11 +388,13 @@
         }
 
         function addDeduction(){
-            $('#hidden_deduction_date').val($('#deduction_date_input').val())
+            $('#hidden_deduction_start_date').val($('#deduction_start_date_input').val())
+            $('#hidden_deduction_end_date').val($('#deduction_end_date_input').val())
             $('#hidden_deduction_name').val($('#deduction_name').val())
             $('#hidden_deduction_amount').val($('#deduction_amount').val())
 
-            $('#modal_deduction_date').val($('#deduction_date_input').val())
+            $('#modal_deduction_start_date').val($('#deduction_start_date_input').val())
+            $('#modal_deduction_end_date').val($('#deduction_end_date_input').val())
             $('#modal_deduction_name').val($('#deduction_name').val())
             $('#modal_deduction_amount').val($('#deduction_amount').val())
         }

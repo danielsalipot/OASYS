@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('payrollManager_id');
             $table->string('employee_id');
             $table->string('deduction_name');
-            $table->date('deduction_date');
+            $table->date('deduction_start_date');
+            $table->date('deduction_end_date');
             $table->decimal('deduction_amount',9,2);
             $table->timestamps();
         });

@@ -27,12 +27,11 @@ class InsertController extends Controller
                 'payrollManager_id' => '2',
                 'employee_id' => $employee_ids[0],
                 'deduction_name' => $request->hidden_deduction_name,
-                'deduction_date' => $request->hidden_deduction_date,
+                'deduction_start_date' => $request->hidden_deduction_start_date,
+                'deduction_end_date' => $request->hidden_deduction_end_date,
                 'deduction_amount' => $request->hidden_deduction_amount
             ]);
-
         }
-
         return redirect('/payroll/deduction');
     }
 }

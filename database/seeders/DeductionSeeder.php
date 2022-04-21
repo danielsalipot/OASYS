@@ -27,7 +27,8 @@ class DeductionSeeder extends Seeder
                 'employee_id' => rand(1,10),
                 'deduction_name' => 'Loan',
                 'deduction_amount' => rand(1000,10000) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
-                'deduction_date' => $faker->dateTimeInInterval('-7 weeks', '+14 weeks')
+                'deduction_start_date' => $faker->dateTimeInInterval('-7 weeks', '+14 weeks'),
+                'deduction_end_date' => $faker->dateTimeInInterval('-1 weeks', '+14 weeks')
             ]);
         }
     }

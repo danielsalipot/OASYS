@@ -141,7 +141,7 @@ class JsonController extends Controller
     public function Deduction(Request $request){
         return Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
                         ->join('user_details','user_details.information_id','=','employee_details.information_id')
-                        ->whereBetween('deductions.deduction_date',[$request->from_date,$request->to_date])
+                        ->whereBetween('deductions.deduction_start_date',[$request->from_date,$request->to_date])
                         ->get();
     }
 
