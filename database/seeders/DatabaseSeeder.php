@@ -30,8 +30,9 @@ class DatabaseSeeder extends Seeder
             $this->call(NotifSeeder::class);
         }
 
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 15; $i++) {
             $this->call(CashadvanceSeeder::class);
+            $this->call(BonusSeeder::class);
         }
 
         $this->call(AttendanceSeeder::class);

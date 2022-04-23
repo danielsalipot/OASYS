@@ -10,7 +10,9 @@ use App\Models\UserDetail;
 use App\Models\CashAdvance;
 use App\Models\Attendance;
 use App\Models\Deduction;
+use App\Models\MultiPay;
 use App\Models\Overtime;
+use App\Models\Bonus;
 
 
 class PayrollJSONController extends Controller
@@ -148,24 +150,12 @@ class PayrollJSONController extends Controller
                         ->get();
     }
 
-    public function DeductionType(){
-
-    }
-
     public function EmployeeList(){
         return $employeeDetails = EmployeeDetail::with('UserDetail')->get();
     }
 
     public function fetchSingleEmployee(Request $request){
         return $employeeDetails = EmployeeDetail::where('employee_id',$request->employee_id)->with('UserDetail')->first();
-    }
-
-    public function Message(){
-
-    }
-
-    public function Notification(){
-
     }
 
     public function Overtime(Request $request){
@@ -232,11 +222,64 @@ class PayrollJSONController extends Controller
         return $paid_overtime_arr;
     }
 
-    public function DoublePay(){
+    public function Bonus(Request $request){
+        return $BonusRecords = Bonus::join('employee_details', 'bonuses.employee_id','=','employee_details.employee_id')
+                                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+                                            ->whereBetween('bonuses.bonus_date',[$request->from_date,$request->to_date])
+                                            ->get();
+    }
+
+    public function fetchAttedance(Request $request){
+        $attendance = Attendance::join('employee_details','employee_details.employee_id','=','attendances.employee_id')
+                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+                            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+                            ->get();
+
+        $normal_pay_attendance = [];
+        foreach ($attendance as $key => $value) {
+            if(MultiPay::where('attendance_id',$value->attendance_id)->first()){
+            }else{
+                array_push($normal_pay_attendance,$value);
+            }
+        }
+
+        foreach ($normal_pay_attendance as $key => $value) {
+            $value->overtime = Overtime::where('attendance_id',$value->attendance_id)->first();
+            if($value->overtime){
+                list($timein_hours, $timein_minutes, $timein_seconds) = explode(':',$value->time_in);
+                $timein = $timein_hours * 3600 + $timein_minutes * 60 + $timein_seconds;
+
+                list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$value->time_out);
+                $timeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
+
+                $value->total_hours = round(($timeout - $timein) / 3600,2);
+            }else{
+                list($timein_hours, $timein_minutes, $timein_seconds) = explode(':',$value->schedule_Timein);
+                $stimein = $timein_hours * 3600 + $timein_minutes * 60 + $timein_seconds;
+
+                list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$value->schedule_Timeout);
+                $stimeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
+
+                $value->total_hours = round(($stimeout - $stimein) / 3600,2);
+            }
+        }
+
+        return $normal_pay_attendance;
+    }
+
+    public function MultiPay(Request $request){
+        MultiPay::join('employee_details','employee_details.employee_id','=','multi_pays.employee_id')
+                ->join('attendances','attendances.attendance_id','=','multi_pays.attendance_id')
+                ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+                ->whereBetween('multi_pays.attendance_date',[$request->from_date,$request->to_date])
+                ->get();
+    }
+
+    public function Message(){
 
     }
 
-    public function Bonus(){
+    public function Notification(){
 
     }
 }

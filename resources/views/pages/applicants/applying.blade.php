@@ -1,4 +1,4 @@
-@extends('layout.applicant_app')
+    @extends('layout.applicant_app')
     @section('content')
     <div class='row'>
         <div class ='col text-center p-5'>

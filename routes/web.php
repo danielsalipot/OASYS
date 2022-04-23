@@ -73,6 +73,8 @@ Route::get('/fetchSingleEmployee', [PayrollJSONController::class,'fetchSingleEmp
 // Deduction JSON ROUTE
 Route::get('/deductionjson', [PayrollJSONController::class,'Deduction']);
 Route::post('/insertdeduction', [PayrollInsertController::class,'InsertDeduction']);
+
+Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeList']);
 Route::get('/employeedetailsjson', [PayrollJSONController::class,'EmployeeDetails']);
 
 //Cash Adavance JSON ROUTE
@@ -84,13 +86,21 @@ Route::get('/overtimejson', [PayrollJSONController::class,'Overtime']);
 Route::get('/insertovertime', [PayrollInsertController::class,'InsertOvertime']);
 Route::get('/getPaidOvertime', [PayrollJSONController::class,'getPaidOvertime']);
 
+// Bonus JSON ROUTE
+Route::get('/bonusjson', [PayrollJSONController::class,'Bonus']);
+Route::post('/insertbonus', [PayrollInsertController::class,'InsertBonus']);
+
+// Double Pay JSON ROUTE
+Route::get('/doublepayjson', [PayrollJSONController::class,'DoublePay']);
+Route::post('/insertmultipay', [PayrollInsertController::class,'InsertMultiPay']);
+Route::get('/fetchattendancejson', [PayrollJSONController::class,'fetchAttedance']);
+
 // Not yet done ROUTES for payroll
 Route::get('/deductiontypejson', [PayrollJSONController::class,'DeductionType']);
-Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeList']);
 Route::get('/messagejson', [PayrollJSONController::class,'Message']);
 Route::get('/notificationjson', [PayrollJSONController::class,'Notification']);
-Route::get('/doublepayjson', [PayrollJSONController::class,'DoublePay']);
-Route::get('/bonusjson', [PayrollJSONController::class,'Bonus']);
+
+
 
 
 Route::post('applicant/crudsignup', [ApplicantSignUpController::class, 'crudsignup']);

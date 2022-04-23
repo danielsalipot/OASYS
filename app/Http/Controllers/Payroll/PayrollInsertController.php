@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Overtime;
 use App\Models\CashAdvance;
 use App\Models\Deduction;
+use App\Models\Bonus;
+use App\Models\MultiPay;
 
 class PayrollInsertController extends Controller
 {
@@ -48,5 +50,31 @@ class PayrollInsertController extends Controller
             ]);
         }
         return redirect('/payroll/cashadvance');
+    }
+
+    function InsertBonus(Request $request)
+    {
+        $employee_ids = explode(';',$request->hidden_emp_id);
+        for ($i=0; $i < count($employee_ids) - 1 ; $i++) {
+            Bonus::create([
+                'payrollManager_id' => $request->session()->get('user_id'),
+                'employee_id' => $employee_ids[$i],
+                'bonus_date' => $request->hidden_bonus_date,
+                'bonus_amount' => $request->hidden_bonus_amount
+            ]);
+        }
+        return redirect('/payroll/bonus');
+    }
+
+    public function InsertMultiPay(Request $request)
+    {
+        MultiPay::create([
+            'payrollManager_id' => $request->session()->get('user_id'),
+            'employee_id' => $request->hidden_emp_id,
+            'attendance_id' => $request->hidden_attendance_id,
+            'status' => $request->hidden_status
+        ]);
+
+        return redirect('/payroll/doublepay');
     }
 }

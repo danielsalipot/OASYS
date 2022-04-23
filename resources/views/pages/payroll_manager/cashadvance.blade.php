@@ -95,7 +95,7 @@
 
                                             <div class="row">
                                                 <div class="col">
-                                                    <button type="button" onclick="addDeduction()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Cash Advance</button>
+                                                    <button type="button" onclick="addCashAdvance()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Cash Advance</button>
                                                 </div>
                                                 <div class="col-2">
                                                     <button class="btn btn-danger w-100 p-3">Cancel</button>
@@ -122,69 +122,70 @@
         </div>
     </div>
 
-        <!-- The Modal -->
-        <div class="modal" id="edit_modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
+    <!-- The Modal -->
+    <div class="modal" id="edit_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title w-100">Continue to Add Deduction</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title w-100">Continue to Add Cash Advance</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
 
-                    <!-- Modal body -->
-                    <div class="modal-body row">
-                        <div class="row">
-                            <div class="col ps-5">
-                                <p class="h5 text-center w-100">Selected Employees</p>
-                                <hr>
-                                <table class="w-100 m-auto text-center">
-                                    <thead>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                    </thead>
-                                    <tbody>
-                                        <td><h6 id='modal_emp_id'></h6></td>
-                                        <td><h6 id='modal_emp_names'></h6></td>
-                                    </tbody>
-                                </table>
+                <!-- Modal body -->
+                <div class="modal-body row">
+                    <div class="row">
+                        <div class="col ps-5">
+                            <p class="h5 text-center w-100">Selected Employees</p>
+                            <hr>
+                            <table class="w-100 m-auto text-center">
+                                <thead>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                </thead>
+                                <tbody>
+                                    <td><h6 id='modal_emp_id'></h6></td>
+                                    <td><h6 id='modal_emp_names'></h6></td>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <p class="h5 text-center w-100">Cash Advance Details</p>
+
+                            <hr>
+                            <h6>Cash Advance Date</h6>
+                            <div class="row">
+                                {!! Form::text('modal_cash_advance_date', 'from date', ['disabled','id'=>'modal_cash_advance_date','class'=>'p-2 w-100 text-center']) !!}
                             </div>
-                            <div class="col">
-                                <p class="h5 text-center w-100">Cash Advance Details</p>
 
-                                <hr>
-                                <h6>Deduction Date</h6>
-                                <div class="row">
-                                    {!! Form::text('modal_cash_advance_date', 'from date', ['disabled','id'=>'modal_cash_advance_date','class'=>'p-2 w-100 text-center']) !!}
-                                </div>
-
-                                <hr>
-                                <h6>Cash Advance Amount</h6>
-                                {!! Form::text('modal_cash_advance_amount', 'date', ['disabled','id'=>'modal_cash_advance_amount','class'=>'p-2 w-100 text-center']) !!}
-                            </div>
+                            <hr>
+                            <h6>Cash Advance Amount</h6>
+                            {!! Form::text('modal_cash_advance_amount', 'date', ['disabled','id'=>'modal_cash_advance_amount','class'=>'p-2 w-100 text-center']) !!}
                         </div>
                     </div>
+                </div>
 
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <div class="row">
-                            <div class="col">
-                                {!! Form::open(['action'=>'App\Http\Controllers\PayrollInsertController@InsertCashAdvance']) !!}
-                                    {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
-                                    {!! Form::hidden('hidden_cash_advance_date','',['id'=>'hidden_cash_advance_date']) !!}
-                                    {!! Form::hidden('hidden_cash_advance_amount','',['id'=>'hidden_cash_advance_amount']) !!}
-                                    {!! Form::submit('Confirm Cash Advance', ['class' => ' w-100 btn btn-success']) !!}
-                                {!! Form::close() !!}
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger w-100 " data-dismiss="modal">Close</button>
-                            </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col">
+                            {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollInsertController@InsertCashAdvance']) !!}
+                                {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
+                                {!! Form::hidden('hidden_cash_advance_date','',['id'=>'hidden_cash_advance_date']) !!}
+                                {!! Form::hidden('hidden_cash_advance_amount','',['id'=>'hidden_cash_advance_amount']) !!}
+                                {!! Form::submit('Confirm Cash Advance', ['class' => ' w-100 btn btn-success']) !!}
+                            {!! Form::close() !!}
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger w-100 " data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
 
     <script>
         $(document).ready(function(){
@@ -199,6 +200,7 @@
 
             $('#from_date').val(start_date);
             $('#to_date').val(end_date);
+            updateCashAdvanceDate()
 
             function load_table(from_date = '', to_date = ''){
                 $('#cash_advance_table').DataTable({
@@ -232,7 +234,7 @@
                         },
                         { data: 'cashAdvance_amount',
                             render : (data,type,row)=>{
-                                return `<b>${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                                return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         }
                     ]
@@ -348,6 +350,11 @@
             }
         }
 
+        function updateCashAdvanceDate(){
+            var today = new Date();
+            $('#cash_advance_date_input').val(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`)
+        }
+
         function getDateToday(){
             var today = new Date();
             var start_date = ''
@@ -365,7 +372,7 @@
             return {start_date,end_date};
         }
 
-        function addDeduction(){
+        function addCashAdvance(){
             $('#hidden_cash_advance_date').val($('#cash_advance_date_input').val())
             $('#hidden_cash_advance_amount').val($('#cash_advance_amount').val())
 
