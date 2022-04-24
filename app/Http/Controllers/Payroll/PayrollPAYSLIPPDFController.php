@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Payroll;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Fpdf\Fpdf;
+use App\Models\UserDetail;
+
 class PayrollPAYSLIPPDFController extends Controller
 {
     public function payslipPdf(Request $request){
@@ -127,7 +130,7 @@ class PayrollPAYSLIPPDFController extends Controller
             $pdf->SetFont('Arial', '', 12);
             if(count($employee->deduction) > 0){
                 foreach ($employee->deduction as $key => $deduction) {
-                    $pdf->Cell(47,7,$deduction->deduction_date,0,0,'C');
+                    $pdf->Cell(47,7,$deduction->deduction_start_date,0,0,'C');
                     $prm_name = UserDetail::where('login_id', $deduction->payrollManager_id)->first();
                     $pdf->Cell(47,7,"$prm_name->fname $prm_name->mname $prm_name->lname",0,0,'C');
                     $pdf->Cell(47,7,$deduction->deduction_name,0,0,'C');

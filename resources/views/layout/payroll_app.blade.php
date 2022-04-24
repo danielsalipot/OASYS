@@ -16,7 +16,17 @@
 
 <body>
     @include('inc.payroll_navbar')
-    @yield('content')
+    <div class="row mt-4">
+        <div class="col-1" style="width:6vw"></div>
+        <div class="col">
+            <div class="container w-100 p-2">
+            @yield('title')
+            @yield('content')
+        </div>
+    </div>
+
+    @yield('modal')
+    @yield('script')
 
     <script src="{{ URL::asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')}}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>

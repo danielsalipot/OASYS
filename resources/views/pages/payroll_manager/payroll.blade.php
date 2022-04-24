@@ -1,60 +1,61 @@
 @extends('layout.payroll_app')
-    @section('content')
-    <div class="row mt-4">
-        <div class="col-1" style="width:6vw"></div>
-        <div class="col">
-            <div class="container w-100 p-2">
-                <h1 class="section-title mt-5 pb-5">Payroll Management</h1>
-                <div class="row w-100 h-100">
-                    <div class="col-md-2"><p class="text-center pt-2 h-100 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
-                    <div class="col-md-1">
-                        <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
-                        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYROLLPDFController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
-                            {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payrollGenerate']) !!}
-                        {!! Form::close() !!}
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
-                        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
-                            {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payslipGenerate']) !!}
-                        {!! Form::close() !!}
-                    </div>
-                    <div class="col-md-2"></div>
+@section('title')
+    <h1 class="section-title mt-5 pb-5">Payroll Management</h1>
+@endsection
 
-                        <div class="col-md-2 input-daterange">
-                            <input type="text" name="from_date" id="from_date" class="form-control h-100" placeholder="From Date" readonly />
-                        </div>
-                        <div class="col-md-2 input-daterange">
-                            <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
-                        </div>
-                        <div class="col-2 input-daterange">
-                            <button type="button" name="filter" id="filter" class="btn p-3 h-100 btn-outline-primary">Filter</button>
-                            <button type="button" name="refresh" id="refresh" class="btn p-3 h-100  btn-outline-success">Refresh</button>
-                        </div>
-                </div>
-
-                <br>
-
-                <table class="table text-center table-dark table-bordered table-striped" id="payroll_table">
-                    <thead>
-                        <tr>
-                            <th>Employee ID</th>
-                            <th>Employee Picture</th>
-                            <th>Employee Details</th>
-                            <th>Total Hours</th>
-                            <th>Rate</th>
-                            <th>Gross Pay</th>
-                            <th>Taxes</th>
-                            <th>Deductions</th>
-                            <th>Cash Advance</th>
-                            <th>Net Pay</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+@section('content')
+    <div class="row w-100 h-100">
+        <div class="col-md-2"><p class="text-center pt-2 h-100 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
+        <div class="col-md-1">
+            <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+            {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYROLLPDFController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
+                {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payrollGenerate']) !!}
+            {!! Form::close() !!}
         </div>
-    <script>
+        <div class="col-md-1">
+            <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
+            {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
+                {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payslipGenerate']) !!}
+            {!! Form::close() !!}
+        </div>
+        <div class="col-md-2"></div>
 
+        <div class="col-md-2 input-daterange">
+            <input type="text" name="from_date" id="from_date" class="form-control h-100" placeholder="From Date" readonly />
+        </div>
+        <div class="col-md-2 input-daterange">
+            <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
+        </div>
+        <div class="col-2 input-daterange">
+            <button type="button" name="filter" id="filter" class="btn p-3 h-100 btn-outline-primary">Filter</button>
+            <button type="button" name="refresh" id="refresh" class="btn p-3 h-100  btn-outline-success">Refresh</button>
+        </div>
+    </div>
+
+    <br>
+
+        <table class="table text-center table-dark table-bordered table-striped" id="payroll_table">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Employee Picture</th>
+                    <th>Employee Details</th>
+                    <th>Total Hours</th>
+                    <th>Rate</th>
+                    <th>Gross Pay</th>
+                    <th>Taxes</th>
+                    <th>Deductions</th>
+                    <th>Cash Advance</th>
+                    <th>Net Pay</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@endsection
+
+@section('script')
+    <script>
         function generatePostForm(table,col){
             $(table).html(
                 $(table).html()
@@ -71,7 +72,7 @@
             $('#payslip').addClass('d-none')
 
             $.ajax({
-                url: '/payslipjson',
+                url: '/payrolljson',
                 type: 'get',
                 data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
                 success: function(response){
@@ -97,7 +98,7 @@
             $('#payroll').addClass('d-none')
 
             $.ajax({
-                url: '/payslipjson',
+                url: '/payrolljson',
                 type: 'get',
                 data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
                 success: function(response){
@@ -232,5 +233,5 @@
             return {start_date,end_date};
         }
     </script>
-    @endsection
+@endsection
 

@@ -1,58 +1,67 @@
-@extends('layout.payroll_app')
-@section('content')
-<div class="row mt-5">
-    <div class="col-1" style="width:6vw"></div>
-    <div class="col">
-        <div class="container p-1">
-        <h1 class="section-title w-100 text-center mt-5 pb-5">Multi Pay Managament</h1>
+@extends('layout.pr_carousel')
 
+@section('Title')
+<h1 class="section-title w-100 text-center mt-5 pb-5">Multi Pay Managament</h1>
+@endsection
+
+@section('first')
         {{-- START --}}
-            <div class="container">
-                <h1 class="display-4 pb-5 mt-5 text-center w-100">Multi Pay History</h1>
+    <div class="container">
+        <h1 class="display-4 pb-5 mt-5 text-center w-100">Multi Pay History</h1>
+        @include('inc.date_filter')
+        <table class="table table-striped text-center table-dark" id="multi_pay_table">
+            <thead>
+                <tr>
+                    <th scope="col">Employee ID</th>
+                    <th scope="col">Employee Details</th>
+                    <th scope="col">Employee rate</th>
+                    <th scope="col">Time in Detials</th>
+                    <th scope="col">Time out Details</th>
+                    <th scope="col">Total Hours</th>
+                    <th scope="col">Attendance Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+        {{-- END --}}
+@endsection
+
+@section('second')
+        <div class="container">
+            <h1 class="display-4 pb-5 mt-5 text-center w-100">Multi Pay History</h1>
                 <div class="row mb-3 mt-3">
                     <div class="col-md-2 input-daterange">
-                        <input type="text" name="from_date" id="from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+                        <input type="text" name="paid_from_date" id="paid_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
                     </div>
                     <div class="col-md-2 input-daterange">
-                        <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
+                        <input type="text" name="paid_to_date" id="paid_to_date" class="form-control h-100" placeholder="To Date" readonly />
                     </div>
                     <div class="col-2 input-daterange">
-                        <button type="button" name="filter" id="filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
-                        <button type="button" name="refresh" id="refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+                        <button type="button" name="paid_filter" id="paid_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
+                        <button type="button" name="paid_refresh" id="paid_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
                     </div>
                 </div>
-
-                <table class="table table-striped text-center table-dark" id="multi_pay_table">
+                <table class="table table-striped text-center w-100 table-dark" id="paid_table">
                     <thead>
                         <tr>
-                            <th scope="col">Employee ID</th>
                             <th scope="col">Employee Details</th>
-                            <th scope="col">Employee rate</th>
-                            <th scope="col">Time in Detials</th>
-
-                            <th scope="col">Time out Details</th>
-                            <th scope="col">Total Hours</th>
+                            <th scope="col">Employee Rate</th>
+                            <th scope="col">Time in Details</th>
+                            <th scope="col">Time out Detials</th>
+                            <th scope="col">Total hours</th>
+                            <th scope="col">Multiplier</th>
+                            <th scope="col">Total Compensation</th>
                             <th scope="col">Attendance Date</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        {{-- END --}}
-
-            <div class="container">
-                <h1 class="display-4 pb-5 mt-5 text-center w-100">Multi paid history</h1>
-                <table class="table table-striped text-center table-dark" id="paid_table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Employee ID</th>
                         </tr>
                     </thead>
                 </table>
             </div>
         </div>
     </div>
+@endsection
 
+@section('modal')
      <!-- The Modal -->
      <div class="modal" id="edit_modal">
         <div class="modal-dialog">
@@ -128,7 +137,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
     <script>
         $(document).ready(function(){
             $('.input-daterange').datepicker({
@@ -139,9 +150,13 @@
 
             let { start_date, end_date } = getDateToday();
             load_table(start_date,end_date);
+            load_paid_table(start_date,end_date);
 
             $('#from_date').val(start_date);
             $('#to_date').val(end_date);
+
+            $('#paid_from_date').val(start_date);
+            $('#paid_to_date').val(end_date);
 
             function load_table(from_date = '', to_date = ''){
                 $('#multi_pay_table').DataTable({
@@ -173,24 +188,44 @@
                         },
                         { data: 'time_in',
                             render : (data,type,row)=>{
+                                if(row.late){
+                                    return `Time in:<br>
+                                    <b class="text-danger">${data}</b><br>
+                                    Schedule: <br>
+                                    <b>${row.schedule_Timeout}</b>
+                                    `
+                                }
+
                                 return `Time in:<br>
-                                <b class="text-success">${data}</b><br>
-                                Schedule: <br>
-                                <b>${row.schedule_Timein}</b>
-                                `
+                                    <b class="text-success">${data}</b><br>
+                                    Schedule: <br>
+                                    <b>${row.schedule_Timeout}</b>
+                                    `
                             }
                         },
                         { data: 'time_out',
                             render : (data,type,row)=>{
+                                if(row.under){
+                                    return `Time in:<br>
+                                    <b class="text-danger">${data}</b><br>
+                                    Schedule: <br>
+                                    <b>${row.schedule_Timeout}</b>
+                                    `
+                                }
+
                                 return `Time in:<br>
-                                <b class="text-success">${data}</b><br>
-                                Schedule: <br>
-                                <b>${row.schedule_Timeout}</b>
-                                `
+                                    <b class="text-success">${data}</b><br>
+                                    Schedule: <br>
+                                    <b>${row.schedule_Timeout}</b>
+                                    `
                             }
                         },
                         { data: 'total_hours',
                             render : (data,type,row)=>{
+                                if(row.overtime){
+                                    return `<b>${data}</b><br>
+                                            <h6 class="text-info">Overtime</h6>`
+                                }
                                 return `<b>${data}</b>`
                             }
                         },
@@ -219,7 +254,7 @@
 
                                 )" class="btn btn-outline-warning" data-toggle="modal" data-target="#edit_modal">2X</button>
                                 <button type="button" onclick="MultiPayButtonClick(
-                                    2,
+                                    3,
                                     '${row.attendance_id}',
                                     '${row.attendance_date}',
                                     '${row.total_hours}',
@@ -236,6 +271,94 @@
                                 )" class="btn btn-outline-info" data-toggle="modal" data-target="#edit_modal">3X</button>`
                             }
                         },
+                    ]
+                })
+            }
+
+            function load_paid_table(from_date = '', to_date = ''){
+                $('#paid_table').DataTable({
+                    processing: true,
+                    serverSide: false,
+                    ajax: { url: '/doublepayjson',
+                            data:{
+                                from_date: from_date,
+                                to_date: to_date
+                            },
+                            dataSrc: ''},
+                    columns: [
+                        { data: 'fname',
+                            render : (data,type,row)=>{
+                                return `<h5>${data} ${row.mname} ${row.lname}</h5>
+                                        ${row.department}<br>
+                                        ${row.position}`
+                            }
+                        },
+                        { data: 'rate',
+                            render : (data,type,row)=>{
+                                return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            }
+                        },
+                        { data: 'time_in',
+                            render : (data,type,row)=>{
+                                if(row.late){
+                                    return `Time in:<br>
+                                    <b class="text-danger">${data}</b><br>
+                                    Schedule: <br>
+                                    <b>${row.schedule_Timeout}</b>
+                                    `
+                                }
+
+                                return `Time in:<br>
+                                    <b class="text-success">${data}</b><br>
+                                    Schedule: <br>
+                                    <b>${row.schedule_Timeout}</b>
+                                    `
+                            }
+                        },
+                        { data: 'time_out',
+                            render : (data,type,row)=>{
+                                if(row.under){
+                                    return `Time in:<br>
+                                    <b class="text-danger">${data}</b><br>
+                                    Schedule: <br>
+                                    <b>${row.schedule_Timeout}</b>
+                                    `
+                                }
+
+                                return `Time in:<br>
+                                    <b class="text-success">${data}</b><br>
+                                    Schedule: <br>
+                                    <b>${row.schedule_Timeout}</b>
+                                    `
+                            }
+                        },
+                        { data: 'total_hours',
+                            render : (data,type,row)=>{
+                                if(row.overtime){
+                                    return `<b>${data}</b><br>
+                                            <h6 class="text-info">Overtime</h6>`
+                                }
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'status',
+                            render : (data,type,row)=>{
+                                if(data == 2){
+                                    return `<b class="text-warning">${data}X</b>`
+                                }
+                                return `<b class="text-info">${data}X</b>`
+                            }
+                        },
+                        { data: 'total_compensation',
+                            render : (data,type,row)=>{
+                                return `<b>₱${(data).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            }
+                        },
+                        { data: 'attendance_date',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        }
                     ]
                 })
             }
@@ -257,6 +380,25 @@
                 $('#to_date').val(end_date);
                 $('#multi_pay_table').DataTable().destroy();
                 load_table(start_date,end_date);
+            });
+
+            $('#paid_filter').click(function(){
+                var from_date = $('#paid_from_date').val();
+                var to_date = $('#paid_to_date').val();
+                if(from_date != '' &&  to_date != ''){
+                    $('#paid_table').DataTable().destroy();
+                    load_paid_table(from_date, to_date);
+                }else{
+                    alert('Both Date is required');
+                }
+            });
+
+            $('#paid_refresh').click(function(){
+                let { start_date, end_date } = getDateToday();
+                $('#paid_from_date').val(start_date);
+                $('#paid_to_date').val(end_date);
+                $('#paid_table').DataTable().destroy();
+                load_paid_table(start_date,end_date);
             });
         })
 

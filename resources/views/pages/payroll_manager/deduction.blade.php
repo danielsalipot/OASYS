@@ -1,124 +1,107 @@
-@extends('layout.payroll_app')
-    @section('content')
-    <div class="row mt-4">
-        <div class="col-1" style="width:6vw"></div>
+@extends('layout.pr_carousel')
+
+@section('Title')
+<h1 class="section-title mt-4 pb-1 w-100 text-center pt-4">Deduction Management</h1>
+@endsection
+
+@section('first')
+    <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Deductions</h1>
+    <div class="row w-100 h-100 mb-4 mt-4">
+        <div class="col-md-2 input-daterange">
+            <input type="text" name="from_date" id="from_date" class="form-control h-100" placeholder="From Date" readonly />
+        </div>
+        <div class="col-md-2 input-daterange">
+            <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
+        </div>
+        <div class="col-2 input-daterange">
+            <button type="button" name="filter" id="filter" class="btn p-3 h-100 btn-outline-primary">Filter</button>
+            <button type="button" name="refresh" id="refresh" class="btn p-3 h-100  btn-outline-success">Refresh</button>
+        </div>
+    </div>
+    <table class="table table-striped text-center table-dark" id="deduction_table">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Employee Details</th>
+                <th scope="col">Deduction Name</th>
+                <th scope="col">Deduction Start Date</th>
+                <th scope="col">Deduction End Date</th>
+                <th scope="col">Deduction Amount</th>
+            </tr>
+        </thead>
+    </table>
+@endsection
+
+@section('second')
+    <div class="row">
+        <h1 class="display-4 pb-5 mt-5 text-center w-100">Create Employee Deductions</h1>
         <div class="col">
-            <div class="container p-2">
-                <h1 class="section-title mt-4 pb-1 w-100 text-center pt-4">Deduction Management</h1>
-
-                <div id="myCarousel" class="carousel carousel-dark  slide" data-interval="false" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Deductions</h1>
-                            <div class="row w-100 h-100 mb-4 mt-4">
-                                <div class="col-md-2 input-daterange">
-                                    <input type="text" name="from_date" id="from_date" class="form-control h-100" placeholder="From Date" readonly />
-                                </div>
-                                <div class="col-md-2 input-daterange">
-                                    <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
-                                </div>
-                                <div class="col-2 input-daterange">
-                                    <button type="button" name="filter" id="filter" class="btn p-3 h-100 btn-outline-primary">Filter</button>
-                                    <button type="button" name="refresh" id="refresh" class="btn p-3 h-100  btn-outline-success">Refresh</button>
-                                </div>
-                            </div>
-                            <table class="table table-striped text-center table-dark" id="deduction_table">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th scope="col">Employee Details</th>
-                                        <th scope="col">Deduction Name</th>
-                                        <th scope="col">Deduction Start Date</th>
-                                        <th scope="col">Deduction End Date</th>
-                                        <th scope="col">Deduction Amount</th>
-                                    </tr>
-                                </thead>
-                            </table>
+            <h1 class="display-5 text-center w-100">Employee Selection</h1>
+            <div class="container w-100">
+                <table class="table w-100 table-striped text-center table-dark" id="employee_table">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">Employee ID</th>
+                            <th scope="col">Employee Picture</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">Select</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container">
+                <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
+                <table class="table table-striped text-center">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">Employee ID</th>
+                            <th scope="col">Employee Picture</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Position</th>
+                        </tr>
+                    </thead>
+                    <tbody id="selected_employee_table"></tbody>
+                </table>
+            </div>
+            <div class="container">
+                <h1 class="display-5 m-3 text-center w-100">Deduction Details</h1>
+                <div class="m-5 ps-5 pe-5">
+                    {!! Form::label('deduction_start_date_input', 'Deduction Date', ['class'=>'w-100 text-center']) !!}
+                    <div class="row mb-3 w-100">
+                        <div class="col input-daterange">
+                            <input type="text" name="deduction_start_date_input" id="deduction_start_date_input" class="form-control h-100 p-3 w-75 m-auto" placeholder="From Date" readonly />
                         </div>
-
-                        <div class="item">
-                            <div class="row">
-                                <h1 class="display-4 pb-5 mt-5 text-center w-100">Create Employee Deductions</h1>
-                                <div class="col">
-                                    <h1 class="display-5 text-center w-100">Employee Selection</h1>
-                                    <div class="container w-100">
-                                        <table class="table w-100 table-striped text-center table-dark" id="employee_table">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th scope="col">Employee ID</th>
-                                                    <th scope="col">Employee Picture</th>
-                                                    <th scope="col">Employee Name</th>
-                                                    <th scope="col">Department</th>
-                                                    <th scope="col">Position</th>
-                                                    <th scope="col">Select</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="container">
-                                        <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
-                                        <table class="table table-striped text-center">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th scope="col">Employee ID</th>
-                                                    <th scope="col">Employee Picture</th>
-                                                    <th scope="col">Employee Name</th>
-                                                    <th scope="col">Department</th>
-                                                    <th scope="col">Position</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="selected_employee_table"></tbody>
-                                        </table>
-                                    </div>
-                                    <div class="container">
-                                        <h1 class="display-5 m-3 text-center w-100">Deduction Details</h1>
-                                        <div class="m-5 ps-5 pe-5">
-                                            {!! Form::label('deduction_start_date_input', 'Deduction Date', ['class'=>'w-100 text-center']) !!}
-                                            <div class="row mb-3 w-100">
-                                                <div class="col input-daterange">
-                                                    <input type="text" name="deduction_start_date_input" id="deduction_start_date_input" class="form-control h-100 p-3 w-75 m-auto" placeholder="From Date" readonly />
-                                                </div>
-                                                <div class="col-1 text-center h2 pt-2">-</div>
-                                                <div class="col input-daterange">
-                                                    <input type="text" name="deduction_end_date_input" id="deduction_end_date_input" class="form-control h-100 p-3 w-75 m-auto" placeholder="To Date" readonly />
-                                                </div>
-                                            </div>
-
-                                            {!! Form::label('deduction_name', 'Deduction Name', []) !!}
-                                            {!! Form::text('deduction_name', '', ['id'=>'deduction_name','placeholder'=>'Deduction Name', 'class'=>'form-control mb-3']) !!}
-
-                                            {!! Form::label('deduction_amount', 'Deduction Amount', []) !!}
-                                            {!! Form::number('deduction_amount','', ['id'=>'deduction_amount', 'min' => '0.01', 'step'=>'any' ,'placeholder'=>'0.00','class'=>'text-center form-control mb-3']) !!}
-
-                                            <div class="row">
-                                                <div class="col">
-                                                    <button type="button" onclick="addDeduction()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Deduction</button>
-                                                </div>
-                                                <div class="col-2">
-                                                    <button class="btn btn-danger w-100 p-3">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-1 text-center h2 pt-2">-</div>
+                        <div class="col input-daterange">
+                            <input type="text" name="deduction_end_date_input" id="deduction_end_date_input" class="form-control h-100 p-3 w-75 m-auto" placeholder="To Date" readonly />
                         </div>
                     </div>
 
-                    <a class="carousel-control-prev" href="#myCarousel" style="height:0px;margin-top:55px;margin-left:20vw" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#myCarousel" style="height:0px;margin-top:55px;margin-right:20vw" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    {!! Form::label('deduction_name', 'Deduction Name', []) !!}
+                    {!! Form::text('deduction_name', '', ['id'=>'deduction_name','placeholder'=>'Deduction Name', 'class'=>'form-control mb-3']) !!}
+
+                    {!! Form::label('deduction_amount', 'Deduction Amount', []) !!}
+                    {!! Form::number('deduction_amount','', ['id'=>'deduction_amount', 'min' => '0.01', 'step'=>'any' ,'placeholder'=>'0.00','class'=>'text-center form-control mb-3']) !!}
+
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" onclick="addDeduction()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Deduction</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-danger w-100 p-3">Cancel</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
     </div>
+@endsection
 
+@section('modal')
     <!-- The Modal -->
     <div class="modal" id="edit_modal">
         <div class="modal-dialog">
@@ -193,7 +176,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
     <script>
         $(document).ready(function(){
             $('.input-daterange').datepicker({

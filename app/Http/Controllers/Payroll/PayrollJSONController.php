@@ -17,83 +17,17 @@ use App\Models\Bonus;
 
 class PayrollJSONController extends Controller
 {
-    function Payroll1(){
-        $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
-        foreach ($PayrollDetails as $key => $value) {
-            $value->attendance = $value->FilteredAttendance($value->employee_id,'1000-1-1','2022-1-1');
-            $value->deduction = $value->FilteredDeductions($value->employee_id,'1000-1-1','2022-1-1');
-            $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id,'1000-1-1','2022-1-1');
-        }
-
-        foreach ($PayrollDetails as $key => $value) {
-            foreach ($value->CashAdvance as $key => $el) {
-                echo $el;
-                echo '<br><br>';
-            }
-        }
-    }
-
     //FILTERED THE DATES OF ATTENDANCE, cash advance, and deductions
     function payroll(Request $request){
-        if(request()->ajax()){
-            if(!empty($request->from_date)){
-            $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
-                foreach ($PayrollDetails as $key => $value) {
-                    $value->attendance = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
-                    $value->deduction = $value->FilteredDeductions($value->employee_id, $request->from_date,$request->to_date);
-                    $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id, $request->from_date,$request->to_date);
-                }
-            }
-            else{
-                $PayrollDetails = EmployeeDetail::with('UserDetail','attendance','CashAdvance','Taxes','Deduction')
-                        ->get();
-            }
-
-            //Set all of the calculated and concatinated values
-            foreach ($PayrollDetails as $key => $detail) {
-                // Computation for total hours
-                $detail->complete_hours = 0;
-                foreach ($detail->attendance as $key => $attendance) {
-                    $detail->complete_hours += $attendance->total_hours;
-                    $detail->complete_hours = round($detail->complete_hours,2);
-                }
-
-                // Computation for total deduction
-                $detail->total_deduction = 0;
-                foreach ($detail->deduction as $key => $deduction) {
-                    $detail->total_deduction += $deduction->deduction_amount;
-                    $detail->total_deduction = round($detail->total_deduction,2);
-                }
-
-                // Computation for tatol cash advance amount
-                $detail->total_cash_advance = 0;
-                foreach($detail->cashAdvance as $key => $cash_advance){
-                    $detail->total_cash_advance += $cash_advance->cashAdvance_amount;
-                    $detail->total_cash_advance = round($detail->total_cash_advance,2);
-                };
-
-                //Full name of employee
-                $detail->full_name = "{$detail->UserDetail->fname} {$detail->UserDetail->mname} {$detail->UserDetail->lname}";
-
-                //Gross pay computation
-                $detail->gross_pay = round($detail->complete_hours * $detail->rate,2);
-
-                //Taxes deduction computation
-                $detail->tax_deduction = round($detail->gross_pay * floatval(substr_replace($detail->taxes->tax_amount ,"", -1)) / 100,2);
-
-                $detail->net_pay = round($detail->gross_pay - $detail->total_deduction - $detail->total_cash_advance - $detail->tax_deduction,2);
-            }
-            return $PayrollDetails;
-        }
-    }
-
-    function payslip(Request $request){
         $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
+
+        //FETCH ALL RECORDS OF:
         foreach ($PayrollDetails as $key => $value) {
             $value->attendance = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
             $value->deduction = $value->FilteredDeductions($value->employee_id, $request->from_date,$request->to_date);
             $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id, $request->from_date,$request->to_date);
         }
+
         //Set all of the calculated and concatinated values
         foreach ($PayrollDetails as $key => $detail) {
             // Computation for total hours
@@ -125,7 +59,6 @@ class PayrollJSONController extends Controller
 
             //Taxes deduction computation
             $detail->tax_deduction = round($detail->gross_pay * floatval(substr_replace($detail->taxes->tax_amount ,"", -1)) / 100,2);
-
             $detail->net_pay = round($detail->gross_pay - $detail->total_deduction - $detail->total_cash_advance - $detail->tax_deduction,2);
             $detail->prm_id = session('user_id');
         }
@@ -134,9 +67,9 @@ class PayrollJSONController extends Controller
 
     public function CashAdvance(Request $request){
         return $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
-                                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-                                            ->whereBetween('cash_advances.cash_advance_date',[$request->from_date,$request->to_date])
-                                            ->get();
+            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+            ->whereBetween('cash_advances.cash_advance_date',[$request->from_date,$request->to_date])
+            ->get();
     }
 
     public function EmployeeDetails(){
@@ -145,9 +78,9 @@ class PayrollJSONController extends Controller
 
     public function Deduction(Request $request){
         return Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
-                        ->join('user_details','user_details.information_id','=','employee_details.information_id')
-                        ->whereBetween('deductions.deduction_start_date',[$request->from_date,$request->to_date])
-                        ->get();
+            ->join('user_details','user_details.information_id','=','employee_details.information_id')
+            ->whereBetween('deductions.deduction_start_date',[$request->from_date,$request->to_date])
+            ->get();
     }
 
     public function EmployeeList(){
@@ -165,16 +98,16 @@ class PayrollJSONController extends Controller
         $paid_overtime_arr =[];
 
         foreach ($employee_schedules as $key => $employee) {
-            list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$employee->schedule_Timeout);
-                $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
+
+                $stimeout = $this->timeCalculator($employee->schedule_Timeout);
                 // Add 30 mins for minimum overtime
                 $stimeout += $request->time_filter;
 
             $temp = Attendance::where('employee_id',$employee->employee_id)
-                    ->whereBetween('attendance_date',[$request->from_date,$request->to_date])
-                    ->whereBetween('time_in',['00:00:00',$employee->schedule_Timein])
-                    ->whereBetween('time_out',[date('H:i:s',$stimeout),'24:00:00'])
-                    ->get();
+                ->whereBetween('attendance_date',[$request->from_date,$request->to_date])
+                ->whereBetween('time_in',['00:00:00',$employee->schedule_Timein])
+                ->whereBetween('time_out',[date('H:i:s',$stimeout),'24:00:00'])
+                ->get();
 
             foreach ($temp as $key => $value) {
                 if(Overtime::where('attendance_id',$value->attendance_id)->first()){
@@ -187,13 +120,11 @@ class PayrollJSONController extends Controller
 
         foreach ($employee_overtime_arr as $key => $employee) {
             $employee->user_details = EmployeeDetail::where('employee_id', $employee->employee_id)
-                                    ->join('user_details','user_details.information_id','=','employee_details.information_id')->first();
+                ->join('user_details','user_details.information_id','=','employee_details.information_id')
+                ->first();
 
-                list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$employee->time_out);
-                $timeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
-
-                list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$employee->user_details->schedule_Timeout);
-                $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
+                $timeout = $this->timeCalculator($employee->time_out);
+                $stimeout = $this->timeCalculator($employee->user_details->schedule_Timeout);
 
                 $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
         }
@@ -203,19 +134,17 @@ class PayrollJSONController extends Controller
 
     public function getPaidOvertime(){
         $paid_overtime_arr = Overtime::join('attendances','attendances.attendance_id','=','overtimes.attendance_id')
-                ->join('employee_details','employee_details.employee_id','=','overtimes.employee_id')
-                ->join('user_details','user_details.information_id','=','employee_details.information_id')
-                ->get();
+            ->join('employee_details','employee_details.employee_id','=','overtimes.employee_id')
+            ->join('user_details','user_details.information_id','=','employee_details.information_id')
+            ->get();
 
         foreach ($paid_overtime_arr as $key => $employee) {
             $employee->user_details = EmployeeDetail::where('employee_id', $employee->employee_id)
-                                            ->join('user_details','user_details.information_id','=','employee_details.information_id')->first();
+                ->join('user_details','user_details.information_id','=','employee_details.information_id')
+                ->first();
 
-            list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$employee->time_out);
-            $timeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
-
-            list($stimeout_hours, $stimeout_minutes, $stimeout_seconds) = explode(':',$employee->user_details->schedule_Timeout);
-            $stimeout = $stimeout_hours * 3600 + $stimeout_minutes * 60 + $stimeout_seconds;
+            $timeout = $this->timeCalculator($employee->time_out);
+            $stimeout = $this->timeCalculator($employee->user_details->schedule_Timeout);
 
             $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
         }
@@ -224,16 +153,16 @@ class PayrollJSONController extends Controller
 
     public function Bonus(Request $request){
         return $BonusRecords = Bonus::join('employee_details', 'bonuses.employee_id','=','employee_details.employee_id')
-                                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-                                            ->whereBetween('bonuses.bonus_date',[$request->from_date,$request->to_date])
-                                            ->get();
+            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+            ->whereBetween('bonuses.bonus_date',[$request->from_date,$request->to_date])
+            ->get();
     }
 
     public function fetchAttedance(Request $request){
         $attendance = Attendance::join('employee_details','employee_details.employee_id','=','attendances.employee_id')
-                            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-                            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
-                            ->get();
+            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+            ->get();
 
         $normal_pay_attendance = [];
         foreach ($attendance as $key => $value) {
@@ -246,19 +175,35 @@ class PayrollJSONController extends Controller
         foreach ($normal_pay_attendance as $key => $value) {
             $value->overtime = Overtime::where('attendance_id',$value->attendance_id)->first();
             if($value->overtime){
-                list($timein_hours, $timein_minutes, $timein_seconds) = explode(':',$value->time_in);
-                $timein = $timein_hours * 3600 + $timein_minutes * 60 + $timein_seconds;
+                $timein = $this->timeCalculator($value->time_in);
+                $timeout = $this->timeCalculator($value->time_out);
 
-                list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$value->time_out);
-                $timeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
+                $stimein = $this->timeCalculator($value->schedule_Timein);
+                $stimeout = $this->timeCalculator($value->schedule_Timeout);
+
+                if($timeout < $stimeout){
+                    $value->under = 1;
+                }
+
+                if($timein > $stimein){
+                    $value->late = 1;
+                }
 
                 $value->total_hours = round(($timeout - $timein) / 3600,2);
             }else{
-                list($timein_hours, $timein_minutes, $timein_seconds) = explode(':',$value->schedule_Timein);
-                $stimein = $timein_hours * 3600 + $timein_minutes * 60 + $timein_seconds;
+                $timein = $this->timeCalculator($value->time_in);
+                $timeout = $this->timeCalculator($value->time_out);
 
-                list($timeout_hours, $timeout_minutes, $timeout_seconds) = explode(':',$value->schedule_Timeout);
-                $stimeout = $timeout_hours * 3600 + $timeout_minutes * 60 + $timeout_seconds;
+                $stimein = $this->timeCalculator($value->schedule_Timein);
+                $stimeout = $this->timeCalculator($value->schedule_Timeout);
+
+                if($timeout < $stimeout){
+                    $value->under = 1;
+                }
+
+                if($timein > $stimein){
+                    $value->late = 1;
+                }
 
                 $value->total_hours = round(($stimeout - $stimein) / 3600,2);
             }
@@ -267,12 +212,54 @@ class PayrollJSONController extends Controller
         return $normal_pay_attendance;
     }
 
-    public function MultiPay(Request $request){
-        MultiPay::join('employee_details','employee_details.employee_id','=','multi_pays.employee_id')
-                ->join('attendances','attendances.attendance_id','=','multi_pays.attendance_id')
-                ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-                ->whereBetween('multi_pays.attendance_date',[$request->from_date,$request->to_date])
-                ->get();
+    public function DoublePay(Request $request){
+        $multipay = MultiPay::join('employee_details','employee_details.employee_id','=','multi_pays.employee_id')
+            ->join('attendances','attendances.attendance_id','=','multi_pays.attendance_id')
+            ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
+            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+            ->get();
+
+        foreach ($multipay as $key => $value) {
+            $value->overtime = Overtime::where('attendance_id',$value->attendance_id)->first();
+            if($value->overtime){
+                $timein = $this->timeCalculator($value->time_in);
+                $timeout = $this->timeCalculator($value->time_out);
+
+                $stimein = $this->timeCalculator($value->schedule_Timein);
+                $stimeout = $this->timeCalculator($value->schedule_Timeout);
+
+                if($timeout < $stimeout){
+                    $value->under = 1;
+                }
+
+                if($timein > $stimein){
+                    $value->late = 1;
+                }
+
+
+                $value->total_hours = round(($timeout - $timein) / 3600,2);
+                $value->total_compensation = round($value->rate * $value->total_hours * $value->status,2);
+            }else{
+                $timein = $this->timeCalculator($value->time_in);
+                $timeout = $this->timeCalculator($value->time_out);
+
+                $stimein = $this->timeCalculator($value->schedule_Timein);
+                $stimeout = $this->timeCalculator($value->schedule_Timeout);
+
+                if($timeout < $stimeout){
+                    $value->under = 1;
+                }
+
+                if($timein > $stimein){
+                    $value->late = 1;
+                }
+
+                $value->total_hours = round(($stimeout - $stimein) / 3600,2);
+                $value->total_compensation = round($value->rate * $value->total_hours * $value->status,2);
+            }
+        }
+
+        return $multipay;
     }
 
     public function Message(){
@@ -281,5 +268,10 @@ class PayrollJSONController extends Controller
 
     public function Notification(){
 
+    }
+
+    public function timeCalculator($time){
+        list($hours, $minutes, $seconds) = explode(':',$time);
+        return $hours * 3600 + $minutes * 60 + $seconds;
     }
 }

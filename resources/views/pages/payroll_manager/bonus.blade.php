@@ -1,128 +1,94 @@
-@extends('layout.payroll_app')
-@section('content')
-<div class="row mt-5">
-    <div class="col-1" style="width:6vw"></div>
-    <div class="col">
-        <div class="container p-1">
-            <h1 class="section-title mt-5 w-100 text-center pb-5">Employee Bonus Management</h1>
+@extends('layout.pr_carousel')
 
-            <div id="myCarousel" class="carousel carousel-dark  slide" data-interval="false" data-ride="carousel">
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        {{-- START --}}
-                        <div class="container">
-                            <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Bonus History</h1>
-                            <div class="row mb-3 mt-3">
-                                <div class="col-md-2 input-daterange">
-                                    <input type="text" name="from_date" id="from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
-                                </div>
-                                <div class="col-md-2 input-daterange">
-                                    <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
-                                </div>
-                                <div class="col-2 input-daterange">
-                                    <button type="button" name="filter" id="filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
-                                    <button type="button" name="refresh" id="refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
-                                </div>
-                            </div>
+@section('Title')
+<h1 class="section-title w-100 text-center mt-5 pb-5">Employee Bonus Management</h1>
+@endsection
 
-                            <table class="table table-striped table-dark" id="bonus_table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Employee ID</th>
-                                        <th scope="col">Employee Details</th>
-                                        <th scope="col">Date of Bonus</th>
-                                        <th scope="col">Bonus Amount</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                        {{-- END --}}
-                    </div>
+@section('first')
+<div class="container">
+    <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Bonus History</h1>
+    @include('inc.date_filter')
+    <table class="table table-striped table-dark" id="bonus_table">
+        <thead>
+            <tr>
+                <th scope="col">Employee ID</th>
+                <th scope="col">Employee Details</th>
+                <th scope="col">Date of Bonus</th>
+                <th scope="col">Bonus Amount</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@endsection
 
-                    <div class="item">
-                        {{-- START --}}
-                        <div class="container">
-                            <h1 class="display-4 pb-5 mt-5 text-center w-100">Add Employee Bonus</h1>
+@section('second')
+<div class="container">
+    <h1 class="display-4 pb-5 mt-5 text-center w-100">Add Employee Bonus</h1>
 
-                            <div class="row">
-                                <div class="col">
-                                    <h1 class="display-5 text-center w-100">Employee Selection</h1>
-                                    <div class="container w-100">
-                                        <table class="table w-100 table-striped text-center table-dark" id="employee_table">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th scope="col">Employee ID</th>
-                                                    <th scope="col">Employee Picture</th>
-                                                    <th scope="col">Employee Name</th>
-                                                    <th scope="col">Department</th>
-                                                    <th scope="col">Position</th>
-                                                    <th scope="col">Select</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="container">
-                                        <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
-                                        <table class="table table-striped text-center">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th scope="col">Employee ID</th>
-                                                    <th scope="col">Employee Picture</th>
-                                                    <th scope="col">Employee Name</th>
-                                                    <th scope="col">Department</th>
-                                                    <th scope="col">Position</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="selected_employee_table"></tbody>
-                                        </table>
-                                    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="display-5 text-center w-100">Employee Selection</h1>
+            <div class="container w-100">
+                <table class="table w-100 table-striped text-center table-dark" id="employee_table">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">Employee ID</th>
+                            <th scope="col">Employee Picture</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">Select</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container">
+                <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
+                <table class="table table-striped text-center">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">Employee ID</th>
+                            <th scope="col">Employee Picture</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Position</th>
+                        </tr>
+                    </thead>
+                    <tbody id="selected_employee_table"></tbody>
+                </table>
+            </div>
 
-                                    <div class="container">
-                                        <h1 class="display-5 mb-3 text-center w-100">Bonus Details</h1>
-                                        <div class="m-5 ps-5 pe-5">
-                                            {!! Form::label('bonus_date_input', 'Date of Bonus', ['class'=>'w-100 text-center']) !!}
-                                            <div class="row mb-3 w-100">
-                                                <div class="input-daterange">
-                                                    <input type="text" name="bonus_date_input" id="bonus_date_input" class="form-control h-100 ms-2 p-3 m-auto" placeholder="From Date" readonly />
-                                                </div>
-                                            </div>
-
-                                            {!! Form::label('bonus_amount', 'Bonus Amount', []) !!}
-                                            {!! Form::number('bonus_amount','', ['id'=>'bonus_amount', 'min' => '0.01', 'step'=>'any' ,'placeholder'=>'0.00','class'=>'text-center form-control mb-3']) !!}
-
-                                            <div class="row">
-                                                <div class="col">
-                                                    <button type="button" onclick="addBonus()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Bonus</button>
-                                                </div>
-                                                <div class="col-2">
-                                                    <button class="btn btn-danger w-100 p-3">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="container">
+                <h1 class="display-5 mb-3 text-center w-100">Bonus Details</h1>
+                <div class="m-5 ps-5 pe-5">
+                    {!! Form::label('bonus_date_input', 'Date of Bonus', ['class'=>'w-100 text-center']) !!}
+                    <div class="row mb-3 w-100">
+                        <div class="input-daterange">
+                            <input type="text" name="bonus_date_input" id="bonus_date_input" class="form-control h-100 ms-2 p-3 m-auto" placeholder="From Date" readonly />
                         </div>
                     </div>
-                    {{-- END --}}
+
+                    {!! Form::label('bonus_amount', 'Bonus Amount', []) !!}
+                    {!! Form::number('bonus_amount','', ['id'=>'bonus_amount', 'min' => '0.01', 'step'=>'any' ,'placeholder'=>'0.00','class'=>'text-center form-control mb-3']) !!}
+
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" onclick="addBonus()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Bonus</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-danger w-100 p-3">Cancel</button>
+                        </div>
+                    </div>
                 </div>
-
-                <a class="carousel-control-prev" href="#myCarousel" style="height:0px;margin-top:55px;margin-left:20vw" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#myCarousel" style="height:0px;margin-top:55px;margin-right:20vw" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
         </div>
     </div>
+</div>
+@endsection
 
-
+@section('modal')
     <!-- The Modal -->
     <div class="modal" id="edit_modal">
         <div class="modal-dialog">
@@ -186,7 +152,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
     <script>
         $(document).ready(function(){
             $('.input-daterange').datepicker({

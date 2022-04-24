@@ -42,7 +42,11 @@ class EmployeeDetail extends Model
     }
 
     public function FilteredDeductions($id,$start_date,$end_date) {
-        return Deduction::where('employee_id',$id)->whereBetween('deduction_date',array($start_date,$end_date))->orderBy('deduction_date','ASC')->get();
+        return Deduction::where('employee_id',$id)
+            ->where('deduction_start_date','<=',$start_date)
+            ->where('deduction_end_date','>=',$end_date)
+            ->orderBy('deduction_start_date','ASC')
+            ->get();
     }
 
     public function FilteredCashAdvance($id,$start_date,$end_date) {

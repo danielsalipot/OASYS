@@ -46,12 +46,6 @@ Route::prefix('')->group(function () {
     include 'staff.php';
 });
 
-
-
-
-Route::get('/payroll1', [PayrollJSONController::class,'payroll1']);
-Route::get('/test', [LoginController::class,'test']);
-
                     /////////////////////////
                     //PDF generation ROUTES//
                     /////////////////////////
