@@ -13,8 +13,10 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\SearchController;
 
 use App\Http\Controllers\Payroll\PayrollInsertController;
+use App\Http\Controllers\Payroll\PayrollDeleteController;
 use App\Http\Controllers\Payroll\PayrollUpdateController;
 use App\Http\Controllers\Payroll\PayrollJSONController;
+
 use App\Http\Controllers\Payroll\PayrollPAYROLLPDFController;
 use App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController;
 
@@ -79,6 +81,7 @@ Route::post('/insertcashadvance', [PayrollInsertController::class,'InsertCashAdv
 Route::get('/overtimejson', [PayrollJSONController::class,'Overtime']);
 Route::get('/insertovertime', [PayrollInsertController::class,'InsertOvertime']);
 Route::get('/getPaidOvertime', [PayrollJSONController::class,'getPaidOvertime']);
+Route::get('/removeOvertime', [PayrollDeleteController::class,'DeleteOvertime']);
 
 // Bonus JSON ROUTE
 Route::get('/bonusjson', [PayrollJSONController::class,'Bonus']);

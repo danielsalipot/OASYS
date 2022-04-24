@@ -33,7 +33,20 @@ class PayrollJSONController extends Controller
             // Computation for total hours
             $detail->complete_hours = 0;
             foreach ($detail->attendance as $key => $attendance) {
-                $detail->complete_hours += $attendance->total_hours;
+                $overtime =$value->overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
+                $sched = EmployeeDetail::where('employee_id',$attendance->employee_id)->first();
+
+                $timein = $this->timeCalculator($attendance->time_in);
+                $timeout = $this->timeCalculator($attendance->time_out);
+
+                $stimein = $this->timeCalculator($sched->schedule_Timein);
+                $stimeout = $this->timeCalculator($sched->schedule_Timeout);
+
+                if($overtime){
+                    $detail->complete_hours += round(($timeout - $timein) / 3600,2);
+                }else{
+                    $detail->complete_hours += round(($stimeout - $stimein) / 3600,2);
+                }
                 $detail->complete_hours = round($detail->complete_hours,2);
             }
 
@@ -174,37 +187,24 @@ class PayrollJSONController extends Controller
 
         foreach ($normal_pay_attendance as $key => $value) {
             $value->overtime = Overtime::where('attendance_id',$value->attendance_id)->first();
+
+            $timein = $this->timeCalculator($value->time_in);
+            $timeout = $this->timeCalculator($value->time_out);
+
+            $stimein = $this->timeCalculator($value->schedule_Timein);
+            $stimeout = $this->timeCalculator($value->schedule_Timeout);
+
+            if($timeout < $stimeout){
+                $value->under = 1;
+            }
+
+            if($timein > $stimein){
+                $value->late = 1;
+            }
+
             if($value->overtime){
-                $timein = $this->timeCalculator($value->time_in);
-                $timeout = $this->timeCalculator($value->time_out);
-
-                $stimein = $this->timeCalculator($value->schedule_Timein);
-                $stimeout = $this->timeCalculator($value->schedule_Timeout);
-
-                if($timeout < $stimeout){
-                    $value->under = 1;
-                }
-
-                if($timein > $stimein){
-                    $value->late = 1;
-                }
-
                 $value->total_hours = round(($timeout - $timein) / 3600,2);
             }else{
-                $timein = $this->timeCalculator($value->time_in);
-                $timeout = $this->timeCalculator($value->time_out);
-
-                $stimein = $this->timeCalculator($value->schedule_Timein);
-                $stimeout = $this->timeCalculator($value->schedule_Timeout);
-
-                if($timeout < $stimeout){
-                    $value->under = 1;
-                }
-
-                if($timein > $stimein){
-                    $value->late = 1;
-                }
-
                 $value->total_hours = round(($stimeout - $stimein) / 3600,2);
             }
         }
@@ -221,39 +221,26 @@ class PayrollJSONController extends Controller
 
         foreach ($multipay as $key => $value) {
             $value->overtime = Overtime::where('attendance_id',$value->attendance_id)->first();
+
+            $timein = $this->timeCalculator($value->time_in);
+            $timeout = $this->timeCalculator($value->time_out);
+
+            $stimein = $this->timeCalculator($value->schedule_Timein);
+            $stimeout = $this->timeCalculator($value->schedule_Timeout);
+
+            if($timeout < $stimeout){
+                $value->under = 1;
+            }
+
+            if($timein > $stimein){
+                $value->late = 1;
+            }
+
+
             if($value->overtime){
-                $timein = $this->timeCalculator($value->time_in);
-                $timeout = $this->timeCalculator($value->time_out);
-
-                $stimein = $this->timeCalculator($value->schedule_Timein);
-                $stimeout = $this->timeCalculator($value->schedule_Timeout);
-
-                if($timeout < $stimeout){
-                    $value->under = 1;
-                }
-
-                if($timein > $stimein){
-                    $value->late = 1;
-                }
-
-
                 $value->total_hours = round(($timeout - $timein) / 3600,2);
                 $value->total_compensation = round($value->rate * $value->total_hours * $value->status,2);
             }else{
-                $timein = $this->timeCalculator($value->time_in);
-                $timeout = $this->timeCalculator($value->time_out);
-
-                $stimein = $this->timeCalculator($value->schedule_Timein);
-                $stimeout = $this->timeCalculator($value->schedule_Timeout);
-
-                if($timeout < $stimeout){
-                    $value->under = 1;
-                }
-
-                if($timein > $stimein){
-                    $value->late = 1;
-                }
-
                 $value->total_hours = round(($stimeout - $stimein) / 3600,2);
                 $value->total_compensation = round($value->rate * $value->total_hours * $value->status,2);
             }
