@@ -32,21 +32,38 @@ class PayrollJSONController extends Controller
         foreach ($PayrollDetails as $key => $detail) {
             // Computation for total hours
             $detail->complete_hours = 0;
+            //Gross pay computation
+            $detail->gross_pay = 0;
+
+            //Computes total time and gross pay with overtime and multipay
             foreach ($detail->attendance as $key => $attendance) {
-                $overtime =$value->overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
+                $overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
                 $sched = EmployeeDetail::where('employee_id',$attendance->employee_id)->first();
+                $multipay = MultiPay::where('attendance_id',$attendance->attendance_id)->first();
 
                 $timein = $this->timeCalculator($attendance->time_in);
                 $timeout = $this->timeCalculator($attendance->time_out);
 
                 $stimein = $this->timeCalculator($sched->schedule_Timein);
                 $stimeout = $this->timeCalculator($sched->schedule_Timeout);
+                $rate = $sched->rate;
+
+                if($multipay){
+                    $rate = $rate * $multipay->status;
+                }
 
                 if($overtime){
-                    $detail->complete_hours += round(($timeout - $timein) / 3600,2);
+                    $time = ($timeout - $timein) / 3600;
+
+                    $detail->gross_pay += $rate * $time;
+                    $detail->complete_hours += round($time,2);
                 }else{
-                    $detail->complete_hours += round(($stimeout - $stimein) / 3600,2);
+                    $time = ($stimeout - $stimein) / 3600;
+
+                    $detail->gross_pay += $rate * $time;
+                    $detail->complete_hours += round($time,2);
                 }
+                $detail->gross_pay = round($detail->gross_pay,2);
                 $detail->complete_hours = round($detail->complete_hours,2);
             }
 
@@ -65,10 +82,18 @@ class PayrollJSONController extends Controller
             };
 
             //Full name of employee
-            $detail->full_name = "{$detail->UserDetail->fname} {$detail->UserDetail->mname} {$detail->UserDetail->lname}";
+            // $detail->full_name = "{$detail->UserDetail->fname} {$detail->UserDetail->mname} {$detail->UserDetail->lname}";
 
-            //Gross pay computation
-            $detail->gross_pay = round($detail->complete_hours * $detail->rate,2);
+            // $start = 3000;
+            // while(1){
+            //     if($detail->gross_pay <= 3000){
+            //         return;
+            //     }
+            //     if($detail->gross_pay >= $start-250 && $detail->gross_pay <= $start+249){
+            //         return;
+            //     }
+            //     $start += 500;
+            // }
 
             //Taxes deduction computation
             $detail->tax_deduction = round($detail->gross_pay * floatval(substr_replace($detail->taxes->tax_amount ,"", -1)) / 100,2);

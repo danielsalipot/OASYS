@@ -38,12 +38,12 @@
             <thead>
                 <tr>
                     <th>Employee ID</th>
-                    <th>Employee Picture</th>
                     <th>Employee Details</th>
                     <th>Total Hours</th>
                     <th>Rate</th>
                     <th>Gross Pay</th>
                     <th>Taxes</th>
+                    <th>SSS</th>
                     <th>Deductions</th>
                     <th>Cash Advance</th>
                     <th>Net Pay</th>
@@ -143,14 +143,9 @@
                                 return `<b>${data}</b>`
                             }
                         },
-                        { data: 'user_detail.picture',
-                            render : (data,type,row)=>{
-                                return `<img src="{{ URL::asset('${data}')}}" class="rounded" width="50" height="50">`
-                        }
-                        },
                         { data: 'full_name',
                             render : (data,type,row)=>{
-                                return `<b class="h3">${data}</b><br>
+                                return `<b class="h6">${data}</b><br>
                                         ${row.position}<br>
                                         ${row.department}
                                         `
