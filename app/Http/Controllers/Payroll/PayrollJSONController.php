@@ -82,18 +82,7 @@ class PayrollJSONController extends Controller
             };
 
             //Full name of employee
-            // $detail->full_name = "{$detail->UserDetail->fname} {$detail->UserDetail->mname} {$detail->UserDetail->lname}";
-
-            // $start = 3000;
-            // while(1){
-            //     if($detail->gross_pay <= 3000){
-            //         return;
-            //     }
-            //     if($detail->gross_pay >= $start-250 && $detail->gross_pay <= $start+249){
-            //         return;
-            //     }
-            //     $start += 500;
-            // }
+            $detail->full_name = "{$detail->UserDetail->fname} {$detail->UserDetail->mname} {$detail->UserDetail->lname}";
 
             //Taxes deduction computation
             $detail->tax_deduction = round($detail->gross_pay * floatval(substr_replace($detail->taxes->tax_amount ,"", -1)) / 100,2);

@@ -43,7 +43,6 @@
                     <th>Rate</th>
                     <th>Gross Pay</th>
                     <th>Taxes</th>
-                    <th>SSS</th>
                     <th>Deductions</th>
                     <th>Cash Advance</th>
                     <th>Net Pay</th>
