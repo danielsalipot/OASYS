@@ -14,6 +14,10 @@ class PayrollController extends Controller
             return view('pages.payroll_manager.payroll');
         }
 
+        function history(){
+            return view('pages.payroll_manager.pr_history');
+        }
+
         function employeelist(){
             return view('pages.payroll_manager.employeelist');
         }

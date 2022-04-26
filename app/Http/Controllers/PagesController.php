@@ -38,4 +38,23 @@ class PagesController extends Controller
         session()->flush();
         return redirect('/');
     }
+
+    ////////////////////////////////////////////////////
+    // OKAY NA TO GOODS NA PANG DISPLAY LOGIC NA LANG //
+    ////////////////////////////////////////////////////
+
+    function test(){
+        // Store the file name into variable
+        $mydir = 'payslips';
+        $myfolder = array_diff(scandir($mydir), array('.', '..'));
+        echo $myfolder[2];
+
+        $mysubdir = $mydir."/". $myfolder[2];
+        $myfiles = array_diff(scandir($mysubdir), array('.', '..'));
+        foreach ($myfiles as $key => $value) {
+            echo $value;
+        }
+
+        echo "<iframe src=\"/payrolls/payroll(2022-4-16 - 2022-4-30).pdf\" width=\"100%\" style=\"height:100%\"></iframe>";
+    }
 }

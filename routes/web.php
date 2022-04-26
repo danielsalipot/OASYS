@@ -23,6 +23,8 @@ use App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController;
 
 use App\Http\Controllers\Applicant\ApplicantSignUpController;
 
+Route::get('/test',[PagesController::class,'test']);
+
 // Employee Routes
 Route::prefix('')->group(function () {
     include 'employee.php';

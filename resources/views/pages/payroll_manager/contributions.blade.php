@@ -7,27 +7,28 @@
 @section('first')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">SSS Contribution Management</h1>
 
-    <h3 class="w-100 text-center">SSS Contribution Details</h3>
-
-    {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_sss']) !!}
-    <div class="row p-3">
-        <div class="col"></div>
-        <div class="col-2 text-center">
-            {!! Form::label('ee_rate', "Employee SSS Rate", []) !!}
-            {!! Form::text('ee_rate',"$sss->employee_contribution",['disabled','id'=>'ee_rate','class'=>'form-control text-center p-3']) !!}
+    <div class="shadow-lg m-auto p-5">
+        <h3 class="w-100 text-center">SSS Contribution Details</h3>
+        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_sss']) !!}
+        <div class="row p-3">
+            <div class="col"></div>
+            <div class="col-2 text-center">
+                {!! Form::label('ee_rate', "Employee SSS Rate", []) !!}
+                {!! Form::text('ee_rate',"$sss->employee_contribution",['disabled','id'=>'ee_rate','class'=>'form-control text-center p-3']) !!}
+            </div>
+            <div class="col-2 text-center">
+                {!! Form::label('er_rate', "Employer SSS Rate", []) !!}
+                {!! Form::text('er_rate',"$sss->employer_contribution",['disabled','id'=>'er_rate', 'class'=>'form-control text-center p-3']) !!}
+            </div>
+            <div class="col"></div>
+            <div class="d-flex flex-row justify-content-center mt-3">
+                <button type="button" id="lock" class="btn btn-outline-primary h-100 me-2 px-4 p-3"><i class="bi bi-lock"></i></button>
+                {!! Form::submit('Update SSS Rate', ['disabled','id' =>'sss_update','class'=>'btn btn-success px-5 p-3']) !!}
+                <button disabled type="button" id="sss_cancel" class="btn btn-outline-danger h-100 ms-2 px-4 p-3"><i class="bi bi-x-circle"></i></button>
+            </div>
         </div>
-        <div class="col-2 text-center">
-            {!! Form::label('er_rate', "Employer SSS Rate", []) !!}
-            {!! Form::text('er_rate',"$sss->employer_contribution",['disabled','id'=>'er_rate', 'class'=>'form-control text-center p-3']) !!}
-        </div>
-        <div class="col"></div>
-        <div class="d-flex flex-row justify-content-center mt-3">
-            <button type="button" id="lock" class="btn btn-outline-primary h-100 me-2 px-4 p-3"><i class="bi bi-lock"></i></button>
-            {!! Form::submit('Update SSS Rate', ['disabled','id' =>'sss_update','class'=>'btn btn-success px-5 p-3']) !!}
-            <button disabled type="button" id="sss_cancel" class="btn btn-outline-danger h-100 ms-2 px-4 p-3"><i class="bi bi-x-circle"></i></button>
-        </div>
+        {!! Form::close() !!}
     </div>
-    {!! Form::close() !!}
 
     <br>
     <br>

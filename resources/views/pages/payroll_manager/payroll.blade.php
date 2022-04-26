@@ -4,36 +4,121 @@
 @endsection
 
 @section('content')
-    <div class="row w-100 h-100">
+
+    <div class="shadow-lg p-3 my-5">
+        <h4 class="w-100 text-center p-3">Payroll Confirmation Progress</h4>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width:50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div>
+        </div>
+
+        <div class="row my-5 text-center">
+            <div class="col">
+                <h4 class="text-primary w-100 p-3">Employee Salary Rate</h4>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-primary w-100 p-3">Confirm</button>
+                    </div>
+                    <div class="col-3">
+                        <a href="/payroll/employeelist" class="btn btn-primary w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4 class="text-dark p-3">Employee Deductions</h4>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-dark w-100 h1 p-3">Confirm</button>
+                    </div>
+                    <div class="col-3">
+                        <a href="/payroll/deductions" class="btn btn-dark w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4 class="text-success p-3">Overtime Payments</h4>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-success w-100 p-3">Confirm</button>
+                    </div>
+                    <div class="col-3">
+                        <a href="/payroll/overtime" class="btn btn-success w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4 class="text-info p-3">Cash Advance</h4>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-info w-100 p-3">Confirm</button>
+                    </div>
+                    <div class="col-3">
+                        <a href="/payroll/cashadvance" class="btn btn-info w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4 class="text-dark p-3">Contributions</h4>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-light text-dark w-100 p-3">Confirm</button>
+                    </div>
+                    <div class="col-3">
+                        <a href="/payroll/contributions" class="btn btn-light w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4 class="text-warning p-3">Employee Bonus</h4>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-warning w-100 p-3">Confirm</button>
+                    </div>
+                    <div class="col-3">
+                        <a href="/payroll/bonus" class="btn btn-warning w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4 class="text-danger p-3">Double/Triple Pay</h4>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-danger w-100 p-3">Confirm</button>
+                    </div>
+                    <div class="col-3">
+                        <a href="/payroll/doublepay" class="btn btn-danger w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row w-100">
         <div class="col-md-2"><p class="text-center pt-2 h-100 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
         <div class="col-md-1">
-            <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+            <button type="button" name="payroll" id="payroll" disabled class="btn p-4 w-100 btn-primary rounded">Payroll</button>
             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYROLLPDFController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
                 {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payrollGenerate']) !!}
             {!! Form::close() !!}
         </div>
         <div class="col-md-1">
-            <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
+            <button type="button" name="payslip" id="payslip" disabled class="btn p-4 w-100 btn-success rounded">Payslip</button>
             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
                 {!! Form::submit('Generate PDF', ['class'=>'btn p-4 w-100 btn-danger rounded d-none', 'id'=>'payslipGenerate']) !!}
             {!! Form::close() !!}
         </div>
-        <div class="col-md-2"></div>
-
-        <div class="col-md-2 input-daterange">
-            <input type="text" name="from_date" id="from_date" class="form-control h-100" placeholder="From Date" readonly />
-        </div>
-        <div class="col-md-2 input-daterange">
-            <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
-        </div>
-        <div class="col-2 input-daterange">
-            <button type="button" name="filter" id="filter" class="btn p-3 h-100 btn-outline-primary">Filter</button>
-            <button type="button" name="refresh" id="refresh" class="btn p-3 h-100  btn-outline-success">Refresh</button>
+        <div class="col-6"></div>
+        <div class="col">
+            <a href="/payroll/history" class="btn btn-outline-warning w-100 p-4">View Payroll History</a>
         </div>
     </div>
-
+    @include('inc.date_filter')
     <br>
-
         <table class="table text-center table-dark table-bordered table-striped" id="payroll_table">
             <thead>
                 <tr>
