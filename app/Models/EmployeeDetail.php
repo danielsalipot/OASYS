@@ -11,6 +11,7 @@ use App\Models\Attendance;
 use App\Models\Deduction;
 use App\Models\CashAdvance;
 use App\Models\Taxes;
+use App\Models\Bonus;
 
 class EmployeeDetail extends Model
 {
@@ -38,7 +39,10 @@ class EmployeeDetail extends Model
     }
 
     public function FilteredAttendance($id,$start_date,$end_date) {
-        return Attendance::where('employee_id',$id)->whereBetween('attendance_date',array($start_date,$end_date))->orderBy('attendance_date','ASC')->get();
+        return Attendance::where('employee_id',$id)
+            ->whereBetween('attendance_date',array($start_date,$end_date))
+            ->orderBy('attendance_date','ASC')
+            ->get();
     }
 
     public function FilteredDeductions($id,$start_date,$end_date) {
@@ -50,6 +54,16 @@ class EmployeeDetail extends Model
     }
 
     public function FilteredCashAdvance($id,$start_date,$end_date) {
-        return CashAdvance::where('employee_id',$id)->whereBetween('cash_advance_date',array($start_date,$end_date))->orderBy('cash_advance_date','ASC')->get();
+        return CashAdvance::where('employee_id',$id)
+        ->whereBetween('cash_advance_date',array($start_date,$end_date))
+        ->orderBy('cash_advance_date','ASC')
+        ->get();
+    }
+
+    public function FilteredBonus($id,$start_date,$end_date) {
+        return Bonus::where('employee_id',$id)
+        ->whereBetween('bonus_date',array($start_date,$end_date))
+        ->orderBy('bonus_date','ASC')
+        ->get();
     }
 }

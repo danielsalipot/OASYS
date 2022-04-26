@@ -41,8 +41,10 @@
                     <th>Employee Details</th>
                     <th>Total Hours</th>
                     <th>Rate</th>
+                    <th>Bonus</th>
                     <th>Gross Pay</th>
                     <th>Taxes</th>
+                    <th>SSS</th>
                     <th>Deductions</th>
                     <th>Cash Advance</th>
                     <th>Net Pay</th>
@@ -152,38 +154,48 @@
                         },
                         { data: 'complete_hours',
                             render : (data,type,row)=>{
-                                return `<b>${data}</b><br>`
+                                return `<h5 class="text-warning">${data}</h5><br>`
                             }
                         },
                         { data: 'rate',
                             render : (data,type,row)=>{
-                                return `<b class="h5">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                                return `<b class="h5 text-info">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            }
+                        },
+                        { data: 'total_bonus',
+                            render : (data,type,row)=>{
+                                return `<b class="text-info">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
                         { data: 'gross_pay',
                             render : (data,type,row)=>{
-                                return `<b class="h5">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                                return `<b class="h5 text-success">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
                         { data: 'tax_deduction',
                             render : (data,type,row)=>{
                                 return `<b>${row.taxes.tax_amount}</b><br>
-                                        ₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                                        <b class="text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            }
+                        },
+                        { data: 'total_sss',
+                            render : (data,type,row)=>{
+                                return `<b class="text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
                         { data: 'total_deduction',
                             render : (data,type,row)=>{
-                                return `₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                                return `<b class="text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
                         { data: 'total_cash_advance',
                             render : (data,type,row)=>{
-                                return `₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                                return `<b class="text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
                         { data: 'net_pay',
                             render : (data,type,row)=>{
-                                return `<b class="h5">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                                return `<b class="h5 text-success">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         }
                     ]

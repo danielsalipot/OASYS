@@ -172,14 +172,13 @@
             function load_table(from_date = '', to_date = ''){
                 $('#cash_advance_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: {
                             url: '/cashadvancejson',
                             data:{
                                 from_date: from_date,
                                 to_date: to_date
-                            },
-                            dataSrc: ''
+                            }
                         },
                     columns: [
                         { data: 'employee_id',
@@ -210,10 +209,9 @@
 
             $('#employee_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: {
-                        url: '/employeedetailsjson',
-                        dataSrc: ''
+                        url: '/employeelistjson'
                     },
                     columns: [
                         { data: 'employee_id',

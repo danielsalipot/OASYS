@@ -36,7 +36,6 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
-
                         @yield('first')
                     </div>
                     <div class="item">

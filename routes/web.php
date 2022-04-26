@@ -70,8 +70,10 @@ Route::get('/fetchSingleEmployee', [PayrollJSONController::class,'fetchSingleEmp
 Route::get('/deductionjson', [PayrollJSONController::class,'Deduction']);
 Route::post('/insertdeduction', [PayrollInsertController::class,'InsertDeduction']);
 
-Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeList']);
-Route::get('/employeedetailsjson', [PayrollJSONController::class,'EmployeeDetails']);
+Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeDetails']);
+// Update Controller for updating Employee Rates
+Route::post('/editrate', [PayrollUpdateController::class, 'editrate']);
+
 
 //Cash Adavance JSON ROUTE
 Route::get('/cashadvancejson', [PayrollJSONController::class,'CashAdvance']);
@@ -93,7 +95,9 @@ Route::post('/insertmultipay', [PayrollInsertController::class,'InsertMultiPay']
 Route::get('/fetchattendancejson', [PayrollJSONController::class,'fetchAttedance']);
 
 // Not yet done ROUTES for payroll
-Route::get('/deductiontypejson', [PayrollJSONController::class,'DeductionType']);
+Route::get('/contributionsjson', [PayrollJSONController::class,'contributions']);
+Route::post('/edit_sss', [PayrollUpdateController::class, 'edit_sss']);
+
 Route::get('/messagejson', [PayrollJSONController::class,'Message']);
 Route::get('/notificationjson', [PayrollJSONController::class,'Notification']);
 
@@ -135,8 +139,6 @@ Route::post('crudapply', [ApplicantSignUpController::class, 'crudapply']);
 //Delete applicant's account
 Route::get('deleteApplication', [ApplicantSignUpController::class, 'deleteApplication']);
 
-// Update Controller for updating Employee Rates
-Route::post('/editrate', [PayrollUpdateController::class, 'editrate']);
 
 //Logout
 Route::get('/logout', [PagesController::class, 'logout']);
