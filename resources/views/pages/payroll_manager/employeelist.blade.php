@@ -78,7 +78,6 @@
             $('#employee_table').DataTable({
                 ajax: {
                         url: '/employeelistjson',
-                        dataSrc: ''
                     },
                 columns: [
                     { data: 'employee_id',

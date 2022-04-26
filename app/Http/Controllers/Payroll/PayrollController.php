@@ -6,11 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\EmployeeDetail;
-use App\Models\Deduction;
-use App\Models\Overtime;
-use App\Models\Attendance;
-use App\Models\CashAdvance;
+use App\Models\Contributions;
 
 class PayrollController extends Controller
 {
@@ -34,8 +30,9 @@ class PayrollController extends Controller
             return view('pages.payroll_manager.cashadvance');
         }
 
-        function deductiontype(){
-            return view('pages.payroll_manager.deductiontype');
+        function contributions(){
+            $sss = Contributions::first();
+            return view('pages.payroll_manager.contributions',compact('sss'));
         }
 
         function bonus(){

@@ -6,7 +6,7 @@ Route::prefix('payroll')->group(function () {
     Route::get('/home', [PayrollController::class, 'payroll']);
     Route::get('/employeelist', [PayrollController::class, 'employeelist']);
     Route::get('/deduction', [PayrollController::class, 'deduction']);
-    Route::get('/deductiontype', [PayrollController::class, 'deductiontype']);
+    Route::get('/contributions', [PayrollController::class, 'contributions']);
     Route::get('/bonus', [PayrollController::class, 'bonus']);
     Route::get('/doublepay', [PayrollController::class, 'doublepay']);
     Route::get('/message', [PayrollController::class, 'message']);

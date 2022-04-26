@@ -6,18 +6,7 @@
 
 @section('first')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Deductions</h1>
-    <div class="row w-100 h-100 mb-4 mt-4">
-        <div class="col-md-2 input-daterange">
-            <input type="text" name="from_date" id="from_date" class="form-control h-100" placeholder="From Date" readonly />
-        </div>
-        <div class="col-md-2 input-daterange">
-            <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
-        </div>
-        <div class="col-2 input-daterange">
-            <button type="button" name="filter" id="filter" class="btn p-3 h-100 btn-outline-primary">Filter</button>
-            <button type="button" name="refresh" id="refresh" class="btn p-3 h-100  btn-outline-success">Refresh</button>
-        </div>
-    </div>
+    @include('inc.date_filter')
     <table class="table table-striped text-center table-dark" id="deduction_table">
         <thead>
             <tr class="text-center">
@@ -196,14 +185,13 @@
             function load_table(from_date = '', to_date = ''){
                 $('#deduction_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: {
                         url: '/deductionjson',
                         data:{
                             from_date: from_date,
                             to_date: to_date
-                        },
-                        dataSrc: ''
+                        }
                     },
                     columns: [
                         { data: 'fname',
@@ -259,10 +247,9 @@
 
             $('#employee_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: {
-                        url: '/employeedetailsjson',
-                        dataSrc: ''
+                        url: '/employeelistjson'
                     },
                     columns: [
                         { data: 'employee_id',

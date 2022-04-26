@@ -161,13 +161,13 @@
             function load_table(from_date = '', to_date = ''){
                 $('#multi_pay_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: { url: '/fetchattendancejson',
                             data:{
                                 from_date: from_date,
                                 to_date: to_date
-                            },
-                            dataSrc: ''},
+                            }
+                        },
                     columns: [
                         { data: 'employee_id',
                             render : (data,type,row)=>{
@@ -278,13 +278,13 @@
             function load_paid_table(from_date = '', to_date = ''){
                 $('#paid_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: { url: '/doublepayjson',
                             data:{
                                 from_date: from_date,
                                 to_date: to_date
-                            },
-                            dataSrc: ''},
+                            }
+                        },
                     columns: [
                         { data: 'fname',
                             render : (data,type,row)=>{

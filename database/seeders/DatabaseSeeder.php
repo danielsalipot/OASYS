@@ -39,5 +39,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OvertimeSeeder::class);
         $this->call(TaxesSeeder::class);
         $this->call(DeductionSeeder::class);
+        $this->call(ContributionsSeeder::class);
     }
 }

@@ -13,7 +13,7 @@ use App\Models\Deduction;
 use App\Models\MultiPay;
 use App\Models\Overtime;
 use App\Models\Bonus;
-
+use App\Models\Contributions;
 
 class PayrollJSONController extends Controller
 {
@@ -26,6 +26,7 @@ class PayrollJSONController extends Controller
             $value->attendance = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
             $value->deduction = $value->FilteredDeductions($value->employee_id, $request->from_date,$request->to_date);
             $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id, $request->from_date,$request->to_date);
+            $value->bonus = $value->FilteredBonus($value->employee_id, $request->from_date,$request->to_date);
         }
 
         //Set all of the calculated and concatinated values
@@ -34,7 +35,6 @@ class PayrollJSONController extends Controller
             $detail->complete_hours = 0;
             //Gross pay computation
             $detail->gross_pay = 0;
-
             //Computes total time and gross pay with overtime and multipay
             foreach ($detail->attendance as $key => $attendance) {
                 $overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
@@ -81,6 +81,13 @@ class PayrollJSONController extends Controller
                 $detail->total_cash_advance = round($detail->total_cash_advance,2);
             };
 
+            $detail->total_bonus = 0;
+            foreach($detail->bonus as $key => $bonus){
+                $detail->total_bonus += $bonus->bonus_amount;
+                $detail->total_bonus = round($detail->total_bonus,2);
+            };
+
+            $detail->gross_pay += round($detail->gross_pay,2);
             //Full name of employee
             $detail->full_name = "{$detail->UserDetail->fname} {$detail->UserDetail->mname} {$detail->UserDetail->lname}";
 
@@ -88,30 +95,75 @@ class PayrollJSONController extends Controller
             $detail->tax_deduction = round($detail->gross_pay * floatval(substr_replace($detail->taxes->tax_amount ,"", -1)) / 100,2);
             $detail->net_pay = round($detail->gross_pay - $detail->total_deduction - $detail->total_cash_advance - $detail->tax_deduction,2);
             $detail->prm_id = session('user_id');
+
+            // SSS Contribution
+            $detail->employer_contribution = 0;
+            $detail->employee_contribution = 0;
+
+            $start = 3000;
+            $gross_pay = $detail->gross_pay;
+            $er_add = 0;
+
+            $sss_rate = Contributions::first();
+
+            $ee_rate = $sss_rate->employee_contribution / 100;
+            $er_rate = $sss_rate->employer_contribution / 100;
+
+            // Check Additional for ER
+            if($gross_pay < 15000){
+                $er_add = 10;
+            }
+            else{
+                $er_add = 30;
+            }
+
+            while(1){
+                if($gross_pay == 0){
+                    $start = 0;
+                    $er_add = 0;
+                    break;
+                }
+                if($gross_pay < 3001){
+                    break;
+                }
+                $start += 500;
+                if($gross_pay >= $start - 250  && $gross_pay <= $start + 249){
+                    break;
+                }
+                if($gross_pay >= 25000){
+                    $start = 25000;
+                    break;
+                }
+            }
+
+            $detail->employer_contribution = round(($start * $er_rate + $er_add),1);
+            $detail->employee_contribution = round($start * $ee_rate,1);
+            $detail->total_sss = $detail->employer_contribution + $detail->employee_contribution;
         }
         return $PayrollDetails;
     }
 
     public function CashAdvance(Request $request){
-        return $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
+        $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
             ->whereBetween('cash_advances.cash_advance_date',[$request->from_date,$request->to_date])
             ->get();
+
+            return datatables()->of($cashAdvanceRecord)->make(true);
     }
 
     public function EmployeeDetails(){
-        return EmployeeDetail::with('UserDetail')->get();
+        $employeeDetails = EmployeeDetail::with('UserDetail')->get();
+        return datatables()->of($employeeDetails)->make(true);
     }
 
     public function Deduction(Request $request){
-        return Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
+        $deductions = Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
             ->join('user_details','user_details.information_id','=','employee_details.information_id')
             ->whereBetween('deductions.deduction_start_date',[$request->from_date,$request->to_date])
             ->get();
-    }
 
-    public function EmployeeList(){
-        return $employeeDetails = EmployeeDetail::with('UserDetail')->get();
+        return datatables()->of($deductions)->make(true);
     }
 
     public function fetchSingleEmployee(Request $request){
@@ -156,7 +208,7 @@ class PayrollJSONController extends Controller
                 $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
         }
 
-        return $employee_overtime_arr;
+        return datatables()->of($employee_overtime_arr)->make(true);
     }
 
     public function getPaidOvertime(){
@@ -175,14 +227,16 @@ class PayrollJSONController extends Controller
 
             $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
         }
-        return $paid_overtime_arr;
+        return datatables()->of($paid_overtime_arr)->make(true);
     }
 
     public function Bonus(Request $request){
-        return $BonusRecords = Bonus::join('employee_details', 'bonuses.employee_id','=','employee_details.employee_id')
+        $BonusRecords = Bonus::join('employee_details', 'bonuses.employee_id','=','employee_details.employee_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
             ->whereBetween('bonuses.bonus_date',[$request->from_date,$request->to_date])
             ->get();
+
+        return datatables()->of($BonusRecords)->make(true);
     }
 
     public function fetchAttedance(Request $request){
@@ -223,7 +277,7 @@ class PayrollJSONController extends Controller
             }
         }
 
-        return $normal_pay_attendance;
+        return datatables()->of($normal_pay_attendance)->make(true);
     }
 
     public function DoublePay(Request $request){
@@ -260,7 +314,102 @@ class PayrollJSONController extends Controller
             }
         }
 
-        return $multipay;
+        return datatables()->of($multipay)->make(true);
+    }
+
+    public function contributions(Request $request){
+        $employee_details = EmployeeDetail::join('user_details','user_details.information_id','=','employee_details.information_id')
+            ->get();
+
+        foreach ($employee_details as $key => $employee) {
+            $employee->attendance = $employee->FilteredAttendance($employee->employee_id, $request->from_date,$request->to_date);
+        }
+
+        foreach ($employee_details as $key => $detail) {
+            // Computation for total hours
+            $detail->complete_hours = 0;
+            //Gross pay computation
+            $detail->gross_pay = 0;
+            //Computes total time and gross pay with overtime and multipay
+            foreach ($detail->attendance as $key => $attendance) {
+                $overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
+                $sched = EmployeeDetail::where('employee_id',$attendance->employee_id)->first();
+                $multipay = MultiPay::where('attendance_id',$attendance->attendance_id)->first();
+
+                $timein = $this->timeCalculator($attendance->time_in);
+                $timeout = $this->timeCalculator($attendance->time_out);
+
+                $stimein = $this->timeCalculator($sched->schedule_Timein);
+                $stimeout = $this->timeCalculator($sched->schedule_Timeout);
+                $rate = $sched->rate;
+
+                if($multipay){
+                    $rate = $rate * $multipay->status;
+                }
+
+                if($overtime){
+                    $time = ($timeout - $timein) / 3600;
+
+                    $detail->gross_pay += $rate * $time;
+                    $detail->complete_hours += round($time,2);
+                }else{
+                    $time = ($stimeout - $stimein) / 3600;
+
+                    $detail->gross_pay += $rate * $time;
+                    $detail->complete_hours += round($time,2);
+                }
+
+                $detail->gross_pay = round($detail->gross_pay,2);
+
+                $detail->complete_hours = round($detail->complete_hours,2);
+            }
+
+            // SSS Contribution
+            $detail->employer_contribution = 0;
+            $detail->employee_contribution = 0;
+
+            $start = 3000;
+            $gross_pay = $detail->gross_pay;
+            $er_add = 0;
+
+            $sss_rate = Contributions::first();
+
+            $ee_rate = $sss_rate->employee_contribution / 100;
+            $er_rate = $sss_rate->employer_contribution / 100;
+
+            // Check Additional for ER
+            if($gross_pay < 15000){
+                $er_add = 10;
+            }
+            else{
+                $er_add = 30;
+            }
+
+            while(1){
+                if($gross_pay == 0){
+                    $start = 0;
+                    $er_add = 0;
+                    break;
+                }
+                if($gross_pay < 3001){
+                    break;
+                }
+                $start += 500;
+                if($gross_pay >= $start - 250  && $gross_pay <= $start + 249){
+                    break;
+                }
+                if($gross_pay >= 25000){
+                    $start = 25000;
+                    break;
+                }
+            }
+
+            $detail->employer_contribution = round(($start * $er_rate + $er_add),1);
+            $detail->employee_contribution = round($start * $ee_rate,1);
+            $detail->total_sss = $detail->employer_contribution + $detail->employee_contribution;
+        }
+
+        return datatables()->of($employee_details)->make(true);
     }
 
     public function Message(){

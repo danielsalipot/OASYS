@@ -207,15 +207,14 @@
             function load_table(from_date = '', to_date = '', time_filter = '') {
                 $('#overtime_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: {
                         url: '/overtimejson',
                         data: {
                             from_date: from_date,
                             to_date: to_date,
                             time_filter: time_filter
-                        },
-                        dataSrc: ''
+                        }
                     },
                     columns: [{
                             data: 'attendance_id',
@@ -285,10 +284,9 @@
             function load_paid_table() {
                 $('#paid_overtime_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: {
-                        url: '/getPaidOvertime',
-                        dataSrc: ''
+                        url: '/getPaidOvertime'
                     },
                     columns: [{
                             data: 'employee_id',

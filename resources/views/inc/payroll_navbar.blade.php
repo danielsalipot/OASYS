@@ -9,7 +9,7 @@
         <li><a href="/payroll/deduction" class="nav-link py-3 pt-4" title="Employee Deduction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calculator"></i></a></li>
         <li><a href="/payroll/overtime" class="nav-link py-3 pt-4" title="Overtime Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock"></i></a></li>
         <li><a href="/payroll/cashadvance" class="nav-link py-3 pt-4" title="Cash Advance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-cash-stack"></i></a></li>
-        <li><a href="/payroll/deductiontype" class="nav-link py-3 pt-4" title="Deduction Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-wallet"></i></a></li>
+        <li><a href="/payroll/contributions" class="nav-link py-3 pt-4" title="Employee Contributions" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-wallet"></i></a></li>
         <li><a href="/payroll/bonus" class="nav-link py-3 pt-4" title="Bonus" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-coin"></i></a></li>
         <li><a href="/payroll/doublepay" class="nav-link py-3 pt-4" title="Double Pay" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-check-all"></i></a></li>
         <li><a href="/payroll/message" class="nav-link py-3 pt-4" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i></a></li>
