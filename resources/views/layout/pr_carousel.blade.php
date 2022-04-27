@@ -19,7 +19,7 @@
     <div class="row mt-5">
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
-            <div class="container p-1">
+            <div class="container">
             @yield('Title')
 
             <div id="myCarousel" class="carousel carousel-dark slide" data-interval="false" data-ride="carousel">

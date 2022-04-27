@@ -5,6 +5,7 @@ use App\Http\Controllers\Payroll\PayrollController;
 Route::prefix('payroll')->group(function () {
     Route::get('/home', [PayrollController::class, 'payroll']);
     Route::get('/history', [PayrollController::class, 'History']);
+    Route::get('/history/payslip', [PayrollController::class, 'display_payslip']);
     Route::get('/employeelist', [PayrollController::class, 'employeelist']);
     Route::get('/deduction', [PayrollController::class, 'deduction']);
     Route::get('/contributions', [PayrollController::class, 'contributions']);

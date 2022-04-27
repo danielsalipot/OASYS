@@ -15,6 +15,7 @@
                     <th scope="col">Employee Details</th>
                     <th scope="col">Cash Advance Date</th>
                     <th scope="col">Cash Advance Amount</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
         </table>
@@ -201,6 +202,11 @@
                         { data: 'cashAdvance_amount',
                             render : (data,type,row)=>{
                                 return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            }
+                        },
+                        {   data: 'employee_id',
+                            render : (data,type,row)=>{
+                                return `<button class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>`
                             }
                         }
                     ]

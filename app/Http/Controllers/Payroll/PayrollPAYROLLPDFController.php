@@ -12,6 +12,10 @@ class PayrollPAYROLLPDFController extends Controller
 {
     public function payrollPdf(Request $request){
         $PayrollDetails = json_decode($request->pr_col1);
+
+        if($PayrollDetails == null){
+            echo "<script>window.close();</script>";
+        }
         $pdf = new FPDF();
 
         //Add a new page

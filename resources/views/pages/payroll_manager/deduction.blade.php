@@ -15,6 +15,7 @@
                 <th scope="col">Deduction Start Date</th>
                 <th scope="col">Deduction End Date</th>
                 <th scope="col">Deduction Amount</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
     </table>
@@ -221,7 +222,11 @@
                                 return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
-
+                        {   data: 'employee_id',
+                            render : (data,type,row)=>{
+                                return `<button class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>`
+                            }
+                        }
                     ]
                 })
             }

@@ -8,13 +8,14 @@
 <div class="container">
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Bonus History</h1>
     @include('inc.date_filter')
-    <table class="table table-striped table-dark" id="bonus_table">
+    <table class="table table-striped table-dark text-center" id="bonus_table">
         <thead>
             <tr>
                 <th scope="col">Employee ID</th>
                 <th scope="col">Employee Details</th>
                 <th scope="col">Date of Bonus</th>
                 <th scope="col">Bonus Amount</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
     </table>
@@ -202,6 +203,11 @@
                         { data: 'bonus_amount',
                             render : (data,type,row)=>{
                                 return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            }
+                        },
+                        {   data: 'employee_id',
+                            render : (data,type,row)=>{
+                                return `<button class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>`
                             }
                         }
                     ]
