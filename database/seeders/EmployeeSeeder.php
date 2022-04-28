@@ -24,7 +24,7 @@ class EmployeeSeeder extends Seeder
 
         UserCredential::create([
             'username' => $username,
-            'password' => 'password123',
+            'password' => md5(md5('password123')),
             'user_type' => 'employee'
         ]);
 

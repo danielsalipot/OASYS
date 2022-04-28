@@ -17,7 +17,7 @@ class ContributionsSeeder extends Seeder
     public function run()
     {
         Contributions::create([
-            'employee_contribution' => "4.5%",
+            'employee_contribution' => "4.5",
             'employer_contribution' => "8.5",
         ]);
     }

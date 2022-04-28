@@ -45,25 +45,23 @@ class PagesController extends Controller
 
     function test(){
 
-        $payslip_dir = 'payslips';
-        $payslip_folders = array_diff(scandir($payslip_dir), array('.', '..'));
-
-        $payslip_files = [];
-        $payslip_file_btn=[];
-        foreach ($payslip_folders as $key => $value) {
-            array_push($payslip_files, array_diff(scandir($payslip_dir."/".$value), array('.', '..')));
-        }
-
-        foreach ($payslip_folders as $key => $value) {
-            echo $value;
-        }
-    //     // Store the file name into variable
-    //     $mydir = 'payrolls';
-    //     $myfolder = array_diff(scandir($mydir), array('.', '..'));
-    //     foreach ($myfolder as $key => $value) {
-    //         echo $key . " " . $value . " | ";
-    //     }
-
-    //     echo "<iframe src=\"/payrolls/payroll(2022-4-16 - 2022-4-30).pdf\" width=\"100%\" style=\"display:none;height:100%\"></iframe>";
     }
 }
+
+// $payslip_dir = 'payslips';
+// $payslip_folders = array_diff(scandir($payslip_dir), array('.', '..'));
+// $payslip_files = [];
+// $payslip_file_btn=[];
+// foreach ($payslip_folders as $key => $value) {
+//     array_push($payslip_files, array_diff(scandir($payslip_dir."/".$value), array('.', '..')));
+// }
+// foreach ($payslip_folders as $key => $value) {
+//     echo $value;
+// }
+// // Store the file name into variable
+// $mydir = 'payrolls';
+// $myfolder = array_diff(scandir($mydir), array('.', '..'));
+// foreach ($myfolder as $key => $value) {
+//     echo $key . " " . $value . " | ";
+// }
+//     echo "<iframe src=\"/payrolls/payroll(2022-4-16 - 2022-4-30).pdf\" width=\"100%\" style=\"display:none;height:100%\"></iframe>";

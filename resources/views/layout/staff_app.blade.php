@@ -10,6 +10,9 @@
 
 </head>
 <body>
+    @if (!session()->has('user_id') && !session()->get('user_type') == 'staff')
+        {!! '<script>window.location.replace("/logout");</script>' !!}
+    @endif
 
     @include('inc.staff_navbar')
     @yield('content')

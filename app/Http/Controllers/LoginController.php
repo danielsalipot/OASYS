@@ -18,7 +18,7 @@ class LoginController extends Controller
 
         //search if the username and password exist and match up
         $check = UserCredential::where('username',$request->input('user'))
-                ->where('password',$request->input('pass'))
+                ->where('password',md5(md5($request->input('pass'))))
                 ->first();
 
         if($check){

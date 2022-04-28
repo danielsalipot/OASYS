@@ -53,6 +53,7 @@
                             <th scope="col">Multiplier</th>
                             <th scope="col">Total Compensation</th>
                             <th scope="col">Attendance Date</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                 </table>
@@ -357,6 +358,11 @@
                         { data: 'attendance_date',
                             render : (data,type,row)=>{
                                 return `<b>${data}</b>`
+                            }
+                        },
+                        {   data: 'employee_id',
+                            render : (data,type,row)=>{
+                                return row.delete
                             }
                         }
                     ]

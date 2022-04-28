@@ -7,6 +7,10 @@
     <title>OASYS</title>
 </head>
 <body>
+    @if (!session()->has('user_id') && !session()->get('user_type') == 'employee')
+        {!! '<script>window.location.replace("/logout");</script>' !!}
+    @endif
+
     @include('inc.navincludes')
     @include('inc.employee_navbar')
     @yield('content')

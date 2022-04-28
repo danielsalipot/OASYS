@@ -71,15 +71,17 @@ Route::get('/fetchSingleEmployee', [PayrollJSONController::class,'fetchSingleEmp
 // Deduction JSON ROUTE
 Route::get('/deductionjson', [PayrollJSONController::class,'Deduction']);
 Route::post('/insertdeduction', [PayrollInsertController::class,'InsertDeduction']);
+Route::get('/removeDeduction/{id}', [PayrollDeleteController::class,'DeleteDeduction']);
 
 Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeDetails']);
+
 // Update Controller for updating Employee Rates
 Route::post('/editrate', [PayrollUpdateController::class, 'editrate']);
-
 
 //Cash Adavance JSON ROUTE
 Route::get('/cashadvancejson', [PayrollJSONController::class,'CashAdvance']);
 Route::post('/insertcashadvance', [PayrollInsertController::class,'InsertCashAdvance']);
+Route::get('/removeCashAdvance/{id}', [PayrollDeleteController::class,'DeleteCashAdvance']);
 
 // Overtime JSON ROUTE
 Route::get('/overtimejson', [PayrollJSONController::class,'Overtime']);
@@ -90,10 +92,13 @@ Route::get('/removeOvertime', [PayrollDeleteController::class,'DeleteOvertime'])
 // Bonus JSON ROUTE
 Route::get('/bonusjson', [PayrollJSONController::class,'Bonus']);
 Route::post('/insertbonus', [PayrollInsertController::class,'InsertBonus']);
+Route::get('/removeDeleteBonus/{id}', [PayrollDeleteController::class,'DeleteBonus']);
 
 // Double Pay JSON ROUTE
 Route::get('/doublepayjson', [PayrollJSONController::class,'DoublePay']);
 Route::post('/insertmultipay', [PayrollInsertController::class,'InsertMultiPay']);
+Route::get('/removeMultiPay/{id}', [PayrollDeleteController::class,'DeleteMultiPay']);
+
 Route::get('/fetchattendancejson', [PayrollJSONController::class,'fetchAttedance']);
 
 // Not yet done ROUTES for payroll

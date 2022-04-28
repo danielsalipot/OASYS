@@ -24,25 +24,25 @@ class ApplicantSeeder extends Seeder
 
         UserCredential::create([
             'username' => $username,
-            'password' => 'password123',
+            'password' => md5(md5('password123')),
             'user_type' => 'applicant'
         ]);
-        
+
         $login_id = UserCredential::where('username',$username)
                     ->first('login_id')
                     ->login_id;
 
         UserDetail::create([
-            'login_id' => $login_id, 
-            'fname' => $faker->FirstName, 
-            'mname' => $faker->LastName, 
-            'lname' => $faker->LastName, 
-            'sex' =>  'male', 
+            'login_id' => $login_id,
+            'fname' => $faker->FirstName,
+            'mname' => $faker->LastName,
+            'lname' => $faker->LastName,
+            'sex' =>  'male',
             'age' => '20',
-            'bday' => $faker->date($format = 'Y-m-d'),  
-            'cnum' => $faker->e164PhoneNumber, 
-            'email' => $faker->email, 
-            'picture' => 'pictures/1.png',  
+            'bday' => $faker->date($format = 'Y-m-d'),
+            'cnum' => $faker->e164PhoneNumber,
+            'email' => $faker->email,
+            'picture' => 'pictures/1.png',
         ]);
 
         $info_id = UserDetail::where('login_id',$login_id)
@@ -50,10 +50,10 @@ class ApplicantSeeder extends Seeder
                     ->information_id;
 
         ApplicantDetail::create([
-            'login_id' => $login_id, 
+            'login_id' => $login_id,
             'information_id' =>$info_id,
             'Applyingfor' => 'Teacher',
-            'educ' => 'College',  
+            'educ' => 'College',
             'resume' => 'resume/1.pdf'
         ]);
     }

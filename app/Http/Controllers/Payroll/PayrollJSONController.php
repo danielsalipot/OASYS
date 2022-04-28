@@ -149,7 +149,15 @@ class PayrollJSONController extends Controller
             ->whereBetween('cash_advances.cash_advance_date',[$request->from_date,$request->to_date])
             ->get();
 
-            return datatables()->of($cashAdvanceRecord)->make(true);
+            return datatables()->of($cashAdvanceRecord)
+                ->addColumn('delete',function($data){
+                $button = ' <form action="/removeCashAdvance/'. $data->cashAdvances_id .'" method="GET">
+                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                            </form>';
+                return $button;
+                })
+                ->rawColumns(['delete'])
+                ->make(true);
     }
 
     public function EmployeeDetails(){
@@ -163,7 +171,15 @@ class PayrollJSONController extends Controller
             ->whereBetween('deductions.deduction_start_date',[$request->from_date,$request->to_date])
             ->get();
 
-        return datatables()->of($deductions)->make(true);
+        return datatables()->of($deductions)
+            ->addColumn('delete',function($data){
+                $button = ' <form action="/removeDeduction/'.$data->deduction_id.'" method="GET">
+                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                            </form>';
+                return $button;
+            })
+            ->rawColumns(['delete'])
+            ->make(true);
     }
 
     public function fetchSingleEmployee(Request $request){
@@ -236,7 +252,15 @@ class PayrollJSONController extends Controller
             ->whereBetween('bonuses.bonus_date',[$request->from_date,$request->to_date])
             ->get();
 
-        return datatables()->of($BonusRecords)->make(true);
+        return datatables()->of($BonusRecords)
+            ->addColumn('delete',function($data){
+            $button = ' <form action="/removeDeleteBonus/'. $data->bonus_id .'" method="GET">
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        </form>';
+            return $button;
+            })
+            ->rawColumns(['delete'])
+            ->make(true);
     }
 
     public function fetchAttedance(Request $request){
@@ -314,7 +338,15 @@ class PayrollJSONController extends Controller
             }
         }
 
-        return datatables()->of($multipay)->make(true);
+        return datatables()->of($multipay)
+            ->addColumn('delete',function($data){
+            $button = ' <form action="/removeMultiPay/'. $data->multi_pay_id .'" method="GET">
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        </form>';
+            return $button;
+            })
+            ->rawColumns(['delete'])
+            ->make(true);;
     }
 
     public function contributions(Request $request){

@@ -15,6 +15,10 @@
 </head>
 
 <body>
+    @if (!session()->has('user_id') && !session()->get('user_type') == 'payroll')
+        {!! '<script>window.location.replace("/logout");</script>' !!}
+    @endif
+
     @include('inc.payroll_navbar')
     <div class="row mt-5">
         <div class="col-1" style="width:6vw"></div>

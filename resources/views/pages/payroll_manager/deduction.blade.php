@@ -222,9 +222,9 @@
                                 return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
-                        {   data: 'employee_id',
+                        {   data: 'deduction_amount',
                             render : (data,type,row)=>{
-                                return `<button class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>`
+                                return row.delete
                             }
                         }
                     ]

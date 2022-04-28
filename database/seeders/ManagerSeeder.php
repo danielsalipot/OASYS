@@ -22,25 +22,25 @@ class ManagerSeeder extends Seeder
 
         UserCredential::create([
             'username' => 'HRAdmin',
-            'password' => 'password123',
+            'password' => md5(md5('password123')),
             'user_type' => 'admin'
         ]);
-    
+
         $login_id = UserCredential::where('username','HRAdmin')
                     ->first('login_id')
                     ->login_id;
-        
+
         UserDetail::create([
-            'login_id' => $login_id, 
-            'fname' => $faker->FirstName, 
-            'mname' => $faker->LastName, 
-            'lname' => $faker->LastName, 
-            'sex' =>  'male', 
+            'login_id' => $login_id,
+            'fname' => $faker->FirstName,
+            'mname' => $faker->LastName,
+            'lname' => $faker->LastName,
+            'sex' =>  'male',
             'age' => '20',
-            'bday' => $faker->date($format = 'Y-m-d'),  
-            'cnum' => $faker->e164PhoneNumber, 
-            'email' => $faker->email, 
-            'picture' => 'pictures/1.png',  
+            'bday' => $faker->date($format = 'Y-m-d'),
+            'cnum' => $faker->e164PhoneNumber,
+            'email' => $faker->email,
+            'picture' => 'pictures/1.png',
         ]);
     }
 }

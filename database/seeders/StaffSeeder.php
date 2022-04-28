@@ -19,28 +19,28 @@ class StaffSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        
-        UserCredential::create([      
+
+        UserCredential::create([
             'username' => 'HRStaff',
-            'password' => 'password123',
+            'password' => md5(md5('password123')),
             'user_type' => 'staff'
         ]);
-    
+
         $login_id = UserCredential::where('username','HRStaff')
                     ->first('login_id')
                     ->login_id;
 
         UserDetail::create([
-            'login_id' => $login_id, 
-            'fname' => $faker->FirstName, 
-            'mname' => $faker->LastName, 
-            'lname' => $faker->LastName, 
-            'sex' =>  'male', 
+            'login_id' => $login_id,
+            'fname' => $faker->FirstName,
+            'mname' => $faker->LastName,
+            'lname' => $faker->LastName,
+            'sex' =>  'male',
             'age' => '20',
-            'bday' => $faker->date($format = 'Y-m-d'),  
-            'cnum' => $faker->e164PhoneNumber, 
-            'email' => $faker->email, 
-            'picture' => 'pictures/1.png',  
+            'bday' => $faker->date($format = 'Y-m-d'),
+            'cnum' => $faker->e164PhoneNumber,
+            'email' => $faker->email,
+            'picture' => 'pictures/1.png',
         ]);
     }
 }

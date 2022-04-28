@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Overtime;
+use App\Models\Deduction;
+use App\Models\CashAdvance;
+use App\Models\Bonus;
+use App\Models\MultiPay;
 
 class PayrollDeleteController extends Controller
 {
@@ -17,5 +21,25 @@ class PayrollDeleteController extends Controller
         }
 
         return redirect('/payroll/overtime');
+    }
+
+    public function DeleteDeduction($id){
+        Deduction::where('deduction_id',$id)->delete();
+        return redirect('/payroll/deduction');
+    }
+
+    public function DeleteCashAdvance($id){
+        CashAdvance::where('cashAdvances_id',$id)->delete();
+        return redirect('/payroll/cashadvance');
+    }
+
+    public function DeleteBonus($id){
+        Bonus::where('bonus_id',$id)->delete();
+        return redirect('/payroll/bonus');
+    }
+
+    public function DeleteMultiPay($id){
+        MultiPay::where('multi_pay_id',$id)->delete();
+        return redirect('/payroll/doublepay');
     }
 }
