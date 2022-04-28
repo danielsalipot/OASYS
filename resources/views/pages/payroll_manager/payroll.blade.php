@@ -6,9 +6,10 @@
 @section('content')
 
     <div class="shadow-lg ps-3 py-1 my-5">
-        <h4 class="w-100 text-center display-4 p-4">Payroll Progress Confirmation</h4>
+        <h4 class="w-100 text-center display-4 pt-3">Payroll Progress Confirmation</h4>
+        <p class="w-100 text-center h6 pb-3">Confirmation of Payroll processes before proceeding to Report Generation</p>
         <div class="progress me-3">
-            <div class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+            <div class="progress-bar" role="progressbar" style="width:{!!session()->get('progress')!!}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{!!session()->get('progress')!!}%</div>
         </div>
 
         <div class="row my-3 px-3">
@@ -16,19 +17,27 @@
                 <h4 class="text-primary w-100">Employee Salary Rate</h4>
                 <div class="row">
                     <div class="col p-0">
-                        <button class="btn btn-outline-primary w-100 p-3">Confirm</button>
+                        @if (str_contains(session()->get('progress_btn'),'1'))
+                            <button disabled class="btn btn-outline-primary w-100 p-3">Confirm</button>
+                        @else
+                            <a href="/payroll/progress/1" class="btn btn-outline-primary w-100 p-3">Confirm</a>
+                        @endif
+
                     </div>
                     <div class="col-3 p-0 pe-3">
                         <a href="/payroll/employeelist" class="btn btn-primary w-100 p-3"><i class="bi bi-caret-right"></i></a>
                     </div>
                 </div>
             </div>
-
             <div class="col">
                 <h4 class="text-dark">Employee Deductions</h4>
                 <div class="row">
                     <div class="col p-0">
-                        <button class="btn btn-outline-dark w-100 h1 p-3">Confirm</button>
+                        @if (str_contains(session()->get('progress_btn'),'2'))
+                            <button disabled class="btn btn-outline-dark w-100 p-3">Confirm</button>
+                        @else
+                            <a href="/payroll/progress/2" class="btn btn-outline-dark w-100 p-3">Confirm</a>
+                        @endif
                     </div>
                     <div class="col-3 p-0 pe-3">
                         <a href="/payroll/deductions" class="btn btn-dark w-100 p-3"><i class="bi bi-caret-right"></i></a>
@@ -40,7 +49,11 @@
                 <h4 class="text-success ">Overtime Payments</h4>
                 <div class="row">
                     <div class="col p-0">
-                        <button class="btn btn-outline-success w-100 p-3">Confirm</button>
+                        @if (str_contains(session()->get('progress_btn'),'3'))
+                            <button disabled class="btn btn-outline-success w-100 p-3">Confirm</button>
+                        @else
+                            <a href="/payroll/progress/3" class="btn btn-outline-success w-100 p-3">Confirm</a>
+                        @endif
                     </div>
                     <div class="col-3 p-0 pe-3">
                         <a href="/payroll/overtime" class="btn btn-success w-100 p-3"><i class="bi bi-caret-right"></i></a>
@@ -52,7 +65,11 @@
                 <h4 class="text-info">Cash Advance</h4>
                 <div class="row">
                     <div class="col p-0">
-                        <button class="btn btn-outline-info w-100 p-3">Confirm</button>
+                        @if (str_contains(session()->get('progress_btn'),'4'))
+                            <button disabled class="btn btn-outline-info w-100 p-3">Confirm</button>
+                        @else
+                            <a href="/payroll/progress/4" class="btn btn-outline-info w-100 p-3">Confirm</a>
+                        @endif
                     </div>
                     <div class="col-3 p-0 pe-3">
                         <a href="/payroll/cashadvance" class="btn btn-info w-100 p-3"><i class="bi bi-caret-right"></i></a>
@@ -61,13 +78,17 @@
             </div>
 
             <div class="col">
-                <h4 class="text-dark">Contributions</h4>
+                <h4 class="text-secondary">Contributions</h4>
                 <div class="row">
                     <div class="col p-0">
-                        <button class="btn btn-outline-light text-dark w-100 p-3">Confirm</button>
+                        @if (str_contains(session()->get('progress_btn'),'5'))
+                            <button disabled class="btn btn-outline-secondary w-100 p-3">Confirm</button>
+                        @else
+                            <a href="/payroll/progress/5" class="btn btn-outline-secondary w-100 p-3">Confirm</a>
+                        @endif
                     </div>
                     <div class="col-3 p-0 pe-3">
-                        <a href="/payroll/contributions" class="btn btn-light w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                        <a href="/payroll/contributions" class="btn btn-secondary w-100 p-3"><i class="bi bi-caret-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -76,7 +97,11 @@
                 <h4 class="text-warning">Employee Bonus</h4>
                 <div class="row">
                     <div class="col p-0">
-                        <button class="btn btn-outline-warning w-100 p-3">Confirm</button>
+                        @if (str_contains(session()->get('progress_btn'),'6'))
+                            <button disabled class="btn btn-outline-warning w-100 p-3">Confirm</button>
+                        @else
+                            <a href="/payroll/progress/6" class="btn btn-outline-warning w-100 p-3">Confirm</a>
+                        @endif
                     </div>
                     <div class="col-3 p-0 pe-3">
                         <a href="/payroll/bonus" class="btn btn-warning w-100 p-3"><i class="bi bi-caret-right"></i></a>
@@ -88,7 +113,11 @@
                 <h4 class="text-danger">Double/Triple Pay</h4>
                 <div class="row">
                     <div class="col p-0">
-                        <button class="btn btn-outline-danger w-100 p-3">Confirm</button>
+                        @if (str_contains(session()->get('progress_btn'),'7'))
+                            <button disabled class="btn btn-outline-danger w-100 p-3">Confirm</button>
+                        @else
+                            <a href="/payroll/progress/7" class="btn btn-outline-danger w-100 p-3">Confirm</a>
+                        @endif
                     </div>
                     <div class="col-3 p-0 pe-3">
                         <a href="/payroll/doublepay" class="btn btn-danger w-100 p-3"><i class="bi bi-caret-right"></i></a>
@@ -99,37 +128,49 @@
     </div>
 
     <hr>
-    <div class="row w-100 mt-5">
+
+    <div class="row w-100 mt-5 mb-5">
+        <h5 class="w-100 border border-dark w-25 m-auto p-2 my-2 text-center">Payroll Report Generation Buttons</h5>
         <div class="col-md-2"><p class="text-center py-2 my-2 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
-        <div class="col-md-1 border border-primary rounded p-2">
-            <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+        <div class="col-1"></div>
+        <div class="col-md-3 border border-primary rounded p-2">
+            @if (session()->get('progress') == 100)
+                <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+            @else
+                <button type="button" disabled name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+            @endif
+
             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYROLLPDFController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
-                <div id="payroll_pdf_actions" class="row d-none">
-                    <div class="col">
-                        {!! Form::submit('PDF', ['class'=>'btn h-100 px-3 btn-danger rounded', 'id'=>'payrollGenerate']) !!}
+                <div id="payroll_pdf_actions" class="row w-100 h-100 d-none">
+                    <div class="col ps-3 h-100 w-100">
+                        {!! Form::submit('PDF', ['class'=>'btn btn-danger rounded p-4 h-100 w-100', 'id'=>'payrollGenerate']) !!}
                     </div>
-                    <div class="col">
-                        <button type="button" id="payroll_cancel" class="btn btn-outline-danger p-4">x</button>
+                    <div class="col p-0 h-100 w-100">
+                        <button type="button" id="payroll_cancel" class="btn btn-outline-danger p-4 h-100 w-100">x</button>
                     </div>
                 </div>
             {!! Form::close() !!}
         </div>
-        <div class="col-md-1 border border-success mx-1 rounded p-2">
-            <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
+        <div class="col-md-3 border border-success mx-1 rounded p-2">
+            @if (session()->get('progress') == 100)
+                <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
+            @else
+                <button disabled type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
+            @endif
             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
-                <div id="payslip_pdf_actions" class="row d-none">
-                    <div class="col">
-                        {!! Form::submit('PDF', ['class'=>'btn h-100 px-3 btn-danger rounded', 'id'=>'payslipGenerate']) !!}
+                <div id="payslip_pdf_actions" class="row d-flex w-100 d-none">
+                    <div class="col ps-3 h-100 w-100">
+                        {!! Form::submit('PDF', ['class'=>'btn h-100 btn-danger p-4 w-100 rounded', 'id'=>'payslipGenerate']) !!}
                     </div>
-                    <div class="col">
-                        <button type="button" id="payslip_cancel" class="btn btn-outline-danger p-4">x</button>
+                    <div class="col p-0 h-100 w-100">
+                        <button type="button" id="payslip_cancel" class="btn btn-outline-danger p-4 w-100">x</button>
                     </div>
                 </div>
             {!! Form::close() !!}
         </div>
-        <div class="col-6"></div>
-        <div class="col">
-            <a href="/payroll/history" class="btn btn-outline-warning w-100 p-4">View Payroll History</a>
+        <div class="col"></div>
+        <div class="col border border-warning mx-1 rounded p-2">
+            <a href="/payroll/history" class="btn btn-warning w-100 p-4">View Payroll History</a>
         </div>
     </div>
 

@@ -10,7 +10,12 @@ use App\Models\Contributions;
 
 class PayrollController extends Controller
 {
-        function payroll(){
+        function payroll(Request $request){
+            if(!session()->has('progress')){
+                session()->put('progress', 0);
+                session()->put('progress_btn', '');
+            }
+
             return view('pages.payroll_manager.payroll');
         }
 
@@ -98,5 +103,20 @@ class PayrollController extends Controller
 
         function notification(){
             return view('pages.payroll_manager.notification');
+        }
+
+        function progress($btn){
+            $done = session()->get('progress_btn');
+            $done .= $btn;
+            session()->put('progress_btn', $done);
+
+            $progress = session()->get('progress');
+            $progress += 14.5;
+            if($progress > 100){
+                session()->put('progress', 100);
+            }else{
+                session()->put('progress', $progress);
+            }
+            return redirect('/payroll/home');
         }
 }

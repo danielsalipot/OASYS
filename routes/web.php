@@ -23,7 +23,7 @@ use App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController;
 
 use App\Http\Controllers\Applicant\ApplicantSignUpController;
 
-Route::get('/test',[PagesController::class,'test']);
+Route::get('/test/{x}/{y}',[PagesController::class,'test']);
 
 // Employee Routes
 Route::prefix('')->group(function () {

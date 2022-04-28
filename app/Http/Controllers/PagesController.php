@@ -43,8 +43,8 @@ class PagesController extends Controller
     // OKAY NA TO GOODS NA PANG DISPLAY LOGIC NA LANG //
     ////////////////////////////////////////////////////
 
-    function test(){
-
+    function test($x,$y){
+        return $x . $y;
     }
 }
 
