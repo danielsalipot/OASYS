@@ -10,6 +10,8 @@ use App\Models\CashAdvance;
 use App\Models\Deduction;
 use App\Models\Bonus;
 use App\Models\MultiPay;
+use App\Models\Message;
+
 
 class PayrollInsertController extends Controller
 {
@@ -76,5 +78,15 @@ class PayrollInsertController extends Controller
         ]);
 
         return redirect('/payroll/doublepay');
+    }
+
+    public function InsertMessage(Request $request)
+    {
+        Message::create([
+            'sender_id' => $request->sid,
+            'receiver_id' => $request->rid,
+            'message' => $request->msg
+        ]);
+        return $request->rid;
     }
 }

@@ -17,6 +17,8 @@ use App\Http\Controllers\Payroll\PayrollDeleteController;
 use App\Http\Controllers\Payroll\PayrollUpdateController;
 use App\Http\Controllers\Payroll\PayrollJSONController;
 
+use App\Http\Controllers\Payroll\ComputationController;
+
 use App\Http\Controllers\Payroll\PayrollPAYROLLPDFController;
 use App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController;
 
@@ -50,6 +52,10 @@ Route::prefix('')->group(function () {
     include 'staff.php';
 });
 
+Route::get('/messagejson/{r_id}',[PayrollJSONController::class,'Message']);
+Route::get('/sendmessage',[PayrollInsertController::class,'InsertMessage']);
+
+
                     /////////////////////////
                     //PDF generation ROUTES//
                     /////////////////////////
@@ -62,7 +68,7 @@ Route::post('/payslipPdf', [PayrollPAYSLIPPDFController::class, 'payslipPdf']);
                 //////////////////////////////////////
                             //////////////
 // Payroll Page JSON ROUTE
-Route::get('/payrolljson', [PayrollJSONController::class,'payroll']);
+Route::get('/payrolljson', [ComputationController::class,'payroll']);
 Route::get('/payslipjson', [PayrollJSONController::class,'payslip']);
 
 //Employee List JSON ROUTE
@@ -74,6 +80,7 @@ Route::post('/insertdeduction', [PayrollInsertController::class,'InsertDeduction
 Route::get('/removeDeduction/{id}', [PayrollDeleteController::class,'DeleteDeduction']);
 
 Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeDetails']);
+Route::get('/chatemployeelistjson', [PayrollJSONController::class,'ChatEmployeeDetails']);
 
 // Update Controller for updating Employee Rates
 Route::post('/editrate', [PayrollUpdateController::class, 'editrate']);

@@ -98,11 +98,11 @@ class PayrollController extends Controller
         }
 
         function message(){
-            return view('pages.payroll_manager.message');
+            return view('pages.message');
         }
 
         function notification(){
-            return view('pages.payroll_manager.notification');
+            return view('pages.notification');
         }
 
         function progress($btn){

@@ -30,6 +30,10 @@ class DatabaseSeeder extends Seeder
             $this->call(NotifSeeder::class);
         }
 
+        for ($i=0; $i < 20; $i++) {
+            $this->call(MessageSeeder::class);
+        }
+
         for ($i=0; $i < 15; $i++) {
             $this->call(CashadvanceSeeder::class);
             $this->call(BonusSeeder::class);

@@ -14,134 +14,13 @@ use App\Models\MultiPay;
 use App\Models\Overtime;
 use App\Models\Bonus;
 use App\Models\Contributions;
+use App\Models\Message;
 
 class PayrollJSONController extends Controller
 {
-    //FILTERED THE DATES OF ATTENDANCE, cash advance, and deductions
-    function payroll(Request $request){
-        $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
-
-        //FETCH ALL RECORDS OF:
-        foreach ($PayrollDetails as $key => $value) {
-            $value->attendance = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
-            $value->deduction = $value->FilteredDeductions($value->employee_id, $request->from_date,$request->to_date);
-            $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id, $request->from_date,$request->to_date);
-            $value->bonus = $value->FilteredBonus($value->employee_id, $request->from_date,$request->to_date);
-        }
-
-        //Set all of the calculated and concatinated values
-        foreach ($PayrollDetails as $key => $detail) {
-            // Computation for total hours
-            $detail->complete_hours = 0;
-            //Gross pay computation
-            $detail->gross_pay = 0;
-            //Computes total time and gross pay with overtime and multipay
-            foreach ($detail->attendance as $key => $attendance) {
-                $overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
-                $sched = EmployeeDetail::where('employee_id',$attendance->employee_id)->first();
-                $multipay = MultiPay::where('attendance_id',$attendance->attendance_id)->first();
-
-                $timein = $this->timeCalculator($attendance->time_in);
-                $timeout = $this->timeCalculator($attendance->time_out);
-
-                $stimein = $this->timeCalculator($sched->schedule_Timein);
-                $stimeout = $this->timeCalculator($sched->schedule_Timeout);
-                $rate = $sched->rate;
-
-                if($multipay){
-                    $rate = $rate * $multipay->status;
-                }
-
-                if($overtime){
-                    $time = ($timeout - $timein) / 3600;
-
-                    $detail->gross_pay += $rate * $time;
-                    $detail->complete_hours += round($time,2);
-                }else{
-                    $time = ($stimeout - $stimein) / 3600;
-
-                    $detail->gross_pay += $rate * $time;
-                    $detail->complete_hours += round($time,2);
-                }
-                $detail->gross_pay = round($detail->gross_pay,2);
-                $detail->complete_hours = round($detail->complete_hours,2);
-            }
-
-            // Computation for total deduction
-            $detail->total_deduction = 0;
-            foreach ($detail->deduction as $key => $deduction) {
-                $detail->total_deduction += $deduction->deduction_amount;
-                $detail->total_deduction = round($detail->total_deduction,2);
-            }
-
-            // Computation for tatol cash advance amount
-            $detail->total_cash_advance = 0;
-            foreach($detail->cashAdvance as $key => $cash_advance){
-                $detail->total_cash_advance += $cash_advance->cashAdvance_amount;
-                $detail->total_cash_advance = round($detail->total_cash_advance,2);
-            };
-
-            $detail->total_bonus = 0;
-            foreach($detail->bonus as $key => $bonus){
-                $detail->total_bonus += $bonus->bonus_amount;
-                $detail->total_bonus = round($detail->total_bonus,2);
-            };
-
-            $detail->gross_pay += round($detail->gross_pay,2);
-            //Full name of employee
-            $detail->full_name = "{$detail->UserDetail->fname} {$detail->UserDetail->mname} {$detail->UserDetail->lname}";
-
-            //Taxes deduction computation
-            $detail->tax_deduction = round($detail->gross_pay * floatval(substr_replace($detail->taxes->tax_amount ,"", -1)) / 100,2);
-            $detail->net_pay = round($detail->gross_pay - $detail->total_deduction - $detail->total_cash_advance - $detail->tax_deduction,2);
-            $detail->prm_id = session('user_id');
-
-            // SSS Contribution
-            $detail->employer_contribution = 0;
-            $detail->employee_contribution = 0;
-
-            $start = 3000;
-            $gross_pay = $detail->gross_pay;
-            $er_add = 0;
-
-            $sss_rate = Contributions::first();
-
-            $ee_rate = $sss_rate->employee_contribution / 100;
-            $er_rate = $sss_rate->employer_contribution / 100;
-
-            // Check Additional for ER
-            if($gross_pay < 15000){
-                $er_add = 10;
-            }
-            else{
-                $er_add = 30;
-            }
-
-            while(1){
-                if($gross_pay == 0){
-                    $start = 0;
-                    $er_add = 0;
-                    break;
-                }
-                if($gross_pay < 3001){
-                    break;
-                }
-                $start += 500;
-                if($gross_pay >= $start - 250  && $gross_pay <= $start + 249){
-                    break;
-                }
-                if($gross_pay >= 25000){
-                    $start = 25000;
-                    break;
-                }
-            }
-
-            $detail->employer_contribution = round(($start * $er_rate + $er_add),1);
-            $detail->employee_contribution = round($start * $ee_rate,1);
-            $detail->total_sss = $detail->employer_contribution + $detail->employee_contribution;
-        }
-        return $PayrollDetails;
-    }
+    //////////////////////////////////////////////
+    // Payroll JSON is on Computation Controller//
+    //////////////////////////////////////////////
 
     public function CashAdvance(Request $request){
         $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
@@ -444,12 +323,52 @@ class PayrollJSONController extends Controller
         return datatables()->of($employee_details)->make(true);
     }
 
-    public function Message(){
+    public function Message($r_id){
+        $send = Message::where(function ($query) use ($r_id) {
+            $query->where('receiver_id',$r_id)
+            ->where('sender_id','2');
+            })
+            ->orWhere(function ($query) use ($r_id) {
+                $query->where('sender_id',$r_id)
+                ->where('receiver_id','2');
+                })
+            ->orderBy('created_at','ASC')
+            ->get();
+
+        foreach ($send as $key => $value) {
+            $value->sender = UserDetail::where('login_id',$value->sender_id)->first();
+            $value->receiver = UserDetail::where('login_id',$value->receiver_id)->first();
+        }
+
+        return $send;
+
 
     }
 
     public function Notification(){
 
+    }
+
+    public function ChatEmployeeDetails(){
+        $employeeDetails = EmployeeDetail::with('UserDetail')->get();
+        return datatables()->of($employeeDetails)
+            ->addColumn('full_name',function($data){
+                return $data->userDetail->fname . " " . $data->userDetail->mname . " " . $data->userDetail->fname;
+            })
+            ->addColumn('btn',function($data){
+                $full_name = $data->userDetail->fname . " " . $data->userDetail->mname . " " . $data->userDetail->fname;
+                $pic_path = "http://localhost:8000/" . $data->userDetail->picture;
+                $button ='
+                <button id="btn'.$data->information_id.'" onclick="chat_click(this,\''.str_replace("'", "\'",$full_name).'\',\''.$pic_path.'\','.$data->information_id.')" class="text-dark card w-100 shadow-lg text-center p-3 m-2">
+                    <div class="d-flex align-items-center">
+                        <img src="'.$pic_path.'" class="rounded" width="50" height="50">
+                            <h5 class="ms-2">'. $full_name .'</h5>
+                    </div>
+                </button>';
+                return $button;
+            })
+            ->rawColumns(['full_name','btn'])
+            ->make(true);
     }
 
     public function timeCalculator($time){
