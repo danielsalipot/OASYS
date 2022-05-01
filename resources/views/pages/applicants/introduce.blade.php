@@ -5,10 +5,10 @@
     @endif
     <div class='row m-auto w-75 pt-5'>
         <h1 class='section-title'>Introduce Your Self</h1>
-        <h6 class='section-title-3'>Step 2 out of 3</h6> 
+        <h6 class='section-title-3'>Step 2 out of 3</h6>
     </div>
 
-    <form action="crudintroduce"  method="post">
+    <form action="/applicant/crudintroduce"  method="post">
       @csrf
       <div class='row m-auto w-75 pt-5'>
         <div class="row p-3">
@@ -23,10 +23,10 @@
             <select id="inputState" name="sex" class="form-control">
               @if(old('sex') == "Male" || !old('sex') == "Female")
                 <option selected>Male</option>
-                <option>Female</option>    
+                <option>Female</option>
               @else
                 <option>Male</option>
-                <option selected>Female</option>  
+                <option selected>Female</option>
               @endif
             </select>
           </div>
@@ -64,7 +64,7 @@
           <input type="text" class="form-control" name="lname" placeholder="Last name" value="{{old('lname')}}">
           <span class="text-danger">@error('lname'){{"This Field is required"}}@enderror</span>
         </div>
-    
+
         <div class="col">
           <label for="inputState">Educational Attainment</label>
           <input type="text" class="form-control" name="educ" placeholder="Educational Attainment" value="{{old('educ')}}">
@@ -78,18 +78,15 @@
         </div>
       </div>
     </div>
-          
+
             {{-- Buttons --}}
     <div class='d-flex justify-content-around mt-4'>
       <div class="row">
         <div class="col ">
           <button type="submit" class="btn btn-primary w-100 m-1 ps-5 pe-5 ">Sign up</button>
         </div>
-        <div class="col">
-          <a href="/" class="btn btn-outline-primary w-100 m-1 ps-5 pe-5">CANCEL</a>
-        </div>
       </div>
     </div>
-  </form>   
+  </form>
 
 @endsection

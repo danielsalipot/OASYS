@@ -3,7 +3,7 @@
     <div class='row'>
         <div class ='col text-center p-5'>
 
-        <form action="/crudapply" method="post" enctype="multipart/form-data">
+        <form action="/applicant/crudapply" method="post" enctype="multipart/form-data">
             @csrf
             <div class='row m-auto text-primary'>
             <h1 class='section-title'>I am applying for</h1>
@@ -38,9 +38,6 @@
 
             <div class='row' style="height: 21vh"> </div>
                 <div class="row">
-                    <div class="col">
-                        <a href="/" class="btn btn-outline-primary w-25 m-1 ps-5 pe-5">CANCEL</a>
-                    </div>
                 </div>
             </div>
 

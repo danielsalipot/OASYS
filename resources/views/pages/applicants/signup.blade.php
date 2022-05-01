@@ -14,7 +14,7 @@
             <h1 class="section-title">Create your Account</h1>
             <h5 class="section-title-3 pt-3">Step 1 out of 3</h5>
 
-            <form class="p-1 mt-4" action="crudsignup" method="post">
+            <form class="p-1 mt-4" action="/applicant/crudsignup" method="post">
                 @csrf
                 <input class="m-auto form-control w-25 mt-3 p-2" type="text" name="user" placeholder="Username" value="{{old('user')}}">
                 <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>

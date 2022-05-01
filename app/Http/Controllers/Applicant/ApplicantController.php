@@ -13,7 +13,7 @@ class ApplicantController extends Controller
     //Applicants Functions
     function signup(){
         if(session()->has('user_id')){
-            return redirect('introduce');
+            return redirect('/applicant/introduce');
         }
         return view('pages.applicants.signup');
     }

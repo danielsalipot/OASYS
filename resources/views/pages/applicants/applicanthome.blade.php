@@ -1,5 +1,10 @@
 @extends('layout.applicant_app')
     @section('content')
+
+    @if (!session()->has('user_id') && !session()->get('user_type') == 'applicant')
+        {!! '<script>window.location.replace("/logout");</script>' !!}
+    @endif
+
     <div style="overflow-y:hidden; overflow-x:hidden; height:100vh">
     <div class='row'>
         <div class ='col ps-5 pt-3'>
@@ -113,7 +118,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <a href="/deleteApplication" type="button" class="btn btn-danger">Delete</a>
+            <a href="/applicant/deleteApplication" type="button" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

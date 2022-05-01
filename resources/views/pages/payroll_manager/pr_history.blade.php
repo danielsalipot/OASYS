@@ -22,13 +22,14 @@
 
 @section('second')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Payslip History</h1>
-    <div class="d-flex flex-row">
-        <div class="col-4 bg-dark p-0 shadow-lg m-3" id="payslip_history" style="overflow-y:scroll; overflow-x:hidden; height:300px;">
-            @for ($i=0;$i < count($sub_btn_arr_ps);$i++)
+    <div class="d-flex flex-row flex-wrap">
+
+        @for ($i=0;$i < count($sub_btn_arr_ps);$i++)
+            <div class="col-4 bg-dark p-0 shadow-lg" id="payslip_history" style="overflow-y:scroll; overflow-x:hidden; height:300px;">
                 {!! $sub_btn_arr_ps[$i] !!}
                 {!! $options[$i] !!}
-            @endfor
-        </div>
+            </div>
+        @endfor
     </div>
 @endsection
 

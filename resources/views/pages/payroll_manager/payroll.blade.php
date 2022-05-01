@@ -17,7 +17,7 @@
             @if (session()->get('progress') == 100)
                 <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
             @else
-                <button type="button" disabled name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+                <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
             @endif
 
             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYROLLPDFController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
@@ -35,7 +35,7 @@
             @if (session()->get('progress') == 100)
                 <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
             @else
-                <button disabled type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
+                <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
             @endif
             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
                 <div id="payslip_pdf_actions" class="row d-flex w-100 d-none">
@@ -119,7 +119,7 @@
             $('#payslip').addClass('d-none')
 
             $.ajax({
-                url: '/payrolljson',
+                url: '/payrollPdfjson',
                 type: 'get',
                 data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
                 success: function(response){
@@ -134,7 +134,7 @@
             $('#payroll').addClass('d-none')
 
             $.ajax({
-                url: '/payrolljson',
+                url: '/payrollPdfjson',
                 type: 'get',
                 data: {from_date: $('#from_date').val(),to_date: $('#to_date').val()},
                 success: function(response){
@@ -164,13 +164,13 @@
                 $('#cutOffDate').html(`Current Cut Off Duration: <br> <b> ${from_date} - ${to_date}</b>`)
                 $('#payroll_table').DataTable({
                     processing: true,
-                    serverSide: false,
+                    serverSide: true,
                     ajax: {
                         url: '/payrolljson',
                         data: {
                             from_date: from_date,
                             to_date: to_date
-                        },dataSrc:''
+                        }
                     },
                     columns: [
                         { data: 'employee_id',
