@@ -12,6 +12,8 @@
         <li><a href="/payroll/contributions" class="nav-link py-3 pt-4" title="Employee Contributions" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-wallet"></i></a></li>
         <li><a href="/payroll/bonus" class="nav-link py-3 pt-4" title="Bonus" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-coin"></i></a></li>
         <li><a href="/payroll/doublepay" class="nav-link py-3 pt-4" title="Double Pay" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-check-all"></i></a></li>
+        <li><a href="/payroll/holidays" class="nav-link py-3 pt-4" title="Holidays" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar-event"></i></a></li>
+        <li><a href="/payroll/leave" class="nav-link py-3 pt-4" title="Leave" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-dash"></i></a></li>
         <li><a href="/payroll/message" class="nav-link py-3 pt-4" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i></a></li>
         <li><a href="/payroll/notification" class="nav-link py-3 pt-4 pb-4 mb-1" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
       </ul>

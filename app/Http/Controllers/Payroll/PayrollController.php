@@ -119,4 +119,12 @@ class PayrollController extends Controller
             }
             return redirect('/payroll/home');
         }
+
+        function holidays(){
+            return view('pages.payroll_manager.holidays');
+        }
+
+        function leave(){
+            return view('pages.payroll_manager.leave');
+        }
 }

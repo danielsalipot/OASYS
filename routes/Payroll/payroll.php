@@ -16,6 +16,8 @@ Route::prefix('payroll')->group(function () {
     Route::get('/notification', [PayrollController::class, 'notification']);
     Route::get('/cashadvance', [PayrollController::class, 'cashadvance']);
     Route::get('/overtime', [PayrollController::class, 'overtime']);
+    Route::get('/holidays', [PayrollController::class, 'holidays']);
+    Route::get('/leave', [PayrollController::class, 'leave']);
 
     Route::get('/notification/views', [PagesController::class, 'view_notif']);
 
