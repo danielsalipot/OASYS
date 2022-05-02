@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Payroll\PayrollController;
+use App\Http\Controllers\PagesController;
 
 Route::prefix('payroll')->group(function () {
     Route::get('/home', [PayrollController::class, 'payroll']);
@@ -15,6 +16,8 @@ Route::prefix('payroll')->group(function () {
     Route::get('/notification', [PayrollController::class, 'notification']);
     Route::get('/cashadvance', [PayrollController::class, 'cashadvance']);
     Route::get('/overtime', [PayrollController::class, 'overtime']);
+
+    Route::get('/notification/views', [PagesController::class, 'view_notif']);
 
     Route::get('/progress/{btn}', [PayrollController::class, 'progress']);
 });

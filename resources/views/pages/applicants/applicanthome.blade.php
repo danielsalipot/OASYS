@@ -73,7 +73,7 @@
         <div class ='col text-center '>
             <div class='p-5'></div>
 
-            <div style="overflow-y:auto; overflow-x:hidden; height:30vh"  class='m-auto card h-25 w-75 shadow bg-white border border-primary'>
+            <div style="overflow-y:auto; overflow-x:hidden; height:60vh"  class='m-auto card w-75 shadow bg-white border border-primary'>
                 <div class='row'>
                     <div class='col'>
                         <h2 class="text-center text-white w-100 bg-primary p-2">
@@ -81,9 +81,9 @@
                         </h2>
                         @foreach ($notif as $item)
                         <div class="card shadow border border-secondary rounded m-2">
-                            <h4 class="h6 text-white m-1 rounded bg-secondary p-1">{{$item->title}}</h4>
-                            <p class="m-1 text-start text-secondary">Date sent: {{$item->timestamp_sent}}</p>
-                            <p class="m-1 text-start">{{$item->message}}</p>
+                            <h4 class="h6 text-white m-1 rounded bg-secondary p-1">{{$item->message->title}}</h4>
+                            <p class="m-1 text-start text-secondary">Date sent: {{$item->message->created_at}}</p>
+                            <p class="m-1 text-start">{!!$item->message->message!!}</p>
                         </div>
                         @endforeach
                     </div>

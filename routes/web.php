@@ -68,6 +68,7 @@ Route::prefix('')->group(function () {
 
 
 
+
                 ////////////////////////
                 //Landing Pages routes//
                 ////////////////////////

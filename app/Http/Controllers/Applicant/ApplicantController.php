@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\UserDetail;
-use App\Models\Notification;
+use App\Models\notification_message;
+use App\Models\notification_receiver;
 
 class ApplicantController extends Controller
 {
@@ -38,7 +39,9 @@ class ApplicantController extends Controller
                     ->first();
 
             //Search for notifications
-            $notif = Notification::where('receiver_id',session('user_id'))->get();
+            $notif = notification_receiver::with('message')
+                ->where('receiver_id',session('user_id'))
+                ->get();
             return view('pages.applicants.applicanthome',['user'=>$user,'notif'=>$notif]);
         }
         return redirect('/');

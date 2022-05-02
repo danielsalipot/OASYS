@@ -20,4 +20,7 @@ Route::prefix('')->group(function () {
 
     // Message INSERT ROUTE
     Route::get('/sendmessage',[PayrollInsertController::class,'InsertMessage']);
+
+    // Message INSERT ROUTE
+    Route::post('/sendnotification',[PayrollInsertController::class,'InsertNotification']);
 });

@@ -15,13 +15,10 @@ use App\Models\Overtime;
 use App\Models\Bonus;
 use App\Models\Contributions;
 use App\Models\Message;
+use App\Models\ApplicantDetail;
 
 class PayrollJSONController extends Controller
 {
-    //////////////////////////////////////////////
-    // Payroll JSON is on Computation Controller//
-    //////////////////////////////////////////////
-
     public function CashAdvance(Request $request){
         $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
@@ -343,12 +340,23 @@ class PayrollJSONController extends Controller
         }
 
         return $send;
-
-
     }
 
     public function Notification(){
+        $applicant = ApplicantDetail::with('UserDetail')->get();
+        $employee = EmployeeDetail::with('UserDetail')->get();
 
+        $arr = [];
+
+        foreach ($applicant as $key => $value) {
+            array_push($arr, $value);
+        }
+
+        foreach ($employee as $key => $value) {
+            array_push($arr, $value);
+        }
+
+        return datatables()->of($arr)->make(true);
     }
 
     public function ChatEmployeeDetails(){

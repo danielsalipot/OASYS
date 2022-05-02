@@ -216,7 +216,7 @@
 
             $('#employee_table').DataTable({
                     processing: true,
-                    serverSide: true,
+                    serverSide: false,
                     ajax: {
                         url: '/employeelistjson',
                     },

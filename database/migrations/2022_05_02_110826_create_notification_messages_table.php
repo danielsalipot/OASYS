@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('Notifications', function (Blueprint $table) {
-            $table->id('notif_id');
+        Schema::create('notification_messages', function (Blueprint $table) {
+            $table->id();
             $table->string('sender_id');
-            $table->string('receiver_id');
-            $table->TEXT('title');
-            $table->LONGTEXT('message');
+            $table->string('title');
+            $table->string('message');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notif_tbl');
+        Schema::dropIfExists('notification_messages');
     }
 };

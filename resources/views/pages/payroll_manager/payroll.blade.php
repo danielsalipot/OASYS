@@ -17,7 +17,7 @@
             @if (session()->get('progress') == 100)
                 <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
             @else
-                <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+                <button disabled type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
             @endif
 
             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYROLLPDFController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
@@ -35,7 +35,7 @@
             @if (session()->get('progress') == 100)
                 <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
             @else
-                <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
+                <button disabled type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
             @endif
             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
                 <div id="payslip_pdf_actions" class="row d-flex w-100 d-none">

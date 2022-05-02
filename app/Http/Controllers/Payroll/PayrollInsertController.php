@@ -11,6 +11,8 @@ use App\Models\Deduction;
 use App\Models\Bonus;
 use App\Models\MultiPay;
 use App\Models\Message;
+use App\Models\notification_message;
+use App\Models\notification_receiver;
 
 
 class PayrollInsertController extends Controller
@@ -88,5 +90,23 @@ class PayrollInsertController extends Controller
             'message' => $request->msg
         ]);
         return $request->rid;
+    }
+
+    public function InsertNotification(Request $request)
+    {
+        $ids = explode(';',$request->ids);
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => $request->title,
+            'message' => $request->body
+        ]);
+
+        for ($i=0; $i < count($ids) - 1; $i++) {
+            $notif->receivers()->createMany([
+                ['receiver_id' => $ids[$i]]
+            ]);
+        }
+        return redirect('/payroll/notification');
     }
 }
