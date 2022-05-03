@@ -21,6 +21,7 @@ use App\Models\Holiday;
 use App\Models\Attendance;
 use App\Models\EmployeeDetail;
 use App\Models\holiday_attendance;
+use App\Models\Leave;
 
 class PayrollInsertController extends Controller
 {
@@ -126,6 +127,27 @@ class PayrollInsertController extends Controller
         ]);
 
         return redirect('/payroll/holidays');
+    }
+
+    public function InsertLeave(Request $request)
+    {
+        $employee_ids = explode(';',$request->hidden_emp_id);
+        for ($i=0; $i < count($employee_ids) - 1; $i++) {
+            $employee = EmployeeDetail::where('employee_id',$employee_ids[$i])->first();
+            $attendance_id = Attendance::insertGetId([
+                'employee_id' => $employee->employee_id,
+                'time_in' => $employee->schedule_Timein,
+                'time_out' => $employee->schedule_Timein,
+                'attendance_date'=> $request->hidden_leave_input
+            ]);
+
+            Leave::create([
+                'employee_id' => $employee->employee_id,
+                'attendance_id' => $attendance_id
+            ]);
+        }
+
+        return redirect('/payroll/leave');
     }
 
     public function InsertAttendanceHoliday(Request $request)

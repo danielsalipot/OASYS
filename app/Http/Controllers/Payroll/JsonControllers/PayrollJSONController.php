@@ -18,6 +18,8 @@ use App\Models\Message;
 use App\Models\ApplicantDetail;
 use App\Models\Holiday;
 use App\Models\holiday_attendance;
+use App\Models\Leave;
+
 
 
 class PayrollJSONController extends Controller
@@ -49,7 +51,8 @@ class PayrollJSONController extends Controller
                 \''. $data->userDetail->picture . '\',
                 \''. $data->userDetail->fname . ' ' . $data->userDetail->mname . ' ' . $data->userDetail->lname .'\',
                 \''. $data->department .'\',
-                \''. $data->position .'\'
+                \''. $data->position .'\',
+                \''. $data->rate .'\'
                 )" class="btn btn-outline-primary">Select</button>';
             return $button;
         })
@@ -435,7 +438,30 @@ class PayrollJSONController extends Controller
                 })
             ->rawColumns(['employee_details','delete'])
         ->make(true);
+    }
 
+    public function leaveJson(Request $request){
+        $leave = Leave::join('employee_details','employee_details.employee_id','=','leaves.employee_id')
+            ->join('attendances','attendances.attendance_id','=','leaves.attendance_id')
+            ->join('user_details','user_details.information_id','=','employee_details.information_id')
+            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+            ->get();
+
+        return datatables()->of($leave)
+        ->addColumn('employee_details',function($data){
+            $detail = '<h5>'. $data->fname . ' ' . $data->mname . ' '. $data->lname .'</h5>
+                    '. $data->department. '<br>
+                    '.$data->position;
+            return $detail;
+            })
+            ->addColumn('delete',function($data){
+                $button = ' <form action="/removeLeave/'. $data->id .'/'. $data->attendance_id .'" method="GET">
+                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                            </form>';
+                return $button;
+                })
+            ->rawColumns(['employee_details','delete'])
+            ->make(true);
     }
 
     public function timeCalculator($time){

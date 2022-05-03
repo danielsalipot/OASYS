@@ -27,4 +27,7 @@ Route::prefix('')->group(function () {
     // Holiday INSERT ROUTE
     Route::post('/insertholiday', [PayrollInsertController::class,'InsertHoliday']);
     Route::post('/Insertattendanceholiday', [PayrollInsertController::class,'InsertAttendanceHoliday']);
+
+    //leave INSERT ROUTE
+    Route::post('/insertleave', [PayrollInsertController::class,'InsertLeave']);
 });

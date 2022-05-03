@@ -13,6 +13,7 @@ use App\Models\MultiPay;
 use App\Models\Holiday;
 use App\Models\Attendance;
 use App\Models\holiday_attendance;
+use App\Models\Leave;
 
 class PayrollDeleteController extends Controller
 {
@@ -55,5 +56,11 @@ class PayrollDeleteController extends Controller
         holiday_attendance::where('id',$hid)->delete();
         Attendance::where('attendance_id',$aid)->delete();
         return redirect('/payroll/holidays');
+    }
+
+    public function DeleteLeave($lid,$aid){
+        Leave::where('id',$lid)->delete();
+        Attendance::where('attendance_id',$aid)->delete();
+        return redirect('/payroll/leave');
     }
 }

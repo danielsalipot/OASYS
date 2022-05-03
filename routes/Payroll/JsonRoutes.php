@@ -58,5 +58,5 @@ Route::prefix('')->group(function () {
 
     Route::get('/holidayJsonAttendance', [PayrollJSONController::class,'holidayJsonAttendance']);
 
-
+    Route::get('/leaveJson', [PayrollJSONController::class,'leaveJson']);
 });
