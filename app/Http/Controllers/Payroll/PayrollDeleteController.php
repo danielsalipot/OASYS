@@ -10,6 +10,9 @@ use App\Models\Deduction;
 use App\Models\CashAdvance;
 use App\Models\Bonus;
 use App\Models\MultiPay;
+use App\Models\Holiday;
+use App\Models\Attendance;
+use App\Models\holiday_attendance;
 
 class PayrollDeleteController extends Controller
 {
@@ -41,5 +44,16 @@ class PayrollDeleteController extends Controller
     public function DeleteMultiPay($id){
         MultiPay::where('multi_pay_id',$id)->delete();
         return redirect('/payroll/doublepay');
+    }
+
+    public function DeleteHoliday($id){
+        Holiday::where('holiday_id',$id)->delete();
+        return redirect('/payroll/holidays');
+    }
+
+    public function DeleteHolidayAttendance($hid,$aid){
+        holiday_attendance::where('id',$hid)->delete();
+        Attendance::where('attendance_id',$aid)->delete();
+        return redirect('/payroll/holidays');
     }
 }

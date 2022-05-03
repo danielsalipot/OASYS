@@ -18,5 +18,9 @@ Route::prefix('')->group(function () {
     // Multi Pay DELETE ROUTE
     Route::get('/removeMultiPay/{id}', [PayrollDeleteController::class,'DeleteMultiPay']);
 
+    // Holiday DELETE ROUTE
+    Route::get('/removeHoliday/{id}', [PayrollDeleteController::class,'DeleteHoliday']);
+    Route::get('/removeHolidayAttendance/{hid}/{aid}', [PayrollDeleteController::class,'DeleteHolidayAttendance']);
+
 
 });

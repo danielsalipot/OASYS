@@ -54,4 +54,9 @@ Route::prefix('')->group(function () {
 
     Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeDetails']);
 
+    Route::get('/holidayJson', [PayrollJSONController::class,'holidayJson']);
+
+    Route::get('/holidayJsonAttendance', [PayrollJSONController::class,'holidayJsonAttendance']);
+
+
 });

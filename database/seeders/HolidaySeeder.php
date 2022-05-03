@@ -20,8 +20,8 @@ class HolidaySeeder extends Seeder
     {
         Holiday::create([
             'holiday_name' => 'Test Holiday',
-            'start_date' => '2022-5-4',
-            'end_date' => '2022-5-6',
+            'holiday_start_date' => '2022-05-04',
+            'holiday_end_date' => '2022-05-06',
         ]);
     }
 }

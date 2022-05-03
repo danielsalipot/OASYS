@@ -16,6 +16,9 @@ use App\Models\Bonus;
 use App\Models\Contributions;
 use App\Models\Message;
 use App\Models\ApplicantDetail;
+use App\Models\Holiday;
+use App\Models\holiday_attendance;
+
 
 class PayrollJSONController extends Controller
 {
@@ -237,7 +240,7 @@ class PayrollJSONController extends Controller
             return $button;
             })
             ->rawColumns(['delete'])
-            ->make(true);;
+            ->make(true);
     }
 
     public function contributions(Request $request){
@@ -392,6 +395,47 @@ class PayrollJSONController extends Controller
             })
             ->rawColumns(['full_name','btn'])
             ->make(true);
+    }
+
+    public function holidayJson(Request $request){
+        $holiday_table = Holiday::whereBetween('holidays.holiday_start_date',[$request->from_date,$request->to_date])
+            ->get();
+
+        return datatables()->of($holiday_table)
+            ->addColumn('delete',function($data){
+            $button = ' <form action="/removeHoliday/'. $data->holiday_id .'" method="GET">
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        </form>';
+            return $button;
+            })
+            ->rawColumns(['delete'])
+            ->make(true);
+    }
+
+    public function holidayJsonAttendance(Request $request){
+        $hol_attendance = holiday_attendance::join('holidays','holidays.holiday_id','=','holiday_attendances.holiday_id')
+            ->join('attendances','attendances.attendance_id','=','holiday_attendances.attendance_id')
+            ->join('employee_details','employee_details.employee_id','=','attendances.employee_id')
+            ->join('user_details','user_details.information_id','=','employee_details.information_id')
+            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+            ->get();
+
+        return datatables()->of($hol_attendance)
+        ->addColumn('employee_details',function($data){
+            $detail = '<h5>'. $data->fname . ' ' . $data->mname . ' '. $data->lname .'</h5>
+                    '. $data->department. '<br>
+                    '.$data->position;
+            return $detail;
+            })
+            ->addColumn('delete',function($data){
+                $button = ' <form action="/removeHolidayAttendance/'. $data->id .'/'. $data->attendance_id .'" method="GET">
+                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                            </form>';
+                return $button;
+                })
+            ->rawColumns(['employee_details','delete'])
+        ->make(true);
+
     }
 
     public function timeCalculator($time){

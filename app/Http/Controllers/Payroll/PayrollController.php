@@ -122,7 +122,6 @@ class PayrollController extends Controller
         }
 
         function holidays(){
-
             $holidays = Holiday::all();
             return view('pages.payroll_manager.holidays',compact('holidays'));
         }

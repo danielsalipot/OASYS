@@ -23,4 +23,8 @@ Route::prefix('')->group(function () {
 
     // Message INSERT ROUTE
     Route::post('/sendnotification',[PayrollInsertController::class,'InsertNotification']);
+
+    // Holiday INSERT ROUTE
+    Route::post('/insertholiday', [PayrollInsertController::class,'InsertHoliday']);
+    Route::post('/Insertattendanceholiday', [PayrollInsertController::class,'InsertAttendanceHoliday']);
 });

@@ -12,6 +12,9 @@
 
     @include('inc.datatables')
     @include('inc.navIncludes')
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
 </head>
 
 <body>
@@ -42,6 +45,9 @@
                     <div class="item active">
                         @yield('first')
                     </div>
+
+                    @yield('extra')
+
                     <div class="item">
                         @yield('second')
                     </div>
