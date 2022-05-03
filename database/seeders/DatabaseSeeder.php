@@ -27,10 +27,6 @@ class DatabaseSeeder extends Seeder
         }
 
         for ($i=0; $i < 20; $i++) {
-            $this->call(NotifSeeder::class);
-        }
-
-        for ($i=0; $i < 20; $i++) {
             $this->call(MessageSeeder::class);
         }
 
@@ -44,5 +40,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TaxesSeeder::class);
         $this->call(DeductionSeeder::class);
         $this->call(ContributionsSeeder::class);
+        $this->call(HolidaySeeder::class);
     }
 }
+

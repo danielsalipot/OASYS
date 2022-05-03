@@ -248,17 +248,9 @@
                         },
                         { data: 'employee_id',
                             render : (data,type,row)=>{
-                                return `<button type="button"
-                                        onclick="selectEmployee(
-                                            this,
-                                            '${row.employee_id}',
-                                            '${row.user_detail.picture}',
-                                            '${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}',
-                                            '${row.department}',
-                                            '${row.position}',
-                                            )" class="btn btn-outline-primary">Select</button>`
+                                return row.select
                             }
-                        },
+                        }
                     ]
                 })
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Contributions;
+use App\Models\Holiday;
 
 class PayrollController extends Controller
 {
@@ -121,7 +122,9 @@ class PayrollController extends Controller
         }
 
         function holidays(){
-            return view('pages.payroll_manager.holidays');
+
+            $holidays = Holiday::all();
+            return view('pages.payroll_manager.holidays',compact('holidays'));
         }
 
         function leave(){

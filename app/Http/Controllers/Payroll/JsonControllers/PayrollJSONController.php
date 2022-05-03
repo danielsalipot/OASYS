@@ -38,7 +38,20 @@ class PayrollJSONController extends Controller
 
     public function EmployeeDetails(){
         $employeeDetails = EmployeeDetail::with('UserDetail')->get();
-        return datatables()->of($employeeDetails)->make(true);
+        return datatables()->of($employeeDetails)->addColumn('select',function($data){
+            $button = '<button type="button"
+            onclick="selectEmployee(
+                this,
+                \''. $data->employee_id. '\',
+                \''. $data->userDetail->picture . '\',
+                \''. $data->userDetail->fname . ' ' . $data->userDetail->mname . ' ' . $data->userDetail->lname .'\',
+                \''. $data->department .'\',
+                \''. $data->position .'\'
+                )" class="btn btn-outline-primary">Select</button>';
+            return $button;
+        })
+        ->rawColumns(['select'])
+        ->make(true);
     }
 
     public function Deduction(Request $request){
