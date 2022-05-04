@@ -137,7 +137,7 @@ class PayrollInsertController extends Controller
             $attendance_id = Attendance::insertGetId([
                 'employee_id' => $employee->employee_id,
                 'time_in' => $employee->schedule_Timein,
-                'time_out' => $employee->schedule_Timein,
+                'time_out' => $employee->schedule_Timeout,
                 'attendance_date'=> $request->hidden_leave_input
             ]);
 
@@ -160,7 +160,7 @@ class PayrollInsertController extends Controller
                     $attendance_id = Attendance::insertGetId([
                         'employee_id' => $employee->employee_id,
                         'time_in' => $employee->schedule_Timein,
-                        'time_out' => $employee->schedule_Timein,
+                        'time_out' => $employee->schedule_Timeout,
                         'attendance_date'=> $dates[$i]
                     ]);
 
@@ -181,7 +181,7 @@ class PayrollInsertController extends Controller
                     $attendance_id = Attendance::insertGetId([
                         'employee_id' => $employee->employee_id,
                         'time_in' => $employee->schedule_Timein,
-                        'time_out' => $employee->schedule_Timein,
+                        'time_out' => $employee->schedule_Timeout,
                         'attendance_date'=> $dates[$i]
                     ]);
 

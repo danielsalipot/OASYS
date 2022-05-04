@@ -415,6 +415,26 @@ class PayrollJSONController extends Controller
             ->make(true);
     }
 
+    public function holidayAllAttendanceJson(Request $request){
+        $data = Holiday::with('attendance')
+            ->whereBetween('holidays.holiday_start_date',[$request->from_date,$request->to_date])
+            ->has('attendance', '>', 0)
+            ->get();
+
+        return datatables()->of($data)
+        ->addColumn('att_count',function($data){
+            return count($data->attendance);
+        })
+        ->addColumn('delete',function($data){
+            $button = ' <form action="/removeHolidayAllAttendance/'. $data->holiday_id .'" method="GET">
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        </form>';
+            return $button;
+        })
+        ->rawColumns(['att_count','delete'])
+        ->make(true);
+    }
+
     public function holidayJsonAttendance(Request $request){
         $hol_attendance = holiday_attendance::join('holidays','holidays.holiday_id','=','holiday_attendances.holiday_id')
             ->join('attendances','attendances.attendance_id','=','holiday_attendances.attendance_id')

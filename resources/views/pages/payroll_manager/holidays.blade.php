@@ -162,22 +162,54 @@
 @endsection
 
 @section('extra')
+
 <div class="item">
-    <div class="container w-100">
+    <div class="container">
         <h1 class="display-4 pb-5 mt-5 text-center w-100">Holiday Attendance</h1>
+        <hr>
+        <h4>Delete all Attendance</h4>
+        <hr>
+        <div class="row mb-3 mt-3 input-daterange" >
+            <div class="col-md-2">
+                <input type="text" name="delete_all_from_date" id="delete_all_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="delete_all_to_date" id="delete_all_to_date" class="form-control h-100" placeholder="To Date" readonly />
+            </div>
+            <div class="col-2">
+                <button type="button" name="delete_all_filter" id="delete_all_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
+                <button type="button" name="delete_all_refresh" id="delete_all_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+            </div>
+        </div>
+        <table class="table table-striped text-center table-dark w-100" id="delete_all_attendance">
+            <thead>
+                <tr>
+                    <th scope="col">Holiday Name</th>
+                    <th scope="col">Holiday Start Date</th>
+                    <th scope="col">Holiday End Date</th>
+                    <th scope="col">Number of Attendance</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="container w-100">
+        <hr>
+        <h4>Delete Selected Attendance</h3>
+        <hr>
         @include('inc.date_filter')
-            <table class="table table-striped text-center table-dark w-100" id="holiday_attendance">
-                <thead>
-                    <tr>
-                        <th scope="col">Employee Details</th>
-                        <th scope="col">Holiday Name</th>
-                        <th scope="col">Date of Paid Holiday</th>
-                        <th scope="col">Holiday Start Date</th>
-                        <th scope="col">Holiday End Date</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-            </table>
+        <table class="table table-striped text-center table-dark w-100" id="holiday_attendance">
+            <thead>
+                <tr>
+                    <th scope="col">Employee Details</th>
+                    <th scope="col">Holiday Name</th>
+                    <th scope="col">Date of Paid Holiday</th>
+                    <th scope="col">Holiday Start Date</th>
+                    <th scope="col">Holiday End Date</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 @endsection
@@ -387,6 +419,70 @@
         });
 
 
+        load_delete_all(start_date,end_date);
+
+        $('#delete_all_from_date').val(start_date);
+        $('#delete_all_to_date').val(end_date);
+
+        function load_delete_all(from_date = '', to_date = ''){
+            $('#delete_all_attendance').DataTable({
+                processing: true,
+                serverSide: false,
+                ajax: {
+                    url: '/holidayAllJson',
+                    data:{
+                        from_date: from_date,
+                        to_date: to_date
+                    }
+                },
+                columns: [
+                    { data: 'holiday_name',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'holiday_start_date',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'holiday_end_date',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'att_count',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'delete',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                ]
+            })
+        }
+
+        $('#delete_all_filter').click(function(){
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            if(from_date != '' &&  to_date != ''){
+                $('#delete_all_attendance').DataTable().destroy();
+                load_table(from_date, to_date);
+            }else{
+                alert('Both Date is required');
+            }
+        });
+
+        $('#delete_all_refresh').click(function(){
+            let { start_date, end_date } = getDateToday();
+            $('#delete_all_from_date').val(start_date);
+            $('#delete_all_to_date').val(end_date);
+            $('#delete_all_attendance').DataTable().destroy();
+            load_table(start_date,end_date);
+        });
     })
 
     function getDateToday(){
@@ -470,10 +566,15 @@
     }
 
     function select_holiday(){
-        var data = JSON.parse($('#holiday').find(":selected").val())
-
-        $('#emp_start_date').val(data.holiday_start_date)
-        $('#emp_end_date').val(data.holiday_end_date)
+        try {
+            var data = JSON.parse($('#holiday').find(":selected").val())
+            $('#emp_start_date').val(data.holiday_start_date)
+            $('#emp_end_date').val(data.holiday_end_date)
+        }
+        catch(err) {
+            $('#emp_start_date').val('')
+            $('#emp_end_date').val('')
+        }
     }
 </script>
 @endsection

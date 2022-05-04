@@ -52,6 +52,16 @@ class PayrollDeleteController extends Controller
         return redirect('/payroll/holidays');
     }
 
+    public function DeleteHolidayAllAttendance($id){
+        $attendance = holiday_attendance::where('holiday_id',$id)->get();
+        foreach ($attendance as $key => $value) {
+            Attendance::where('attendance_id',$value->attendance_id)->delete();
+            holiday_attendance::where('attendance_id',$value->attendance_id)->delete();
+        }
+
+        return redirect('/payroll/holidays');
+    }
+
     public function DeleteHolidayAttendance($hid,$aid){
         holiday_attendance::where('id',$hid)->delete();
         Attendance::where('attendance_id',$aid)->delete();

@@ -186,6 +186,26 @@
             })
         }
 
+        $('#filter').click(function(){
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            if(from_date != '' &&  to_date != ''){
+                $('#leave_table').DataTable().destroy();
+                load_table(from_date, to_date);
+            }else{
+                alert('Both Date is required');
+            }
+        });
+
+        $('#refresh').click(function(){
+            let { start_date, end_date } = getDateToday();
+            $('#from_date').val(start_date);
+            $('#to_date').val(end_date);
+            $('#leave_table').DataTable().destroy();
+            load_table(start_date,end_date);
+        });
+
+
         $('#employee_table').DataTable({
             processing: true,
             serverSide: false,

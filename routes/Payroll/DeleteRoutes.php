@@ -20,6 +20,7 @@ Route::prefix('')->group(function () {
 
     // Holiday DELETE ROUTE
     Route::get('/removeHoliday/{id}', [PayrollDeleteController::class,'DeleteHoliday']);
+    Route::get('/removeHolidayAllAttendance/{id}', [PayrollDeleteController::class,'DeleteHolidayAllAttendance']);
     Route::get('/removeHolidayAttendance/{hid}/{aid}', [PayrollDeleteController::class,'DeleteHolidayAttendance']);
 
     //Leave DELETE ROUTE
