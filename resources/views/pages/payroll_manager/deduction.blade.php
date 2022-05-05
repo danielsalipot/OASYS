@@ -82,7 +82,7 @@
                             <button type="button" onclick="addDeduction()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Deduction</button>
                         </div>
                         <div class="col-2">
-                            <button class="btn btn-danger w-100 p-3">Cancel</button>
+                            <button onclick="location.reload()" class="btn btn-danger w-100 p-3">Cancel</button>
                         </div>
                     </div>
                 </div>

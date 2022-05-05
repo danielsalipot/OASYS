@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Contributions;
 use App\Models\Holiday;
+use App\Models\Pagibig;
+use App\Models\philhealth;
 
 class PayrollController extends Controller
 {
@@ -87,7 +89,10 @@ class PayrollController extends Controller
 
         function contributions(){
             $sss = Contributions::first();
-            return view('pages.payroll_manager.contributions',compact('sss'));
+            $pagibig = Pagibig::first();
+            $philhealth = philhealth::first();
+
+            return view('pages.payroll_manager.contributions',compact(['sss','pagibig','philhealth']));
         }
 
         function bonus(){

@@ -6,98 +6,117 @@
     @endif
 
     <div style="overflow-y:hidden; overflow-x:hidden; height:100vh">
-    <div class='row'>
-        <div class ='col ps-5 pt-3'>
-            <div class='row m-auto'>
-                <h1 class='section-title'>Applicant Dasboard</h1>
-            </div>
-            <div class='col'>
-                <div class='card shadow h-50 m-4 border border-primary rounded p-4'>
-                    <div class='row'>
-                        <div class='col-4'>
-                            <img style='height:200px; width:200px;' class='shadow rounded-circle' src="{{ URL::asset($user->picture)}}">
-                        </div>
-                        <div class='col'>
-                            <div class='row text-primary'>
-                                <h1 class="h4">Full Name</h1>
-                                <p class='display-6 text-justify text-dark' name='name'>{{$user->fname}} {{$user->mname}} {{$user->lname}}</p>
-                            </div>
-                            <div class='row text-left text-primary'>
-                                <div class='col'>
-                                    <p class="h4">Sex</p>
-                                    <p class='display-6 text-justify text-dark' name='sex'>{{$user->sex}}</p>
-                                </div>
-                                <div class='col'>
-                                    <p class="h4">Age</p>
-                                    <p class='display-6 text-justify text-dark' name='age'>{{$user->age}}</p>
-                                </div>
-                                <div class='col-6'>
-                                    <p class="h4">Birthday</p>
-                                    <p class='display-6 text-justify text-dark' name='age'>{{$user->bday}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class='row m-3 card shadow-lg'>
+        <div class='row m-auto'>
+            <h1 class='section-title W-100 py-3 text-center'>Applicant Dasboard</h1>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class ='col'>
                 <div class="row">
-                    <div class="col">
-                        <div class='row text-primary pb-2'>
-                            <h4>Educational Attainment</h4>
-                            <p class='display-6 text-justify text-dark' name='educational'>{{$user->educ}}</p>
-                        </div>
-
-                        <div class='row text-primary pb-2'>
-                            <h4>Contact Number</h4>
-                            <p class='display-6 text-justify text-dark' name='cpnum'>{{$user->cnum}}</p>
-                        </div>
-
-                        <div class='row text-primary'>
-                            <h4>Email Address</h4>
-                            <p class='text-justify text-dark' style="font-size:20px;"name='email'>{{$user->email}}</p>
-                        </div>
+                    <div class="col-4">
+                        <img style='height:200px; width:200px;' class='rounded shadow-lg m-3' src="{{ URL::asset($user->picture)}}">
                     </div>
-                    <div class="col text-center">
-                        <div class="row">
-                            <h2 class="text-primary">Applying for</h2>
-                            <h2 class="display-6 text-justify text-dark pb-4" name='position'>{{$user->Applyingfor}}</h2>
+                    <div class="col card shadow-sm my-3 p-3">
+                        <div class='row text-secondary'>
+                            <h1 class="h6">Full Name</h1>
+                            <p class='h3 w-100 text-dark' name='name'>{{$user->fname}} {{$user->mname}} {{$user->lname}}</p>
                         </div>
-                        <div class="row">
-                            <a href="/#" class="btn btn-primary w-50 m-auto"> Download Resume </a>
+
+                        <hr>
+
+                        <div class='row text-left text-secondary'>
+                            <div class='col'>
+                                <p class="h6">Sex</p>
+                                <p class='h3 text-dark' name='sex'>{{$user->sex}}</p>
+                            </div>
+                            <div class='col'>
+                                <p class="h6">Age</p>
+                                <p class='h3 text-dark' name='age'>{{$user->age}}</p>
+                            </div>
+                            <div class='col-6'>
+                                <p class="h6">Birthday</p>
+                                <p class='h3 text-dark' name='age'>{{$user->bday}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="row card shadow mx-3 w-100 mb-5">
+                    <h4 class='p-3 w-100 text-center alert-primary'>Applicant Details</h4>
 
+                    <div class="row">
+                        <div class="col">
+                            <div class="p-4">
+                                <div class='row text-secondary pb-2'>
+                                    <h6>Educational Attainment</h6>
+                                    <p class='h3 text-justify text-dark' name='educational'>{{$user->educ}}</p>
+                                </div>
+
+                                <div class='row text-secondary pb-2'>
+                                    <h6>Contact Number</h6>
+                                    <p class='h3 text-justify text-dark' name='cpnum'>{{$user->cnum}}</p>
+                                </div>
+
+                                <div class='row text-secondary'>
+                                    <h6>Email Address</h6>
+                                    <p class='h3 text-justify text-dark' style="font-size:20px;"name='email'>{{$user->email}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="p-4">
+                                <div class="row text-center w-100">
+                                    <h2 class="text-secondary h6">Applying for</h2>
+                                    <h2 class="display-6 text-justify text-dark pb-4" name='position'>{{$user->Applyingfor}}</h2>
+                                </div>
+                                <div class="row text-center w-100">
+                                    <h2 class="text-secondary h6">View Submitted Resume</h2>
+                                    <a href="/#" class="btn btn-outline-primary m-auto"> View Resume </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        <div class ='col text-center '>
-            <div class='p-5'></div>
-
-            <div style="overflow-y:auto; overflow-x:hidden; height:60vh"  class='m-auto card w-75 shadow bg-white border border-primary'>
-                <div class='row'>
-                    <div class='col'>
-                        <h2 class="text-center text-white w-100 bg-primary p-2">
-                            Notification
-                        </h2>
-                        @foreach ($notif as $item)
-                        <div class="card shadow border border-secondary rounded m-2">
-                            <h4 class="h6 text-white m-1 rounded bg-secondary p-1">{{$item->message->title}}</h4>
-                            <p class="m-1 text-start text-secondary">Date sent: {{$item->message->created_at}}</p>
-                            <p class="m-1 text-start">{!!$item->message->message!!}</p>
+            <div class ='col'>
+                <div style="overflow-y:auto; overflow-x:hidden; height:50vh;width:650px"  class='m-auto card shadow bg-white border border-primary'>
+                    <div class='row'>
+                        <div class='col'>
+                            <h2 class="text-center text-white w-100 bg-primary p-2">
+                                Notification
+                            </h2>
+                            @foreach ($notif as $item)
+                            <div class="card shadow border border-secondary rounded m-2">
+                                <h4 class="h6 text-white m-1 rounded bg-secondary p-1">{{$item->message->title}}</h4>
+                                <p class="m-1 text-start text-secondary">Date sent: {{$item->message->created_at}}</p>
+                                <p class="m-1 text-start">{!!$item->message->message!!}</p>
+                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
                 </div>
-            </div>
 
-            <div class='row pt-5 m-auto'>
-                <div class="col">
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Delete Application
-                    </button>
-                </div>
-                <div class="col">
-                    <a href='/logout' type="submit" class="btn btn-primary text-center w-50 m-1 ps-2 pe-2">LOGOUT</a>
+                <div class='row mt-5 mx-4 m-auto border rounded'>
+                    <h4 class='p-1 w-100 text-center alert-info'>Actions</h4>
+
+                    <div class="row py-3">
+                        <div class="col"></div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-outline-danger w-100 py-2 m-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                Delete Application
+                            </button>
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-4">
+                            <a href='/logout' type="submit" class="btn btn-primary py-2 w-100">Logout</a>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+
                 </div>
             </div>
         </div>

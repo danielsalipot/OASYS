@@ -22,7 +22,7 @@ class AttendanceSeeder extends Seeder
 	    $div = pow(10, $decimals);
 
         for ($i=1; $i <= 20; $i++) {
-            for ($j=0; $j < 15; $j++) {
+            for ($j=0; $j < 30; $j++) {
                     Attendance::create([
                         'employee_id' => $i,
                         'time_in' => date('H:i:s', rand(24200,25200)),

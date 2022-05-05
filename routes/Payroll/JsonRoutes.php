@@ -36,6 +36,8 @@ Route::prefix('')->group(function () {
 
     // Contribution JSON ROUTE
     Route::get('/contributionsjson', [PayrollJSONController::class,'contributions']);
+    Route::get('/pagibigjson', [PayrollJSONController::class,'pagibig']);
+    Route::get('/philhealthjson', [PayrollJSONController::class,'philhealth']);
 
 
     // Message JSON ROUTE
@@ -46,17 +48,21 @@ Route::prefix('')->group(function () {
     // Notification JSON ROUTE
     Route::get('/notificationjson', [PayrollJSONController::class,'Notification']);
 
+    // Holiday JSON ROUTE
+    Route::get('/holidayJson', [PayrollJSONController::class,'holidayJson']);
+    Route::get('/holidayJsonAttendance', [PayrollJSONController::class,'holidayJsonAttendance']);
+    Route::get('/holidayAllJson', [PayrollJSONController::class,'holidayAllAttendanceJson']);
+
                                 /////////////////////
                                 ////// OTHERS ///////
                                 /////////////////////
+    Route::get('/thirteenthmonthjson', [PayrollJSONController::class,'thirteenthMonthJSON']);
 
     Route::get('/fetchattendancejson', [PayrollJSONController::class,'fetchAttedance']);
 
     Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeDetails']);
 
-    Route::get('/holidayJson', [PayrollJSONController::class,'holidayJson']);
-    Route::get('/holidayJsonAttendance', [PayrollJSONController::class,'holidayJsonAttendance']);
-    Route::get('/holidayAllJson', [PayrollJSONController::class,'holidayAllAttendanceJson']);
+
 
     Route::get('/leaveJson', [PayrollJSONController::class,'leaveJson']);
 });

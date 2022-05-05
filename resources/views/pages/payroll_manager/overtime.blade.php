@@ -53,8 +53,8 @@
     </div>
 
     <div class="m-auto">
-        <div class="rounded w-25 m-5 py-3  text-center mb-4 shadow-lg">
-            <button type="button" class="btn p-3 m-3 w-50 btn-danger" class="btn btn-success" data-toggle="modal"
+        <div class="rounded w-100 py-3 mb-4 shadow-lg">
+            <button type="button" class="btn p-3 m-3 w-25 btn-danger" class="btn btn-success" data-toggle="modal"
                 data-target="#paid_ot_modal">Remove Overtime</button>
         </div>
 

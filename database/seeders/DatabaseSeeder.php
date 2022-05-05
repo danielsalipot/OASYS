@@ -36,8 +36,11 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call(AttendanceSeeder::class);
+
         $this->call(OvertimeSeeder::class);
         $this->call(TaxesSeeder::class);
+        $this->call(PhilhealthSeeder::class);
+        $this->call(PagibigSeeder::class);
         $this->call(DeductionSeeder::class);
         $this->call(ContributionsSeeder::class);
         $this->call(HolidaySeeder::class);

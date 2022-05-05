@@ -19,6 +19,8 @@ class ContributionsSeeder extends Seeder
         Contributions::create([
             'employee_contribution' => "4.5",
             'employer_contribution' => "8.5",
+            'add_low' => "10",
+            'add_high' => "30"
         ]);
     }
 }

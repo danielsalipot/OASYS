@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id('contribution_id');
             $table->string('employer_contribution');
             $table->string('employee_contribution');
+            $table->string('add_low');
+            $table->string('add_high');
             $table->timestamps();
         });
     }

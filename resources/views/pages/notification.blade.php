@@ -109,7 +109,6 @@
             `)
             $('#emp_ids').val(`${$('#emp_ids').val()}${info_id};`)
             btn.innerHTML = 'Selected'
-            console.log($('#emp_ids').val())
         }
         else{
             btn.innerHTML = 'Select'
@@ -118,7 +117,6 @@
                     ${emp_name}
                     </div>`,''))
             $('#emp_ids').val(`${$('#emp_ids').val().replace(`${info_id};`,'')}`)
-            console.log($('#emp_ids').val())
         }
 
 

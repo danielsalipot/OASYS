@@ -255,11 +255,11 @@ $total_philhealth = $total_philhealth_ee + $total_philhealth_er;
 
             $pdf->Cell(21.1,7,number_format($employee->total_sss, 2, '.', ',') . " Php",1,0,'C');
             $pdf->Cell(21.1,7,number_format($employee->total_pagibig_contribution, 2, '.', ',') . " Php",1,0,'C');
-            $pdf->Cell(21.1,7,number_format($employee->total_pagibig_contribution, 2, '.', ',') . " Php", 1,0,'C');
+            $pdf->Cell(21.1,7,number_format($employee->total_philhealth_contribution, 2, '.', ',') . " Php", 1,0,'C');
 
-            $pdf->Cell(21.1,7,number_format($employee->witholding_tax, 2, '.', ',') . " Php",1,0,'C');
             $pdf->Cell(21.1,7,number_format($employee->total_deduction, 2, '.', ',') . " Php",1,0,'C');
             $pdf->Cell(21.1,7,number_format($employee->total_cash_advance, 2, '.', ',') . " Php", 1,0,'C');
+            $pdf->Cell(21.1,7,number_format($employee->witholding_tax, 2, '.', ',') . " Php",1,0,'C');
             $pdf->Cell(21.1,7,number_format($employee->net_pay, 2, '.', ',') . " Php",1,1,'C');
         }
 

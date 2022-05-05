@@ -11,9 +11,9 @@
 
     <div class="row w-100 mt-5 mb-5">
         <h5 class="w-100 border border-dark w-25 m-auto p-2 my-2 text-center">Payroll Report Generation Buttons</h5>
-        <div class="col-md-2"><p class="text-center py-2 my-2 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
+        <div class="col-2"><p class="text-center py-2 my-2 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
         <div class="col-1"></div>
-        <div class="col-md-3 border border-primary rounded p-2">
+        <div class="col-3 border border-primary rounded p-2">
             @if (session()->get('progress') == 100)
                 <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
             @else
@@ -31,7 +31,7 @@
                 </div>
             {!! Form::close() !!}
         </div>
-        <div class="col-md-3 border border-success mx-1 rounded p-2">
+        <div class="col-3 border border-success mx-1 rounded p-2">
             @if (session()->get('progress') == 100)
                 <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
             @else
@@ -49,7 +49,7 @@
             {!! Form::close() !!}
         </div>
         <div class="col"></div>
-        <div class="col border border-warning mx-1 rounded p-2">
+        <div class="col-2 border border-warning mx-1 rounded p-2">
             <a href="/payroll/history" class="btn btn-warning w-100 p-4">View Payroll History</a>
         </div>
     </div>
@@ -115,9 +115,6 @@
 
 
         $('#payslip').click(()=>{
-            $('#payslip_pdf_actions').removeClass('d-none');
-            $('#payslip').addClass('d-none')
-
             $.ajax({
                 url: '/payrollPdfjson',
                 type: 'get',
@@ -127,6 +124,11 @@
                     $('#ps_col2').val(`${$('#from_date').val()} - ${$('#to_date').val()}`)
                 }
             });
+
+            setTimeout(function() {
+                $('#payslip_pdf_actions').removeClass('d-none');
+                $('#payslip').addClass('d-none')
+            }, 2000);
         })
 
         $('#payroll').click(()=>{

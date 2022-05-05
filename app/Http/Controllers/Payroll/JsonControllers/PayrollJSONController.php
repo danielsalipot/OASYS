@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Payroll\JsonControllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use DateTime;
+use DatePeriod;
+use DateInterval;
+
 use App\Models\EmployeeDetail;
 use App\Models\UserDetail;
 use App\Models\CashAdvance;
@@ -19,11 +23,18 @@ use App\Models\ApplicantDetail;
 use App\Models\Holiday;
 use App\Models\holiday_attendance;
 use App\Models\Leave;
-
-
+use App\Models\Pagibig;
+use App\Models\philhealth;
+use App\Models\Payroll;
 
 class PayrollJSONController extends Controller
 {
+/*=============================================================================
+|                                 START
+|                         Cash Advance JSON
+|
+*==============================================================================*/
+
     public function CashAdvance(Request $request){
         $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
@@ -40,6 +51,20 @@ class PayrollJSONController extends Controller
                 ->rawColumns(['delete'])
                 ->make(true);
     }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+
+/*=============================================================================
+|                                 START
+|                         EmployeeDetails JSON
+|
+*==============================================================================*/
 
     public function EmployeeDetails(){
         $employeeDetails = EmployeeDetail::with('UserDetail')->get();
@@ -59,6 +84,19 @@ class PayrollJSONController extends Controller
         ->rawColumns(['select'])
         ->make(true);
     }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+/*=============================================================================
+|                                 START
+|                             Deduction JSON
+|
+*==============================================================================*/
 
     public function Deduction(Request $request){
         $deductions = Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
@@ -80,6 +118,19 @@ class PayrollJSONController extends Controller
     public function fetchSingleEmployee(Request $request){
         return $employeeDetails = EmployeeDetail::where('employee_id',$request->employee_id)->with('UserDetail')->first();
     }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+/*=============================================================================
+|                                 START
+|                             Overtime JSON
+|
+*==============================================================================*/
 
     public function Overtime(Request $request){
         $paid_overtime = Overtime::all();
@@ -141,6 +192,19 @@ class PayrollJSONController extends Controller
         return datatables()->of($paid_overtime_arr)->make(true);
     }
 
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+/*=============================================================================
+|                                 START
+|                               Bonus JSON
+|
+*==============================================================================*/
+
     public function Bonus(Request $request){
         $BonusRecords = Bonus::join('employee_details', 'bonuses.employee_id','=','employee_details.employee_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
@@ -157,6 +221,20 @@ class PayrollJSONController extends Controller
             ->rawColumns(['delete'])
             ->make(true);
     }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+
+/*=============================================================================
+|                                 START
+|                          fetch Attedance JSON
+|
+*==============================================================================*/
 
     public function fetchAttedance(Request $request){
         $attendance = Attendance::join('employee_details','employee_details.employee_id','=','attendances.employee_id')
@@ -200,6 +278,19 @@ class PayrollJSONController extends Controller
 
         return datatables()->of($normal_pay_attendance)->make(true);
     }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+/*=============================================================================
+|                                 START
+|                           Double Pay JSON
+|
+*==============================================================================*/
 
     public function DoublePay(Request $request){
         $multipay = MultiPay::join('employee_details','employee_details.employee_id','=','multi_pays.employee_id')
@@ -245,6 +336,20 @@ class PayrollJSONController extends Controller
             ->rawColumns(['delete'])
             ->make(true);
     }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+
+/*=============================================================================
+|                                 START
+|                           Contributions JSON
+|
+*==============================================================================*/
 
     public function contributions(Request $request){
         $employee_details = EmployeeDetail::join('user_details','user_details.information_id','=','employee_details.information_id')
@@ -307,12 +412,8 @@ class PayrollJSONController extends Controller
             $er_rate = $sss_rate->employer_contribution / 100;
 
             // Check Additional for ER
-            if($gross_pay < 15000){
-                $er_add = 10;
-            }
-            else{
-                $er_add = 30;
-            }
+            if($gross_pay < 15000){$er_add = $sss_rate->add_low;}
+            else{$er_add = $sss_rate->add_high;}
 
             while(1){
                 if($gross_pay == 0){
@@ -341,6 +442,210 @@ class PayrollJSONController extends Controller
         return datatables()->of($employee_details)->make(true);
     }
 
+    public function pagibig(Request $request){
+        $employee_details = EmployeeDetail::join('user_details','user_details.information_id','=','employee_details.information_id')
+        ->get();
+
+    foreach ($employee_details as $key => $employee) {
+        $employee->attendance = $employee->FilteredAttendance($employee->employee_id, $request->from_date,$request->to_date);
+    }
+
+    foreach ($employee_details as $key => $detail) {
+        // Computation for total hours
+        $detail->complete_hours = 0;
+        //Gross pay computation
+        $detail->gross_pay = 0;
+        //Computes total time and gross pay with overtime and multipay
+        foreach ($detail->attendance as $key => $attendance) {
+            $overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
+            $sched = EmployeeDetail::where('employee_id',$attendance->employee_id)->first();
+            $multipay = MultiPay::where('attendance_id',$attendance->attendance_id)->first();
+
+            $timein = $this->timeCalculator($attendance->time_in);
+            $timeout = $this->timeCalculator($attendance->time_out);
+
+            $stimein = $this->timeCalculator($sched->schedule_Timein);
+            $stimeout = $this->timeCalculator($sched->schedule_Timeout);
+            $rate = $sched->rate;
+
+            if($multipay){
+                $rate = $rate * $multipay->status;
+            }
+
+            if($overtime){
+                $time = ($timeout - $timein) / 3600;
+
+                $detail->gross_pay += $rate * $time;
+                $detail->complete_hours += round($time,2);
+            }else{
+                $time = ($stimeout - $stimein) / 3600;
+
+                $detail->gross_pay += $rate * $time;
+                $detail->complete_hours += round($time,2);
+            }
+
+            $detail->gross_pay = round($detail->gross_pay,2);
+
+            $detail->complete_hours = round($detail->complete_hours,2);
+        }
+
+        $pagibig = Pagibig::first();
+
+        $detail->employee_pagibig_contribution = 0;
+        $detail->employer_pagibig_contribution = 0;
+
+        if($detail->gross_pay < $pagibig->divider){
+            $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_rate / 100);
+            $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
+        }
+        if($detail->gross_pay > $pagibig->divider){
+            if($detail->gross_pay * ($pagibig->ee_rate / 100) > $pagibig->maximum){
+                $detail->employee_pagibig_contribution = $pagibig->maximum;
+                $detail->employer_pagibig_contribution = $pagibig->maximum;
+            }else{
+                $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_rate / 100);
+                $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
+
+                if($detail->employer_pagibig_contribution > $pagibig->maximum){
+                    $temp = $detail->employer_pagibig_contribution - $pagibig->maximum;
+                    $detail->employer_pagibig_contribution -= $temp;
+                    $detail->employee_pagibig_contribution += $temp;
+                }
+
+                if($detail->employee_pagibig_contribution > $pagibig->maximum){
+                    $temp = $detail->employee_pagibig_contribution -= $pagibig->maximum;
+                    $detail->employee_pagibig_contribution -= $temp;
+                    $detail->employer_pagibig_contribution += $temp;
+                }
+            }
+        }
+
+        $detail->employee_pagibig_contribution = round($detail->employee_pagibig_contribution,2);
+        $detail->employer_pagibig_contribution = round($detail->employer_pagibig_contribution,2);
+        $detail->total_pagibig_contribution = round($detail->employee_pagibig_contribution + $detail->employer_pagibig_contribution,2);
+    }
+
+    return datatables()->of($employee_details)->make(true);
+    }
+
+    public function philhealth(Request $request){
+        $employee_details = EmployeeDetail::join('user_details','user_details.information_id','=','employee_details.information_id')
+        ->get();
+
+    foreach ($employee_details as $key => $employee) {
+        $employee->attendance = $employee->FilteredAttendance($employee->employee_id, $request->from_date,$request->to_date);
+    }
+
+    foreach ($employee_details as $key => $detail) {
+        // Computation for total hours
+        $detail->complete_hours = 0;
+        //Gross pay computation
+        $detail->gross_pay = 0;
+        //Computes total time and gross pay with overtime and multipay
+        foreach ($detail->attendance as $key => $attendance) {
+            $overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
+            $sched = EmployeeDetail::where('employee_id',$attendance->employee_id)->first();
+            $multipay = MultiPay::where('attendance_id',$attendance->attendance_id)->first();
+
+            $timein = $this->timeCalculator($attendance->time_in);
+            $timeout = $this->timeCalculator($attendance->time_out);
+
+            $stimein = $this->timeCalculator($sched->schedule_Timein);
+            $stimeout = $this->timeCalculator($sched->schedule_Timeout);
+            $rate = $sched->rate;
+
+            if($multipay){
+                $rate = $rate * $multipay->status;
+            }
+
+            if($overtime){
+                $time = ($timeout - $timein) / 3600;
+
+                $detail->gross_pay += $rate * $time;
+                $detail->complete_hours += round($time,2);
+            }else{
+                $time = ($stimeout - $stimein) / 3600;
+
+                $detail->gross_pay += $rate * $time;
+                $detail->complete_hours += round($time,2);
+            }
+
+            $detail->gross_pay = round($detail->gross_pay,2);
+
+            $detail->complete_hours = round($detail->complete_hours,2);
+        }
+
+        $philhealth = philhealth::first();
+
+        $detail->employer_philhealth_contribution = 0;
+        $detail->employee_philhealth_contribution = 0;
+
+        if($detail->gross_pay < $philhealth->minimum){
+            $detail->employer_philhealth_contribution += 0;
+            $detail->employee_philhealth_contribution += 137.50;
+        }
+        elseif($detail->gross_pay > $philhealth->maximum){
+            $total_philhealth_payment = $philhealth->ph_cap;
+            $detail->employer_philhealth_contribution = $total_philhealth_payment * ($philhealth->er_rate / 100);
+            $detail->employee_philhealth_contribution = $total_philhealth_payment * ($philhealth->ee_rate / 100);
+        }else{
+            $total_philhealth_payment = $detail->gross_pay * ($philhealth->ph_rate/100);
+            $detail->employer_philhealth_contribution = $total_philhealth_payment * ($philhealth->er_rate / 100);
+            $detail->employee_philhealth_contribution = $total_philhealth_payment * ($philhealth->ee_rate / 100);
+        }
+
+        $detail->employer_philhealth_contribution = round($detail->employer_philhealth_contribution,2);
+        $detail->employee_philhealth_contribution = round($detail->employee_philhealth_contribution,2);
+
+        $detail->total_philhealth_contribution = round($detail->employer_philhealth_contribution + $detail->employee_philhealth_contribution,2);
+    }
+
+    return datatables()->of($employee_details)->make(true);
+    }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+/*=============================================================================
+|                                 START
+|                           Notification JSON
+|
+*==============================================================================*/
+
+    public function Notification(){
+        $applicant = ApplicantDetail::with('UserDetail')->get();
+        $employee = EmployeeDetail::with('UserDetail')->get();
+
+        $arr = [];
+
+        foreach ($applicant as $key => $value) {
+            array_push($arr, $value);
+        }
+
+        foreach ($employee as $key => $value) {
+            array_push($arr, $value);
+        }
+
+        return datatables()->of($arr)->make(true);
+    }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+/*=============================================================================
+|                                 START
+|                             Messaging JSON
+|
+*==============================================================================*/
+
     public function Message($r_id){
         $send = Message::where(function ($query) use ($r_id) {
             $query->where('receiver_id',$r_id)
@@ -359,23 +664,6 @@ class PayrollJSONController extends Controller
         }
 
         return $send;
-    }
-
-    public function Notification(){
-        $applicant = ApplicantDetail::with('UserDetail')->get();
-        $employee = EmployeeDetail::with('UserDetail')->get();
-
-        $arr = [];
-
-        foreach ($applicant as $key => $value) {
-            array_push($arr, $value);
-        }
-
-        foreach ($employee as $key => $value) {
-            array_push($arr, $value);
-        }
-
-        return datatables()->of($arr)->make(true);
     }
 
     public function ChatEmployeeDetails(){
@@ -399,6 +687,17 @@ class PayrollJSONController extends Controller
             ->rawColumns(['full_name','btn'])
             ->make(true);
     }
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+/*=============================================================================
+|                                 START
+|                              Holiday JSON
+|
+*==============================================================================*/
 
     public function holidayJson(Request $request){
         $holiday_table = Holiday::whereBetween('holidays.holiday_start_date',[$request->from_date,$request->to_date])
@@ -460,6 +759,19 @@ class PayrollJSONController extends Controller
         ->make(true);
     }
 
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+
+
+/*=============================================================================
+|                                 START
+|                               Leave JSON
+|
+*==============================================================================*/
+
     public function leaveJson(Request $request){
         $leave = Leave::join('employee_details','employee_details.employee_id','=','leaves.employee_id')
             ->join('attendances','attendances.attendance_id','=','leaves.attendance_id')
@@ -484,8 +796,81 @@ class PayrollJSONController extends Controller
             ->make(true);
     }
 
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
+
+/*=============================================================================
+|                                 START
+|                            13th Month JSON
+|
+*==============================================================================*/
+
+public function thirteenthMonthJSON(Request $request){
+    $employees = EmployeeDetail::join('user_details','user_details.information_id','=','employee_details.information_id')
+        ->get();
+
+    foreach ($employees as $key => $employee) {
+        $employee->payroll = $employee->FilteredPayroll($employee->employee_id, $request->from_date,$request->to_date);
+    }
+
+    return datatables()->of($employees)
+        ->addColumn('employee_details',function($data){
+            $detail = '<h5>'. $data->fname . ' ' . $data->mname . ' '. $data->lname .'</h5>
+                '. $data->department. '<br>
+                '.$data->position;
+
+            return $detail;
+        })
+        ->addColumn('net_sum',function($data){
+            $detail = 0;
+            foreach ($data->payroll as $key => $value) {
+                $detail += $value->net_pay;
+            }
+            return round($detail,2  );
+        })
+        ->addColumn('bonus',function($data){
+            $detail = 0;
+            foreach ($data->payroll as $key => $value) {
+                $detail += $value->net_pay;
+            }
+            return round($detail / 12,2);
+        })
+        ->addColumn('dates',function($data){
+            $detail = '';
+            $detail .= $data->payroll[0]->payroll_date;
+            $detail .= ' - ';
+            $detail .= $data->payroll[count($data->payroll)-1]->payroll_date;
+            return $detail;
+        })
+        ->addColumn('total_months',function($data){
+            $date1 = new DateTime($data->payroll[0]->payroll_date);
+
+            $date2 = date_create($data->payroll[count($data->payroll)-1]->payroll_date);
+            date_add($date2,date_interval_create_from_date_string("15 days"));
+
+            $interval = $date1->diff($date2);
+
+            return  $interval->m." mos, ".$interval->d." days ";
+        })
+        ->rawColumns(['net_sum','employee_details','bonus','dates','total_months'])
+        ->make(true);
+}
+
+/*=============================================================================
+|                                   END
+*==============================================================================*/
+
     public function timeCalculator($time){
         list($hours, $minutes, $seconds) = explode(':',$time);
         return $hours * 3600 + $minutes * 60 + $seconds;
+    }
+
+    function dateDiff($d1, $d2) {
+
+        // Return the number of days between the two dates:
+        return round(abs(strtotime($d1) - strtotime($d2))/86400);
+
     }
 }

@@ -24,7 +24,7 @@ class ApplicantSignUpController extends Controller
             if($request->input('pass') == $request->input('repass')){
                 UserCredential::create([
                     'username'=>$request->input('user'),
-                    'password'=>$request->input('pass'),
+                    'password'=>md5(md5($request->input('pass'))),
                     'user_type'=>'applicant',
                 ]);
 

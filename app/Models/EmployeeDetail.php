@@ -12,6 +12,7 @@ use App\Models\Deduction;
 use App\Models\CashAdvance;
 use App\Models\Taxes;
 use App\Models\Bonus;
+use App\Models\Payroll;
 
 class EmployeeDetail extends Model
 {
@@ -37,6 +38,14 @@ class EmployeeDetail extends Model
     public function Taxes(){
         return $this->hasOne(Taxes::class, 'employee_id', 'employee_id');
     }
+
+    public function FilteredPayroll($id,$start_date,$end_date){
+        return Payroll::where('employee_id',$id)
+            ->whereBetween('payroll_date',array($start_date,$end_date))
+            ->orderBy('payroll_date','ASC')
+            ->get();
+    }
+
 
     public function FilteredAttendance($id,$start_date,$end_date) {
         return Attendance::where('employee_id',$id)

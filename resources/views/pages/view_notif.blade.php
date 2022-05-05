@@ -4,7 +4,7 @@
     <h1 class="section-title mt-5 pb-2">Notification</h1>
     <style>
         p{
-            font-size: 20px;
+            font-size: 15px;
         }
     </style>
 @endsection
@@ -13,7 +13,7 @@
 
     @foreach ($notif as $data)
         <div class="row shadow-lg p-3 my-5">
-            <div class="col-5 d-flex flex-row flex-wrap align-items-center p-0">
+            <div class="col-5 d-flex flex-row flex-wrap align-items-center card me-3 p-4">
                 <h3 class="display-4 w-100 text-center">Recepients</h3>
                 @foreach ($data->receivers as $item)
                     <div class="col-4 card">
@@ -28,11 +28,13 @@
                     </div>
                 @endforeach
             </div>
-            <div class="col border ">
-                <h1>Notification Title</h1>
-                <input disabled type="type" value="{{ $data->title }}" class="h4 p-3 w-100">
-                <h3>Notification Body</h3>
-                {!! $data->message !!}
+            <div class="col border p-3 ">
+                <h4 class="text-secondary">Notification Title</h4>
+                <input disabled type="type" value="{{ $data->title }}" class="h4 p-3 w-100 shadow-sm my-3">
+                <h4 class="text-secondary">Notification Body</h>
+                <div class="card text-dark p-3 shadow-sm my-3">
+                    {!! $data->message !!}
+                </div>
             </div>
         </div>
     @endforeach
