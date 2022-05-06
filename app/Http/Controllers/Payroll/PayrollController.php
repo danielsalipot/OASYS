@@ -10,6 +10,8 @@ use App\Models\Contributions;
 use App\Models\Holiday;
 use App\Models\Pagibig;
 use App\Models\philhealth;
+use App\Models\EmployeeDetail;
+
 
 class PayrollController extends Controller
 {

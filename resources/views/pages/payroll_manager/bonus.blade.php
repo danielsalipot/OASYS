@@ -120,7 +120,10 @@
                 <button onclick="unlock()" class="btn btn-outline-primary w-100 h-100" id="lock"><i class="bi bi-lock"></i></button>
             </div>
             <div class="col-2 border border-warning p-2">
-                <button disabled class="btn btn-warning h-100 w-100 p-3" id="issue_bonus">Issue 13th Month Bonus</button>
+                {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollBONUSPDFController@bonusPdf', 'method'=>'GET']) !!}
+                {!! Form::hidden('json','{{$employees}}', ['id'=>'hidden_thirteenth']) !!}
+                {!! Form::submit('Issue 13th Month Bonus', ['disabled','class'=>"btn btn-warning h-100 w-100 p-3", 'id'=>'issue_bonus']) !!}
+                {!! Form::close() !!}
             </div>
         </div>
 
