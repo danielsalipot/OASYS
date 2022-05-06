@@ -136,4 +136,12 @@ class PayrollController extends Controller
         function leave(){
             return view('pages.payroll_manager.leave');
         }
+
+        function audittrail(){
+            return view('pages.payroll_manager.audittrail');
+        }
+
+        function approval(){
+            return view('pages.payroll_manager.approval');
+        }
 }

@@ -18,6 +18,8 @@ Route::prefix('payroll')->group(function () {
     Route::get('/overtime', [PayrollController::class, 'overtime']);
     Route::get('/holidays', [PayrollController::class, 'holidays']);
     Route::get('/leave', [PayrollController::class, 'leave']);
+    Route::get('/audittrail', [PayrollController::class, 'audittrail']);
+    Route::get('/approval', [PayrollController::class, 'approval']);
 
     Route::get('/notification/views', [PagesController::class, 'view_notif']);
 
