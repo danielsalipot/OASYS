@@ -1,8 +1,8 @@
 <!-- ======= Header ======= -->
 <header id="header">
-  <div class="d-flex flex-column">
+  <div class="d-flex flex-column pt-0">
 
-    <nav id="navbar" class="nav-menu navbar">
+    <nav id="navbar" class="nav-menu navbar pt-0">
       <ul>
         <li><a href="/payroll/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
         <li><a href="/payroll/employeelist"  class="nav-link py-3 pt-4" title="Employee List" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-lines-fill"></i></a></li>
@@ -17,11 +17,9 @@
         <li><a href="/payroll/audittrail" class="nav-link py-3 pt-4" title="Audit Trail" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-list-check"></i></a></li>
         <li><a href="/payroll/approval" class="nav-link py-3 pt-4" title="Approval" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-file-earmark-check"></i></a></li>
         <li><a href="/payroll/message" class="nav-link py-3 pt-4" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i></a></li>
-        <li><a href="/payroll/notification" class="nav-link py-3 pt-4 pb-4 mb-1" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
-      </ul>
-      <ul>
-        <li><a href="/logout" class="nav-link pt-5 mt-2" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left"></i></a></li>
-      </ul>
+        <li><a href="/payroll/notification" class="nav-link pt-4" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
+        <li><a href="/logout" class="nav-links" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left"></i></a></li>
+    </ul>
     </nav><!-- .nav-menu -->
   </div>
 </header><!-- End Header -->

@@ -3,6 +3,9 @@
 use App\Http\Controllers\Payroll\PayrollPAYROLLPDFController;
 use App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController;
 use App\Http\Controllers\Payroll\PayrollBONUSPDFController;
+use App\Http\Controllers\Payroll\PayrollAUDITPDFController;
+use App\Http\Controllers\Payroll\ApprovalPDFController;
+
 use App\Http\Controllers\Payroll\JsonControllers\PDFJsonController;
 
 Route::prefix('')->group(function () {
@@ -15,8 +18,15 @@ Route::prefix('')->group(function () {
     //Bonus PDF ROUTE
     Route::get('/bonusPdf', [PayrollBONUSPDFController::class,'bonusPdf']);
 
+    //Bonus PDF ROUTE
+    Route::get('/auditPdf', [PayrollAUDITPDFController::class,'audit']);
+
     // Payroll Page JSON ROUTE
     Route::get('/payrollPdfjson', [PDFJsonController::class,'payrollpdf']);
+
+    //Approval PDF ROUTE
+    Route::post('/ApprovalPdf', [ApprovalPDFController::class,'Approval']);
+
 
 
 });

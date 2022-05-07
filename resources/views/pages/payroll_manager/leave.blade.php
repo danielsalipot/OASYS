@@ -264,15 +264,30 @@
             var end_date = ''
 
             if(today.getDate() < 16){
-                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1;
-                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15;
+                start_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1);
+                end_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15);
             }
             else{
-                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16;
-                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30;
+                start_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16);
+                end_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30);
             }
 
             return {start_date,end_date};
+        }
+
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
         }
 
     function selectEmployee(btn, emp_id, emp_picture, emp_name, emp_department, emp_position, rate){

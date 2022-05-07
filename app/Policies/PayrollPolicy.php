@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Payroll;
+use App\Models\Payslips;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

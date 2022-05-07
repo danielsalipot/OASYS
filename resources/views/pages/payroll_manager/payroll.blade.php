@@ -12,7 +12,7 @@
     <div class="row w-100 mt-5 mb-5">
         <h5 class="w-100 border border-dark w-25 m-auto p-2 my-2 text-center">Payroll Report Generation Buttons</h5>
         <div class="col-2"><p class="text-center py-2 my-2 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
-        <div class="col-1"></div>
+        <div class="col"></div>
         <div class="col-3 border border-primary rounded p-2">
             @if (session()->get('progress') == 100)
                 <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
@@ -20,8 +20,13 @@
                 <button disabled type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
             @endif
 
-            {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYROLLPDFController@payrollPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payroll_form']) !!}
+            <form action="/payrollPDF" method="post" enctype="multipart/form-data" id='payroll_form' target="_blank">
+                @csrf
                 <div id="payroll_pdf_actions" class="row w-100 h-100 d-none">
+                    <div class="row m-2 card p-2">
+                        <h6>Upload Signature</h6>
+                        <input type="file" name="esignature" class="input-resume" id="esignature">
+                    </div>
                     <div class="col ps-3 h-100 w-100">
                         {!! Form::submit('PDF', ['class'=>'btn btn-danger rounded p-4 h-100 w-100', 'id'=>'payrollGenerate']) !!}
                     </div>
@@ -29,9 +34,10 @@
                         <button type="button" id="payroll_cancel" class="btn btn-outline-danger p-4 h-100 w-100">x</button>
                     </div>
                 </div>
-            {!! Form::close() !!}
+            </form>
         </div>
-        <div class="col-3 border border-success mx-1 rounded p-2">
+
+        {{-- <div class="col-3 border border-success mx-1 rounded p-2">
             @if (session()->get('progress') == 100)
                 <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
             @else
@@ -47,7 +53,7 @@
                     </div>
                 </div>
             {!! Form::close() !!}
-        </div>
+        </div> --}}
         <div class="col"></div>
         <div class="col-2 border border-warning mx-1 rounded p-2">
             <a href="/payroll/history" class="btn btn-warning w-100 p-4">View Payroll History</a>
@@ -278,15 +284,30 @@
             var end_date = ''
 
             if(today.getDate() < 16){
-                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1;
-                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15;
+                start_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1);
+                end_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15);
             }
             else{
-                start_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16;
-                end_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30;
+                start_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16);
+                end_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30);
             }
 
             return {start_date,end_date};
+        }
+
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
         }
     </script>
 @endsection

@@ -25,7 +25,8 @@ use App\Models\holiday_attendance;
 use App\Models\Leave;
 use App\Models\Pagibig;
 use App\Models\philhealth;
-use App\Models\Payroll;
+use App\Models\Payslips;
+use App\Models\payroll_audit;
 
 class PayrollJSONController extends Controller
 {
@@ -872,5 +873,35 @@ public function thirteenthMonthJSON(Request $request){
         // Return the number of days between the two dates:
         return round(abs(strtotime($d1) - strtotime($d2))/86400);
 
+    }
+
+    function payroll_audit(Request $request){
+        $audit = payroll_audit::with('payroll_manager','employee_detail')
+        ->whereBetween('created_at',[$request->from_date,$request->to_date])
+            ->get();
+
+        return datatables()->of($audit)
+        ->addColumn('date',function($data){
+            $date = date($data->created_at);
+
+            return $date;
+        })
+        ->addColumn('payroll',function($data){
+            $payroll = '<h5>'. $data->payroll_manager->fname . ' ' . $data->payroll_manager->mname . ' '. $data->payroll_manager->lname .'</h5>';
+
+            return $payroll;
+        })
+        ->addColumn('employee_detail',function($data){
+            if(isset($data->employee_detail)){
+                $payroll = '<h5>'. $data->employee_detail->fname . ' ' . $data->employee_detail->mname . ' '. $data->employee_detail->lname .'</h5>';
+
+                return $payroll;
+            }
+            else{
+                return ' - ';
+            }
+        })
+        ->rawColumns(['payroll','employee_detail','date'])
+        ->make(true);
     }
 }

@@ -62,6 +62,8 @@ Route::prefix('')->group(function () {
 
     Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeDetails']);
 
+    Route::get('/payrollauditjson', [PayrollJSONController::class,'payroll_audit']);
+
 
 
     Route::get('/leaveJson', [PayrollJSONController::class,'leaveJson']);

@@ -12,7 +12,7 @@ use App\Models\Deduction;
 use App\Models\CashAdvance;
 use App\Models\Taxes;
 use App\Models\Bonus;
-use App\Models\Payroll;
+use App\Models\Payslips;
 
 class EmployeeDetail extends Model
 {
@@ -40,7 +40,7 @@ class EmployeeDetail extends Model
     }
 
     public function FilteredPayroll($id,$start_date,$end_date){
-        return Payroll::where('employee_id',$id)
+        return Payslipwhere('employee_id',$id)
             ->whereBetween('payroll_date',array($start_date,$end_date))
             ->orderBy('payroll_date','ASC')
             ->get();

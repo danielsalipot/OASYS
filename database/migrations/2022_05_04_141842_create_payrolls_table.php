@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
-            $table->string('net_pay');
-            $table->date('payroll_date');
+            $table->string('filename');
+            $table->string('payroll_manager_id');
+            $table->date('from_date');
+            $table->date('to_date');
             $table->timestamps();
         });
     }
