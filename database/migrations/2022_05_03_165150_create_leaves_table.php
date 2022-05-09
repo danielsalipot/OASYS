@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('employee_id');
             $table->string('attendance_id');
+            $table->string('payrollManager_id');
             $table->timestamps();
         });
     }

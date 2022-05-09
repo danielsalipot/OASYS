@@ -11,10 +11,12 @@
         <table class="table table-striped table-dark" id="cash_advance_table">
             <thead>
                 <tr>
-                    <th scope="col">Employee ID</th>
+                    <th scope="col">Transaction ID</th>
                     <th scope="col">Employee Details</th>
                     <th scope="col">Cash Advance Date</th>
                     <th scope="col">Cash Advance Amount</th>
+                    <th scope="col">Payroll Manager</th>
+                    <th scope="col">Added on (UTC)</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
@@ -182,7 +184,7 @@
                             }
                         },
                     columns: [
-                        { data: 'employee_id',
+                        { data: 'cashAdvances_id',
                             render : (data,type,row)=>{
                                 return `<b>${data}</b>`
                             }
@@ -202,6 +204,16 @@
                         { data: 'cashAdvance_amount',
                             render : (data,type,row)=>{
                                 return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            }
+                        },
+                        { data: 'payroll_manager',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'added_on',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
                             }
                         },
                         {   data: 'cashAdvances_id',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payroll;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Fpdf\Fpdf;
+use App\Http\Controllers\Payroll\FPDF\mc_table;
 
 use App\Models\payroll_audit;
 
@@ -12,13 +13,13 @@ class PayrollAUDITPDFController extends Controller
 {
     function audit(Request $request){
         $audit = payroll_audit::with('payroll_manager','employee_detail')
-        ->whereBetween('created_at',[$request->from,$request->to])
+            ->whereBetween('created_at',[$request->from,$request->to])
             ->get();
 
-        $pdf = new FPDF('L');
+        $pdf=new mc_table();
 
         //Add a new page
-        $pdf->AddPage();
+        $pdf->AddPage('L');
 
         $pdf->SetFont('Arial', 'B', 12);
 
@@ -31,32 +32,24 @@ class PayrollAUDITPDFController extends Controller
 
         $pdf->Ln(5);
 
-        $pdf->SetFont('Arial', 'B', 9);
-        $pdf->MultiCell(40,7,'Dateasdasdasdads',1);
-        $pdf->Cell(40,7,'Payroll Manager',1,0,'C');
-        $pdf->Cell(40,7,'Type',1,0,'C');
-        $pdf->Cell(40,7,'Employee',1,0,'C');
-        $pdf->Cell(40,7,'Activity',1,0,'C');
-        $pdf->Cell(40,7,'Detail',1,0,'C');
-        $pdf->Cell(40,7,'Activity ID',1,1,'C');
+
+        $pdf->SetFont('Arial','',10);
+
+        //Table with 20 rows and 4 columns
+        $pdf->SetWidths(array(40,20,40,40,60,40,40));
+        $pdf->Row(array('Date of Activity (UTC)','Payroll Manager','Type','Employee','Activity','Detail','Activity'));
 
         foreach ($audit as $key => $value) {
-            $pdf->Cell(40,7,date($value->created_at),1,0,'C');
-            $pdf->Cell(40,7,$value->payroll_manager->fname[0].". " .$value->payroll_manager->lname,1,0,'C');
-            $pdf->Cell(40,7,$value->type,1,0,'C');
-
+            $employee = ' - ';
             if(isset($value->employee_detail->fname[0])){
-                $pdf->Cell(40,7,$value->employee_detail->fname[0]. ". " .$value->employee_detail->lname,1,0,'C');
-            }else{
-                $pdf->Cell(40,7,' - ',1,0,'C');
+                $employee = $value->employee_detail->fname[0]. ". " .$value->employee_detail->lname;
             }
+            $pr_name = $value->payroll_manager->fname[0].". " .$value->payroll_manager->lname;
 
-            $pdf->Cell(40,7,$value->activity,1,0,'C');
-            $pdf->Cell(40,7,$value->amount,1,0,'C');
-            $pdf->Cell(40,7,$value->tid,1,1,'C');
+            $pdf->Row(array(date($value->created_at),$pr_name,$value->type,$employee,$value->activity,$value->amount,$value->tid));
         }
 
-
+        $pdf->Output('F',"audits/audit(" .$request->from . " - " . $request->to.").pdf");
         $pdf->Output();
         exit;
     }

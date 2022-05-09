@@ -26,6 +26,7 @@ use App\Models\Leave;
 use App\Models\Pagibig;
 use App\Models\philhealth;
 use App\Models\Payslips;
+use App\Models\UserCredential;
 use App\Models\payroll_audit;
 
 class PayrollJSONController extends Controller
@@ -49,7 +50,14 @@ class PayrollJSONController extends Controller
                             </form>';
                 return $button;
                 })
-                ->rawColumns(['delete'])
+                ->addColumn('payroll_manager',function($data){
+                    $pr_manager = UserDetail::where('login_id',$data->payrollManager_id)->first();
+                    return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+                })
+                ->addColumn('added_on',function($data){
+                    return date_format($data->created_at,"Y/m/d H:i:s");
+                })
+                ->rawColumns(['delete','payroll_manager','added_on'])
                 ->make(true);
     }
 
@@ -112,7 +120,14 @@ class PayrollJSONController extends Controller
                             </form>';
                 return $button;
             })
-            ->rawColumns(['delete'])
+            ->addColumn('payroll_manager',function($data){
+                $pr_manager = UserDetail::where('login_id',$data->payrollManager_id)->first();
+                return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+            })
+            ->addColumn('added_on',function($data){
+                return date_format($data->created_at,"Y/m/d H:i:s");
+            })
+            ->rawColumns(['delete','payroll_manager','added_on'])
             ->make(true);
     }
 
@@ -134,7 +149,6 @@ class PayrollJSONController extends Controller
 *==============================================================================*/
 
     public function Overtime(Request $request){
-        $paid_overtime = Overtime::all();
         $employee_schedules = EmployeeDetail::all();
         $employee_overtime_arr =[];
         $paid_overtime_arr =[];
@@ -190,7 +204,16 @@ class PayrollJSONController extends Controller
 
             $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
         }
-        return datatables()->of($paid_overtime_arr)->make(true);
+        return datatables()->of($paid_overtime_arr)
+            ->addColumn('payroll_manager',function($data){
+                $pr_manager = UserDetail::where('login_id',$data->payrollManager_id)->first();
+                return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+            })
+            ->addColumn('added_on',function($data){
+                return date_format($data->created_at,"Y/m/d H:i:s");
+            })
+            ->rawColumns(['payroll_manager','added_on'])
+            ->make(true);
     }
 
 /*=============================================================================
@@ -219,7 +242,14 @@ class PayrollJSONController extends Controller
                         </form>';
             return $button;
             })
-            ->rawColumns(['delete'])
+            ->addColumn('payroll_manager',function($data){
+                $pr_manager = UserDetail::where('login_id',$data->payrollManager_id)->first();
+                return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+            })
+            ->addColumn('added_on',function($data){
+                return date_format($data->created_at,"Y/m/d H:i:s");
+            })
+            ->rawColumns(['delete','payroll_manager','added_on'])
             ->make(true);
     }
 
@@ -322,8 +352,13 @@ class PayrollJSONController extends Controller
                 $value->total_hours = round(($timeout - $timein) / 3600,2);
                 $value->total_compensation = round($value->rate * $value->total_hours * $value->status,2);
             }else{
-                $value->total_hours = round(($stimeout - $stimein) / 3600,2);
-                $value->total_compensation = round($value->rate * $value->total_hours * $value->status,2);
+                if($value->under || $value->late){
+                    $value->total_hours = round(($timeout - $timein) / 3600,2);
+                    $value->total_compensation = round($value->rate * $value->total_hours * $value->status,2);
+                }else{
+                    $value->total_hours = round(($stimeout - $stimein) / 3600,2);
+                    $value->total_compensation = round($value->rate * $value->total_hours * $value->status,2);
+                }
             }
         }
 
@@ -334,7 +369,14 @@ class PayrollJSONController extends Controller
                         </form>';
             return $button;
             })
-            ->rawColumns(['delete'])
+            ->addColumn('payroll_manager',function($data){
+                $pr_manager = UserDetail::where('login_id',$data->payrollManager_id)->first();
+                return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+            })
+            ->addColumn('added_on',function($data){
+                return date_format($data->created_at,"Y/m/d H:i:s");
+            })
+            ->rawColumns(['delete','payroll_manager','added_on'])
             ->make(true);
     }
 
@@ -650,11 +692,11 @@ class PayrollJSONController extends Controller
     public function Message($r_id){
         $send = Message::where(function ($query) use ($r_id) {
             $query->where('receiver_id',$r_id)
-            ->where('sender_id','2');
+            ->where('sender_id',session('user_id'));
             })
             ->orWhere(function ($query) use ($r_id) {
                 $query->where('sender_id',$r_id)
-                ->where('receiver_id','2');
+                ->where('receiver_id',session('user_id'));
                 })
             ->orderBy('created_at','ASC')
             ->get();
@@ -668,8 +710,18 @@ class PayrollJSONController extends Controller
     }
 
     public function ChatEmployeeDetails(){
-        $employeeDetails = EmployeeDetail::with('UserDetail')->get();
-        return datatables()->of($employeeDetails)
+        //all pwera lang sa applicants
+
+        $users = UserCredential::join('user_details','user_details.login_id','=','user_credentials.login_id')
+            ->where('user_credentials.user_type','!=','applicant')
+            ->where('user_credentials.login_id','!=',session('user_id'))
+            ->get();
+
+        foreach ($users as $key => $user) {
+            $user->userDetail = UserDetail::where("login_id", $user->login_id)->first();
+        }
+
+        return datatables()->of($users)
             ->addColumn('full_name',function($data){
                 return $data->userDetail->fname . " " . $data->userDetail->mname . " " . $data->userDetail->lname;
             })
@@ -731,7 +783,16 @@ class PayrollJSONController extends Controller
                         </form>';
             return $button;
         })
-        ->rawColumns(['att_count','delete'])
+        ->addColumn('payroll_manager',function($data){
+            $att = holiday_attendance::where('holiday_id',$data->holiday_id)->first();
+            $pr_manager = UserDetail::where('login_id',$att->payrollManager_id)->first();
+            return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+        })
+        ->addColumn('added_on',function($data){
+            $att = holiday_attendance::where('holiday_id',$data->holiday_id)->first();
+            return date_format($att->created_at,"Y/m/d H:i:s");
+        })
+        ->rawColumns(['att_count','delete','payroll_manager','added_on'])
         ->make(true);
     }
 
@@ -749,14 +810,21 @@ class PayrollJSONController extends Controller
                     '. $data->department. '<br>
                     '.$data->position;
             return $detail;
-            })
-            ->addColumn('delete',function($data){
-                $button = ' <form action="/removeHolidayAttendance/'. $data->id .'/'. $data->attendance_id .'" method="GET">
-                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
-                            </form>';
-                return $button;
-                })
-            ->rawColumns(['employee_details','delete'])
+        })
+        ->addColumn('delete',function($data){
+            $button = ' <form action="/removeHolidayAttendance/'. $data->id .'/'. $data->attendance_id .'" method="GET">
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        </form>';
+            return $button;
+        })
+        ->addColumn('payroll_manager',function($data){
+            $pr_manager = UserDetail::where('login_id',$data->payrollManager_id)->first();
+            return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+        })
+        ->addColumn('added_on',function($data){
+            return date_format($data->created_at,"Y/m/d H:i:s");
+        })
+        ->rawColumns(['employee_details','delete'])
         ->make(true);
     }
 
@@ -792,7 +860,14 @@ class PayrollJSONController extends Controller
                             <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
                             </form>';
                 return $button;
-                })
+            })
+            ->addColumn('payroll_manager',function($data){
+                $pr_manager = UserDetail::where('login_id',$data->payrollManager_id)->first();
+                return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+            })
+            ->addColumn('added_on',function($data){
+                return date_format($data->created_at,"Y/m/d H:i:s");
+            })
             ->rawColumns(['employee_details','delete'])
             ->make(true);
     }

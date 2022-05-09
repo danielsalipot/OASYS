@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('payroll_id');
             $table->string('payroll_sign');
+            $table->integer('status');
             $table->timestamps();
         });
     }

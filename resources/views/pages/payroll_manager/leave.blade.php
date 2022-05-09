@@ -74,8 +74,11 @@
     <table class="table table-striped table-dark w-100 text-center" id="leave_table">
         <thead>
             <tr>
+                <th scope="col">Transaction ID</th>
                 <th scope="col">Employee Details</th>
                 <th scope="col">Paid Leave Date</th>
+                <th scope="col">Payroll Manager</th>
+                <th scope="col">Added on (UTC)</th>
                 <th scope="col">Delete</th>
             </tr>
         </thead>
@@ -167,6 +170,11 @@
                         }
                     },
                 columns: [
+                    { data: 'id',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
                     { data: 'employee_details',
                         render : (data,type,row)=>{
                             return `<b>${data}</b>`
@@ -177,6 +185,16 @@
                             return `<b>${data}</b>`
                         }
                     },
+                    { data: 'payroll_manager',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'added_on',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
                     { data: 'delete',
                         render : (data,type,row)=>{
                             return `<b>${data}</b>`

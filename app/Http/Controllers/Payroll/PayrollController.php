@@ -15,6 +15,8 @@ use App\Models\UserCredential;
 use App\Models\payroll_audit;
 use App\Models\payroll_approval;
 use App\Models\Payroll;
+use App\Models\UserDetail;
+use App\Models\Payslips;
 
 class PayrollController extends Controller
 {
@@ -24,10 +26,14 @@ class PayrollController extends Controller
                 session()->put('progress_btn', '');
             }
 
-            return view('pages.payroll_manager.payroll');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+
+            return view('pages.payroll_manager.payroll')->with(['profile'=>$profile]);
         }
 
         function history(){
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+
             // PAYROLL HTML
             $payroll_dir = 'payrolls';
             $payroll_files = array_diff(scandir($payroll_dir), array('.', '..'));
@@ -69,7 +75,7 @@ class PayrollController extends Controller
                 array_push($options,$str);
             }
 
-            return view('pages.payroll_manager.pr_history')->with(['btn_arr_pr' => $btn_arr_pr, 'file_arr_pr' => $file_arr_pr, 'sub_btn_arr_ps'=>$sub_btn_arr_ps,'options'=>$options]);
+            return view('pages.payroll_manager.pr_history')->with(['profile'=>$profile, 'btn_arr_pr' => $btn_arr_pr, 'file_arr_pr' => $file_arr_pr, 'sub_btn_arr_ps'=>$sub_btn_arr_ps,'options'=>$options]);
         }
 
         function display_payslip(Request $request){
@@ -77,19 +83,23 @@ class PayrollController extends Controller
         }
 
         function employeelist(){
-            return view('pages.payroll_manager.employeelist');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.employeelist')->with(['profile'=>$profile]);
         }
 
         function deduction(){
-            return view('pages.payroll_manager.deduction');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.deduction')->with(['profile'=>$profile]);
         }
 
         function overtime(){
-            return view('pages.payroll_manager.overtime');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.overtime')->with(['profile'=>$profile]);
         }
 
         function cashadvance(){
-            return view('pages.payroll_manager.cashadvance');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.cashadvance')->with(['profile'=>$profile]);
         }
 
         function contributions(){
@@ -97,23 +107,28 @@ class PayrollController extends Controller
             $pagibig = Pagibig::first();
             $philhealth = philhealth::first();
 
-            return view('pages.payroll_manager.contributions',compact(['sss','pagibig','philhealth']));
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.contributions',compact(['sss','pagibig','philhealth']))->with(['profile'=>$profile]);
         }
 
         function bonus(){
-            return view('pages.payroll_manager.bonus');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.bonus')->with(['profile'=>$profile]);
         }
 
         function doublepay(){
-            return view('pages.payroll_manager.doublepay');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.doublepay')->with(['profile'=>$profile]);
         }
 
         function message(){
-            return view('pages.message');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.message')->with(['profile'=>$profile]);
         }
 
         function notification(){
-            return view('pages.notification');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.notification')->with(['profile'=>$profile]);
         }
 
         function progress($btn){
@@ -133,19 +148,25 @@ class PayrollController extends Controller
 
         function holidays(){
             $holidays = Holiday::all();
-            return view('pages.payroll_manager.holidays',compact('holidays'));
+
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.holidays',compact('holidays'))->with(['profile'=>$profile]);
         }
 
         function leave(){
-            return view('pages.payroll_manager.leave');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.leave')->with(['profile'=>$profile]);
         }
 
         function audittrail(){
-
-            return view('pages.payroll_manager.audittrail');
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.audittrail')->with(['profile'=>$profile]);
         }
 
         function approval(){
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            $payslip_generated = [];
+
             // PAYROLL HTML
             $payroll_dir = 'payrolls';
             $payroll_files = array_diff(scandir($payroll_dir), array('.', '..'));
@@ -156,48 +177,87 @@ class PayrollController extends Controller
             $btn_arr_pr =[];
             $file_arr_pr =[];
 
-            $payrolls = Payroll::all();
+            $payrolls = Payroll::join('user_details','user_details.login_id','=','payrolls.payroll_manager_id')->get();
             $count = UserCredential::where('user_type','payroll')->count();
             $progress_bar = [];
 
-            foreach ($payrolls as $key => $payroll) {
+            foreach ($payrolls as $key1 => $payroll) {
                 $payroll->approvals = payroll_approval::join('user_details','user_details.login_id','=','payroll_approvals.payroll_sign')
                     ->where('payroll_id',$payroll->id)
                     ->get();
 
-                    $payroll->progress = (count($payroll->approvals) / $count) * 100;
-                    $progress = (count($payroll->approvals) / $count) * 100;
+                $payroll->progress = (count($payroll->approvals) / $count) * 100;
+                $progress = (count($payroll->approvals) / $count) * 100;
 
-                $str = "<div class='d-none' id='progress_bar". ($key) ."'>
+                array_push($payslip_generated, Payslips::where('payroll_id',$payroll->id)->count());
+
+                $str = "<div class='d-none' id='progress_bar". ($key1) ."'>
+                <h5 class='w-100 text-center'>Payroll Approval Progress</h5>
                     <div class='progress'>
                     <div class='progress-bar' role='progressbar' style='width:". $progress . "%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>".$progress."%</div>
                     </div>
                     <div class='w-100 text-center card shadow-lg my-4 p-5'>
+
+                    <h2 class='p-3'>Generated By: </h2>
+                        <div class='col-3 p-2 m-1 card shadow-sm m-auto alert alert-primary'>
+                            <div class='row'>
+                                <div class='col-3'>
+                                    <img src='/".$payroll->picture."' height='70px' width='70px' class='rounded-circle mt-3 me-4'>
+                                </div>
+                                <div class='col mt-3'>
+                                    <h4>". $payroll->fname ." " . $payroll->mname . " " .$payroll->lname."</h4>
+                                    <h6>Payroll Manager ID: ".$payroll->login_id."</h6>
+                                    <h6>Approval date:</h6>
+                                    <p>". date_format($payroll->created_at,"Y-m-d H:i:s") ."</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
                         <h2 class='p-3'>Approved By: </h2>
                         <div class='d-flex flex-row flex-wrap justify-content-center'>";
 
-                foreach ($payroll->approvals as $key => $approval) {
+                $payroll->done = 0;
+                foreach ($payroll->approvals as $key2 => $approval) {
                     if($approval->login_id == session('user_id')){
-                        $str .= "<div class='col-3 p-2 m-1 card shadow-sm'>
+                        $payroll->done = 1;
+                        if($approval->status > 0){
+                            $status = "alert alert-success";
+                        }
+                        else{
+                            $status = "alert alert-danger";
+                        }
+                        $str .= "<div class='col-3 p-2 m-1 card shadow-sm ".$status."'>
                     <div class='row'>
                             <div class='col-3'>
-                                <img src='/pictures/1.png' height='60px' width='60px' class='rounded me-4'>
+                                <img src='/".$approval->picture."' height='70px' width='70px' class='rounded-circle mt-3 me-4'>
                             </div>
                             <div class='col mt-3'>
                                 <h4> Me </h4>
                                 <h6>Payroll Manager ID: ".$approval->login_id."</h6>
+                                <h6>Disapproved</h6>
+                                <p>". date_format($approval->created_at,"Y-m-d H:i:s") ."</p>
                             </div>
                         </div>
                     </div>";
                     }else{
-                        $str .= "<div class='col-3 p-2 m-1 card shadow-sm'>
+                        if($approval->status > 0){
+                            $status = "alert alert-success";
+                        }
+                        else{
+                            $status = "alert alert-danger";
+                        }
+                        $str .= "<div class='col-3 p-2 m-1 card shadow-sm ".$status."'>
                     <div class='row'>
                             <div class='col-3'>
-                                <img src='/pictures/1.png' height='60px' width='60px' class='rounded me-4'>
+                                <img src='/".$approval->picture."' height='70px' width='70px' class='rounded-circle mt-3 me-4'>
                             </div>
                             <div class='col mt-3'>
                                 <h4>". $approval->fname ." " . $approval->mname . " " .$approval->lname."</h4>
                                 <h6>Payroll Manager ID: ".$approval->login_id."</h6>
+                                <h6>Approved</h6>
+                                <p>". date_format($approval->created_at,"Y-m-d H:i:s") ."</p>
                             </div>
                         </div>
                     </div>";
@@ -211,10 +271,10 @@ class PayrollController extends Controller
 
 
             foreach ($payroll_files as $key => $value) {
-                array_push($btn_arr_pr,"<button id=\"".($key)."\" class='w-100 p-4 btn btn-light m-2 text-wrap' onclick=\"display(this,'".($key)."','".$value."','".$payrolls[$key]->from_date."','".$payrolls[$key]->from_date."','". $payrolls[$key]->progress ."')\">" . $value . "</button>");
+                array_push($btn_arr_pr,"<button id=\"".($key)."\" class='w-100 p-4 btn btn-light m-2 text-wrap' onclick=\"display(this,'".($key)."','".$value."','".$payrolls[$key]->from_date."','".$payrolls[$key]->to_date."','". $payrolls[$key]->progress ."',". $payslip_generated[$key] . ",".$payrolls[$key]->done.")\">" . $value . "</button>");
                 array_push($file_arr_pr,"<iframe id=\""."file".($key)."\" src=\"/" . $payroll_dir . "/" . $value ."\" width=\"100%\" style=\"display:none;height:100%\"></iframe>");
             }
 
-            return view('pages.payroll_manager.approval')->with(['btn_arr_pr' => $btn_arr_pr, 'file_arr_pr' => $file_arr_pr, 'progress_bar' =>$progress_bar, ]) ;
+            return view('pages.payroll_manager.approval')->with(['profile' => $profile, 'btn_arr_pr' => $btn_arr_pr, 'file_arr_pr' => $file_arr_pr, 'progress_bar' =>$progress_bar, ]) ;
         }
 }

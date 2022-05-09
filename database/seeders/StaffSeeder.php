@@ -20,18 +20,14 @@ class StaffSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        UserCredential::create([
+        $login_id = UserCredential::create([
             'username' => 'HRStaff',
             'password' => md5(md5('password123')),
             'user_type' => 'staff'
         ]);
 
-        $login_id = UserCredential::where('username','HRStaff')
-                    ->first('login_id')
-                    ->login_id;
-
         UserDetail::create([
-            'login_id' => $login_id,
+            'login_id' => $login_id->id,
             'fname' => $faker->FirstName,
             'mname' => $faker->LastName,
             'lname' => $faker->LastName,
@@ -40,7 +36,7 @@ class StaffSeeder extends Seeder
             'bday' => $faker->date($format = 'Y-m-d'),
             'cnum' => $faker->e164PhoneNumber,
             'email' => $faker->email,
-            'picture' => 'pictures/1.png',
+            'picture' => 'pictures/temp.png',
         ]);
     }
 }

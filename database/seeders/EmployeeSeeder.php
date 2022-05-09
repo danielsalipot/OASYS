@@ -22,19 +22,15 @@ class EmployeeSeeder extends Seeder
         $faker = Faker::create();
         $username = $faker->username;
 
-        UserCredential::create([
+        $login_id = UserCredential::create([
             'username' => $username,
             'password' => md5(md5('password123')),
             'user_type' => 'employee'
         ]);
 
 
-        $login_id = UserCredential::where('username',$username)
-                    ->first('login_id')
-                    ->login_id;
-
-        UserDetail::create([
-            'login_id' => $login_id,
+        $info_id = UserDetail::create([
+            'login_id' => $login_id->id,
             'fname' => $faker->FirstName,
             'mname' => $faker->LastName,
             'lname' => $faker->LastName,
@@ -43,19 +39,15 @@ class EmployeeSeeder extends Seeder
             'bday' => $faker->date($format = 'Y-m-d'),
             'cnum' => $faker->e164PhoneNumber,
             'email' => $faker->email,
-            'picture' => 'pictures/1.png',
+            'picture' => 'pictures/temp.png',
         ]);
-
-        $info_id = UserDetail::where('login_id',$login_id)
-                    ->first('information_id')
-                    ->information_id;
 
         $decimals = 2; // number of decimal places
 	    $div = pow(10, $decimals);
 
         EmployeeDetail::create([
-            'login_id' => $login_id,
-            'information_id' =>$info_id,
+            'login_id' => $login_id->id,
+            'information_id' =>$info_id->id,
             'educ' => 'College',
             'position' => (rand(0,1)) ? 'Manager' : 'Teacher',
             'department' => (rand(0,1)) ? 'Faculty' : 'Marketing',

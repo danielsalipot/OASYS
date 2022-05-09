@@ -67,7 +67,9 @@ Route::prefix('')->group(function () {
 });
 
 
-
+// Landing Pages
+Route::get('/change_picture', [PagesController::class, 'change_picture']);
+Route::post('/submit_change_picture', [PagesController::class, 'submit_change_picture']);
 
                 ////////////////////////
                 //Landing Pages routes//

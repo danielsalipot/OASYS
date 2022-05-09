@@ -12,9 +12,12 @@ use App\Models\Bonus;
 use App\Models\MultiPay;
 use App\Models\Holiday;
 use App\Models\Attendance;
+use App\Models\EmployeeDetail;
 use App\Models\holiday_attendance;
 use App\Models\Leave;
 use App\Models\payroll_audit;
+use App\Models\notification_message;
+use App\Models\notification_receiver;
 
 class PayrollDeleteController extends Controller
 {
@@ -31,6 +34,21 @@ class PayrollDeleteController extends Controller
                 'activity' => 'Remove Overtime',
                 'amount' => '-',
                 'tid' => $ids[$i],
+            ]);
+
+            // AUTOMATIC SENDING OF NOTIFICATION
+            $employee = EmployeeDetail::where('employee_id',$att_id->employee_id)->first();
+            $emp_attendance = Attendance::where('attendance_id',$att_id->attendance_id)->first();
+
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => 'Overtime Payment Revoked',
+                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                            " Your overtime on " . $emp_attendance->attendance_date . " had its Payment revoked"
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $att_id->employee_id]
             ]);
 
             Overtime::where('overtime_id',$ids[$i])->delete();
@@ -50,6 +68,21 @@ class PayrollDeleteController extends Controller
             'tid' => $deduction->deduction_id,
         ]);
 
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::where('employee_id',$deduction->employee_id)->first();
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => 'Deduction Removed',
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                    " The deduction from " . $deduction->deduction_start_date . ' - ' . $deduction->deduction_end_date .
+                    "with an amount of " . $deduction->deduction_amount . " has been revoked"
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $deduction->employee_id]
+        ]);
+
         Deduction::where('deduction_id',$id)->delete();
 
         return redirect('/payroll/deduction');
@@ -64,6 +97,21 @@ class PayrollDeleteController extends Controller
             'activity' => 'Remove Cash Advance',
             'amount' => $ca->cashAdvance_amount,
             'tid' => $ca->cashAdvances_id,
+        ]);
+
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::where('employee_id',$ca->employee_id)->first();
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => 'Cash Advance Removed',
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                    " Your cash advance with an amount of " . $ca->cashAdvance_amount . "on " . $ca->cash_advance_date .
+                    "has been revoked"
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $ca->employee_id]
         ]);
 
         CashAdvance::where('cashAdvances_id',$id)->delete();
@@ -82,6 +130,21 @@ class PayrollDeleteController extends Controller
             'tid' => $bonus->bonus_id,
         ]);
 
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::where('employee_id',$bonus->employee_id)->first();
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => 'Bonus Removed',
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                " The bonus with an amount of  " . $bonus->bonus_amount . "on " . $bonus->bonus_date .
+                " has been revoked"
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $bonus->employee_id]
+        ]);
+
         Bonus::where('bonus_id',$id)->delete();
 
         return redirect('/payroll/bonus');
@@ -96,7 +159,30 @@ class PayrollDeleteController extends Controller
             'employee' => $multipay->employee_id,
             'activity' => 'Remove Multi Salary',
             'amount' => '-',
-            'tid' => $multipay->multi_pay_id,x1
+            'tid' => $multipay->multi_pay_id,
+        ]);
+
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id', $multipay->employee_id)->first();
+        $emp_attendance = Attendance::where('attendance_id',$multipay->attendance_id)->first();
+
+        $title;
+        if($multipay->status == 2){
+            $title = 'Double Salary Pay Removed';
+        }
+        if($multipay->status == 3){
+            $title = 'Triple Salary Pay Removed';
+        }
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => $title,
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                        " Your attendance on " . $emp_attendance->attendance_date . "  that recieved " . $title
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' =>  $multipay->employee_id]
         ]);
 
         MultiPay::where('multi_pay_id',$id)->delete();
@@ -136,6 +222,21 @@ class PayrollDeleteController extends Controller
                 'tid' => $ha_att->id,
             ]);
 
+            // AUTOMATIC SENDING OF NOTIFICATION
+            $employee = EmployeeDetail::where('employee_id',$att->employee_id)->first();
+            $emp_attendance = Attendance::where('attendance_id',$value->attendance_id)->first();
+
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => 'Paid Holiday Remove',
+                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                            " the payment on the Holiday on " . $emp_attendance->attendance_date . " will be revoked"
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $att->employee_id]
+            ]);
+
             Attendance::where('attendance_id',$value->attendance_id)->delete();
             holiday_attendance::where('attendance_id',$value->attendance_id)->delete();
         }
@@ -158,6 +259,21 @@ class PayrollDeleteController extends Controller
             'tid' => $ha_att->id,
         ]);
 
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::where('employee_id', $ha_att->employee_id)->first();
+        $emp_attendance = Attendance::where('attendance_id',$ha_att->attendance_id)->first();
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => 'Paid Holiday Removed',
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                        " the payment on the Holiday on " . $emp_attendance->attendance_date . " will be revoked"
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $ha_att->employee_id]
+        ]);
+
         holiday_attendance::where('id',$hid)->delete();
         Attendance::where('attendance_id',$aid)->delete();
 
@@ -175,6 +291,22 @@ class PayrollDeleteController extends Controller
             'amount' => '-',
             'tid' => $leave->id,
         ]);
+
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::where('employee_id',$leave->employee_id)->first();
+        $emp_attendance = Attendance::where('attendance_id',$leave->attendance_id)->first();
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => 'Paid Leave Removed',
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                        " Your leave on " . $emp_attendance->attendance_date . " has been revoked"
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $leave->employee_id]
+        ]);
+
         Attendance::where('attendance_id',$aid)->delete();
         return redirect('/payroll/leave');
     }

@@ -9,5 +9,5 @@ class holiday_attendance extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['holiday_id','attendance_id'];
+    protected $fillable = ['holiday_id','attendance_id','payrollManager_id'];
 }

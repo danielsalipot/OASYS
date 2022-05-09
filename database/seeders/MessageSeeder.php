@@ -27,12 +27,12 @@ class MessageSeeder extends Seeder
 
         Message::create([
             'sender_id' => rand(1,50),
-            'receiver_id' => '2',
+            'receiver_id' => rand(2,7),
             'message' => $faker->realText(500)
         ]);
 
         Message::create([
-            'sender_id' => '2',
+            'sender_id' => rand(2,7),
             'receiver_id' => rand(1,50),
             'message' => $faker->realText(500)
         ]);

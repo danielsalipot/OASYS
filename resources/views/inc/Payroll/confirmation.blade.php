@@ -33,7 +33,7 @@
                     @endif
                 </div>
                 <div class="col-3 p-0 pe-3">
-                    <a href="/payroll/deductions" class="btn btn-dark w-100 p-3"><i class="bi bi-caret-right"></i></a>
+                    <a href="/payroll/deduction" class="btn btn-dark w-100 p-3"><i class="bi bi-caret-right"></i></a>
                 </div>
             </div>
         </div>

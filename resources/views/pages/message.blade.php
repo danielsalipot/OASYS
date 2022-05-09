@@ -73,6 +73,7 @@
 
             $('#emp_name').html(name)
             $('#emp_pic').attr("src",pic)
+
             function load_chat(){
                 $.ajax({
                 url: `/messagejson/${id}`,

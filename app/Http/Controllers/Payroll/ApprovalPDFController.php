@@ -43,12 +43,14 @@ class ApprovalPDFController extends Controller
                 ->where('payroll_sign',session('user_id'))
                 ->update([
                     'payroll_id'=> $payroll->id,
-                    'payroll_sign'=>session('user_id')
+                    'payroll_sign'=>session('user_id'),
+                    'status'=>$request->status
                 ]);
         }else{
             payroll_approval::create([
                 'payroll_id'=> $payroll->id,
-                'payroll_sign'=>session('user_id')
+                'payroll_sign'=>session('user_id'),
+                'status'=>$request->status
             ]);
         }
 
@@ -59,6 +61,7 @@ class ApprovalPDFController extends Controller
         $prm_name = UserDetail::where('login_id', session('user_id'))->first();
 
         $approves = payroll_approval::where('payroll_id',$payroll->id)->get();
+
         for ($i=1; $i <=  $pagecount; $i++) {
             $pdf->AddPage();
             $tplIdx = $pdf->importPage($i);
@@ -82,16 +85,29 @@ class ApprovalPDFController extends Controller
                 $pdf->Cell(190,7,"$prm_name->fname $prm_name->mname $prm_name->lname",0,1,'C');
                 $pdf->Image( $sign_file_pate . "/" .$signfilename, $pdf->GetX() + 78, $pdf->GetY() -20,35,15);
                 $pdf->Cell(63,7,'',0,0,'C');
-                $pdf->Cell(63,7,'Approved by:','T',0,'C');
+                if($request->status){
+                    $pdf->Cell(63,7,'Approved by:','T',0,'C');
+                }
+                else{
+                    $pdf->Cell(63,7,'Disapproved by:','T',0,'C');
+                }
+
                 $pdf->Cell(63,7,'',0,0,'C');
             }
+        }
+
+        if($request->status){
+            $str = 'Approved';
+        }
+        else{
+            $str = 'Dispproved';
         }
 
         payroll_audit::create([
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Approval',
             'employee' => ' - ',
-            'activity' => 'Approved: '.$filename[2],
+            'activity' => $str.': '.$filename[2],
             'amount' => '-',
             'tid' => ' - ',
         ]);

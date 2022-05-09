@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -51,7 +52,44 @@ class PagesController extends Controller
             }
         }
 
-        return view('pages.view_notif',compact('notif'));
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.view_notif',compact('notif'))->with(['profile'=>$profile]);
+    }
+
+    function change_picture(){
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.change_picture')->with(['profile'=>$profile]);
+    }
+
+    function submit_change_picture(Request $request){
+        $request->validate([
+            'picinput'=>'required'
+        ]);
+
+        $current_pic = UserDetail::where('login_id',session('user_id'))->first();
+
+        if(str_contains($current_pic->picture,'temp.png')){
+            //upload
+            $picfilename =  session('user_id').".".$request->file('picinput')->getClientOriginalExtension();
+            $request->file('picinput')->storeAs('pictures', $picfilename,'public_uploads');
+
+            UserDetail::where('login_id',session('user_id'))->update([
+                'picture' => 'pictures/'. $picfilename
+            ]);
+        }
+        else{
+            // replace its file with new file
+            File::delete('pictures/'. $current_pic->picture);
+
+            $picfilename =  session('user_id').".".$request->file('picinput')->getClientOriginalExtension();
+            $request->file('picinput')->storeAs('pictures', $picfilename,'public_uploads');
+            // update db
+            UserDetail::where('login_id',session('user_id'))->update([
+                'picture' => 'pictures/'. $picfilename
+            ]);
+        }
+
+        return redirect('/change_picture');
     }
 
     function test($x,$y){

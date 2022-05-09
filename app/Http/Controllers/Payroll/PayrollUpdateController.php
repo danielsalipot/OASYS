@@ -10,6 +10,8 @@ use App\Models\Contributions;
 use App\Models\Pagibig;
 use App\Models\philhealth;
 use App\Models\payroll_audit;
+use App\Models\notification_message;
+use App\Models\notification_receiver;
 
 class PayrollUpdateController extends Controller
 {
@@ -23,6 +25,19 @@ class PayrollUpdateController extends Controller
             'activity' => 'Update Rate Per Hour',
             'amount' => $rate->rate.' -> '. $request->rate,
             'tid' => $rate->employee_id,
+        ]);
+
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::where('employee_id',$rate->employee_id)->first();
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => 'Pay rate Adjusted',
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                        " Your Salary rate has been adjusted from " . $rate->rate . " to " . $request->rate
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $rate->employee_id]
         ]);
 
         EmployeeDetail::where('employee_id',$request->emp_id)->update(['rate' => $request->rate]);

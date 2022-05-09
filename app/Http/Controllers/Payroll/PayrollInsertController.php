@@ -27,10 +27,12 @@ use App\Models\payroll_audit;
 class PayrollInsertController extends Controller
 {
     public function InsertOvertime(Request $request){
-        $id = Overtime::insertGetId([
+        $id = Overtime::create([
             'employee_id' => $request->emp_id,
-            'attendance_id' => $request->attendance_id
+            'attendance_id' => $request->attendance_id,
+            'payrollManager_id' => session()->get('user_id')
         ]);
+
         $employee = EmployeeDetail::where('employee_id',$request->emp_id)->first();
 
         payroll_audit::create([
@@ -39,7 +41,22 @@ class PayrollInsertController extends Controller
             'employee' => $employee->information_id,
             'activity' => 'Paid Overtime Attendance (ID:'.$request->attendance_id.')',
             'amount' => '-',
-            'tid' => $id,
+            'tid' => $id->id,
+        ]);
+
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::where('employee_id',$request->emp_id)->first();
+        $emp_attendance = Attendance::where('attendance_id',$request->attendance_id)->first();
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => 'Overtime Payment',
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                        " Your overtime on " . $emp_attendance->attendance_date . " recieved Overtime Payment"
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $request->emp_id]
         ]);
 
         return redirect('/payroll/overtime');
@@ -49,7 +66,7 @@ class PayrollInsertController extends Controller
     {
         $employee_ids = explode(';',$request->hidden_emp_id);
         for ($i=0; $i < count($employee_ids) - 1 ; $i++) {
-            $id = Deduction::insertGetId([
+            $id = Deduction::create([
                 'payrollManager_id' => $request->session()->get('user_id'),
                 'employee_id' => $employee_ids[$i],
                 'deduction_name' => $request->hidden_deduction_name,
@@ -64,7 +81,21 @@ class PayrollInsertController extends Controller
                 'employee' => $employee_ids[$i],
                 'activity' => 'Added Deduction Name: '.$request->hidden_deduction_name,
                 'amount' => $request->hidden_deduction_amount,
-                'tid' => $id,
+                'tid' => $id->id,
+            ]);
+
+            // AUTOMATIC SENDING OF NOTIFICATION
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee_ids[$i])->first();
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => 'Deduction on Salary',
+                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                            " A deduction has been added on your salary from " . $request->hidden_deduction_start_date . ' - ' . $request->hidden_deduction_end_date .
+                            "with an amount of " . $request->hidden_deduction_amount
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $employee_ids[$i]]
             ]);
         }
         return redirect('/payroll/deduction');
@@ -74,7 +105,7 @@ class PayrollInsertController extends Controller
     {
         $employee_ids = explode(';',$request->hidden_emp_id);
         for ($i=0; $i < count($employee_ids) - 1 ; $i++) {
-            $id = CashAdvance::insertGetId([
+            $id = CashAdvance::create([
                 'payrollManager_id' => $request->session()->get('user_id'),
                 'employee_id' => $employee_ids[$i],
                 'cash_advance_date' => $request->hidden_cash_advance_date,
@@ -87,7 +118,20 @@ class PayrollInsertController extends Controller
                 'employee' => $employee_ids[$i],
                 'activity' => 'Added Cash Advance',
                 'amount' => $request->hidden_cash_advance_amount,
-                'tid' => $id,
+                'tid' => $id->id,
+            ]);
+
+            // AUTOMATIC SENDING OF NOTIFICATION
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee_ids[$i])->first();
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => 'Cash Advance Recorded',
+                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                            " Your cash advance has been recorded with an amount of " . $request->hidden_cash_advance_amount . "on " . $request->hidden_cash_advance_date
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $employee_ids[$i]]
             ]);
         }
         return redirect('/payroll/cashadvance');
@@ -97,7 +141,7 @@ class PayrollInsertController extends Controller
     {
         $employee_ids = explode(';',$request->hidden_emp_id);
         for ($i=0; $i < count($employee_ids) - 1 ; $i++) {
-            $id = Bonus::insertGetId([
+            $id = Bonus::create([
                 'payrollManager_id' => $request->session()->get('user_id'),
                 'employee_id' => $employee_ids[$i],
                 'bonus_date' => $request->hidden_bonus_date,
@@ -110,7 +154,20 @@ class PayrollInsertController extends Controller
                 'employee' => $employee_ids[$i],
                 'activity' => 'Added Bonus',
                 'amount' => $request->hidden_bonus_amount,
-                'tid' => $id,
+                'tid' => $id->id,
+            ]);
+
+            // AUTOMATIC SENDING OF NOTIFICATION
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee_ids[$i])->first();
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => 'Your recieved a Bonus',
+                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                            " You recieved a bonus with an amount of  " . $request->hidden_bonus_amount . "on " . $request->hidden_bonus_date
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $employee_ids[$i]]
             ]);
         }
         return redirect('/payroll/bonus');
@@ -118,7 +175,7 @@ class PayrollInsertController extends Controller
 
     public function InsertMultiPay(Request $request)
     {
-        $id = MultiPay::insertGetId([
+        $id = MultiPay::create([
             'payrollManager_id' => $request->session()->get('user_id'),
             'employee_id' => $request->hidden_emp_id,
             'attendance_id' => $request->hidden_attendance_id,
@@ -131,7 +188,30 @@ class PayrollInsertController extends Controller
             'employee' => $request->hidden_emp_id,
             'activity' => $request->hidden_status.'X pay attendance (Attendance Id:'.$request->hidden_attendance_id.')',
             'amount' => '-',
-            'tid' => $id,
+            'tid' => $id->id,
+        ]);
+
+        // AUTOMATIC SENDING OF NOTIFICATION
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$request->hidden_emp_id)->first();
+        $emp_attendance = Attendance::where('attendance_id',$request->hidden_attendance_id)->first();
+
+        $title;
+        if($request->hidden_status == 2){
+            $title = 'Double Salary Pay';
+        }
+        if($request->hidden_status == 3){
+            $title = 'Triple Salary Pay';
+        }
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => $title,
+            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                        " Your attendance on " . $emp_attendance->attendance_date . " recieved " . $title
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $request->hidden_emp_id]
         ]);
 
         return redirect('/payroll/doublepay');
@@ -167,7 +247,7 @@ class PayrollInsertController extends Controller
 
     public function InsertHoliday(Request $request)
     {
-        $id = Holiday::insertGetId([
+        $id = Holiday::create([
             'holiday_name' => $request->holiday_name,
             'holiday_start_date' => $request->insert_start_date,
             'holiday_end_date' => $request->insert_end_date,
@@ -179,7 +259,7 @@ class PayrollInsertController extends Controller
             'employee' => '',
             'activity' => $request->holiday_name . ' (' . $request->insert_start_date . ' - '. $request->insert_end_date.')',
             'amount' => '-',
-            'tid' => $id,
+            'tid' => $id->id,
         ]);
 
         return redirect('/payroll/holidays');
@@ -190,16 +270,17 @@ class PayrollInsertController extends Controller
         $employee_ids = explode(';',$request->hidden_emp_id);
         for ($i=0; $i < count($employee_ids) - 1; $i++) {
             $employee = EmployeeDetail::where('employee_id',$employee_ids[$i])->first();
-            $attendance_id = Attendance::insertGetId([
+            $attendance_id = Attendance::create([
                 'employee_id' => $employee->employee_id,
                 'time_in' => $employee->schedule_Timein,
                 'time_out' => $employee->schedule_Timeout,
                 'attendance_date'=> $request->hidden_leave_input
             ]);
 
-            $id = Leave::insertGetId([
+            $id = Leave::create([
                 'employee_id' => $employee->employee_id,
-                'attendance_id' => $attendance_id
+                'attendance_id' => $attendance_id->id,
+                'payrollManager_id' =>session()->get('user_id')
             ]);
 
             payroll_audit::create([
@@ -208,7 +289,22 @@ class PayrollInsertController extends Controller
                 'employee' => $employee_ids[$i],
                 'activity' => 'Paid Leave',
                 'amount' => '-',
-                'tid' => $id,
+                'tid' => $id->id,
+            ]);
+
+            // AUTOMATIC SENDING OF NOTIFICATION
+            $employee = EmployeeDetail::where('employee_id',$employee->employee_id)->first();
+            $emp_attendance = Attendance::where('attendance_id',$attendance_id->id)->first();
+
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => 'Paid Leave Recorded',
+                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                            " Your leave on " . $emp_attendance->attendance_date . " will recieve payment"
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $employee->employee_id]
             ]);
         }
 
@@ -222,7 +318,7 @@ class PayrollInsertController extends Controller
             $dates = $this->getDatesFromRange($request->emp_start_date,$request->emp_end_date);
             for ($i=0; $i < ((count($dates) - 1) == 0? 1 : (count($dates) - 1)); $i++) {
                 foreach ($employees as $key => $employee) {
-                    $attendance_id = Attendance::insertGetId([
+                    $attendance_id = Attendance::create([
                         'employee_id' => $employee->employee_id,
                         'time_in' => $employee->schedule_Timein,
                         'time_out' => $employee->schedule_Timeout,
@@ -230,9 +326,10 @@ class PayrollInsertController extends Controller
                     ]);
 
                     $h_id = json_decode($request->holiday);
-                    $id = holiday_attendance::insertGetId([
+                    $id = holiday_attendance::create([
                         'holiday_id' => $h_id->holiday_id,
-                        'attendance_id' => $attendance_id
+                        'attendance_id' =>$attendance_id->id,
+                        'payrollManager_id' =>session()->get('user_id')
                     ]);
 
                     payroll_audit::create([
@@ -241,7 +338,22 @@ class PayrollInsertController extends Controller
                         'employee' => $employee->employee_id,
                         'activity' => 'Paid Holiday',
                         'amount' => '-',
-                        'tid' => $id,
+                        'tid' => $id->id,
+                    ]);
+
+                    // AUTOMATIC SENDING OF NOTIFICATION
+                    $employee = EmployeeDetail::where('employee_id',$employee->employee_id)->first();
+                    $emp_attendance = Attendance::where('attendance_id',$attendance_id->id)->first();
+
+                    $notif = notification_message::create([
+                        'sender_id' => session()->get('user_id'),
+                        'title' => 'Paid Holiday',
+                        'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                                    " the Holiday on " . $emp_attendance->attendance_date . " will be a paid holiday"
+                    ]);
+
+                    $notif->receivers()->createMany([
+                        ['receiver_id' => $employee->employee_id]
                     ]);
                 }
             }
@@ -252,7 +364,7 @@ class PayrollInsertController extends Controller
             for ($i=0; $i < ((count($dates) - 1) == 0? 1 : (count($dates) - 1)); $i++) {
                 for ($j=0; $j < count($employee_ids) - 1; $j++) {
                     $employee = EmployeeDetail::where('employee_id',$employee_ids[$j])->first();
-                    $attendance_id = Attendance::insertGetId([
+                    $attendance_id = Attendance::create([
                         'employee_id' => $employee->employee_id,
                         'time_in' => $employee->schedule_Timein,
                         'time_out' => $employee->schedule_Timeout,
@@ -260,9 +372,10 @@ class PayrollInsertController extends Controller
                     ]);
 
                     $h_id = json_decode($request->holiday);
-                    $id = holiday_attendance::insertGetId([
+                    $id = holiday_attendance::create([
                         'holiday_id' => $h_id->holiday_id,
-                        'attendance_id' => $attendance_id
+                        'attendance_id' =>$attendance_id->id,
+                        'payrollManager_id' =>session()->get('user_id')
                     ]);
 
                     payroll_audit::create([
@@ -271,7 +384,22 @@ class PayrollInsertController extends Controller
                         'employee' => $employee->employee_id,
                         'activity' => 'Paid Holiday',
                         'amount' => '-',
-                        'tid' => $id,
+                        'tid' => $id->id,
+                    ]);
+
+                    // AUTOMATIC SENDING OF NOTIFICATION
+                    $employee = EmployeeDetail::where('employee_id',$employee->employee_id)->first();
+                    $emp_attendance = Attendance::where('attendance_id',$attendance_id->id)->first();
+
+                    $notif = notification_message::create([
+                        'sender_id' => session()->get('user_id'),
+                        'title' => 'Paid Holiday',
+                        'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                                    " the Holiday on " . $emp_attendance->attendance_date . " will be a paid holiday"
+                    ]);
+
+                    $notif->receivers()->createMany([
+                        ['receiver_id' => $employee->employee_id]
                     ]);
                 }
             }

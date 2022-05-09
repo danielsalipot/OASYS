@@ -26,22 +26,19 @@
         {!! Form::close() !!}
         <div class="row">
             <div class="col" id="approval_div">
-                <button id="approval_btn" onclick="approve_show()" class="btn btn-primary w-100 p-2 m-0">
-                    Approve
-                </button>
+                <button id="approval_btn" onclick="approve_show(this)" class="btn btn-primary w-100 p-2 m-0">Approve</button>
             </div>
             <div class="col"  id="disapproval_div">
-                <button id="disapproval_btn" class="btn btn-outline-danger w-100 p-2 m-0">
-                    Disapprove
-                </button>
+                <button id="disapproval_btn"  onclick="approve_show(this)" class="btn btn-outline-danger w-100 p-2 m-0">Disapprove</button>
             </div>
             <div id="approve_sign" class='row m-auto d-none'>
-                <form action="/ApprovalPdf" method="post" enctype="multipart/form-data" target='_blank'>
+                <form action="/ApprovalPdf" method="post" enctype="multipart/form-data" target='_blank' onsubmit="javascript: setTimeout(function(){location.reload();}, 500);return true;">
                 @csrf
 
                 <div class="card m-3 p-3 shadow-sm text-center">
                     <h4>Attach your E-Signature</h4>
                     <h6>for Approval</h6>
+                    {!! Form::hidden('status', 0, ['id'=>'status']) !!}
                     {!! Form::hidden('hidden_filename', '', ['id'=>'hidden_filename']) !!}
                     <input type="file" name="esignature" class="input-resume m-auto" id="esignature">
                     {!! Form::submit('Approve', ['class'=>'btn btn-primary w-75 m-auto', 'id' => "sign_submit"]) !!}
@@ -75,7 +72,7 @@
         }, 2000);
     })
 
-    function display(btn,key,value,from_date1,to_date1,progress){
+    function display(btn,key,value,from_date1,to_date1,progress,payslip_generate,vote){
         if(btn.innerHTML == "Close"){
             $("iframe").each(function() {
                 $(this).css('display','none');
@@ -86,6 +83,10 @@
             btn.innerHTML = value
 
             $('#payslip').prop('disabled',true)
+
+            $('#approve_sign').addClass('d-none')
+            $('#approval_div').removeClass('d-none')
+            $('#disapproval_div').removeClass('d-none')
 
         }else{
             $('#payroll_history button').not(btn).prop('disabled',true);
@@ -104,13 +105,33 @@
             });
 
             if(progress >= 100){
-                $('#payslip').prop('disabled',false)
+                $('#approval_btn').prop('disabled',true)
+                $('#disapproval_btn').prop('disabled',true)
+                console.log(payslip_generate)
+
+                if(payslip_generate == 0){
+                    $('#payslip').prop('disabled',false)
+                }
+                else{
+                    $('#payslip').prop('disabled',true)
+                    $('#payslip').html('Payslip Has been Generated')
+                }
+
+            }else{
+                $('#approval_btn').prop('disabled',false)
+                $('#disapproval_btn').prop('disabled',false)
+                $('#payslip').prop('disabled',true)
+            }
+
+
+            if(vote){
                 $('#approval_btn').prop('disabled',true)
                 $('#disapproval_btn').prop('disabled',true)
             }else{
                 $('#approval_btn').prop('disabled',false)
                 $('#disapproval_btn').prop('disabled',false)
             }
+
         }
 
         $(`#payslip_controls`).toggleClass('d-none')
@@ -119,14 +140,17 @@
         $(`#${key}`).toggleClass("btn-danger");
     }
 
-    function approve_show(){
+    function approve_show(btn){
+
+        if(btn.innerHTML == 'Approve'){
+            $('#status').val(1)
+        }else{
+            $('#status').val(0)
+        }
+
         $('#approve_sign').toggleClass('d-none')
         $('#approval_div').toggleClass('d-none')
         $('#disapproval_div').toggleClass('d-none')
     }
-
-    $('#sign_submit').on("submit", function() {
-        location.reload();
-    });
 </script>
 @endsection

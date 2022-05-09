@@ -40,7 +40,7 @@ class EmployeeDetail extends Model
     }
 
     public function FilteredPayroll($id,$start_date,$end_date){
-        return Payslipwhere('employee_id',$id)
+        return Payslips::where('employee_id',$id)
             ->whereBetween('payroll_date',array($start_date,$end_date))
             ->orderBy('payroll_date','ASC')
             ->get();

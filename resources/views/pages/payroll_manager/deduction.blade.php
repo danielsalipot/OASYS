@@ -10,11 +10,14 @@
     <table class="table table-striped text-center table-dark" id="deduction_table">
         <thead>
             <tr class="text-center">
+                <th scope="col">Transaction ID</th>
                 <th scope="col">Employee Details</th>
                 <th scope="col">Deduction Name</th>
                 <th scope="col">Deduction Start Date</th>
                 <th scope="col">Deduction End Date</th>
                 <th scope="col">Deduction Amount</th>
+                <th scope="col">Payroll Manager</th>
+                <th scope="col">Added on (UTC)</th>
                 <th scope="col">Delete</th>
             </tr>
         </thead>
@@ -195,6 +198,11 @@
                         }
                     },
                     columns: [
+                        { data: 'deduction_id',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
                         { data: 'fname',
                             render : (data,type,row)=>{
                                 return `<b>${row.fname} ${row.mname} ${row.lname}</b><br>
@@ -222,7 +230,17 @@
                                 return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
-                        {   data: 'deduction_amount',
+                        { data: 'payroll_manager',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'added_on',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        {   data: 'deduction_id',
                             render : (data,type,row)=>{
                                 return row.delete
                             }

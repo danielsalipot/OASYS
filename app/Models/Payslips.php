@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Payslips extends Model
 {
     use HasFactory;
-    protected $fillable = ['employee_id','net_pay','payroll_date'];
+    protected $fillable = ['employee_id','payroll_id','net_pay','payroll_date'];
 }

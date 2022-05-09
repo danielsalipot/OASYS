@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Fpdf\Fpdf;
 
+use App\Models\Payroll;
 use App\Models\UserDetail;
 use App\Models\Payslips;
 use App\Models\payroll_audit;
@@ -341,7 +342,13 @@ class PayrollPAYSLIPPDFController extends Controller
 |
 *==============================================================================*/
 $payroll_date = explode(' - ',$request->ps_col2);
+
+$payroll_file_record = Payroll::where('from_date',$payroll_date[0])
+    ->where('to_date',$payroll_date[1])
+    ->first();
+
 Payslips::create([
+    'payroll_id' => $payroll_file_record->id,
     'employee_id' => $employee->employee_id,
     'net_pay' => $employee->net_pay,
     'payroll_date' => date($payroll_date[1])

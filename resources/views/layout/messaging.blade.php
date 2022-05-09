@@ -24,6 +24,8 @@
         @include('inc.payroll_navbar')
     @endif
 
+    @include('inc.profile')
+
     <div class="row mt-4">
         <div class="col-1" style="width:6vw"></div>
         <div class="col">

@@ -62,10 +62,13 @@
             <thead>
                 <tr>
                     <th scope="col">Select</th>
+                    <th scope="col">Transaction ID</th>
                     <th scope="col">Employee Details</th>
                     <th scope="col">Time in</th>
                     <th scope="col">Time out</th>
                     <th scope="col">Total Overtime<br>Hours</th>
+                    <th scope="col">Payroll Manager</th>
+                    <th scope="col">Added on (UTC)</th>
                     <th scope="col">Attendance Date</th>
                 </tr>
             </thead>
@@ -296,6 +299,12 @@
                             }
                         },
                         {
+                            data: 'overtime_id',
+                            render: (data, type, row) => {
+                                return `${data}`
+                            }
+                        },
+                        {
                             data: 'fname',
                             render: (data, type, row) => {
                                 return `<b>${data} ${row.mname} ${row.lname}</b><br>
@@ -321,6 +330,16 @@
                             data: 'total_overtime_hours',
                             render: (data, type, row) => {
                                 return `${data}`
+                            }
+                        },
+                        { data: 'payroll_manager',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'added_on',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
                             }
                         },
                         {

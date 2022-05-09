@@ -14,10 +14,12 @@
     @include('inc.navIncludes')
 </head>
 
-<body>
+<body style="overflow-x: hidden">
     @if (!session()->has('user_id') && !session()->get('user_type') == 'payroll')
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif
+
+    @include('inc.profile')
 
     @include('inc.payroll_navbar')
     <div class="row mt-4">
@@ -31,6 +33,8 @@
 
     @yield('modal')
     @yield('script')
+
+
 
     <script src="{{ URL::asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')}}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>

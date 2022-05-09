@@ -11,10 +11,12 @@
     <table class="table table-striped table-dark text-center" id="bonus_table">
         <thead>
             <tr>
-                <th scope="col">Employee ID</th>
+                <th scope="col">Transaction ID</th>
                 <th scope="col">Employee Details</th>
                 <th scope="col">Date of Bonus</th>
                 <th scope="col">Bonus Amount</th>
+                <th scope="col">Payroll Manager</th>
+                <th scope="col">Added on (UTC)</th>
                 <th scope="col">Delete</th>
             </tr>
         </thead>
@@ -115,13 +117,15 @@
             </div>
 
             <div class="col"></div>
+        </div>
 
+        <div class="row my-3">
             <div class="col-1">
                 <button onclick="unlock()" class="btn btn-outline-primary w-100 h-100" id="lock"><i class="bi bi-lock"></i></button>
             </div>
             <div class="col-2 border border-warning p-2">
                 {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollBONUSPDFController@bonusPdf', 'method'=>'GET']) !!}
-                {!! Form::hidden('json','{{$employees}}', ['id'=>'hidden_thirteenth']) !!}
+                {!! Form::hidden('json','', ['id'=>'json']) !!}
                 {!! Form::submit('Issue 13th Month Bonus', ['disabled','class'=>"btn btn-warning h-100 w-100 p-3", 'id'=>'issue_bonus']) !!}
                 {!! Form::close() !!}
             </div>
@@ -235,7 +239,7 @@
                             }
                         },
                     columns: [
-                        { data: 'employee_id',
+                        { data: 'bonus_id',
                             render : (data,type,row)=>{
                                 return `<b>${data}</b>`
                             }
@@ -255,6 +259,16 @@
                         { data: 'bonus_amount',
                             render : (data,type,row)=>{
                                 return `<b>₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            }
+                        },
+                        { data: 'payroll_manager',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'added_on',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
                             }
                         },
                         {   data: 'multi_pay_id',
@@ -333,6 +347,7 @@
         $('#thirteen_to_date').val(thirteen_end_date);
 
         function load_thirteen(from_date = '', to_date = ''){
+            $('#json').val(`${from_date} - ${to_date}`)
             $('#thirteen_month_table').DataTable({
                 processing: true,
                 serverSide: true,

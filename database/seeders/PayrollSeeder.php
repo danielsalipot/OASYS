@@ -21,18 +21,14 @@ class PayrollSeeder extends Seeder
         $faker = Faker::create();
 
         for ($i=0; $i < 5; $i++){
-            UserCredential::create([
+            $login_id = UserCredential::create([
                 'username' => 'HRPayroll' .$i,
                 'password' => md5(md5('password123')),
                 'user_type' => 'payroll'
             ]);
 
-            $login_id = UserCredential::where('username','HRPayroll'.$i)
-                        ->first('login_id')
-                        ->login_id;
-
             UserDetail::create([
-                'login_id' => $login_id,
+                'login_id' => $login_id->id,
                 'fname' => $faker->FirstName,
                 'mname' => $faker->LastName,
                 'lname' => $faker->LastName,
@@ -41,7 +37,7 @@ class PayrollSeeder extends Seeder
                 'bday' => $faker->date($format = 'Y-m-d'),
                 'cnum' => $faker->e164PhoneNumber,
                 'email' => $faker->email,
-                'picture' => 'pictures/'.$login_id. '.png',
+                'picture' => 'pictures/temp.png',
             ]);
         }
     }

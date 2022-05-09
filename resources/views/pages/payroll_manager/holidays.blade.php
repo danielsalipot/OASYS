@@ -188,6 +188,8 @@
                     <th scope="col">Holiday Start Date</th>
                     <th scope="col">Holiday End Date</th>
                     <th scope="col">Number of Attendance</th>
+                    <th scope="col">Payroll Manager</th>
+                    <th scope="col">Added on</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
@@ -201,11 +203,14 @@
         <table class="table table-striped text-center table-dark w-100" id="holiday_attendance">
             <thead>
                 <tr>
+                    <th scope="col">Transacetion ID</th>
                     <th scope="col">Employee Details</th>
                     <th scope="col">Holiday Name</th>
                     <th scope="col">Date of Paid Holiday</th>
                     <th scope="col">Holiday Start Date</th>
                     <th scope="col">Holiday End Date</th>
+                    <th scope="col">Payroll Manager</th>
+                    <th scope="col">Added on</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
@@ -365,6 +370,11 @@
                     }
                 },
                 columns: [
+                    { data: 'id',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
                     { data: 'employee_details',
                         render : (data,type,row)=>{
                             return `<b>${data}</b>`
@@ -386,6 +396,16 @@
                         }
                     },
                     { data: 'holiday_end_date',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'payroll_manager',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'added_on',
                         render : (data,type,row)=>{
                             return `<b>${data}</b>`
                         }
@@ -452,6 +472,16 @@
                         }
                     },
                     { data: 'att_count',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'payroll_manager',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'added_on',
                         render : (data,type,row)=>{
                             return `<b>${data}</b>`
                         }
