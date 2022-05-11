@@ -88,7 +88,7 @@ class ApplicantSignUpController extends Controller
 
         //file path plus name for saving in the database
         $picfilepath= "pictures/" . $picfilename;
-        $resumefilepath= "resume/" . $resumefilename;
+        $resumefilepath= "resumes/" . $resumefilename;
 
         //SQL query for information table
         $query1 = UserDetail::create([

@@ -137,9 +137,13 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <div class="row">
-                        <div class="col">
+                    <div class="row w-100 text-center">
+                        <div class="col-3 border border-secondary rounded text-center pt-2">
                             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollInsertController@InsertCashAdvance']) !!}
+                            {{ Form::label('chk', 'Notifications', ['class' => 'control-label']) }}
+                            {!! Form::checkbox('chk', 'value', true,['class'=>'form-check-input']) !!}
+                        </div>
+                        <div class="col">
                                 {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
                                 {!! Form::hidden('hidden_cash_advance_date','',['id'=>'hidden_cash_advance_date']) !!}
                                 {!! Form::hidden('hidden_cash_advance_amount','',['id'=>'hidden_cash_advance_amount']) !!}

@@ -63,9 +63,20 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    {!! Form::submit('Save', ['class'=>'btn btn-success m-auto h-100 w-25']) !!}
-                    {!! Form::close() !!}
-                    <button type="button" class="btn btn-danger m-auto h-100 w-25 " data-dismiss="modal">Close</button>
+
+                    <div class="row w-100">
+                        <div class="col-3 border border-secondary rounded text-center pt-2">
+                            {{ Form::label('chk', 'Notifications', ['class' => 'control-label']) }}
+                            {!! Form::checkbox('chk', 'value', true,['class'=>'form-check-input']) !!}
+                        </div>
+                        <div class="col">
+                            {!! Form::submit('Save', ['class'=>'btn btn-success m-auto h-100 w-75']) !!}
+                            {!! Form::close() !!}
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger m-auto h-100 w-75 " data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

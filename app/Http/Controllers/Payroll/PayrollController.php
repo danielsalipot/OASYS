@@ -224,10 +224,13 @@ class PayrollController extends Controller
                         $payroll->done = 1;
                         if($approval->status > 0){
                             $status = "alert alert-success";
+                            $status_str = "Approved";
                         }
                         else{
                             $status = "alert alert-danger";
+                            $status_str = "Disapproved";
                         }
+
                         $str .= "<div class='col-3 p-2 m-1 card shadow-sm ".$status."'>
                     <div class='row'>
                             <div class='col-3'>
@@ -236,7 +239,7 @@ class PayrollController extends Controller
                             <div class='col mt-3'>
                                 <h4> Me </h4>
                                 <h6>Payroll Manager ID: ".$approval->login_id."</h6>
-                                <h6>Disapproved</h6>
+                                <h6>".$status_str."</h6>
                                 <p>". date_format($approval->created_at,"Y-m-d H:i:s") ."</p>
                             </div>
                         </div>
@@ -244,10 +247,13 @@ class PayrollController extends Controller
                     }else{
                         if($approval->status > 0){
                             $status = "alert alert-success";
+                            $status_str = "Approved";
                         }
                         else{
                             $status = "alert alert-danger";
+                            $status_str = "Disapproved";
                         }
+
                         $str .= "<div class='col-3 p-2 m-1 card shadow-sm ".$status."'>
                     <div class='row'>
                             <div class='col-3'>

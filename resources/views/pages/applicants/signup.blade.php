@@ -11,22 +11,32 @@
                 <div class="alert alert-danger w-50 m-auto">{{Session::get('pass')}}</div>
             @endif
 
-            <h1 class="section-title">Create your Account</h1>
-            <h5 class="section-title-3 pt-3">Step 1 out of 3</h5>
+            <div class="row" style="padding-top:13vh">
+                <div class="col">
 
-            <form class="p-1 mt-4" action="/applicant/crudsignup" method="post">
-                @csrf
-                <input class="m-auto form-control w-25 mt-3 p-2" type="text" name="user" placeholder="Username" value="{{old('user')}}">
-                <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
+                </div>
+                <div class="col border border-primary shadow-lg p-5 rounded">
+                    <h1 class="section-title">Create your Account</h1>
+                    <h5 class="text-secondary pt-3">Step 1 out of 3</h5>
 
-                <input class="m-auto form-control w-25 mt-3 p-2" type="password" name="pass" placeholder="Password" value="{{old('pass')}}">
-                <span class="text-danger">@error('pass'){{"This Field is required"}}@enderror</span>
+                    <form class="p-1 mt-4" action="/applicant/crudsignup" method="post">
+                        @csrf
+                        <input class="m-auto form-control w-75 mt-3 p-2" type="text" name="user" placeholder="Username" value="{{old('user')}}">
+                        <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
 
-                <input class="m-auto form-control w-25 mt-3 p-2" type="password" name="repass" placeholder="Confirm Password" value="{{old('repass')}}">
-                <span class="text-danger">@error('repass'){{"This Field is required"}}@enderror</span><br>
+                        <input class="m-auto form-control w-75 mt-3 p-2" type="password" name="pass" placeholder="Password" value="{{old('pass')}}">
+                        <span class="text-danger">@error('pass'){{"This Field is required"}}@enderror</span>
 
-                <button type="submit" class="btn btn-primary w-25 mt-3 ">Sign up</button>
-                <br><a href="/" class="btn btn-outline-primary w-25 mt-1 ">Cancel</a>
-            </form>
+                        <input class="m-auto form-control w-75 mt-3 p-2" type="password" name="repass" placeholder="Confirm Password" value="{{old('repass')}}">
+                        <span class="text-danger">@error('repass'){{"This Field is required"}}@enderror</span><br>
+
+                        <button type="submit" class="btn btn-primary w-50 mt-3 ">Sign up</button>
+                        <br><a href="/" class="btn btn-outline-primary w-50 mt-1 ">Cancel</a>
+                    </form>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
         </div>
     @endsection

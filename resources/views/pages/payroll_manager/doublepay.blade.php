@@ -124,17 +124,21 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <div class="row">
-                        <div class="col">
+                    <div class="row w-100 text-center">
+                        <div class="col-3 border border-secondary rounded text-center pt-2">
                             {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollInsertController@InsertMultiPay']) !!}
+                            {{ Form::label('chk', 'Notifications', ['class' => 'control-label']) }}
+                            {!! Form::checkbox('chk', 'value', true,['class'=>'form-check-input']) !!}
+                        </div>
+                        <div class="col">
                                 {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
                                 {!! Form::hidden('hidden_attendance_id','',['id'=>'hidden_attendance_id']) !!}
                                 {!! Form::hidden('hidden_status','',['id'=>'hidden_status']) !!}
-                                {!! Form::submit('Confirm Multi Pay', ['class' => ' w-100 btn btn-success']) !!}
+                                {!! Form::submit('Confirm Multi Pay', ['class' => ' w-100 h-100 btn btn-success']) !!}
                             {!! Form::close() !!}
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger w-100 " data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger w-100 h-100" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>

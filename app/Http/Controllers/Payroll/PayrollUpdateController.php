@@ -27,18 +27,21 @@ class PayrollUpdateController extends Controller
             'tid' => $rate->employee_id,
         ]);
 
-        // AUTOMATIC SENDING OF NOTIFICATION
-        $employee = EmployeeDetail::where('employee_id',$rate->employee_id)->first();
-        $notif = notification_message::create([
-            'sender_id' => session()->get('user_id'),
-            'title' => 'Pay rate Adjusted',
-            'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
-                        " Your Salary rate has been adjusted from " . $rate->rate . " to " . $request->rate
-        ]);
+        if(isset($request->chk)){
+            // AUTOMATIC SENDING OF NOTIFICATION
+            $employee = EmployeeDetail::where('employee_id',$rate->employee_id)->first();
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => 'Pay rate Adjusted',
+                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+                            " Your Salary rate has been adjusted from " . $rate->rate . " to " . $request->rate
+            ]);
 
-        $notif->receivers()->createMany([
-            ['receiver_id' => $rate->employee_id]
-        ]);
+            $notif->receivers()->createMany([
+                ['receiver_id' => $rate->employee_id]
+            ]);
+        }
+
 
         EmployeeDetail::where('employee_id',$request->emp_id)->update(['rate' => $request->rate]);
 

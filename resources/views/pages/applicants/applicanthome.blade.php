@@ -5,8 +5,8 @@
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif
 
-    <div style="overflow-y:hidden; overflow-x:hidden; height:100vh">
-    <div class='row m-3 card shadow-lg'>
+    <div class="row w-100 p-4"></div>
+    <div class='row m-3 card shadow-sm'>
         <div class='row m-auto'>
             <h1 class='section-title W-100 py-3 text-center'>Applicant Dasboard</h1>
         </div>
@@ -74,7 +74,10 @@
                                 </div>
                                 <div class="row text-center w-100">
                                     <h2 class="text-secondary h6">View Submitted Resume</h2>
-                                    <a href="/#" class="btn btn-outline-primary m-auto"> View Resume </a>
+                                    {!! Form::open(['action'=>'App\Http\Controllers\PagesController@display_resume','method'=>'GET','target'=>'_blank']) !!}
+                                    {!! Form::hidden('path',$user->resume) !!}
+                                    {!! Form::submit('View Resume', ["class"=>"btn btn-outline-primary m-auto"]) !!}
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
                         </div>
@@ -89,13 +92,27 @@
                             <h2 class="text-center text-white w-100 bg-primary p-2">
                                 Notification
                             </h2>
-                            @foreach ($notif as $item)
-                            <div class="card shadow border border-secondary rounded m-2">
-                                <h4 class="h6 text-white m-1 rounded bg-secondary p-1">{{$item->message->title}}</h4>
-                                <p class="m-1 text-start text-secondary">Date sent: {{$item->message->created_at}}</p>
-                                <p class="m-1 text-start">{!!$item->message->message!!}</p>
-                            </div>
-                            @endforeach
+                            @if (count($notif))
+                                @foreach ($notif as $item)
+                                <div class="card shadow border border-secondary rounded m-2">
+                                    <h4 class="h6 alert alert-primary rounded-0 rounded-top">{{$item->message->title}}</h4>
+                                    <h6 class="m-0 mx-1 text-start text-secondary px-1">Date sent: {{$item->message->created_at}}</h6>
+                                    <h6 class="text-decoration-none m-0 mx-1 text-dark text-secondary px-1">{!!$item->message->message!!}</h6>
+                                    {!! Form::open(['action'=>'App\Http\Controllers\PagesController@notification_acknowledgement_insert','method'=>'GET']) !!}
+                                    {!! Form::hidden('notif_receiver_id', $item->id) !!}
+                                    @if ($item->acknowledgements > 0)
+                                    {!! Form::submit('Acknowledgement Sent', ['disabled',"class"=>"btn btn-success rounded-0 w-100 rounded-bottom"]) !!}
+                                    @else
+                                    {!! Form::submit('Send Acknowledgement', ["class"=>"btn btn-outline-primary rounded-0 w-100 rounded-bottom"]) !!}
+                                    @endif
+                                    {!! Form::close() !!}
+                                </div>
+                                @endforeach
+
+                            @else
+                                <h6 class="display-6 text-secondary w-100 text-center"> No Notifications</h6>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -142,7 +159,5 @@
         </div>
     </div>
 </div>
-</div>
 
     @endsection
-

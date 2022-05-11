@@ -11,6 +11,7 @@ use App\Models\UserCredential;
 use App\Models\UserDetail;
 use App\Models\ApplicantDetail;
 use App\Models\notification_message;
+use App\Models\notification_acknowledgements;
 
 
 class PagesController extends Controller
@@ -36,7 +37,7 @@ class PagesController extends Controller
         return view('pages.login');
     }
 
-    function logout(Request $request){
+    function logout(){
         session()->flush();
         return redirect('/');
     }
@@ -49,6 +50,7 @@ class PagesController extends Controller
         foreach ($notif as $key => $value) {
             foreach ($value->receivers as $key => $receiver) {
                 $receiver->data = UserDetail::where('information_id',$receiver->receiver_id)->first();
+                $receiver->acknowledgement = notification_acknowledgements::where('notification_receiver_id',$receiver->id)->count();
             }
         }
 
@@ -92,8 +94,31 @@ class PagesController extends Controller
         return redirect('/change_picture');
     }
 
-    function test($x,$y){
-        return $x . $y;
+    function test(){
+        $notif = notification_message::with('receivers')
+        ->where('sender_id','2')
+        ->get();
+
+        foreach ($notif as $key => $value) {
+            foreach ($value->receivers as $key => $receiver) {
+                $receiver->data = UserDetail::where('information_id',$receiver->receiver_id)->first();
+                $receiver->acknowledgement = notification_acknowledgements::where('notification_receiver_id',$receiver->id)->count();
+            }
+        }
+
+        return $notif;
+    }
+
+    function notification_acknowledgement_insert(Request $request){
+        notification_acknowledgements::create([
+            'notification_receiver_id' => $request->notif_receiver_id
+        ]);
+        return back();
+    }
+
+    function display_resume(Request $request){
+        $path =  str_replace('\\','',$request->path);
+        echo '<iframe src="/'.$path .'" width="100%" style="height:100%"></iframe>';
     }
 }
 

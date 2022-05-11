@@ -145,6 +145,10 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-3 text-center pt-3">
+                            {{ Form::label('chk', 'Notifications', ['class' => 'control-label']) }}
+                            {!! Form::checkbox('chk', 'value', true,['class'=>'form-check-input']) !!}
+                        </div>
                         <div class="col text-center">
                             {!! Form::hidden('selected_all',0,['id'=>'selected_all']) !!}
                             {!! Form::hidden('ids','',['id'=>'hidden_id']) !!}

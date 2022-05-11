@@ -28,8 +28,7 @@ class LoginController extends Controller
             $request->session()->put('password',$check->password);
             $request->session()->put('user_type',$check->user_type);
 
-            //
-            switch(session('user_type')){
+            switch($check->user_type){
                 case 'applicant':
                     return redirect('/applicant/home');
                     break;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Applicant;
 
 use App\Http\Controllers\Controller;
+use App\Models\notification_acknowledgements;
 use Illuminate\Http\Request;
 
 use App\Models\UserDetail;
@@ -42,6 +43,11 @@ class ApplicantController extends Controller
             $notif = notification_receiver::with('message')
                 ->where('receiver_id',session('user_id'))
                 ->get();
+
+            foreach ($notif as $key => $value) {
+                $value->acknowledgements = notification_acknowledgements::where('notification_receiver_id',$value->id)->count();
+            }
+
             return view('pages.applicants.applicanthome',['user'=>$user,'notif'=>$notif]);
         }
         return redirect('/');

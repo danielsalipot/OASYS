@@ -107,16 +107,20 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <div class="row">
-                        <div class="col">
+                    <div class="row w-100 text-center">
+                        <div class="col-3 border border-secondary rounded text-center pt-2">
                             {!! Form::open(['action' => 'App\Http\Controllers\Payroll\PayrollInsertController@InsertOvertime', 'method' => 'GET']) !!}
+                            {{ Form::label('chk', 'Notifications', ['class' => 'control-label']) }}
+                            {!! Form::checkbox('chk', 'value', true,['class'=>'form-check-input']) !!}
+                        </div>
+                        <div class="col">
                             {!! Form::hidden('emp_id', '', ['id' => 'emp_id']) !!}
                             {!! Form::hidden('attendance_id', '', ['id' => 'attendance_id']) !!}
-                            {!! Form::submit('Pay Overtime', ['class' => ' w-100 btn btn-primary']) !!}
+                            {!! Form::submit('Pay Overtime', ['class' => ' w-100 btn h-100 btn-primary']) !!}
                             {!! Form::close() !!}
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger w-100 " data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger w-100 h-100" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -271,8 +275,8 @@
                                     '${row.user_details.department}',
                                     '${row.user_details.position}',
                                     '${data}',
-                                    '${row.time_out}',
                                     '${row.user_details.schedule_Timeout}',
+                                    '${row.time_out}',
                                     '${row.total_overtime_hours}')"
                                     class="btn btn-success" data-toggle="modal" data-target="#pay_ot_modal">Pay Overtime</button>`
                             }
@@ -381,13 +385,13 @@
             emp_sched_time_out, emp_time_out, emp_extra_hours) {
             $('#emp_id').val(emp_id)
             $('#attendance_id').val(attendance_id)
-            $('#emp_name').html(`<b>Employee Name: </b><br>${emp_name}`)
-            $('#emp_position').html(`<b>Position: </b><br>${emp_position}`)
-            $('#emp_department').html(`<b>Department: </b><br>${emp_department}`)
-            $('#emp_attendance_date').html(`<b>Date of Attendance: </b><br>${emp_attendance_date}`)
-            $('#emp_sched_time_out').html(`<b>Schedule: </b>${emp_sched_time_out}`)
-            $('#emp_time_out').html(`<b>Time out: </b><br>${emp_time_out}`)
-            $('#emp_extra_hours').html(`<b>Excess Hours: </b><br>${emp_extra_hours}`)
+            $('#emp_name').html(`<h5>Employee Name: </h5>${emp_name}`)
+            $('#emp_position').html(`<h5>Position: </h5>${emp_position}`)
+            $('#emp_department').html(`<h5>Department: </h5>${emp_department}`)
+            $('#emp_attendance_date').html(`<h5>Date of Attendance: </h5>${emp_attendance_date}`)
+            $('#emp_sched_time_out').html(`<h5>Schedule: </h5>${emp_sched_time_out}`)
+            $('#emp_time_out').html(`<h5>Time out: </h5>${emp_time_out}`)
+            $('#emp_extra_hours').html(`<h5>Excess Hours: </h5>${emp_extra_hours}`)
 
         }
 
@@ -436,3 +440,16 @@
         }
     </script>
 @endsection
+
+{{-- <div class="row w-100">
+       <div class="col-3 border border-secondary rounded text-center pt-2">
+
+    </div>
+    <div class="col">
+
+
+    </div>
+    <div class="col">
+
+    </div>
+</div> --}}

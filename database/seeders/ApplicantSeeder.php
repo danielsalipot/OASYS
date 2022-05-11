@@ -47,7 +47,7 @@ class ApplicantSeeder extends Seeder
             'information_id' =>$info_id->id,
             'Applyingfor' => 'Teacher',
             'educ' => 'College',
-            'resume' => 'resume/1.pdf'
+            'resume' => 'resumes/1.pdf'
         ]);
     }
 }

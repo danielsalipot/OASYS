@@ -1,8 +1,8 @@
 @extends('layout.app')
     @section('content')
-    <div class="row">
-        <div class="col" style="height: 100vh">
-            <img class="w-100 h-100" src="https://www.timeshighereducation.com/unijobs/getasset/68fdfdc4-4442-449a-8ad5-2a994eff3e57/" alt="">
+    <div class="row pt-5">
+        <div class="col-7" style="height: 100vh">
+            <img class="w-100 mt-5" src="https://miro.medium.com/max/1400/1*u6wsaofSWkZG4_-7vGto2g.png" alt="">
         </div>
         <div class="index col justify-content-center text-center text-primary">
             <h1 class="pt-5 mt-5 mb-0">OASYS</h1>
@@ -12,9 +12,9 @@
                 a tool that is designed to assist firms in meeting their key Human
                 Resource requirements while also increasing the efficiency of
                 both management and staff.</p>
-            <a href="/login" class="btn btn-primary w-25 m-1">LOGIN</a>
-            <br>
-            <a href="/applicant/signup" class="btn btn-outline-primary m-1">SEND APPLICATION</a>
+            <a href="/login" class="btn btn-outline-primary w-50 m-2">Login</a>
+            <hr class="w-50 m-auto">
+            <a href="/applicant/signup" class="text-decoration-none w-50 m-2 btn btn-outline-secondary">Send Application</a>
         </div>
 
     </div>

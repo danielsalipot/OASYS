@@ -1,10 +1,10 @@
-@extends('layout.pr_carousel')
+@extends('layout.payroll_app')
 
-@section('Title')
+@section('title')
     <h1 class="section-title mt-5 pb-5">Approval</h1>
 @endsection
 
-@section('first')
+@section('content')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Payroll History</h1>
 
     @foreach ($progress_bar as $item)
@@ -37,7 +37,6 @@
 
                 <div class="card m-3 p-3 shadow-sm text-center">
                     <h4>Attach your E-Signature</h4>
-                    <h6>for Approval</h6>
                     {!! Form::hidden('status', 0, ['id'=>'status']) !!}
                     {!! Form::hidden('hidden_filename', '', ['id'=>'hidden_filename']) !!}
                     <input type="file" name="esignature" class="input-resume m-auto" id="esignature">

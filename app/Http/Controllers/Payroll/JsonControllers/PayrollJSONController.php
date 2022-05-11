@@ -727,11 +727,11 @@ class PayrollJSONController extends Controller
             })
             ->addColumn('btn',function($data){
                 $full_name = $data->userDetail->fname . " " . $data->userDetail->mname . " " . $data->userDetail->lname;
-                $pic_path = "http://localhost:8000/" . $data->userDetail->picture;
+
                 $button ='
-                <button id="btn'.$data->information_id.'" onclick="chat_click(this,\''.str_replace("'", "\'",$full_name).'\',\''.$pic_path.'\','.$data->information_id.')" class="text-dark card w-100 shadow-lg text-center p-3 m-2">
+                <button id="btn'.$data->information_id.'" onclick="chat_click(this,\''.str_replace("'", "\'",$full_name).'\',\'/'.$data->userDetail->picture.'\','.$data->information_id.')" class="text-dark card w-100 shadow-lg text-center p-3 m-2">
                     <div class="d-flex align-items-center">
-                        <img src="'.$pic_path.'" class="rounded" width="50" height="50">
+                        <img src="/'.$data->userDetail->picture.'" class="rounded" width="50" height="50">
                             <h5 class="ms-2">'. $full_name .'</h5>
                     </div>
                 </button>';
@@ -888,8 +888,10 @@ public function thirteenthMonthJSON(Request $request){
         ->get();
 
     foreach ($employees as $key => $employee) {
+        $employee->payroll = '';
         $employee->payroll = $employee->FilteredPayroll($employee->employee_id, $request->from_date,$request->to_date);
     }
+
 
     return datatables()->of($employees)
         ->addColumn('employee_details',function($data){

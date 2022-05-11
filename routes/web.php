@@ -7,7 +7,9 @@ use App\Http\Controllers\PagesController;
 
 
 
-Route::get('/test/{x}/{y}',[PagesController::class,'test']);
+Route::get('/test',[PagesController::class,'test']);
+
+Route::get('/display_resume', [PagesController::class, 'display_resume']);
 
 // Employee Routes
 Route::prefix('')->group(function () {
@@ -66,6 +68,7 @@ Route::prefix('')->group(function () {
     include 'Staff/staff.php';
 });
 
+Route::get('/notification_acknowledgement_insert', [PagesController::class, 'notification_acknowledgement_insert']);
 
 // Landing Pages
 Route::get('/change_picture', [PagesController::class, 'change_picture']);
