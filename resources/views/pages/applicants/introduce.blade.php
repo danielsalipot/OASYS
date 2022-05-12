@@ -18,7 +18,7 @@
                 <div class="col">
                     <label>First Name</label>
                     <input type="text" class="form-control" name="fname" placeholder="First name" value="{{old('fname')}}">
-                    <span class="text-danger">@error('fname'){{"This Field is required"}}@enderror</span>
+                    <span class="text-danger">@error('fname'){{$message}}@enderror</span>
                 </div>
 
             <div class="col-2">
@@ -37,7 +37,7 @@
             <div class="col-6">
                 <label>Contact Number</label>
                 <input type="text" class="form-control" name="cnum" placeholder="Contact Number" value="{{old('cnum')}}">
-                <span class="text-danger">@error('cnum'){{"This Field is required"}}@enderror</span>
+                <span class="text-danger">@error('cnum'){{$message}}@enderror</span>
             </div>
         </div>
 
@@ -45,19 +45,13 @@
             <div class="col">
                 <label>Middle Name</label>
                 <input type="text" class="form-control" name="mname" placeholder="Middle name" value="{{old('mname')}}">
-                <span class="text-danger">@error('mname'){{"This Field is required"}}@enderror</span>
+                <span class="text-danger">@error('mname'){{$message}}@enderror</span>
             </div>
 
-            <div class="col-2">
-                <label for="inputState">Age</label>
-                <input type="text" class="form-control" name="age" placeholder="Age" value="{{old('age')}}">
-                <span class="text-danger">@error('age'){{"This Field is required"}}@enderror</span>
-            </div>
-
-            <div class="col-6">
+            <div class="col-7">
                 <label>Email Address</label>
                 <input type="text" class="form-control" name="email" placeholder="Email Address" value="{{old('email')}}">
-                <span class="text-danger">@error('email'){{"This Field is required"}}@enderror</span>
+                <span class="text-danger">@error('email'){{$message}}@enderror</span>
             </div>
         </div>
 
@@ -65,19 +59,24 @@
             <div class="col-4">
                 <label>Last Name</label>
                 <input type="text" class="form-control" name="lname" placeholder="Last name" value="{{old('lname')}}">
-                <span class="text-danger">@error('lname'){{"This Field is required"}}@enderror</span>
+                <span class="text-danger">@error('lname'){{$message}}@enderror</span>
             </div>
 
             <div class="col">
                 <label for="inputState">Educational Attainment</label>
                 <input type="text" class="form-control" name="educ" placeholder="Educational Attainment" value="{{old('educ')}}">
-                <span class="text-danger">@error('educ'){{"This Field is required"}}@enderror</span>
+                <span class="text-danger">@error('educ'){{$message}}@enderror</span>
             </div>
 
             <div class="col form-group">
                 <label for="inputState">Birthday</label>
-                <input type='date' name="bday" class="form-control" />
-                <span class="text-danger">@error('bday'){{"This Field is required"}}@enderror</span>
+                <input type='date' onchange="changeAge(this)" name="bday" id="bday" class="form-control" value="{{old('bday')}}" />
+                <span class="text-danger">@error('bday'){{$message}}@enderror</span>
+            </div>
+            <div class="col-1">
+                <label for="inputState">Age</label>
+                <input type="text" id="age" class="form-control" name="age" placeholder="Age" value="{{old('age')}}">
+                <span class="text-danger">@error('age'){{$message}}@enderror</span>
             </div>
         </div>
         <hr>
@@ -90,4 +89,25 @@
     </form>
 </div>
 
+<script>
+    function changeAge(input){
+        var age = document.getElementById("age")
+        age.value = getAge(input.value)
+    }
+
+    function getAge(dateString)
+    {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
+        {
+            age--;
+        }
+        return age;
+    }
+</script>
 @endsection
+
+

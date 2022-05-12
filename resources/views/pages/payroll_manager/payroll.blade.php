@@ -4,22 +4,12 @@
 @endsection
 
 @section('content')
-
-    @include('inc.Payroll.confirmation')
-
-    <hr>
-
-    <div class="row w-100 mt-5 mb-5">
-        <h5 class="w-100 border border-dark w-25 m-auto p-2 my-2 text-center">Payroll Report Generation Buttons</h5>
+    <div class="row w-100">
+        <h4 class="w-100 card shadow-sm my-3 w-25 m-auto p-4 my-2 text-center">Payroll Report Generation Buttons</h4>
         <div class="col-2"><p class="text-center py-2 my-2 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
         <div class="col"></div>
         <div class="col-3 border border-primary rounded p-2">
-            @if (session()->get('progress') == 100)
-                <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
-            @else
-                <button disabled type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
-            @endif
-
+            <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
             <form action="/payrollPDF" method="post" enctype="multipart/form-data" id='payroll_form' target="_blank">
                 @csrf
                 <div id="payroll_pdf_actions" class="row w-100 h-100 d-none">
@@ -37,23 +27,6 @@
             </form>
         </div>
 
-        {{-- <div class="col-3 border border-success mx-1 rounded p-2">
-            @if (session()->get('progress') == 100)
-                <button type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
-            @else
-                <button disabled type="button" name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
-            @endif
-            {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
-                <div id="payslip_pdf_actions" class="row d-flex w-100 d-none">
-                    <div class="col ps-3 h-100 w-100">
-                        {!! Form::submit('PDF', ['class'=>'btn h-100 btn-danger p-4 w-100 rounded', 'id'=>'payslipGenerate']) !!}
-                    </div>
-                    <div class="col p-0 h-100 w-100">
-                        <button type="button" id="payslip_cancel" class="btn btn-outline-danger p-4 w-100">x</button>
-                    </div>
-                </div>
-            {!! Form::close() !!}
-        </div> --}}
         <div class="col"></div>
         <div class="col-2 border border-warning mx-1 rounded p-2">
             <a href="/payroll/history" class="btn btn-warning w-100 p-4">View Payroll History</a>

@@ -67,6 +67,17 @@ Route::prefix('')->group(function () {
 Route::prefix('')->group(function () {
     include 'Staff/staff.php';
 });
+Route::prefix('')->group(function () {
+    include 'Staff/json.php';
+});
+Route::prefix('')->group(function () {
+    include 'Staff/insert.php';
+});
+Route::prefix('')->group(function () {
+    include 'Staff/update.php';
+});
+
+
 
 Route::get('/notification_acknowledgement_insert', [PagesController::class, 'notification_acknowledgement_insert']);
 

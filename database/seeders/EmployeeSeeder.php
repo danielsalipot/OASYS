@@ -7,6 +7,10 @@ use Illuminate\Database\Seeder;
 use App\Models\UserCredential;
 use App\Models\UserDetail;
 use App\Models\EmployeeDetail;
+use App\Models\Onboardee;
+use App\Models\Offboardee;
+use App\Models\Regular;
+
 
 use Faker\Factory as Faker;
 
@@ -45,7 +49,7 @@ class EmployeeSeeder extends Seeder
         $decimals = 2; // number of decimal places
 	    $div = pow(10, $decimals);
 
-        EmployeeDetail::create([
+        $emp_id = EmployeeDetail::create([
             'login_id' => $login_id->id,
             'information_id' =>$info_id->id,
             'educ' => 'College',
@@ -58,5 +62,14 @@ class EmployeeSeeder extends Seeder
             'schedule_Timein' => date('H:i:s', 25200),
             'schedule_Timeout' => date('H:i:s', 68400)
         ]);
+
+        $rand_num = rand(0,2);
+        if($rand_num == 2){
+            Onboardee::create(['employee_id'=>$emp_id->id]);
+        }elseif($rand_num == 1){
+            Offboardee::create(['employee_id'=>$emp_id->id]);
+        }else{
+            Regular::create(['employee_id'=>$emp_id->id]);
+        }
     }
 }

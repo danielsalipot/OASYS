@@ -83,9 +83,9 @@ class PayrollJSONController extends Controller
                 this,
                 \''. $data->employee_id. '\',
                 \''. $data->userDetail->picture . '\',
-                \''. $data->userDetail->fname . ' ' . $data->userDetail->mname . ' ' . $data->userDetail->lname .'\',
-                \''. $data->department .'\',
-                \''. $data->position .'\',
+                \''. addslashes($data->userDetail->fname) . ' ' . addslashes($data->userDetail->mname) . ' ' . addslashes($data->userDetail->lname) .'\',
+                \''. addslashes($data->department) .'\',
+                \''. addslashes($data->position) .'\',
                 \''. $data->rate .'\'
                 )" class="btn btn-outline-primary">Select</button>';
             return $button;

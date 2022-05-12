@@ -8,19 +8,28 @@ use Illuminate\Http\Request;
 use App\Models\UserCredential;
 use App\Models\UserDetail;
 use App\Models\ApplicantDetail;
+use Illuminate\Validation\Rules\Password;
 
 class ApplicantSignUpController extends Controller
 {
+
     function crudsignup(Request $request){
         $request->validate([
             'user'=>'required',
-            'pass'=>'required',
+            'pass'=>['required',
+                    Password::min(8)
+                        ->mixedCase() // allows both uppercase and lowercase
+                        ->letters() //accepts letter
+                        ->numbers() //accepts numbers
+                        ->symbols() //accepts special character
+                        ->uncompromised(),//check to be sure that there is no data leak
+            ],
             'repass'=>'required',
         ]);
 
         // if the query fails then username is unique so insert new record
-        $usernames = UserCredential::where('username',$request->input('user'))->first();
-        if(empty($usernames)){
+        $usernames = UserCredential::where('username',$request->user)->count();
+        if(!$usernames){
             if($request->input('pass') == $request->input('repass')){
                 UserCredential::create([
                     'username'=>$request->input('user'),
@@ -51,8 +60,8 @@ class ApplicantSignUpController extends Controller
             'lname'=>'required',
             'sex'=>'required',
             'age'=>'required',
-            'email'=>'required',
-            'cnum'=>'required',
+            'email'=>'required|email',
+            'cnum'=>['required','regex:/^(09|\+639)\d{9}$/u'],
             'bday'=>'required',
             'educ'=>'required'
         ]);

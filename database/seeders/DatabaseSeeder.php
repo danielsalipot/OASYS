@@ -35,6 +35,11 @@ class DatabaseSeeder extends Seeder
             $this->call(BonusSeeder::class);
         }
 
+        for ($i=0; $i < 6; $i++) {
+            $this->call(DepartmentSeeder::class);
+            $this->call(PositionSeeder::class);
+        }
+
         $this->call(AttendanceSeeder::class);
 
         $this->call(OvertimeSeeder::class);

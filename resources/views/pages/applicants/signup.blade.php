@@ -22,13 +22,13 @@
                     <form class="p-1 mt-4" action="/applicant/crudsignup" method="post">
                         @csrf
                         <input class="m-auto form-control w-75 mt-3 p-2" type="text" name="user" placeholder="Username" value="{{old('user')}}">
-                        <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
+                        <span class="text-danger">@error('user'){{$message}}@enderror</span>
 
                         <input class="m-auto form-control w-75 mt-3 p-2" type="password" name="pass" placeholder="Password" value="{{old('pass')}}">
-                        <span class="text-danger">@error('pass'){{"This Field is required"}}@enderror</span>
+                        <span class="text-danger">@error('pass') {{$message}} @enderror</span>
 
                         <input class="m-auto form-control w-75 mt-3 p-2" type="password" name="repass" placeholder="Confirm Password" value="{{old('repass')}}">
-                        <span class="text-danger">@error('repass'){{"This Field is required"}}@enderror</span><br>
+                        <span class="text-danger">@error('repass'){{$message}}@enderror</span><br>
 
                         <button type="submit" class="btn btn-primary w-50 mt-3 ">Sign up</button>
                         <br><a href="/" class="btn btn-outline-primary w-50 mt-1 ">Cancel</a>
