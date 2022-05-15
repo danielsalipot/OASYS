@@ -121,16 +121,6 @@ class PayrollController extends Controller
             return view('pages.payroll_manager.doublepay')->with(['profile'=>$profile]);
         }
 
-        function message(){
-            $profile = UserDetail::where('login_id',session('user_id'))->first();
-            return view('pages.message')->with(['profile'=>$profile]);
-        }
-
-        function notification(){
-            $profile = UserDetail::where('login_id',session('user_id'))->first();
-            return view('pages.notification')->with(['profile'=>$profile]);
-        }
-
         function progress($btn){
             $done = session()->get('progress_btn');
             $done .= $btn;

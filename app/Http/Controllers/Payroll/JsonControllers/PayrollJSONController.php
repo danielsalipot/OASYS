@@ -40,7 +40,7 @@ class PayrollJSONController extends Controller
     public function CashAdvance(Request $request){
         $cashAdvanceRecord = CashAdvance::join('employee_details', 'cash_advances.employee_id','=','employee_details.employee_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-            ->whereBetween('cash_advances.cash_advance_date',[$request->from_date,$request->to_date])
+            ->whereBetween('cash_advances.cash_advance_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
             return datatables()->of($cashAdvanceRecord)
@@ -110,7 +110,7 @@ class PayrollJSONController extends Controller
     public function Deduction(Request $request){
         $deductions = Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
             ->join('user_details','user_details.information_id','=','employee_details.information_id')
-            ->whereBetween('deductions.deduction_start_date',[$request->from_date,$request->to_date])
+            ->whereBetween('deductions.deduction_start_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
         return datatables()->of($deductions)
@@ -160,7 +160,7 @@ class PayrollJSONController extends Controller
                 $stimeout += $request->time_filter;
 
             $temp = Attendance::where('employee_id',$employee->employee_id)
-                ->whereBetween('attendance_date',[$request->from_date,$request->to_date])
+                ->whereBetween('attendance_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
                 ->whereBetween('time_in',['00:00:00',$employee->schedule_Timein])
                 ->whereBetween('time_out',[date('H:i:s',$stimeout),'24:00:00'])
                 ->get();
@@ -232,7 +232,7 @@ class PayrollJSONController extends Controller
     public function Bonus(Request $request){
         $BonusRecords = Bonus::join('employee_details', 'bonuses.employee_id','=','employee_details.employee_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-            ->whereBetween('bonuses.bonus_date',[$request->from_date,$request->to_date])
+            ->whereBetween('bonuses.bonus_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
         return datatables()->of($BonusRecords)
@@ -270,7 +270,7 @@ class PayrollJSONController extends Controller
     public function fetchAttedance(Request $request){
         $attendance = Attendance::join('employee_details','employee_details.employee_id','=','attendances.employee_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+            ->whereBetween('attendances.attendance_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
         $normal_pay_attendance = [];
@@ -327,7 +327,7 @@ class PayrollJSONController extends Controller
         $multipay = MultiPay::join('employee_details','employee_details.employee_id','=','multi_pays.employee_id')
             ->join('attendances','attendances.attendance_id','=','multi_pays.attendance_id')
             ->join('user_details', 'employee_details.information_id','=', 'user_details.information_id')
-            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+            ->whereBetween('attendances.attendance_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
         foreach ($multipay as $key => $value) {
@@ -753,7 +753,7 @@ class PayrollJSONController extends Controller
 *==============================================================================*/
 
     public function holidayJson(Request $request){
-        $holiday_table = Holiday::whereBetween('holidays.holiday_start_date',[$request->from_date,$request->to_date])
+        $holiday_table = Holiday::whereBetween('holidays.holiday_start_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
         return datatables()->of($holiday_table)
@@ -769,7 +769,7 @@ class PayrollJSONController extends Controller
 
     public function holidayAllAttendanceJson(Request $request){
         $data = Holiday::with('attendance')
-            ->whereBetween('holidays.holiday_start_date',[$request->from_date,$request->to_date])
+            ->whereBetween('holidays.holiday_start_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->has('attendance', '>', 0)
             ->get();
 
@@ -801,7 +801,7 @@ class PayrollJSONController extends Controller
             ->join('attendances','attendances.attendance_id','=','holiday_attendances.attendance_id')
             ->join('employee_details','employee_details.employee_id','=','attendances.employee_id')
             ->join('user_details','user_details.information_id','=','employee_details.information_id')
-            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+            ->whereBetween('attendances.attendance_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
         return datatables()->of($hol_attendance)
@@ -845,7 +845,7 @@ class PayrollJSONController extends Controller
         $leave = Leave::join('employee_details','employee_details.employee_id','=','leaves.employee_id')
             ->join('attendances','attendances.attendance_id','=','leaves.attendance_id')
             ->join('user_details','user_details.information_id','=','employee_details.information_id')
-            ->whereBetween('attendances.attendance_date',[$request->from_date,$request->to_date])
+            ->whereBetween('attendances.attendance_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
         return datatables()->of($leave)
@@ -954,7 +954,7 @@ public function thirteenthMonthJSON(Request $request){
 
     function payroll_audit(Request $request){
         $audit = payroll_audit::with('payroll_manager','employee_detail')
-        ->whereBetween('created_at',[$request->from_date,$request->to_date])
+        ->whereBetween('created_at',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
             ->get();
 
         return datatables()->of($audit)

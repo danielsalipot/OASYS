@@ -12,16 +12,14 @@ Route::prefix('payroll')->group(function () {
     Route::get('/contributions', [PayrollController::class, 'contributions']);
     Route::get('/bonus', [PayrollController::class, 'bonus']);
     Route::get('/doublepay', [PayrollController::class, 'doublepay']);
-    Route::get('/message', [PayrollController::class, 'message']);
-    Route::get('/notification', [PayrollController::class, 'notification']);
+
+
     Route::get('/cashadvance', [PayrollController::class, 'cashadvance']);
     Route::get('/overtime', [PayrollController::class, 'overtime']);
     Route::get('/holidays', [PayrollController::class, 'holidays']);
     Route::get('/leave', [PayrollController::class, 'leave']);
     Route::get('/audittrail', [PayrollController::class, 'audittrail']);
     Route::get('/approval', [PayrollController::class, 'approval']);
-
-    Route::get('/notification/views', [PagesController::class, 'view_notif']);
 
     Route::get('/progress/{btn}', [PayrollController::class, 'progress']);
 });

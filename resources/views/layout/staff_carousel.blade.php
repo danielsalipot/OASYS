@@ -30,6 +30,9 @@
         <div class="col">
             <div class="container">
             @yield('Title')
+            @if(Session::get('success'))
+                <div class="alert alert-success w-100 m-auto my-3">{{Session::get('success')}}</div>
+            @endif
 
             <div id="myCarousel" class="carousel carousel-dark slide" data-interval="false" data-ride="carousel">
 
@@ -60,6 +63,8 @@
 
     @yield('modal')
     @yield('script')
+    <link rel="stylesheet" type="text/css" href="/datetimepicker-master/jquery.datetimepicker.css">
+    <script src="/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
     <script src="{{ URL::asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')}}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>

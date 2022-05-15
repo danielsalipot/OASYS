@@ -20,7 +20,7 @@ class PayrollSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i=0; $i < 5; $i++){
+        for ($i=0; $i < 3; $i++){
             $login_id = UserCredential::create([
                 'username' => 'HRPayroll' .$i,
                 'password' => md5(md5('password123')),

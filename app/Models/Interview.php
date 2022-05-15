@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Interview extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['applicant_id','interview_detail','interview_schedule','response_status','score','feedback'];
 }

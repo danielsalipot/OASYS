@@ -16,8 +16,8 @@
         <li><a href="/payroll/leave" class="nav-link py-3 pt-4" title="Leave" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-dash"></i></a></li>
         <li><a href="/payroll/audittrail" class="nav-link py-3 pt-4" title="Audit Trail" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-list-check"></i></a></li>
         <li><a href="/payroll/approval" class="nav-link py-3 pt-4" title="Approval" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-file-earmark-check"></i></a></li>
-        <li><a href="/payroll/message" class="nav-link py-3 pt-4" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i></a></li>
-        <li><a href="/payroll/notification" class="nav-link pt-4" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
+        <li><a href="/message" class="nav-link py-3 pt-4" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i></a></li>
+        <li><a href="/notification" class="nav-link pt-4" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
     </ul>
     </nav><!-- .nav-menu -->
   </div>

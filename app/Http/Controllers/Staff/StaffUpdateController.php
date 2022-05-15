@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeDetail;
+use App\Models\Interview;
 use Illuminate\Http\Request;
 
 class StaffUpdateController extends Controller
@@ -18,7 +19,7 @@ class StaffUpdateController extends Controller
                 ]);
         }
 
-        return back();
+        return back()->with('success','The action was recorded successfully');
     }
 
     public function EmployeePositionUpdate(Request $request){
@@ -31,6 +32,24 @@ class StaffUpdateController extends Controller
                 ]);
         }
 
-        return back();
+        return back()->with('success','The action was recorded successfully');
+    }
+
+    public function WithResponseInterview(Request $request){
+        Interview::find($request->interview_id)->update([
+            'response_status'=> 1,
+            'score'=> $request->score,
+            'feedback'=> $request->feedback
+        ]);
+
+        return back()->with('success','The action was recorded successfully');
+    }
+
+    public function NoResponseInterview(Request $request){
+        Interview::find($request->interview_id)->update([
+            'response_status'=> 0
+        ]);
+
+        return back()->with('success','The action was recorded successfully');
     }
 }

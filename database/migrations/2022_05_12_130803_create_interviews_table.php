@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('interviews', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
+            $table->string('applicant_id');
+            $table->string('interview_detail');
+            $table->dateTime('interview_schedule');
+            $table->string('response_status')->nullable();
+            $table->string('score')->nullable();
+            $table->string('feedback')->nullable();
             $table->timestamps();
         });
     }

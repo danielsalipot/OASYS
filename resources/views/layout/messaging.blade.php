@@ -23,6 +23,9 @@
     @if(session()->get('user_type') == 'payroll')
         @include('inc.payroll_navbar')
     @endif
+    @if(session()->get('user_type') == 'staff')
+        @include('inc.staff_navbar')
+    @endif
 
     @include('inc.profile')
 

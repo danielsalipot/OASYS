@@ -72,8 +72,22 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card h-100 w-100 text-center">
-                    <h5 class="w-100 alert alert-primary">Interviews Today</h5>
+                <div class="card w-100 text-center" style="overflow-y: scroll; height:562px;">
+                    <h5 class="w-100 alert alert-primary mb-0">Interviews Today</h5>
+                    @foreach ($interviews as $data)
+                        <a href="/staff/interview" class="card alert alert-success m-0 shadow-sm p-3 text-decoration-none">
+                            <div class="row w-100 h-100">
+                                <div class="col-3">
+                                    <img src="/{{$data->picture}}" alt="" srcset="" height="60px" width="60px">
+                                </div>
+                                <div class="col">
+                                    <h4>{{$data->fname}} {{$data->mname}} {{$data->lname}}</h4>
+                                    Schedule
+                                    <h5>{{$data->interview_schedule}}</h5>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>

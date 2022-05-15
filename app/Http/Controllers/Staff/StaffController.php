@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\EmployeeDetail;
+use App\Models\Interview;
 use App\Models\Offboardee;
 use App\Models\Onboardee;
 use App\Models\Position;
@@ -27,18 +28,37 @@ class StaffController extends Controller
         $reg_count = Regular::all()->count();
 
         $profile = UserDetail::where('login_id',session('user_id'))->first();
+
+        $interviews = Interview::join('applicant_details','applicant_details.applicant_id','=','interviews.applicant_id')
+            ->join('user_details','user_details.information_id','=','applicant_details.information_id')
+            ->where('interviews.interview_schedule','like',date("Y-m-d")."%")
+            ->get();
+
         return view('pages.hr_staff.staffhome')
             ->with(['applicants'=>$applicants,
                 'app_count'=>$app_count,
                 'off_count'=>$off_count,
                 'on_count'=>$on_count,
                 'reg_count'=>$reg_count,
-                'profile'=>$profile
+                'profile'=>$profile,
+                'interviews'=>$interviews
             ]);
     }
 
     function onboarding(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
+        $departments = Department::all();
+        $position = Position::all();
+
+        $pos ='';
+        foreach ($position as $key => $value) {
+            $pos .= "<option value='".$value->position_title."'>".$value->position_title."</option>";
+        }
+
+        $dep ='';
+        foreach ($departments as $key => $value) {
+            $dep .= "<option value='".$value->department_name."'>".$value->department_name."</option>";
+        }
 
         $modals = [];
         $applicants = UserCredential::where('user_type','applicant')
@@ -47,8 +67,12 @@ class StaffController extends Controller
             ->get();
 
         foreach ($applicants as $key => $applicant) {
-            $modal = "<div class='modal' id='profile_modal".$applicant->login_id."'>
-            <div class='modal-dialog modal-dialog-centered modal-lg'>
+            $first_int= $this->modal_interview_controller($applicant,1);
+            $second_int= $this->modal_interview_controller($applicant,2);
+
+            $modal = "
+            <div class='modal' id='profile_modal".$applicant->login_id."'>
+            <div class='modal-dialog modal-dialog-centered modal-lg w-100'>
                 <div class='modal-content'>
 
                     <!-- Modal Header -->
@@ -63,7 +87,7 @@ class StaffController extends Controller
                             <div class='col-3'>
                             <img src='/".$applicant->picture."' class='rounded-circle w-100 h-100'>
                             </div>
-                            <div class='col-5'>
+                            <div class='col-4'>
                                 <div class='row m-2'>
                                     <h6 class='text-secondary'>Full Name</h6>
                                     <h2>".$applicant->fname." " .$applicant->mname." ".$applicant->lname."</h2>
@@ -104,36 +128,65 @@ class StaffController extends Controller
                                 </div>
                             </div>
                         </div>
-                        <div class='row mt-4'>
+                        <div class='row text-center my-3'>
+                            <h3>Interview Details</h3>
+                            <div class='col'>
+                                <h5>First Interview</h5>
+                                ".$first_int."
+                            </div>
+                            <div class='col'>
+                                <h5>Second Interview</h5>
+                                ".$second_int."
+                            </div>
+                        </div>
+
+                        <form action='/InsertOnboardee' method='GET'>
+                        <input type='hidden' name='app_id' value='".$applicant->applicant_id."'>
+                        <div class='row mt-1'>
                             <div class='col text-center'>
                                 <div class='m-2'>
                                     <h3>Choose Position</h3>
-                                    <select name='cars' id='cars' class='h4 py-3 w-50 btn btn-outline-primary'>
-                                        <option value='volvo'>Volvo</option>
-                                        <option value='saab'>Saab</option>
-                                        <option value='opel'>Opel</option>
-                                        <option value='audi'>Audi</option>
+                                    <select name='position' id='position' class='h4 py-3 w-50 btn btn-outline-primary'>
+                                        ".$pos."
                                     </select>
                                 </div>
 
                                 <div class='m-2'>
                                     <h3>Choose Department</h3>
-                                    <select name='cars' id='cars' class='h4 py-3 w-50 btn btn-outline-success'>
-                                        <option value='volvo'>Volvo</option>
-                                        <option value='saab'>Saab</option>
-                                        <option value='opel'>Opel</option>
-                                        <option value='audi'>Audi</option>
+                                    <select name='department' id='department' class='h4 py-3 w-50 btn btn-outline-success'>
+                                        ".$dep."
                                     </select>
                                 </div>
                             </div>
 
                             <div class='col'>
-                                <div class='m-2'>
+                                <div class='m-2 text-center'>
                                     <h3>Enter Employee Rate</h3>
-                                    <input type='number' name='rate' class='form-control w-75'>
+                                    <input type='number' name='rate' class='form-control mx-auto w-75 text-center' step='.01'>
                                 </div>
-                                <div class='m-2'>
+                                <div class='m-2 text-center'>
                                     <h3>Enter Employee Time Schedules</h3>
+                                    <div class='row w-100 text-center'>
+                                        <div class='col'>
+                                            <h5>Time in Schedule</h5>
+                                            <input type='text' name='timein' id='timein".$applicant->applicant_id."' class='text-center form-control w-75 m-auto my-2 datetime'>
+                                        </div>
+                                        <div class='col'>
+                                            <h5>Time out Schedule</h5>
+                                            <input type='text' name='timeout' id='timeout".$applicant->applicant_id."' class='text-center form-control w-75 m-auto my-2 datetime'>
+                                        </div>
+                                    </div>
+
+                                <script>
+                                $(function () {
+                                    $('.datetime').datetimepicker({
+                                        format:'H:i',
+                                        step: 30,
+                                        mask:true,
+                                        datepicker:false
+                                    });
+                                })
+                                </script>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +197,8 @@ class StaffController extends Controller
                         <div class='row w-100 text-center'>
                             <div class='col'></div>
                             <div class='col'>
-                                <button type='button' class='btn btn-primary p-2 w-100'>Onboard</button>
+                                <button type='submit' class='btn btn-primary p-2 w-100'>Onboard</button>
+                                </form>
                             </div>
                             <div class='col'>
                                 <button type='button' class='btn btn-danger w-100 p-2 ' data-dismiss='modal'>Close</button>
@@ -198,5 +252,31 @@ class StaffController extends Controller
     }
     function staffnotification(){
         return view('pages.hr_staff.staffnotification');
+    }
+
+    function modal_interview_controller($applicant,$detail){
+        $int_data = Interview::where('applicant_id',$applicant->applicant_id)->where('interview_detail',$detail)->first();
+        if(isset($int_data)){
+            if($int_data->score == 'Passed'){
+                $color = 'success';
+                return "
+                <h4>Score: <b class='text-".$color."'>".$int_data->score."</b></h4>
+                <textarea readonly class='alert alert-".$color." w-100' rows='6'>".$int_data->feedback."</textarea>
+                ";
+            }
+            elseif($int_data->score == 'Failed'){
+                $color = 'danger';
+                return "
+                <h4>Score: <b class='text-".$color."'>".$int_data->score."</b></h4>
+                <textarea readonly class='alert alert-".$color." w-100' rows='6'>".$int_data->feedback."</textarea>
+            ";
+            }
+            else{
+                return "<div class='text-danger p-5 border border-danger w-100 h4 rounded mt-5'>Did not Responded</div>";
+            }
+        }
+        else{
+            return 'No interview results';
+        }
     }
 }

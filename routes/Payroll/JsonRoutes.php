@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Payroll\JsonControllers\PayrollJSONController;
 use App\Http\Controllers\Payroll\JsonControllers\ComputationController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('')->group(function () {
     // Payroll Page JSON ROUTE

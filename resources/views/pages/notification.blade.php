@@ -9,7 +9,7 @@
     <div class ="col-4">
         <div class=" border rounded me-4 p-2">
             <div class="container w-100">
-                <a href="/payroll/notification/views" class="btn btn-primary w-100 mt-3 p-3"> View Sent Notifications</a>
+                <a href="/notification/views" class="btn btn-primary w-100 mt-3 p-3"> View Sent Notifications</a>
                 <hr>
                 <table class="table w-100 table-striped text-center table-dark" id="employee_table">
                     <thead>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="row">
-            {!! Form::open(['action'=> 'App\Http\Controllers\Payroll\PayrollInsertController@InsertNotification','method'=>'POST']) !!}
+            {!! Form::open(['action'=> 'App\Http\Controllers\MessageController@InsertNotification','method'=>'POST']) !!}
                 {!! Form::hidden('ids','',['id'=>'emp_ids']) !!}
                 {!! Form::label('title', 'Notification Title', ['class'=>'h2 text-secondary']) !!}
                 {!! Form::text('title', '', ['class'=>'form-control']) !!}

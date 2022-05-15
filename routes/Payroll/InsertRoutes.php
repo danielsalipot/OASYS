@@ -18,12 +18,6 @@ Route::prefix('')->group(function () {
     // Multi Pay INSERT ROUTE
     Route::post('/insertmultipay', [PayrollInsertController::class,'InsertMultiPay']);
 
-    // Message INSERT ROUTE
-    Route::get('/sendmessage',[PayrollInsertController::class,'InsertMessage']);
-
-    // Message INSERT ROUTE
-    Route::post('/sendnotification',[PayrollInsertController::class,'InsertNotification']);
-
     // Holiday INSERT ROUTE
     Route::post('/insertholiday', [PayrollInsertController::class,'InsertHoliday']);
     Route::post('/Insertattendanceholiday', [PayrollInsertController::class,'InsertAttendanceHoliday']);

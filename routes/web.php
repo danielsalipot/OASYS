@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PagesController;
 
 
@@ -78,6 +79,11 @@ Route::prefix('')->group(function () {
 });
 
 
+Route::get('/message', [MessageController::class, 'message']);
+Route::get('/notification', [MessageController::class, 'notification']);
+Route::get('/notification/views', [PagesController::class, 'view_notif']);
+Route::get('/sendmessage',[MessageController::class,'InsertMessage']);
+Route::post('/sendnotification',[MessageController::class,'InsertNotification']);
 
 Route::get('/notification_acknowledgement_insert', [PagesController::class, 'notification_acknowledgement_insert']);
 

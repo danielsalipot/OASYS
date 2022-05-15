@@ -22,6 +22,10 @@
         <div class="col">
             <div class="container">
                 @yield('title')
+                @if(Session::get('success'))
+                    <div class="alert alert-success w-100 m-auto my-3">{{Session::get('success')}}</div>
+                @endif
+
                 @yield('content')
             </div>
         </div>
@@ -31,4 +35,6 @@
 
 @yield('script')
 </body>
+<link rel="stylesheet" type="text/css" href="/datetimepicker-master/jquery.datetimepicker.css">
+<script src="/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
 </html>
