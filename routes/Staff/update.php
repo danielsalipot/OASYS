@@ -7,5 +7,6 @@ Route::prefix('')->group(function () {
     Route::get('/EmployeePositionUpdate', [StaffUpdateController::class,'EmployeePositionUpdate']);
     Route::get('/WithResponseInterview', [StaffUpdateController::class,'WithResponseInterview']);
     Route::get('/NoResponseInterview', [StaffUpdateController::class,'NoResponseInterview']);
+    Route::get('/UpdateSchedule', [StaffUpdateController::class,'UpdateSchedule']);
 });
 

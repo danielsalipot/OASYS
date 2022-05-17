@@ -1,16 +1,79 @@
 @extends('layout.staff_app')
+    @section('title')
+    <h1 class="section-title mt-2 pb-1">Schedule Management</h1>
+    @endsection
+
     @section('content')
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about">
-          <div class="container">
-    
-                <h1 class="section-title mt-2 pb-1"> HR STAFF SCHEDULE MANAGMENT</h1>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-            </div>
-@endsection
+    <div class="container w-100 p-2">
+        <table class="table table-striped table-dark text-center w-100" id="employee_table">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Employee ID</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Employee Details</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Time in</th>
+                    <th scope="col">Time out</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    @endsection
+
+    @section('script')
+    <script>
+        $(document).ready(function(){
+            $('#employee_table').DataTable({
+                ajax: {
+                        url: '/schedulejson',
+                    },
+                columns: [
+                    { data: 'employee_id',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'user_detail.picture',
+                        render : (data,type,row)=>{
+                            return `<img src="{{ URL::asset('${data}') }}" class="rounded" width="50" height="50">`
+                        }
+                    },
+                    { data: 'user_detail.fname',
+                        render : (data,type,row)=>{
+                            return  `
+                                        <b>${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}</b><br>
+                                            Sex: ${row.user_detail.sex}<br>
+                                            age: ${row.user_detail.age}
+                                    `
+                        }
+                    },
+                    { data: 'department',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'position',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'timein',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'timeout',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                ]
+            })
+        })
+
+        function display_form(btn,form,id){
+            $(`#${form}${id}`).toggleClass('d-none')
+        }
+    </script>
+    @endsection

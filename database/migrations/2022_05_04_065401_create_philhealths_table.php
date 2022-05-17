@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('ph_cap');
             $table->string('minimum');
             $table->string('maximum');
-            $table->string('ee_personal');
             $table->timestamps();
         });
     }

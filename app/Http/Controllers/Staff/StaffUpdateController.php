@@ -52,4 +52,8 @@ class StaffUpdateController extends Controller
 
         return back()->with('success','The action was recorded successfully');
     }
+
+    public function UpdateSchedule(Request $request){
+        return $request;
+    }
 }

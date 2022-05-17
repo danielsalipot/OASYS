@@ -179,8 +179,8 @@ $philhealth = philhealth::first();
     $detail->employee_philhealth_contribution = 0;
 
     if($detail->gross_pay < $philhealth->minimum){
-        $detail->employer_philhealth_contribution += 0;
-        $detail->employee_philhealth_contribution += 137.50;
+        $detail->employer_philhealth_contribution +=  $philhealth->minimum * ($philhealth->er_rate / 100);
+        $detail->employee_philhealth_contribution +=  $philhealth->minimum * ($philhealth->er_rate / 100);
     }
     elseif($detail->gross_pay > $philhealth->maximum){
         $total_philhealth_payment = $philhealth->ph_cap;

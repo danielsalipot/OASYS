@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Staff\JSONControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\EmployeeDetail;
 use App\Models\Interview;
 use App\Models\UserCredential;
 use Illuminate\Http\Request;
@@ -71,6 +72,66 @@ class JsonController extends Controller
             return $second;
         })
         ->rawColumns(['full_name','img','first','second','date'])
+        ->make(true);
+    }
+
+    public function schedulejson(){
+        $employeelist = EmployeeDetail::with('UserDetail')->get();
+        return datatables()->of($employeelist)
+        ->addColumn('timein',function($data){
+            $timein = '<h5>Current Time in:</h5>
+                '.$data->schedule_Timein.'<br>
+                <button onclick="display_form(this,\'timein_form\','.$data->employee_id.')" class="btn btn-outline-primary">Edit Schedule</button>
+
+            <form action="/UpdateSchedule"  id="timein_form'.$data->employee_id.'" class="d-none">
+                <input type="text" name="sched" id="timein'.$data->employee_id.'" class="form-control w-100 my-2 datetime">
+                <button type="submit" id="submit'.$data->employee_id.'" class="btn btn-primary w-100">Edit Schedule</button>
+            </form>
+
+            <script>
+            $(function () {
+                $(".datetime").datetimepicker({
+                    format:"H:i",
+                    mask:true,
+                    datepicker:false,
+                });
+            })
+            </script>
+            <script>
+            $(function () {
+                $(".datetime").datetimepicker({
+                    format:"H:i",
+                    mask:true,
+                    datepicker:false,
+                });
+            })
+            </script>';
+
+            return $timein;
+        })
+        ->addColumn('timeout',function($data){
+            $timeout = '<h5>Current Time out:</h5>
+            '.$data->schedule_Timeout.'<br>
+            <button onclick="display_form(this,\'timeout_form\','.$data->employee_id.')" class="btn btn-outline-primary">Edit Schedule</button>
+
+            <form action="/UpdateSchedule" id="timeout_form'.$data->employee_id.'" class="d-none">
+                <input type="text" name="sched" id="timein'.$data->employee_id.'" class="form-control w-100 my-2 datetime">
+                <button type="submit" id="submit'.$data->employee_id.'" class="btn btn-primary w-100">Edit Schedule</button>
+            </form>
+
+            <script>
+            $(function () {
+                $(".datetime").datetimepicker({
+                    format:"H:i",
+                    mask:true,
+                    datepicker:false,
+                });
+            })
+            </script>';
+
+        return $timeout;
+        })
+        ->rawColumns(['timein','timeout'])
         ->make(true);
     }
 

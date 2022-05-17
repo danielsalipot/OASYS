@@ -192,12 +192,12 @@
                                 return `<b class="text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
-                        { data: 'employee_pagibig_contribution',
+                        { data: 'total_pagibig_contribution',
                             render : (data,type,row)=>{
                                 return `<b class="h5 text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
-                        { data: 'employee_philhealth_contribution',
+                        { data: 'total_philhealth_contribution',
                             render : (data,type,row)=>{
                                 return `<b class="h5 text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }

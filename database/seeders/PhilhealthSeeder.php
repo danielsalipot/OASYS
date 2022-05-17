@@ -19,11 +19,10 @@ class PhilhealthSeeder extends Seeder
         philhealth::create([
             'ee_rate' => '50',
             'er_rate' => '50',
-            'ph_rate' => '2.75',
-            'ph_cap' => '1100',
+            'ph_rate' => '4',
+            'ph_cap' => '3200',
             'minimum' => '10000',
-            'maximum' => '40000',
-            'ee_personal'=> '137.50'
+            'maximum' => '80000',
         ]);
     }
 }
