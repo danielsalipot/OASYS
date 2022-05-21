@@ -8,13 +8,13 @@
         <table class="table w-100 text-center" id="applicant_table">
             <thead>
             <tr>
-                <th scope="col">Picture</th>
-                <th scope="col">Employee Name</th>
-                <th scope="col">Applying for</th>
-                <th scope="col">Education</th>
-                <th scope="col">Application Date</th>
-                <th scope="col">First Interview</th>
-                <th scope="col">Second Interview</th>
+                <th class="col">Picture</th>
+                <th class="col">Employee Name</th>
+                <th class="col">Applying for</th>
+                <th class="col">Education</th>
+                <th class="col">Application Date</th>
+                <th class="col">First Interview</th>
+                <th class="col">Second Interview</th>
             </tr>
             </thead>
             <tbody></tbody>
@@ -64,7 +64,7 @@
                             {!! Form::close() !!}
                         </div>
                         <div class="col">
-                            <button class="btn w-75 btn-danger p-2">Cancel</button>
+                            <button class="btn w-75 btn-danger p-2" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer text-center">
-                    <button class="btn w-25 btn-danger p-2">Close</button>
+                    <button class="btn w-25 btn-danger p-2" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -174,6 +174,7 @@
             $('#view_app_pic').attr('src',app_pic)
             $('#view_app_name').html(app_name)
             $('#view_int_date').html(int_date)
+
             if(score == "Passed"){
                 $('#view_score').html(`<h5 class='p-3 bg-success rounded w-100 text-center text-white'>${score}</h5>`)
             }else{

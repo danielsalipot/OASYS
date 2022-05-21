@@ -24,10 +24,10 @@
             <table class="table table-striped table-dark w-100 text-center" id="applicant_table">
                 <thead>
                 <tr>
-                    <th scope="col">Position ID</th>
-                    <th scope="col">Position Name</th>
-                    <th scope="col">Position Description</th>
-                    <th scope="col">Added On</th>
+                    <th class="col">Position ID</th>
+                    <th class="col">Position Name</th>
+                    <th class="col">Position Description</th>
+                    <th class="col">Added On</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -74,12 +74,12 @@
                     <table class="table w-100 table-striped text-center table-dark" id="employee_table">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">Employee ID</th>
-                                <th scope="col">Employee Picture</th>
-                                <th scope="col">Employee Name</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Select</th>
+                                <th class="col">Employee ID</th>
+                                <th class="col">Employee Picture</th>
+                                <th class="col">Employee Name</th>
+                                <th class="col">Department</th>
+                                <th class="col">Position</th>
+                                <th class="col">Select</th>
                             </tr>
                         </thead>
                     </table>
@@ -91,11 +91,11 @@
                     <table class="table table-striped text-center">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">Employee ID</th>
-                                <th scope="col">Employee Picture</th>
-                                <th scope="col">Employee Name</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Position</th>
+                                <th class="col">Employee ID</th>
+                                <th class="col">Employee Picture</th>
+                                <th class="col">Employee Name</th>
+                                <th class="col">Department</th>
+                                <th class="col">Position</th>
                             </tr>
                         </thead>
                         <tbody id="selected_employee_table"></tbody>

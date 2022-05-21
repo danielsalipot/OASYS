@@ -10,15 +10,15 @@
     <table class="table table-striped text-center table-dark" id="deduction_table">
         <thead>
             <tr class="text-center">
-                <th scope="col">Transaction ID</th>
-                <th scope="col">Employee Details</th>
-                <th scope="col">Deduction Name</th>
-                <th scope="col">Deduction Start Date</th>
-                <th scope="col">Deduction End Date</th>
-                <th scope="col">Deduction Amount</th>
-                <th scope="col">Payroll Manager</th>
-                <th scope="col">Added on (UTC)</th>
-                <th scope="col">Delete</th>
+                <th class="col">Transaction ID</th>
+                <th class="col">Employee Details</th>
+                <th class="col">Deduction Name</th>
+                <th class="col">Deduction Start Date</th>
+                <th class="col">Deduction End Date</th>
+                <th class="col">Deduction Amount</th>
+                <th class="col">Payroll Manager</th>
+                <th class="col">Added on (UTC)</th>
+                <th class="col">Delete</th>
             </tr>
         </thead>
     </table>
@@ -33,12 +33,12 @@
                 <table class="table w-100 table-striped text-center table-dark" id="employee_table">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col">Employee ID</th>
-                            <th scope="col">Employee Picture</th>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Position</th>
-                            <th scope="col">Select</th>
+                            <th class="col">Employee ID</th>
+                            <th class="col">Employee Picture</th>
+                            <th class="col">Employee Name</th>
+                            <th class="col">Department</th>
+                            <th class="col">Position</th>
+                            <th class="col">Select</th>
                         </tr>
                     </thead>
                 </table>
@@ -50,11 +50,11 @@
                 <table class="table table-striped text-center">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col">Employee ID</th>
-                            <th scope="col">Employee Picture</th>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Position</th>
+                            <th class="col">Employee ID</th>
+                            <th class="col">Employee Picture</th>
+                            <th class="col">Employee Name</th>
+                            <th class="col">Department</th>
+                            <th class="col">Position</th>
                         </tr>
                     </thead>
                     <tbody id="selected_employee_table"></tbody>

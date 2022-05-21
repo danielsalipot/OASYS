@@ -14,12 +14,12 @@
                 <table class="table w-100 table-striped text-center table-dark" id="employee_table">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col">Employee ID</th>
-                            <th scope="col">Employee Picture</th>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Position</th>
-                            <th scope="col">Select</th>
+                            <th class="col">Employee ID</th>
+                            <th class="col">Employee Picture</th>
+                            <th class="col">Employee Name</th>
+                            <th class="col">Department</th>
+                            <th class="col">Position</th>
+                            <th class="col">Select</th>
                         </tr>
                     </thead>
                 </table>
@@ -31,11 +31,11 @@
                 <table class="table table-striped text-center">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col">Employee ID</th>
-                            <th scope="col">Employee Picture</th>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Position</th>
+                            <th class="col">Employee ID</th>
+                            <th class="col">Employee Picture</th>
+                            <th class="col">Employee Name</th>
+                            <th class="col">Department</th>
+                            <th class="col">Position</th>
                         </tr>
                     </thead>
                     <tbody id="selected_employee_table"></tbody>
@@ -69,17 +69,17 @@
 
 @section('second')
 <div class="container">
-    <h1 class="display-4 pb-5 mt-5 text-center w-100">Cash Advance History</h1>
+    <h1 class="display-4 pb-5 mt-5 text-center w-100">Paid Leave History</h1>
     @include('inc.date_filter')
     <table class="table table-striped table-dark w-100 text-center" id="leave_table">
         <thead>
             <tr>
-                <th scope="col">Transaction ID</th>
-                <th scope="col">Employee Details</th>
-                <th scope="col">Paid Leave Date</th>
-                <th scope="col">Payroll Manager</th>
-                <th scope="col">Added on (UTC)</th>
-                <th scope="col">Delete</th>
+                <th class="col">Transaction ID</th>
+                <th class="col">Employee Details</th>
+                <th class="col">Paid Leave Date</th>
+                <th class="col">Payroll Manager</th>
+                <th class="col">Added on (UTC)</th>
+                <th class="col">Delete</th>
             </tr>
         </thead>
     </table>

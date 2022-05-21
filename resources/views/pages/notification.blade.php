@@ -14,10 +14,10 @@
                 <table class="table w-100 table-striped text-center table-dark" id="employee_table">
                     <thead>
                         <tr class="text-center">
-                            <th scope="col">ID</th>
-                            <th scope="col">Picture</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Select</th>
+                            <th class="col">ID</th>
+                            <th class="col">Picture</th>
+                            <th class="col">Name</th>
+                            <th class="col">Select</th>
                         </tr>
                     </thead>
                 </table>

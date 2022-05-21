@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\UserDetail;
 use App\Models\notification_message;
 use App\Models\notification_receiver;
+use App\Models\Position;
 
 class ApplicantController extends Controller
 {
@@ -28,7 +29,8 @@ class ApplicantController extends Controller
         return view('pages.applicants.introduce');
     }
     function applying(){
-        return view('pages.applicants.applying');
+        $positions = Position::all();
+        return view('pages.applicants.applying')->with(['positions'=>$positions]);
     }
     function applicanthome(){
         // check if their is a logged in user

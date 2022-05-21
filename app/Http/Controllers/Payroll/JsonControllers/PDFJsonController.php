@@ -137,15 +137,15 @@ class PDFJsonController extends Controller
         $detail->employer_pagibig_contribution = 0;
 
         if($detail->gross_pay < $pagibig->divider){
-            $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_rate / 100);
+            $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_min_rate / 100);
             $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
         }
         if($detail->gross_pay > $pagibig->divider){
-            if($detail->gross_pay * ($pagibig->ee_rate / 100) > $pagibig->maximum){
+            if($detail->gross_pay * ($pagibig->ee_max_rate / 100) > $pagibig->maximum){
                 $detail->employee_pagibig_contribution = $pagibig->maximum;
                 $detail->employer_pagibig_contribution = $pagibig->maximum;
             }else{
-                $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_rate / 100);
+                $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_max_rate / 100);
                 $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
 
                 if($detail->employer_pagibig_contribution > $pagibig->maximum){

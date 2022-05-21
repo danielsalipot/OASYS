@@ -54,6 +54,13 @@ class StaffUpdateController extends Controller
     }
 
     public function UpdateSchedule(Request $request){
-        return $request;
+        if($request->sched_type){
+            EmployeeDetail::where('employee_id',$request->emp_id)->update(['schedule_Timein'=>$request->sched.':00']);
+        }
+        else{
+            EmployeeDetail::where('employee_id',$request->emp_id)->update(['schedule_Timeout'=>$request->sched.':00']);
+        }
+
+        return back()->with('success','The action was recorded successfully');
     }
 }

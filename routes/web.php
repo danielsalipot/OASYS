@@ -77,6 +77,9 @@ Route::prefix('')->group(function () {
 Route::prefix('')->group(function () {
     include 'Staff/update.php';
 });
+Route::prefix('')->group(function () {
+    include 'Staff/delete.php';
+});
 
 
 Route::get('/message', [MessageController::class, 'message']);

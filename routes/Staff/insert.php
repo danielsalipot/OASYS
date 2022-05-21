@@ -7,5 +7,7 @@ Route::prefix('')->group(function () {
     Route::get('/InsertPosition', [StaffInsertController::class,'InsertPosition']);
     Route::get('/InsertInterview', [StaffInsertController::class,'InsertInterview']);
     Route::get('/InsertOnboardee', [StaffInsertController::class,'InsertOnboardee']);
+    Route::post('/InsertOffboardee', [StaffInsertController::class,'InsertOffboardee']);
+    Route::get('/InsertClearance', [StaffInsertController::class,'InsertClearance']);
 });
 

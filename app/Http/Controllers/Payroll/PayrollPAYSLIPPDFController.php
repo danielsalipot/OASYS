@@ -261,7 +261,7 @@ class PayrollPAYSLIPPDFController extends Controller
             if(count($employee->cashAdvance) > 0){
                 foreach ($employee->cashAdvance as $key => $cashAdvance) {
                     $pdf->Cell(63,7,$cashAdvance->cash_advance_date,0,0,'C');
-                    $prm_name = UserDetail::where('login_id', $deduction->payrollManager_id)->first();
+                    $prm_name = UserDetail::where('login_id', $cashAdvance->payrollManager_id)->first();
                     $pdf->Cell(63,7,"$prm_name->fname $prm_name->mname $prm_name->lname",0,0,'C');
                     $pdf->Cell(63,7,number_format($cashAdvance->cashAdvance_amount, 2, '.', ',') . " Php",0,1,'C');
                 }

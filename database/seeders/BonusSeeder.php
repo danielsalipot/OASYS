@@ -19,7 +19,7 @@ class BonusSeeder extends Seeder
     {
         $faker = Faker::create();
         Bonus::create([
-            'payrollManager_id' => '2',
+            'payrollManager_id' => rand(2,4),
             'employee_id' => rand(1,10),
             'bonus_amount' => $faker->randomFloat(2, 1,50000),
             'bonus_date' => $faker->dateTimeInInterval('-7 weeks', '+14 weeks')

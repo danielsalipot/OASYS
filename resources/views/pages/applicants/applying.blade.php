@@ -12,9 +12,9 @@
                 <div class='row m-auto w-50 mt-3 mb-3'>
                     <label for="inputState" class="text-secondary">Choose a position</label>
                     <select id="inputState" name="position" class="border-primary p-3 rounded ">
-                        <option class="dropdown-item" selected>Teacher</option>
-                        <option class="dropdown-item">Staff</option>
-                        <option class="dropdown-item">Principal</option>
+                        @foreach ($positions as $data)
+                        <option class="dropdown-item" >{{ $data->position_title }}</option>
+                        @endforeach
                     </select>
                     <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
                     </div>

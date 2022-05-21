@@ -26,14 +26,14 @@
     <table class="table table-striped table-dark text-center w-100" id="audit_table">
         <thead>
             <tr class="text-center">
-                <th scope="col">Date of Activity</th>
-                <th scope="col">Payroll Manager</th>
+                <th class="col">Date of Activity</th>
+                <th class="col">Payroll Manager</th>
                 {{-- insertion, deletion update --}}
-                <th scope="col">Type</th>
-                <th scope="col">Affected Employee</th>
-                <th scope="col">Activtiy</th>
-                <th scope="col">Details</th>
-                <th scope="col">Activity ID</th>
+                <th class="col">Type</th>
+                <th class="col">Affected Employee</th>
+                <th class="col">Activtiy</th>
+                <th class="col">Details</th>
+                <th class="col">Activity ID</th>
             </tr>
         </thead>
     </table>

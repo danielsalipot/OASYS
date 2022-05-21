@@ -11,13 +11,13 @@
     <table class="table table-striped table-dark text-center" id="bonus_table">
         <thead>
             <tr>
-                <th scope="col">Transaction ID</th>
-                <th scope="col">Employee Details</th>
-                <th scope="col">Date of Bonus</th>
-                <th scope="col">Bonus Amount</th>
-                <th scope="col">Payroll Manager</th>
-                <th scope="col">Added on (UTC)</th>
-                <th scope="col">Delete</th>
+                <th class="col">Transaction ID</th>
+                <th class="col">Employee Details</th>
+                <th class="col">Date of Bonus</th>
+                <th class="col">Bonus Amount</th>
+                <th class="col">Payroll Manager</th>
+                <th class="col">Added on (UTC)</th>
+                <th class="col">Delete</th>
             </tr>
         </thead>
     </table>
@@ -36,12 +36,12 @@
                     <table class="table w-100 table-striped text-center table-dark" id="employee_table">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">Employee ID</th>
-                                <th scope="col">Employee Picture</th>
-                                <th scope="col">Employee Name</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Select</th>
+                                <th class="col">Employee ID</th>
+                                <th class="col">Employee Picture</th>
+                                <th class="col">Employee Name</th>
+                                <th class="col">Department</th>
+                                <th class="col">Position</th>
+                                <th class="col">Select</th>
                             </tr>
                         </thead>
                     </table>
@@ -53,11 +53,11 @@
                     <table class="table table-striped text-center">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">Employee ID</th>
-                                <th scope="col">Employee Picture</th>
-                                <th scope="col">Employee Name</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Position</th>
+                                <th class="col">Employee ID</th>
+                                <th class="col">Employee Picture</th>
+                                <th class="col">Employee Name</th>
+                                <th class="col">Department</th>
+                                <th class="col">Position</th>
                             </tr>
                         </thead>
                         <tbody id="selected_employee_table"></tbody>
@@ -134,11 +134,11 @@
         <table class="table table-striped table-dark w-100 text-center" id="thirteen_month_table">
             <thead>
                 <tr>
-                    <th scope="col">Employee Details</th>
-                    <th scope="col">Employee Rate</th>
-                    <th scope="col">Employee Total Salary</th>
-                    <th scope="col">13th Month Bonus Amount</th>
-                    <th scope="col">Salary Date Range</th>
+                    <th class="col">Employee Details</th>
+                    <th class="col">Employee Rate</th>
+                    <th class="col">Employee Total Salary</th>
+                    <th class="col">13th Month Bonus Amount</th>
+                    <th class="col">Salary Date Range</th>
                 </tr>
             </thead>
         </table>

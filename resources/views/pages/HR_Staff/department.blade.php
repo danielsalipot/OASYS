@@ -7,7 +7,7 @@
         <h1 class="display-4 mt-5 text-center">Position Overview</h1>
         <hr>
         <div class="row d-flex p-4 w-100 text-center justify-content-center">
-            @foreach ($departments as $department)
+            @foreach ($all_dept as $department)
                 <div class="col-2 card border border-primary shadow-lg p-2 m-2 alert alert-primary">
                     <h1  class="section-title mt-0" >{{$department->emp_count}}</h1>
                     <hr>
@@ -19,12 +19,13 @@
         <hr>
         <div class="row mb-5">
             <div class="col-8 card shadow-sm pt-3 me-2">
+                {!! $departments->links() !!}
                 <table class="table table-striped table-dark w-100 text-center" id="applicant_table">
                     <thead>
                     <tr>
-                        <th scope="col">Department ID</th>
-                        <th scope="col">Department Name</th>
-                        <th scope="col">Added On</th>
+                        <th class="col">Department ID</th>
+                        <th class="col">Department Name</th>
+                        <th class="col">Added On</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,6 +38,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {!! $departments->links() !!}
             </div>
             <div class="col p-0 card">
                 <h2 class="alert alert-primary w-100">Add Departments</h2>
@@ -68,12 +70,12 @@
                     <table class="table w-100 table-striped text-center table-dark" id="employee_table">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">Employee ID</th>
-                                <th scope="col">Employee Picture</th>
-                                <th scope="col">Employee Name</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Select</th>
+                                <th class="col">Employee ID</th>
+                                <th class="col">Employee Picture</th>
+                                <th class="col">Employee Name</th>
+                                <th class="col">Department</th>
+                                <th class="col">Position</th>
+                                <th class="col">Select</th>
                             </tr>
                         </thead>
                     </table>
@@ -85,11 +87,11 @@
                     <table class="table table-striped text-center">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">Employee ID</th>
-                                <th scope="col">Employee Picture</th>
-                                <th scope="col">Employee Name</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Position</th>
+                                <th class="col">Employee ID</th>
+                                <th class="col">Employee Picture</th>
+                                <th class="col">Employee Name</th>
+                                <th class="col">Department</th>
+                                <th class="col">Position</th>
                             </tr>
                         </thead>
                         <tbody id="selected_employee_table"></tbody>
@@ -104,7 +106,7 @@
                             {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
                             {!! Form::label('department_name', 'Department Name') !!}
                             <select name='department_name' id='department_name' class='h4 py-3 w-100 btn btn-primary'>
-                                @foreach ($departments as $department)
+                                @foreach ($all_dept as $department)
                                     <option value='{{$department->department_name}}'>{{$department->department_name}}</option>
                                 @endforeach
                             </select>

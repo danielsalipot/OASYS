@@ -31,21 +31,19 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Applying for</th>
-                            <th scope="col">Education</th>
-                            <th scope="col"></th>
+                            <th class="col"></th>
+                            <th class="col">Employee Name</th>
+                            <th class="col">Applying for</th>
+                            <th class="col">Education</th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach ($applicants as $applicant)
                                 <tr>
-                                    <td scope="col"><img src="/{{$applicant->picture}}" height='40px' width='40px' class='rounded-circle'></td>
-                                    <td scope="col">{{ $applicant->fname }} {{ $applicant->mname }} {{ $applicant->lname }}</td>
-                                    <td scope="col">{{ $applicant->Applyingfor }}</td>
-                                    <td scope="col">{{ $applicant->educ }}</td>
-                                    <td scope="col"><button class="btn btn-outline-primary  ">View</button></td>
+                                    <td class="col"><img src="/{{$applicant->picture}}" height='40px' width='40px' class='rounded-circle'></td>
+                                    <td class="col">{{ $applicant->fname }} {{ $applicant->mname }} {{ $applicant->lname }}</td>
+                                    <td class="col">{{ $applicant->Applyingfor }}</td>
+                                    <td class="col">{{ $applicant->educ }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -53,22 +51,22 @@
                     {{ $applicants->links() }}
                 </div>
                 <div class="row">
-                    <div class="btn col card shadow-sm m-2 p-4 py-5 text-center">
+                    <a href='/staff/department' class="btn col card shadow-sm m-2 p-4 py-5 text-center">
                         <h3><i class="bi bi-building"></i></h3>
                         <h6>Manage Departments</h6>
-                    </div>
-                    <div class="btn col card shadow-sm m-2 p-4 py-5 text-center">
+                    </a>
+                    <a href='/staff/schedules' class="btn col card shadow-sm m-2 p-4 py-5 text-center">
                         <h3><i class="bi bi-calendar"></i></h3>
                         <h6>Manage Schedules</h6>
-                    </div>
-                    <div class="btn col card shadow-sm m-2 p-4 py-5 text-center">
+                    </a>
+                    <a href='/staff/position'  class="btn col card shadow-sm m-2 p-4 py-5 text-center">
                         <h3><i class="bi bi-person-badge"></i></h3>
-                        <h6>Manage Departments</h6>
-                    </div>
-                    <div class="btn col card shadow-sm m-2 p-4 py-5 text-center">
+                        <h6>Manage Positions</h6>
+                    </a>
+                    <a href='/staff/termination'  class="btn col card shadow-sm m-2 p-4 py-5 text-center">
                         <h3><i class="bi bi-slash-circle-fill"></i></h3>
-                        <h6>Manage Departments</h6>
-                    </div>
+                        <h6>Manage Termination</h6>
+                    </a>
                 </div>
             </div>
             <div class="col">

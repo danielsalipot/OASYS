@@ -30,7 +30,6 @@
         <div class="col">
             <div class="container">
             @yield('Title')
-
             <div id="myCarousel" class="carousel carousel-dark slide" data-interval="false" data-ride="carousel">
 
                 <a class="carousel-control-prev" href="#myCarousel" style="height:0px;margin-top:55px;margin-left:20vw" role="button" data-slide="prev">

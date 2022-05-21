@@ -9,13 +9,13 @@
         <div class="col-2"><p class="text-center py-2 my-2 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p></div>
         <div class="col"></div>
         <div class="col-3 border border-primary rounded p-2">
-            <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded">Payroll</button>
+            <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded"><i class="h3 bi bi-cash-stack"></i><br>Create Payroll</button>
             <form action="/payrollPDF" method="post" enctype="multipart/form-data" id='payroll_form' target="_blank">
                 @csrf
                 <div id="payroll_pdf_actions" class="row w-100 h-100 d-none">
                     <div class="row m-2 card p-2">
                         <h6>Upload Signature</h6>
-                        <input type="file" name="esignature" class="input-resume" id="esignature">
+                        <input type="file" name="esignature" class="input-resume" accept="image/png" id="esignature">
                     </div>
                     <div class="col ps-3 h-100 w-100">
                         {!! Form::submit('PDF', ['class'=>'btn btn-danger rounded p-4 h-100 w-100', 'id'=>'payrollGenerate']) !!}
@@ -28,14 +28,16 @@
         </div>
 
         <div class="col"></div>
-        <div class="col-2 border border-warning mx-1 rounded p-2">
-            <a href="/payroll/history" class="btn btn-warning w-100 p-4">View Payroll History</a>
+        <div class="col-2">
+            <div class=" border border-warning mx-1 rounded p-2">
+                <a href="/payroll/history" class="btn btn-warning w-100 p-4">View Payroll History</a>
+            </div>
         </div>
     </div>
 
     @include('inc.date_filter')
     <br>
-        <table class="table text-center table-dark table-bordered table-striped" id="payroll_table">
+        <table class="table text-center table-bordered table-striped" id="payroll_table">
             <thead>
                 <tr>
                     <th>Employee ID</th>

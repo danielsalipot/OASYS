@@ -9,7 +9,7 @@
     @include('inc.datatables')
     @include('inc.navIncludes')
 </head>
-<body>
+<body style="overflow-x:hidden;">
     @if (!session()->has('user_id') && !session()->get('user_type') == 'staff')
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif

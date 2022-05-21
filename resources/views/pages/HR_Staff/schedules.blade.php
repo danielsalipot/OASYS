@@ -8,13 +8,13 @@
         <table class="table table-striped table-dark text-center w-100" id="employee_table">
             <thead>
                 <tr class="text-center">
-                    <th scope="col">Employee ID</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Employee Details</th>
-                    <th scope="col">Department</th>
-                    <th scope="col">Position</th>
-                    <th scope="col">Time in</th>
-                    <th scope="col">Time out</th>
+                    <th class="col-1">Employee ID</th>
+                    <th class="col">Picture</th>
+                    <th class="col">Employee Details</th>
+                    <th class="col">Department</th>
+                    <th class="col">Position</th>
+                    <th class="col-2">Time in</th>
+                    <th class="col-2">Time out</th>
                 </tr>
             </thead>
         </table>

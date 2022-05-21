@@ -46,7 +46,7 @@ class PayrollJSONController extends Controller
             return datatables()->of($cashAdvanceRecord)
                 ->addColumn('delete',function($data){
                 $button = ' <form action="/removeCashAdvance/'. $data->cashAdvances_id .'" method="GET">
-                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                             </form>';
                 return $button;
                 })
@@ -116,7 +116,7 @@ class PayrollJSONController extends Controller
         return datatables()->of($deductions)
             ->addColumn('delete',function($data){
                 $button = ' <form action="/removeDeduction/'.$data->deduction_id.'" method="GET">
-                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                             </form>';
                 return $button;
             })
@@ -238,7 +238,7 @@ class PayrollJSONController extends Controller
         return datatables()->of($BonusRecords)
             ->addColumn('delete',function($data){
             $button = ' <form action="/removeDeleteBonus/'. $data->bonus_id .'" method="GET">
-                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
             })
@@ -365,7 +365,7 @@ class PayrollJSONController extends Controller
         return datatables()->of($multipay)
             ->addColumn('delete',function($data){
             $button = ' <form action="/removeMultiPay/'. $data->multi_pay_id .'" method="GET">
-                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
             })
@@ -538,15 +538,15 @@ class PayrollJSONController extends Controller
         $detail->employer_pagibig_contribution = 0;
 
         if($detail->gross_pay < $pagibig->divider){
-            $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_rate / 100);
+            $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_min_rate / 100);
             $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
         }
         if($detail->gross_pay > $pagibig->divider){
-            if($detail->gross_pay * ($pagibig->ee_rate / 100) > $pagibig->maximum){
+            if($detail->gross_pay * ($pagibig->ee_max_rate / 100) > $pagibig->maximum){
                 $detail->employee_pagibig_contribution = $pagibig->maximum;
                 $detail->employer_pagibig_contribution = $pagibig->maximum;
             }else{
-                $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_rate / 100);
+                $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_max_rate / 100);
                 $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
 
                 if($detail->employer_pagibig_contribution > $pagibig->maximum){
@@ -759,7 +759,7 @@ class PayrollJSONController extends Controller
         return datatables()->of($holiday_table)
             ->addColumn('delete',function($data){
             $button = ' <form action="/removeHoliday/'. $data->holiday_id .'" method="GET">
-                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
             })
@@ -779,7 +779,7 @@ class PayrollJSONController extends Controller
         })
         ->addColumn('delete',function($data){
             $button = ' <form action="/removeHolidayAllAttendance/'. $data->holiday_id .'" method="GET">
-                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
         })
@@ -813,7 +813,7 @@ class PayrollJSONController extends Controller
         })
         ->addColumn('delete',function($data){
             $button = ' <form action="/removeHolidayAttendance/'. $data->id .'/'. $data->attendance_id .'" method="GET">
-                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
         })
@@ -857,7 +857,7 @@ class PayrollJSONController extends Controller
             })
             ->addColumn('delete',function($data){
                 $button = ' <form action="/removeLeave/'. $data->id .'/'. $data->attendance_id .'" method="GET">
-                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="bi bi-trash"></i></button>
+                            <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                             </form>';
                 return $button;
             })

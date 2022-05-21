@@ -252,7 +252,7 @@ class PayrollController extends Controller
                             <div class='col mt-3'>
                                 <h4>". $approval->fname ." " . $approval->mname . " " .$approval->lname."</h4>
                                 <h6>Payroll Manager ID: ".$approval->login_id."</h6>
-                                <h6>Approved</h6>
+                                <h6>".$status_str."</h6>
                                 <p>". date_format($approval->created_at,"Y-m-d H:i:s") ."</p>
                             </div>
                         </div>

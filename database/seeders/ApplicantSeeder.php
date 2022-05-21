@@ -33,12 +33,12 @@ class ApplicantSeeder extends Seeder
             'fname' => $faker->FirstName,
             'mname' => $faker->LastName,
             'lname' => $faker->LastName,
-            'sex' =>  'male',
-            'age' => '20',
+            'sex' =>  (rand(0,1)) ? 'Male' : 'Female',
+            'age' => rand(21,55),
             'bday' => $faker->date($format = 'Y-m-d'),
             'cnum' => $faker->e164PhoneNumber,
             'email' => $faker->email,
-            'picture' => 'pictures/temp.png',
+            'picture' => 'pictures/temp'.rand(1,9).'.jpg',
         ]);
 
 
@@ -47,7 +47,7 @@ class ApplicantSeeder extends Seeder
             'information_id' =>$info_id->id,
             'Applyingfor' => 'Teacher',
             'educ' => 'College',
-            'resume' => 'resumes/1.pdf'
+            'resume' => 'resumes/resume'.rand(1,3).'.pdf'
         ]);
     }
 }

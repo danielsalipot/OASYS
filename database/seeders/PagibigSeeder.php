@@ -17,7 +17,8 @@ class PagibigSeeder extends Seeder
     public function run()
     {
         Pagibig::create([
-            'ee_rate' => '1',
+            'ee_min_rate' => '1',
+            'ee_max_rate' => '2',
             'er_rate' => '2',
             'maximum' => '100',
             'divider'=> '1500'

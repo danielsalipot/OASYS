@@ -23,6 +23,9 @@
     @if (session('user_type') == 'payroll')
         @include('inc.payroll_navbar')
     @endif
+    @if (session('user_type') == 'staff')
+        @include('inc.staff_navbar')
+    @endif
 
     <div class="row mt-4">
         <div class="col-1" style="width:6vw"></div>

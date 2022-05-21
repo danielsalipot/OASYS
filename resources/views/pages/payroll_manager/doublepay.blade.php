@@ -12,14 +12,14 @@
         <table class="table table-striped text-center table-dark" id="multi_pay_table">
             <thead>
                 <tr>
-                    <th scope="col">Employee ID</th>
-                    <th scope="col">Employee Details</th>
-                    <th scope="col">Employee rate</th>
-                    <th scope="col">Time in Detials</th>
-                    <th scope="col">Time out Details</th>
-                    <th scope="col">Total Hours</th>
-                    <th scope="col">Attendance Date</th>
-                    <th scope="col">Actions</th>
+                    <th class="col-1">Employee ID</th>
+                    <th class="col-2">Employee Details</th>
+                    <th class="col">Employee rate</th>
+                    <th class="col">Time in Detials</th>
+                    <th class="col">Time out Details</th>
+                    <th class="col">Total Hours</th>
+                    <th class="col">Attendance Date</th>
+                    <th class="col-2">Actions</th>
                 </tr>
             </thead>
         </table>
@@ -45,18 +45,18 @@
                 <table class="table table-striped text-center w-100 table-dark" id="paid_table">
                     <thead>
                         <tr>
-                            <th scope="col">Transaction ID</th>
-                            <th scope="col">Employee Details</th>
-                            <th scope="col">Employee Rate</th>
-                            <th scope="col">Time in Details</th>
-                            <th scope="col">Time out Detials</th>
-                            <th scope="col">Total hours</th>
-                            <th scope="col">Multiplier</th>
-                            <th scope="col">Total Compensation</th>
-                            <th scope="col">Attendance Date</th>
-                            <th scope="col">Payroll Manager</th>
-                            <th scope="col">Added on (UTC)</th>
-                            <th scope="col">Delete</th>
+                            <th class="col">Transaction ID</th>
+                            <th class="col">Employee Details</th>
+                            <th class="col">Employee Rate</th>
+                            <th class="col">Time in Details</th>
+                            <th class="col">Time out Detials</th>
+                            <th class="col">Total hours</th>
+                            <th class="col">Multiplier</th>
+                            <th class="col">Total Compensation</th>
+                            <th class="col">Attendance Date</th>
+                            <th class="col">Payroll Manager</th>
+                            <th class="col">Added on (UTC)</th>
+                            <th class="col">Delete</th>
                         </tr>
                     </thead>
                 </table>
@@ -260,7 +260,7 @@
                                     '${row.time_in}',
                                     '${row.time_out}',
 
-                                )" class="btn btn-outline-warning" data-toggle="modal" data-target="#edit_modal">2X</button>
+                                )" class="btn btn-outline-warning w-25" data-toggle="modal" data-target="#edit_modal"><i class="h2 bi bi-cash"></i><br>2X</button>
                                 <button type="button" onclick="MultiPayButtonClick(
                                     3,
                                     '${row.attendance_id}',
@@ -276,7 +276,7 @@
                                     '${row.time_in}',
                                     '${row.time_out}',
 
-                                )" class="btn btn-outline-info" data-toggle="modal" data-target="#edit_modal">3X</button>`
+                                )" class="btn btn-outline-info w-25" data-toggle="modal" data-target="#edit_modal"><i class="h2 bi bi-cash"></i><br>3X</button>`
                             }
                         },
                     ]

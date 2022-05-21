@@ -11,6 +11,7 @@
 
 @section('content')
 
+    {!! $notif->links() !!}
     @foreach ($notif as $data)
         <div class="row shadow-lg p-3 my-5">
             <div class="col-5 d-flex flex-row flex-wrap align-items-center card me-3 p-4">
@@ -45,4 +46,5 @@
             </div>
         </div>
     @endforeach
+    {!! $notif->links() !!}
 @endsection

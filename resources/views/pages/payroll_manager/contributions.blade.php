@@ -53,15 +53,15 @@
         @include('inc.date_filter')
     </div>
 
-    <table class="table table-striped w-100 text-center table-dark" id="sss_table">
+    <table class="table table-striped w-100 text-center" id="sss_table">
         <thead>
             <tr class="text-center">
-                <th scope="col">Employee Details</th>
-                <th scope="col">Employee Rate</th>
-                <th scope="col">Monthly Salary</th>
-                <th scope="col">Employee Contribution</th>
-                <th scope="col">Employer Contribution</th>
-                <th scope="col">Total SSS Contibution</th>
+                <th class="col">Employee Details</th>
+                <th class="col">Employee Rate</th>
+                <th class="col">Monthly Salary</th>
+                <th class="col">Employee Contribution</th>
+                <th class="col">Employer Contribution</th>
+                <th class="col">Total SSS Contibution</th>
             </tr>
         </thead>
     </table>
@@ -78,8 +78,12 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col-2 text-center">
-                    {!! Form::label('pagibig_ee_rate', "Employee Pagibig Rate", []) !!}
-                    {!! Form::text('pagibig_ee_rate',"$pagibig->ee_rate",['disabled','id'=>'pagibig_ee_rate','class'=>'form-control text-center p-3']) !!}
+                    {!! Form::label('pagibig_ee_min_rate', "Employee Pagibig Low Rate", []) !!}
+                    {!! Form::text('pagibig_ee_min_rate',"$pagibig->ee_min_rate",['disabled','id'=>'pagibig_ee_min_rate','class'=>'form-control text-center p-3']) !!}
+                </div>
+                <div class="col-2 text-center">
+                    {!! Form::label('pagibig_ee_max_rate', "Employee Pagibig High Rate", []) !!}
+                    {!! Form::text('pagibig_ee_max_rate',"$pagibig->ee_max_rate",['disabled','id'=>'pagibig_ee_max_rate','class'=>'form-control text-center p-3']) !!}
                 </div>
                 <div class="col-2 text-center">
                     {!! Form::label('pagibig_er_rate', "Employer Pagibig Rate", []) !!}
@@ -132,15 +136,15 @@
 
     </div>
 
-    <table class="table table-striped text-center w-100 table-dark" id="pagibig_table">
+    <table class="table table-striped text-center w-100" id="pagibig_table">
         <thead>
             <tr class="text-center">
-                <th scope="col">Employee Details</th>
-                <th scope="col">Employee Rate</th>
-                <th scope="col">Monthly Salary</th>
-                <th scope="col">Employee Contribution</th>
-                <th scope="col">Employer Contribution</th>
-                <th scope="col">Total Pagibig Contibution</th>
+                <th class="col">Employee Details</th>
+                <th class="col">Employee Rate</th>
+                <th class="col">Monthly Salary</th>
+                <th class="col">Employee Contribution</th>
+                <th class="col">Employer Contribution</th>
+                <th class="col">Total Pagibig Contibution</th>
             </tr>
         </thead>
     </table>
@@ -158,13 +162,10 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col-2 text-center">
-                    {!! Form::label('philhealth_share', "Minimum Personal Share", []) !!}
-                    {!! Form::text('philhealth_share',"$philhealth->ee_personal",['disabled','id'=>'philhealth_share','class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col-1 text-center">
                     {!! Form::label('philhealth_rate', "Philhealth Rate", []) !!}
                     {!! Form::text('philhealth_rate',"$philhealth->ph_rate",['disabled','id'=>'philhealth_rate','class'=>'form-control text-center p-3']) !!}
                 </div>
+                <div class="col-1 text-center"></div>
                 <div class="col-2 text-center">
                     {!! Form::label('philhealth_max_share', "Philhealth Maximum Share", []) !!}
                     {!! Form::text('philhealth_max_share',"$philhealth->ph_cap",['disabled','id'=>'philhealth_max_share','class'=>'form-control text-center p-3']) !!}
@@ -224,15 +225,15 @@
 
     </div>
 
-    <table class="table table-striped text-center w-100 table-dark" id="philhealth_table">
+    <table class="table table-striped text-center w-100" id="philhealth_table">
         <thead>
             <tr class="text-center">
-                <th scope="col">Employee Details</th>
-                <th scope="col">Employee Rate</th>
-                <th scope="col">Monthly Salary</th>
-                <th scope="col">Employee Contribution</th>
-                <th scope="col">Employer Contribution</th>
-                <th scope="col">Total Pagibig Contibution</th>
+                <th class="col">Employee Details</th>
+                <th class="col">Employee Rate</th>
+                <th class="col">Monthly Salary</th>
+                <th class="col">Employee Contribution</th>
+                <th class="col">Employer Contribution</th>
+                <th class="col">Total Pagibig Contibution</th>
             </tr>
         </thead>
     </table>
@@ -294,7 +295,7 @@
                     },
                     { data: 'rate',
                         render : (data,type,row)=>{
-                            return `<h5 class="text-info">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h5>`
+                            return `<h5 class="text-dark">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h5>`
                         }
                     },
                     { data: 'gross_pay',
@@ -367,7 +368,7 @@
                     },
                     { data: 'rate',
                         render : (data,type,row)=>{
-                            return `<h5 class="text-info">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h5>`
+                            return `<h5 class="text-dark">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h5>`
                         }
                     },
                     { data: 'gross_pay',
@@ -439,7 +440,7 @@
                     },
                     { data: 'rate',
                         render : (data,type,row)=>{
-                            return `<h5 class="text-info">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h5>`
+                            return `<h5 class="text-dark">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h5>`
                         }
                     },
                     { data: 'gross_pay',
@@ -503,7 +504,7 @@
         $('#pagibig_cancel').removeAttr("disabled")
         $('#pagibig_lock').prop("disabled",true)
 
-        $('#pagibig_ee_rate').removeAttr("disabled")
+        $('#pagibig_ee_max_rate').removeAttr("disabled")
         $('#pagibig_er_rate').removeAttr("disabled")
         $('#pagibig_max').removeAttr("disabled")
         $('#pagibig_divider').removeAttr("disabled")

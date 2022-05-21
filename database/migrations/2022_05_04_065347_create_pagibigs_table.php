@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('pagibigs', function (Blueprint $table) {
             $table->id();
-            $table->string('ee_rate');
+            $table->string('ee_max_rate');
+            $table->string('ee_min_rate');
             $table->string('er_rate');
             $table->string('maximum');
             $table->string('divider');

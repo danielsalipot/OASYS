@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\ApplicantDetail;
+use App\Models\Clearance;
 use App\Models\Department;
 use App\Models\EmployeeDetail;
 use App\Models\Interview;
 use App\Models\notification_message;
 use App\Models\Position;
+use App\Models\Resigned;
+use App\Models\Retired;
+use App\Models\Terminated;
 use App\Models\UserCredential;
 use Illuminate\Http\Request;
 
@@ -86,4 +90,34 @@ class StaffInsertController extends Controller
 
         return back()->with('success','The action was recorded successfully');
     }
+
+    public function InsertClearance(Request $request){
+        Clearance::create([
+            'employee_id'=> $request->employee_id,
+        ]);
+
+        return back()->with('success','The action was recorded successfully');
+    }
+
+    public function InsertOffboardee(Request $request){
+        if($request->term_type == 'Retirement'){
+            Retired::create([
+                'employee_id'=>$request->emp_id
+            ]);
+        }
+        if($request->term_type == 'Termination'){
+            Terminated::create([
+                'employee_id'=>$request->emp_id
+            ]);
+        }
+        if($request->term_type == 'Resignation'){
+            Resigned::create([
+                'employee_id'=>$request->emp_id
+            ]);
+        }
+
+        EmployeeDetail::where('employee_id',$request->emp_id)->update(['employment_status'=>'Offboardee']);
+        return back()->with('success','The action was recorded successfully');
+    }
+
 }

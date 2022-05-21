@@ -45,7 +45,7 @@ class PagesController extends Controller
     function view_notif(){
         $notif = notification_message::with('receivers')
             ->where('sender_id',session()->get('user_id'))
-            ->get();
+            ->paginate(10);
 
         foreach ($notif as $key => $value) {
             foreach ($value->receivers as $key => $receiver) {
@@ -55,6 +55,7 @@ class PagesController extends Controller
         }
 
         $profile = UserDetail::where('login_id',session('user_id'))->first();
+
         return view('pages.view_notif',compact('notif'))->with(['profile'=>$profile]);
     }
 

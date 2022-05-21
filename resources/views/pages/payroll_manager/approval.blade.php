@@ -12,7 +12,7 @@
     @endforeach
     <div class="w-25 m-auto border border-success rounded p-2 d-none" id="payslip_controls">
         <button type="button" disabled name="payslip" id="payslip" class="btn p-4 w-100 btn-success rounded">Payslip</button>
-        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
+        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollPAYSLIPPDFController@payslipPdf','method'=>'POST',  'target'=>"_blank", 'id'=>'payslip_form', 'onsubmit'=>"javascript: setTimeout(function(){location.reload();}, 500);return true;"]) !!}
             <div id="payslip_pdf_actions" class="row d-flex w-100 d-none">
                 <div class="col ps-3 h-100 w-100">
                     {!! Form::hidden('ps_col1', '', ['id'=>'ps_col1']) !!}
@@ -20,7 +20,7 @@
                     {!! Form::submit('PDF', ['class'=>'btn h-100 btn-danger p-4 w-100 rounded ','id'=>'payslipGenerate']) !!}
                 </div>
                 <div class="col p-0 h-100 w-100">
-                    <button type="button" id="payslip_cancel" class="btn btn-outline-danger p-4 w-100">x</button>
+                    <button type="button" id="payslip_cancel" class="btn btn-outline-danger p-4 w-100" onClick="window.location.reload()">x</button>
                 </div>
             </div>
         {!! Form::close() !!}
@@ -39,8 +39,8 @@
                     <h4>Attach your E-Signature</h4>
                     {!! Form::hidden('status', 0, ['id'=>'status']) !!}
                     {!! Form::hidden('hidden_filename', '', ['id'=>'hidden_filename']) !!}
-                    <input type="file" name="esignature" class="input-resume m-auto" id="esignature">
-                    {!! Form::submit('Approve', ['class'=>'btn btn-primary w-75 m-auto', 'id' => "sign_submit"]) !!}
+                    <input type="file" name="esignature" class="input-resume m-auto" accept="image/png" id="esignature">
+                    {!! Form::submit('Submit', ['class'=>'btn btn-outline-success w-75 m-auto', 'id' => "sign_submit"]) !!}
                     </form>
                 </div>
             </div>
@@ -64,7 +64,6 @@
 @section('script')
 <script>
     $('#payslip').click(()=>{
-
         setTimeout(function() {
             $('#payslip_pdf_actions').removeClass('d-none');
             $('#payslip').addClass('d-none')
@@ -110,6 +109,7 @@
 
                 if(payslip_generate == 0){
                     $('#payslip').prop('disabled',false)
+                    $('#payslip').html('Payslip')
                 }
                 else{
                     $('#payslip').prop('disabled',true)

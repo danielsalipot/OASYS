@@ -8,13 +8,13 @@
         <table class="table table-striped table-dark w-100 text-center" id="applicant_table">
             <thead>
             <tr>
-                <th scope="col">Picture</th>
-                <th scope="col">Employee Name</th>
-                <th scope="col">Sex</th>
-                <th scope="col">Age</th>
-                <th scope="col">Applying For</th>
-                <th scope="col">Education</th>
-                <th scope="col">Action</th>
+                <th class="col">Picture</th>
+                <th class="col">Employee Name</th>
+                <th class="col">Sex</th>
+                <th class="col">Age</th>
+                <th class="col">Applying For</th>
+                <th class="col">Education</th>
+                <th class="col-3">Action</th>
             </tr>
             </thead>
             <tbody></tbody>
@@ -71,7 +71,7 @@ $(document).ready(function(){
             },
             { data: 'applicant_id',
                 render : (data,type,row)=>{
-                    return `${row.onboard}  ${row.delete}`
+                    return `<div class='d-flex justify-content-center'>${row.onboard}  ${row.delete}</div>`
                 }
             }
         ]

@@ -34,13 +34,13 @@
         <table class="table table-striped table-dark text-center" id="overtime_table">
             <thead>
                 <tr>
-                    <th scope="col">Attendance Id</th>
-                    <th scope="col">Employee Details</th>
-                    <th scope="col">Time in</th>
-                    <th scope="col">Time out</th>
-                    <th scope="col">Total Overtime Hours</th>
-                    <th scope="col">Attendance Date</th>
-                    <th scope="col">Pay Overtime</th>
+                    <th class="col">Attendance Id</th>
+                    <th class="col">Employee Details</th>
+                    <th class="col">Time in</th>
+                    <th class="col">Time out</th>
+                    <th class="col">Total Overtime Hours</th>
+                    <th class="col">Attendance Date</th>
+                    <th class="col">Pay Overtime</th>
                 </tr>
             </thead>
         </table>
@@ -61,15 +61,15 @@
         <table class="table table-striped table-dark text-center w-100" id="paid_overtime_table">
             <thead>
                 <tr>
-                    <th scope="col">Select</th>
-                    <th scope="col">Transaction ID</th>
-                    <th scope="col">Employee Details</th>
-                    <th scope="col">Time in</th>
-                    <th scope="col">Time out</th>
-                    <th scope="col">Total Overtime<br>Hours</th>
-                    <th scope="col">Payroll Manager</th>
-                    <th scope="col">Added on (UTC)</th>
-                    <th scope="col">Attendance Date</th>
+                    <th class="col">Select</th>
+                    <th class="col">Transaction ID</th>
+                    <th class="col">Employee Details</th>
+                    <th class="col">Time in</th>
+                    <th class="col">Time out</th>
+                    <th class="col">Total Overtime<br>Hours</th>
+                    <th class="col">Payroll Manager</th>
+                    <th class="col">Added on (UTC)</th>
+                    <th class="col">Attendance Date</th>
                 </tr>
             </thead>
         </table>
@@ -278,7 +278,7 @@
                                     '${row.user_details.schedule_Timeout}',
                                     '${row.time_out}',
                                     '${row.total_overtime_hours}')"
-                                    class="btn btn-success" data-toggle="modal" data-target="#pay_ot_modal">Pay Overtime</button>`
+                                    class="btn btn-success" data-toggle="modal" data-target="#pay_ot_modal"><i class="h2 bi bi-cash"></i><br>Pay Overtime</button>`
                             }
                         },
                     ]
