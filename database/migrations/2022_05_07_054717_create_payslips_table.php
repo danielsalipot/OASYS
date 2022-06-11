@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('employee_id');
             $table->string('net_pay');
             $table->date('payroll_date');
+            $table->string('file_name');
+            $table->string('file_path');
             $table->timestamps();
         });
     }

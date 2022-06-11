@@ -17,6 +17,7 @@ class StaffController extends Controller
 {
     //HR Staff Functions
     function staffhome(){
+
         $applicants = UserCredential::where('user_type','applicant')
             ->join('user_details','user_details.login_id','=','user_credentials.login_id')
             ->join('applicant_details','applicant_details.login_id','=','user_credentials.login_id')
@@ -29,9 +30,10 @@ class StaffController extends Controller
 
         $profile = UserDetail::where('login_id',session('user_id'))->first();
 
+        $date = date("Y-m-d H:i:s");
         $interviews = Interview::join('applicant_details','applicant_details.applicant_id','=','interviews.applicant_id')
             ->join('user_details','user_details.information_id','=','applicant_details.information_id')
-            ->where('interviews.interview_schedule','like',date("Y-m-d")."%")
+            ->where('interviews.interview_schedule','like', date("Y-m-d", strtotime($date. ' + 8 hours'))."%")
             ->get();
 
         return view('pages.hr_staff.staffhome')

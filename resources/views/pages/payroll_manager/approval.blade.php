@@ -70,7 +70,7 @@
         }, 2000);
     })
 
-    function display(btn,key,value,from_date1,to_date1,progress,payslip_generate,vote){
+    function display(btn,key,value,from_date1,to_date1,progress,payslip_generate,vote,generator){
         if(btn.innerHTML == "Close"){
             $("iframe").each(function() {
                 $(this).css('display','none');
@@ -137,6 +137,9 @@
         $(`#${key}`).toggleClass("btn-light");
         $(`#progress_bar${key}`).toggleClass("d-none");
         $(`#${key}`).toggleClass("btn-danger");
+        if(generator == {{session('user_id')}}){
+            $(`#payslip_controls`).addClass('d-none')
+        }
     }
 
     function approve_show(btn){

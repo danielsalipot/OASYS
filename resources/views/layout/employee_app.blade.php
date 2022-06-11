@@ -13,6 +13,7 @@
 
     @include('inc.navincludes')
     @include('inc.employee_navbar')
+    @include('inc.alerts.employee_alerts')
     @yield('content')
 
 </body>

@@ -12,7 +12,7 @@
     <div class="row p-5 w-100"></div>
         <div class="text-primary">
             @if(Session::get('fail'))
-                <div class="alert alert-danger w-50 m-auto">{{Session::get('fail')}}</div>
+                <div class="alert alert-danger w-25 m-auto">{{Session::get('fail')}}</div>
             @endif
             <div class="card w-25 p-5 m-auto rounded shadow-lg">
                 <h1 class="display-6 m-auto">Login</h1>

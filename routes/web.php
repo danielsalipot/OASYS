@@ -12,11 +12,14 @@ Route::get('/test',[PagesController::class,'test']);
 
 Route::get('/display_resume', [PagesController::class, 'display_resume']);
 
+
 // Employee Routes
 Route::prefix('')->group(function () {
     include 'Employee/employee.php';
 });
-
+Route::prefix('')->group(function () {
+    include 'Employee/insert.php';
+});
 
 
 

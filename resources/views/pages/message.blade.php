@@ -67,9 +67,9 @@
         function chat_click(btn,name,pic,id){
             clearInterval(myInterval);
             $('#rid').val(id)
-            btn.className = "text-dark card w-100 alert-primary shadow-lg text-center p-3 m-2"
+            btn.className = "text-dark card w-100 alert-primary shadow-lg text-center p-2 m-2"
 
-            $('#employee_list button').not(btn).prop('class',"text-dark card w-100 shadow-lg text-center p-3 m-2");
+            $('#employee_list button').not(btn).prop('class',"text-dark card w-100 shadow-lg text-center p-2 m-2");
 
             $('#emp_name').html(name)
             $('#emp_pic').attr("src",pic)

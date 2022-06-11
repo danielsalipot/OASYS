@@ -168,7 +168,9 @@ class PayrollController extends Controller
             $file_arr_pr =[];
 
             $payrolls = Payroll::join('user_details','user_details.login_id','=','payrolls.payroll_manager_id')->get();
-            $count = UserCredential::where('user_type','payroll')->count();
+            $count = UserCredential::where('user_type','payroll')
+                ->count();
+            $count -= 1;
             $progress_bar = [];
 
             foreach ($payrolls as $key1 => $payroll) {
@@ -265,12 +267,22 @@ class PayrollController extends Controller
                 array_push($progress_bar, $str);
             }
 
-
             foreach ($payroll_files as $key => $value) {
-                array_push($btn_arr_pr,"<button id=\"".($key)."\" class='w-100 p-4 btn btn-light m-2 text-wrap' onclick=\"display(this,'".($key)."','".$value."','".$payrolls[$key]->from_date."','".$payrolls[$key]->to_date."','". $payrolls[$key]->progress ."',". $payslip_generated[$key] . ",".$payrolls[$key]->done.")\">" . $value . "</button>");
+                array_push($btn_arr_pr,
+                "<button id=\"".($key)."\" class='w-100 p-4 btn btn-light m-2 text-wrap' onclick=\"display(
+                    this,
+                    '".($key)."',
+                    '".$value."',
+                    '".$payrolls[$key]->from_date."',
+                    '".$payrolls[$key]->to_date."',
+                    '". $payrolls[$key]->progress ."',
+                    ". $payslip_generated[$key] . ",
+                    ".$payrolls[$key]->done.",
+                    ".$payrolls[$key]->payroll_manager_id.")\">" . $value . "</button>");
                 array_push($file_arr_pr,"<iframe id=\""."file".($key)."\" src=\"/" . $payroll_dir . "/" . $value ."\" width=\"100%\" style=\"display:none;height:100%\"></iframe>");
             }
 
-            return view('pages.payroll_manager.approval')->with(['profile' => $profile, 'btn_arr_pr' => $btn_arr_pr, 'file_arr_pr' => $file_arr_pr, 'progress_bar' =>$progress_bar, ]) ;
+
+            return view('pages.payroll_manager.approval')->with(['profile' => $profile, 'btn_arr_pr' => $btn_arr_pr, 'file_arr_pr' => $file_arr_pr, 'progress_bar' =>$progress_bar,]);
         }
 }

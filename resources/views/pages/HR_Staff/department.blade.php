@@ -4,7 +4,7 @@
     @endsection
 
     @section('first')
-        <h1 class="display-4 mt-5 text-center">Position Overview</h1>
+        <h1 class="display-4 mt-5 text-center">Department Overview</h1>
         <hr>
         <div class="row d-flex p-4 w-100 text-center justify-content-center">
             @foreach ($all_dept as $department)

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('attendance_id');
             $table->string('employee_id');
             $table->string('time_in');
-            $table->string('time_out');
+            $table->string('time_out')->nullable();
             $table->date('attendance_date');
             $table->timestamps();
         });

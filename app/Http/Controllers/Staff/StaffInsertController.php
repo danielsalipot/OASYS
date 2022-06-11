@@ -36,6 +36,10 @@ class StaffInsertController extends Controller
     }
 
     public function InsertInterview(Request $request){
+        $request->validate([
+            'sched'=>'required'
+        ]);
+
         Interview::create([
             'applicant_id'=> $request->emp_id,
             'interview_detail'=> $request->int_status,

@@ -729,10 +729,14 @@ class PayrollJSONController extends Controller
                 $full_name = $data->userDetail->fname . " " . $data->userDetail->mname . " " . $data->userDetail->lname;
 
                 $button ='
-                <button id="btn'.$data->information_id.'" onclick="chat_click(this,\''.str_replace("'", "\'",$full_name).'\',\'/'.$data->userDetail->picture.'\','.$data->information_id.')" class="text-dark card w-100 shadow-lg text-center p-3 m-2">
-                    <div class="d-flex align-items-center">
-                        <img src="/'.$data->userDetail->picture.'" class="rounded" width="50" height="50">
-                            <h5 class="ms-2">'. $full_name .'</h5>
+                <button id="btn'.$data->information_id.'" onclick="chat_click(this,\''. addslashes($full_name) .'\',\'/'.$data->userDetail->picture.'\','.$data->information_id.')" class="text-dark card w-100 p-2 m-2 shadow-lg">
+                    <div class="row w-100">
+                        <div class="col-3">
+                            <img src="/'.$data->userDetail->picture.'" class="rounded" width="50" height="50">
+                        </div>
+
+                        <div class="col text-center mt-3"><h5>'. $full_name .'</h5>'. $data->user_type .'
+                        </div>
                     </div>
                 </button>';
                 return $button;

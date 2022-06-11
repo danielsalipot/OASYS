@@ -39,9 +39,9 @@ $(document).ready(function(){
             url: '/applicantjson',
         },
         columns: [
-            { data: 'img',
+            { data: 'employee_id',
                 render : (data,type,row)=>{
-                    return data
+                    return row.img
                 }
             },
             { data: 'full_name',

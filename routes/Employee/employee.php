@@ -10,3 +10,4 @@ Route::prefix('employee')->group(function () {
     Route::get('/message', [EmployeeController::class, 'employeemessage']);
     Route::get('/profile', [EmployeeController::class, 'employeeprofile']);
 });
+

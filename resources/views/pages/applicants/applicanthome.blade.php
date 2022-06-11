@@ -92,12 +92,18 @@
                             <h2 class="text-center text-white w-100 bg-primary p-2">
                                 Notification
                             </h2>
+
                             @if (count($notif))
                                 @foreach ($notif as $item)
                                 <div class="card shadow border border-secondary rounded m-2">
-                                    <h4 class="h6 alert alert-primary rounded-0 rounded-top">{{$item->message->title}}</h4>
-                                    <h6 class="m-0 mx-1 text-start text-secondary px-1">Date sent: {{$item->message->created_at}}</h6>
-                                    <h6 class="text-decoration-none m-0 mx-1 text-dark text-secondary px-1">{!!$item->message->message!!}</h6>
+                                    <h6 class="h6 alert alert-primary rounded-0 rounded-top m-0">{{$item->message->title}}</h6>
+                                    <div class="w-100 shadow-sm m-0 py-2">
+                                        <h6 class="m-0 mx-1 text-start text-dark px-1" style="font-size:13px">From: {{ $item->sender->fname }} {{ $item->sender->mname }} {{ $item->sender->lname }}</h6>
+                                        <h6 class="m-0 mx-1 text-start text-secondary px-1" style="font-size:13px">Date sent: {{$item->message->created_at}}</h6>
+                                        <hr class="my-2">
+                                        <h6 class="text-decoration-none m-0 mx-1 text-dark text-secondary px-1 my-0">{!!$item->message->message!!}</h6>
+                                    </div>
+
                                     {!! Form::open(['action'=>'App\Http\Controllers\PagesController@notification_acknowledgement_insert','method'=>'GET']) !!}
                                     {!! Form::hidden('notif_receiver_id', $item->id) !!}
                                     @if ($item->acknowledgements > 0)
@@ -108,7 +114,6 @@
                                     {!! Form::close() !!}
                                 </div>
                                 @endforeach
-
                             @else
                                 <h6 class="display-6 text-secondary w-100 text-center"> No Notifications</h6>
                             @endif

@@ -351,7 +351,9 @@ Payslips::create([
     'payroll_id' => $payroll_file_record->id,
     'employee_id' => $employee->employee_id,
     'net_pay' => $employee->net_pay,
-    'payroll_date' => date($payroll_date[1])
+    'payroll_date' => date($payroll_date[1]),
+    'file_name' => "payslip(".$employee->employee_id.$employee->user_detail->lname.").pdf",
+    'file_path' => "payslips/".$request->ps_col2."/payslip(".$employee->employee_id.$employee->user_detail->lname.").pdf"
 ]);
 
 payroll_audit::create([

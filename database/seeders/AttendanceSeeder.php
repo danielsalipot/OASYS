@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Attendance;
-
+use DateTime;
 use Faker\Factory as Faker;
 
 class AttendanceSeeder extends Seeder
@@ -18,17 +18,14 @@ class AttendanceSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $decimals = 5; // number of decimal places
-	    $div = pow(10, $decimals);
-
         for ($i=1; $i <= 20; $i++) {
-            for ($j=0; $j < 30; $j++) {
-                    Attendance::create([
-                        'employee_id' => $i,
-                        'time_in' => date('H:i:s', rand(24200,25200)),
-                        'time_out' => date('H:i:s', rand(64800,72000)),
-                        'attendance_date'=> $faker->dateTimeInInterval('-7 weeks', '+14 weeks')
-                    ]);
+            for ($j=0; $j< 30; $j++) {
+                Attendance::create([
+                    'employee_id' => $i,
+                    'time_in' => date('H:i:s', rand(24200,25200)),
+                    'time_out' => date('H:i:s', rand(64800,72000)),
+                    'attendance_date'=> $faker->dateTimeInInterval('-'. (31 - $j) .' days', '+0 days')
+                ]);
             }
         }
     }
