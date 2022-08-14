@@ -21,27 +21,23 @@ class DatabaseSeeder extends Seeder
         $this->call(PayrollSeeder::class);
         $this->call(StaffSeeder::class);
 
+        for ($i=0; $i < 6; $i++) {
+            $this->call(DepartmentSeeder::class);
+            $this->call(PositionSeeder::class);
+        }
+
         for ($i=0; $i < 20; $i++) {
             $this->call(ApplicantSeeder::class);
             $this->call(EmployeeSeeder::class);
         }
 
-        for ($i=0; $i < 20; $i++) {
-            $this->call(MessageSeeder::class);
-        }
-
-        for ($i=0; $i < 20; $i++) {
+        for ($i=0; $i < 10; $i++) {
             $this->call(MessageSeeder::class);
         }
 
         for ($i=0; $i < 15; $i++) {
             $this->call(CashadvanceSeeder::class);
             $this->call(BonusSeeder::class);
-        }
-
-        for ($i=0; $i < 6; $i++) {
-            $this->call(DepartmentSeeder::class);
-            $this->call(PositionSeeder::class);
         }
 
         $this->call(AttendanceSeeder::class);
@@ -53,6 +49,10 @@ class DatabaseSeeder extends Seeder
         $this->call(DeductionSeeder::class);
         $this->call(ContributionsSeeder::class);
         $this->call(HolidaySeeder::class);
+        $this->call(AssessmentSeeder::class);
+        $this->call(LeaveApprovalSeeder::class);
+        $this->call(HealthCheckSeeder::class);
+
     }
 }
 

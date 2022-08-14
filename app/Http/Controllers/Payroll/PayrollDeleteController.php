@@ -15,9 +15,10 @@ use App\Models\Attendance;
 use App\Models\EmployeeDetail;
 use App\Models\holiday_attendance;
 use App\Models\Leave;
-use App\Models\payroll_audit;
+use App\Models\Audit;
 use App\Models\notification_message;
 use App\Models\notification_receiver;
+use App\Models\overtime_approval;
 
 class PayrollDeleteController extends Controller
 {
@@ -27,7 +28,13 @@ class PayrollDeleteController extends Controller
         for ($i=0; $i < count($ids) - 1; $i++) {
             $att_id = Overtime::where('overtime_id',$ids[$i])->first();
 
-            payroll_audit::create([
+            overtime_approval::where('attendance_id',$att_id->attendance_id)->update([
+                'status' => null,
+                'approval_date' => null,
+                'approver_id' => null
+            ]);
+
+            Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Overtime',
                 'employee' => $att_id->employee_id,
@@ -59,7 +66,7 @@ class PayrollDeleteController extends Controller
 
     public function DeleteDeduction($id){
         $deduction = Deduction::where('deduction_id',$id)->first();
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Deduction',
             'employee' => $deduction->employee_id,
@@ -90,7 +97,7 @@ class PayrollDeleteController extends Controller
 
     public function DeleteCashAdvance($id){
         $ca = CashAdvance::where('cashAdvances_id',$id)->first();
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Cash Advance',
             'employee' => $ca->employee_id,
@@ -121,7 +128,7 @@ class PayrollDeleteController extends Controller
 
     public function DeleteBonus($id){
         $bonus = Bonus::where('bonus_id',$id)->first();
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Bonus',
             'employee' => $bonus->employee_id,
@@ -153,7 +160,7 @@ class PayrollDeleteController extends Controller
     public function DeleteMultiPay($id){
         $multipay = MultiPay::where('multi_pay_id',$id)->first();
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Multi Salary',
             'employee' => $multipay->employee_id,
@@ -192,7 +199,7 @@ class PayrollDeleteController extends Controller
     public function DeleteHoliday($id){
         $holiday = Holiday::where('holiday_id',$id)->first();
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Holiday',
             'employee' => ' - ',
@@ -213,7 +220,7 @@ class PayrollDeleteController extends Controller
                 ->where('attendance_id',$value->attendance_id)
                 ->first();
 
-            payroll_audit::create([
+            Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Holiday Attendance',
                 'employee' => $att->employee_id,
@@ -250,7 +257,7 @@ class PayrollDeleteController extends Controller
             ->where('id',$hid)
             ->first();
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Holiday Attendance',
             'employee' => $ha_att->employee_id,
@@ -283,7 +290,7 @@ class PayrollDeleteController extends Controller
     public function DeleteLeave($lid,$aid){
         $leave = Leave::where('id',$lid)->first();
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Leave',
             'employee' => $leave->employee_id,

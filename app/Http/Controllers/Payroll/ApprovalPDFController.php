@@ -10,7 +10,7 @@ use setasign\Fpdi\Fpdi;
 use App\Models\payroll_approval;
 use App\Models\Payroll;
 use App\Models\UserDetail;
-use App\Models\payroll_audit;
+use App\Models\Audit;
 
 class ApprovalPDFController extends Controller
 {
@@ -103,7 +103,7 @@ class ApprovalPDFController extends Controller
             $str = 'Dispproved';
         }
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Approval',
             'employee' => ' - ',

@@ -22,11 +22,19 @@ use App\Models\Attendance;
 use App\Models\EmployeeDetail;
 use App\Models\holiday_attendance;
 use App\Models\Leave;
-use App\Models\payroll_audit;
+use App\Models\Audit;
+use App\Models\overtime_approval;
+use Carbon\CarbonPeriod;
 
 class PayrollInsertController extends Controller
 {
     public function InsertOvertime(Request $request){
+        overtime_approval::where('attendance_id',$request->attendance_id)->update([
+            'status' => 1,
+            'approval_date' => date('Y-m-d'),
+            'approver_id' => session('user_id')
+        ]);
+
         $id = Overtime::create([
             'employee_id' => $request->emp_id,
             'attendance_id' => $request->attendance_id,
@@ -35,7 +43,7 @@ class PayrollInsertController extends Controller
 
         $employee = EmployeeDetail::where('employee_id',$request->emp_id)->first();
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Overtime',
             'employee' => $employee->information_id,
@@ -43,7 +51,6 @@ class PayrollInsertController extends Controller
             'amount' => '-',
             'tid' => $id->id,
         ]);
-
 
         if(isset($request->chk)){
             // AUTOMATIC SENDING OF NOTIFICATION
@@ -78,7 +85,7 @@ class PayrollInsertController extends Controller
                 'deduction_amount' => $request->hidden_deduction_amount
             ]);
 
-            payroll_audit::create([
+            Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Deduction',
                 'employee' => $employee_ids[$i],
@@ -117,7 +124,7 @@ class PayrollInsertController extends Controller
                 'cashAdvance_amount' => $request->hidden_cash_advance_amount
             ]);
 
-            payroll_audit::create([
+            Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Cash Advance',
                 'employee' => $employee_ids[$i],
@@ -156,7 +163,7 @@ class PayrollInsertController extends Controller
                 'bonus_amount' => $request->hidden_bonus_amount
             ]);
 
-            payroll_audit::create([
+            Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Bonus',
                 'employee' => $employee_ids[$i],
@@ -192,7 +199,7 @@ class PayrollInsertController extends Controller
             'status' => $request->hidden_status
         ]);
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Multi Salary',
             'employee' => $request->hidden_emp_id,
@@ -236,7 +243,7 @@ class PayrollInsertController extends Controller
             'holiday_end_date' => $request->insert_end_date,
         ]);
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Listed Holiday',
             'employee' => '',
@@ -252,25 +259,29 @@ class PayrollInsertController extends Controller
     {
         $employee_ids = explode(';',$request->hidden_emp_id);
         for ($i=0; $i < count($employee_ids) - 1; $i++) {
-            $employee = EmployeeDetail::where('employee_id',$employee_ids[$i])->first();
-            $attendance_id = Attendance::create([
-                'employee_id' => $employee->employee_id,
-                'time_in' => $employee->schedule_Timein,
-                'time_out' => $employee->schedule_Timeout,
-                'attendance_date'=> $request->hidden_leave_input
-            ]);
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee_ids[$i])->first();
+            $period = CarbonPeriod::create($request->hidden_leave_from_input, $request->hidden_leave_to_input);
+            foreach ($period as $key => $value) {
+                $attendance_id = Attendance::create([
+                    'employee_id' => $employee->employee_id,
+                    'time_in' => $employee->schedule_Timein,
+                    'time_out' => $employee->schedule_Timeout,
+                    'attendance_day' => date('w',strtotime($value->format('Y-m-d'))),
+                    'attendance_date'=> $value->format('Y-m-d')
+                ]);
 
-            $id = Leave::create([
-                'employee_id' => $employee->employee_id,
-                'attendance_id' => $attendance_id->id,
-                'payrollManager_id' =>session()->get('user_id')
-            ]);
+                $id = Leave::create([
+                    'employee_id' => $employee->employee_id,
+                    'attendance_id' => $attendance_id->id,
+                    'payrollManager_id' =>session()->get('user_id')
+                ]);
+            }
 
-            payroll_audit::create([
+            Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Leave',
-                'employee' => $employee_ids[$i],
-                'activity' => 'Paid Leave',
+                'employee' => $employee->userDetail->fname. ' '. $employee->userDetail->mname . ' '. $employee->userDetail->lname,
+                'activity' => 'Paid Leave from '. $request->hidden_leave_from_input . ' to '. $request->hidden_leave_to_input,
                 'amount' => '-',
                 'tid' => $id->id,
             ]);
@@ -307,6 +318,7 @@ class PayrollInsertController extends Controller
                         'employee_id' => $employee->employee_id,
                         'time_in' => $employee->schedule_Timein,
                         'time_out' => $employee->schedule_Timeout,
+                        'attendance_day' => date('w',strtotime($dates[$i])),
                         'attendance_date'=> $dates[$i]
                     ]);
 
@@ -317,7 +329,7 @@ class PayrollInsertController extends Controller
                         'payrollManager_id' =>session()->get('user_id')
                     ]);
 
-                    payroll_audit::create([
+                    Audit::create(['activity_type' => 'payroll',
                         'payroll_manager_id' => session()->get('user_id'),
                         'type' => 'Holiday',
                         'employee' => $employee->employee_id,
@@ -355,6 +367,7 @@ class PayrollInsertController extends Controller
                         'employee_id' => $employee->employee_id,
                         'time_in' => $employee->schedule_Timein,
                         'time_out' => $employee->schedule_Timeout,
+                        'attendance_day' => date('w',strtotime($dates[$i])),
                         'attendance_date'=> $dates[$i]
                     ]);
 
@@ -365,7 +378,7 @@ class PayrollInsertController extends Controller
                         'payrollManager_id' =>session()->get('user_id')
                     ]);
 
-                    payroll_audit::create([
+                    Audit::create(['activity_type' => 'payroll',
                         'payroll_manager_id' => session()->get('user_id'),
                         'type' => 'Holiday',
                         'employee' => $employee->employee_id,

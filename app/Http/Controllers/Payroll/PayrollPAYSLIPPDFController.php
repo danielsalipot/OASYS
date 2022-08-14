@@ -10,7 +10,7 @@ use Fpdf\Fpdf;
 use App\Models\Payroll;
 use App\Models\UserDetail;
 use App\Models\Payslips;
-use App\Models\payroll_audit;
+use App\Models\Audit;
 
 class PayrollPAYSLIPPDFController extends Controller
 {
@@ -356,7 +356,7 @@ Payslips::create([
     'file_path' => "payslips/".$request->ps_col2."/payslip(".$employee->employee_id.$employee->user_detail->lname.").pdf"
 ]);
 
-payroll_audit::create([
+Audit::create(['activity_type' => 'payroll',
     'payroll_manager_id' => session()->get('user_id'),
     'type' => 'Payslip',
     'employee' => $employee->employee_id,

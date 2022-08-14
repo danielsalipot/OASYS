@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\payroll_audit;
+use App\Models\Audit;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PayrollAuditPolicy
@@ -25,10 +25,10 @@ class PayrollAuditPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\payroll_audit  $payrollAudit
+     * @param  \App\Models\Audit  $payrollAudit
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, payroll_audit $payrollAudit)
+    public function view(User $user, Audit $payrollAudit)
     {
         //
     }
@@ -48,10 +48,10 @@ class PayrollAuditPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\payroll_audit  $payrollAudit
+     * @param  \App\Models\Audit  $payrollAudit
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, payroll_audit $payrollAudit)
+    public function update(User $user, Audit $payrollAudit)
     {
         //
     }
@@ -60,10 +60,10 @@ class PayrollAuditPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\payroll_audit  $payrollAudit
+     * @param  \App\Models\Audit  $payrollAudit
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, payroll_audit $payrollAudit)
+    public function delete(User $user, Audit $payrollAudit)
     {
         //
     }
@@ -72,10 +72,10 @@ class PayrollAuditPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\payroll_audit  $payrollAudit
+     * @param  \App\Models\Audit  $payrollAudit
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, payroll_audit $payrollAudit)
+    public function restore(User $user, Audit $payrollAudit)
     {
         //
     }
@@ -84,10 +84,10 @@ class PayrollAuditPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\payroll_audit  $payrollAudit
+     * @param  \App\Models\Audit  $payrollAudit
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, payroll_audit $payrollAudit)
+    public function forceDelete(User $user, Audit $payrollAudit)
     {
         //
     }

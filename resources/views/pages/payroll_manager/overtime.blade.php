@@ -4,6 +4,13 @@
     <h1 class="section-title mt-4 pb-1 w-100 text-center">Overtime Management</h1>
 @endsection
 
+@section('controls')
+    <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Overtime Payments</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Paid Overtime</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu2">Denied Overtime Application</a></li>
+@endsection
+
+
 @section('first')
     <div class="container">
         <h1 class="display-4 pb-5 mt-5 text-center w-100">Overtime Payments</h1>
@@ -31,15 +38,15 @@
                     class="btn h-100 w-25 btn-outline-success">Refresh</button>
             </div>
         </div>
-        <table class="table table-striped table-dark text-center" id="overtime_table">
+        <table class="table table-striped  text-center" id="overtime_table">
             <thead>
                 <tr>
-                    <th class="col">Attendance Id</th>
+                    <th class="col">Attendance Date</th>
                     <th class="col">Employee Details</th>
                     <th class="col">Time in</th>
                     <th class="col">Time out</th>
-                    <th class="col">Total Overtime Hours</th>
-                    <th class="col">Attendance Date</th>
+                    <th class="col-1">Hours</th>
+                    <th class="col">Overtime Application</th>
                     <th class="col">Pay Overtime</th>
                 </tr>
             </thead>
@@ -58,22 +65,47 @@
                 data-target="#paid_ot_modal">Remove Overtime</button>
         </div>
 
-        <table class="table table-striped table-dark text-center w-100" id="paid_overtime_table">
+        <table class="table table-striped  text-center w-100" id="paid_overtime_table">
             <thead>
                 <tr>
                     <th class="col">Select</th>
-                    <th class="col">Transaction ID</th>
                     <th class="col">Employee Details</th>
                     <th class="col">Time in</th>
                     <th class="col">Time out</th>
                     <th class="col">Total Overtime<br>Hours</th>
                     <th class="col">Payroll Manager</th>
+                    <th class="col">Transaction ID</th>
                     <th class="col">Added on (UTC)</th>
                     <th class="col">Attendance Date</th>
                 </tr>
             </thead>
         </table>
     </div>
+@endsection
+
+@section('third')
+<div class="container p-5 border shadow-lg">
+    <div class="container w-100 text-center">
+        <h1 class="display-4 pb-5 mt-5 text-center w-100">Denied Overtime Application</h1>
+    </div>
+
+    <div class="m-auto">
+        <table class="table table-striped  text-center w-100" id="denied_overtime_table">
+            <thead>
+                <tr>
+                    <th class="col">Employee Details</th>
+                    <th class="col">Attendance Date</th>
+                    <th class="col">Time in</th>
+                    <th class="col">Time out</th>
+                    <th class="col">Payroll Manager</th>
+                    <th class="col">Transaction ID</th>
+                    <th class="col">Added on (UTC)</th>
+                    <th class="col"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 @endsection
 
 @section('modal')
@@ -223,7 +255,7 @@
                         }
                     },
                     columns: [{
-                            data: 'attendance_id',
+                            data: 'attendance_date',
                             render: (data, type, row) => {
                                 return `${data}`
                             }
@@ -258,14 +290,46 @@
                             }
                         },
                         {
-                            data: 'attendance_date',
+                            data: 'approval.id',
                             render: (data, type, row) => {
-                                return `${data}`
+                                if(data){
+                                    return `
+                                    <h6 class='w-100 text-center text-primary p-2'>Application Details</h6>
+                                    <textarea class="w-100 form-control" rows="8" readonly>${row.approval.message}</textarea>`
+                                }
+                                else{
+                                    return 'No Application'
+                                }
+
                             }
                         },
                         {
                             data: 'attendance_date',
                             render: (data, type, row) => {
+                                if(row.approval){
+                                    var full_name =
+                                    `${row.user_details.fname} ${row.user_details.mname} ${row.user_details.lname}`
+                                    return `<button type="button" onclick="payOvetimeClick(
+                                        '${row.employee_id}',
+                                        '${row.attendance_id}',
+                                        '${full_name}',
+                                        '${row.user_details.department}',
+                                        '${row.user_details.position}',
+                                        '${data}',
+                                        '${row.user_details.schedule_Timeout}',
+                                        '${row.time_out}',
+                                        '${row.total_overtime_hours}')"
+                                        class="btn btn-success w-100 h-50 p-2" data-toggle="modal" data-target="#pay_ot_modal"><i class="h2 bi bi-cash"></i><br>Pay Overtime</button>
+                                        <br>
+                                        <br>
+                                        <form action='/updateDenyOvertime' method='POST'>
+                                        @csrf
+                                        <input type='hidden' name='attendance_id' value='${row.attendance_id}'>
+                                        <button type='submit' class='btn btn-outline-danger w-100 h-50 p-2'><i class="bi bi-trash h2"></i><br>Deny</button>
+                                        </form>`
+
+                                }
+
                                 var full_name =
                                     `${row.user_details.fname} ${row.user_details.mname} ${row.user_details.lname}`
                                 return `<button type="button" onclick="payOvetimeClick(
@@ -278,7 +342,7 @@
                                     '${row.user_details.schedule_Timeout}',
                                     '${row.time_out}',
                                     '${row.total_overtime_hours}')"
-                                    class="btn btn-success" data-toggle="modal" data-target="#pay_ot_modal"><i class="h2 bi bi-cash"></i><br>Pay Overtime</button>`
+                                    class="btn btn-success w-100 h-50 p-2" data-toggle="modal" data-target="#pay_ot_modal"><i class="h2 bi bi-cash"></i><br>Pay Overtime</button>`
                             }
                         },
                     ]
@@ -286,7 +350,6 @@
             }
 
             load_paid_table()
-
             function load_paid_table() {
                 $('#paid_overtime_table').DataTable({
                     processing: true,
@@ -300,12 +363,6 @@
                                 return `<button type="button"
                                 onclick="selectRecord(this,'${row.overtime_id}','${data}', '${row.fname} ${row.mname} ${row.lname}','${row.total_overtime_hours}','${row.attendance_date}')"
                                 class="btn btn-outline-primary">Select</button>`
-                            }
-                        },
-                        {
-                            data: 'overtime_id',
-                            render: (data, type, row) => {
-                                return `${data}`
                             }
                         },
                         {
@@ -341,6 +398,19 @@
                                 return `<b>${data}</b>`
                             }
                         },
+                        {
+                            data: 'approval.id',
+                            render: (data, type, row) => {
+                                if(data){
+                                    return `
+                                    <h6 class='w-100 text-center text-primary p-2'>Application Details</h6>
+                                    <textarea class="w-100 form-control" rows="8" readonly>${row.approval.message}</textarea>`
+                                }
+                                else{
+                                    return 'No Application'
+                                }
+                            }
+                        },
                         { data: 'added_on',
                             render : (data,type,row)=>{
                                 return `<b>${data}</b>`
@@ -352,6 +422,81 @@
                                 return `${data}`
                             }
                         }
+                    ]
+                })
+            }
+
+            load_denied_table()
+            function load_denied_table() {
+                $('#denied_overtime_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: '/DeniedOvertime'
+                    },
+                    columns: [
+                        {
+                            data: 'employee.user_detail.fname',
+                            render: (data, type, row) => {
+                                return `<b>${data} ${row.employee.user_detail.mname} ${row.employee.user_detail.lname}</b><br>
+                                        ${row.employee.position}<br>
+                                        ${row.employee.department}`
+                            }
+                        },
+                        {
+                            data: 'attendance.attendance_date',
+                            render: (data, type, row) => {
+                                return `${data}`
+                            }
+                        },
+                        {
+                            data: 'attendance.time_in',
+                            render: (data, type, row) => {
+                                return `Time in: <h5 class="text-success">${data}</h5>
+                                        Schedule: <h5>${row.employee.schedule_Timein}</h5>`
+                            }
+                        },
+                        {
+                            data: 'attendance.time_out',
+                            render: (data, type, row) => {
+                                return `Time out: <h5 class="text-success">${data}</h5>
+                                        Schedule: <h5>${row.employee.schedule_Timeout}</h5>`
+                            }
+                        },
+                        { data: 'payroll_manager',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        {
+                            data: 'id',
+                            render: (data, type, row) => {
+                                if(data){
+                                    return `
+                                    <h6 class='w-100 text-center text-danger p-2'>Application Details</h6>
+                                    <textarea class="w-100 form-control" rows="8" readonly>${row.message}</textarea>`
+                                }
+                                else{
+                                    return 'No Application'
+                                }
+                            }
+                        },
+                        { data: 'approval_date',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'id',
+                            render : (data,type,row)=>{
+                                return `
+                                <form action='/updateRecoverApproval' method='POST'>
+                                    @csrf
+                                    <input type='hidden' value='${data}' name='approval_id'>
+                                    <button type='submit' class="btn btn-outline-primary w-100"><i class="bi bi-eraser h2"></i><br>Recover</button>
+                                </form>`
+
+                            }
+                        },
                     ]
                 })
             }
@@ -440,16 +585,3 @@
         }
     </script>
 @endsection
-
-{{-- <div class="row w-100">
-       <div class="col-3 border border-secondary rounded text-center pt-2">
-
-    </div>
-    <div class="col">
-
-
-    </div>
-    <div class="col">
-
-    </div>
-</div> --}}

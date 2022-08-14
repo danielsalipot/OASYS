@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
@@ -12,6 +13,8 @@ Route::get('/test',[PagesController::class,'test']);
 
 Route::get('/display_resume', [PagesController::class, 'display_resume']);
 
+//Audit PDF ROUTE
+Route::get('/auditPdf', [AuditController::class,'audit']);
 
 // Employee Routes
 Route::prefix('')->group(function () {
@@ -20,6 +23,17 @@ Route::prefix('')->group(function () {
 Route::prefix('')->group(function () {
     include 'Employee/insert.php';
 });
+Route::prefix('')->group(function () {
+    include 'Employee/update.php';
+});
+Route::prefix('')->group(function () {
+    include 'Employee/delete.php';
+});
+Route::prefix('')->group(function () {
+    include 'Employee/json.php';
+});
+
+
 
 
 
@@ -66,6 +80,21 @@ Route::prefix('')->group(function () {
 Route::prefix('')->group(function () {
     include 'Admin/admin.php';
 });
+Route::prefix('')->group(function () {
+    include 'Admin/insert.php';
+});
+Route::prefix('')->group(function () {
+    include 'Admin/delete.php';
+});
+Route::prefix('')->group(function () {
+    include 'Admin/edit.php';
+});
+Route::prefix('')->group(function () {
+    include 'Admin/json.php';
+});
+
+
+
 
 // Staff Routes
 Route::prefix('')->group(function () {
@@ -86,6 +115,12 @@ Route::prefix('')->group(function () {
 
 
 Route::get('/message', [MessageController::class, 'message']);
+Route::get('/message/{name}', [MessageController::class, 'message_search']);
+Route::get('/messagejson/{r_id}',[MessageController::class,'MessageJson']);
+Route::get('/chatemployeelistjson', [MessageController::class,'ChatEmployeeDetails']);
+Route::get('/fetchNavBarMessageCount', [MessageController::class,'fetchNavBarMessageCount']);
+Route::get('/markAsReadChat/{sender_id}', [MessageController::class,'markAsReadChat']);
+
 Route::get('/notification', [MessageController::class, 'notification']);
 Route::get('/notification/views', [PagesController::class, 'view_notif']);
 Route::get('/sendmessage',[MessageController::class,'InsertMessage']);

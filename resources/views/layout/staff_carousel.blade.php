@@ -29,33 +29,28 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container">
-            @yield('Title')
-            @if(Session::get('success'))
-                <div class="alert alert-success w-100 m-auto my-3">{{Session::get('success')}}</div>
-            @endif
+                @include('inc.alerts.admin_alerts')
+                @yield('Title')
 
-            <div id="myCarousel" class="carousel carousel-dark slide" data-interval="false" data-ride="carousel">
+                <ul class="nav nav-tabs">
+                    @yield('controls')
+                </ul>
 
-                <a class="carousel-control-prev" href="#myCarousel" style="height:0px;margin-top:55px;margin-left:20vw" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#myCarousel" style="height:0px;margin-top:55px;margin-right:20vw" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        @yield('first')
+                <div class="tab-content">
+                    <div id="home" class="tab-pane in active">
+                        <div class="container p-5 border shadow-lg">
+                            @yield('first')
+                        </div>
                     </div>
-
-                    @yield('extra')
-
-                    <div class="item">
-                        @yield('second')
+                    <div id="menu1" class="tab-pane">
+                        <div class="container p-5 border shadow-lg">
+                            @yield('second')
+                        </div>
                     </div>
+                    <div id="menu2" class="tab-pane">
+                        @yield('third')
+                    </div>
+                    @yield('fourth')
                 </div>
             </div>
         </div>

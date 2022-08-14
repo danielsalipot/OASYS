@@ -43,28 +43,40 @@
 
 @section('script')
     <script>
-        $('#employee_list').DataTable({
-            language: { search: "",searchPlaceholder: "Search..." },
-            "dom":'<"m-auto w-50"f><t><"m-auto w-50"p>',
-            "bInfo" : false,
-            ordering:false,
-            "bLengthChange": false,
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: '/chatemployeelistjson'
-            },
-            columns: [
-                { data: 'full_name',
-                    render : (data,type,row)=>{
-                        return row.btn;
+        function initialize_table(){
+            $('#employee_list').DataTable({
+                language: { search: "",searchPlaceholder: "Search..." },
+                "dom":'<"m-auto w-50"f><t><"m-auto w-50"p>',
+                "bInfo" : false,
+                ordering:false,
+                "bLengthChange": false,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '/chatemployeelistjson'
+                },
+                columns: [
+                    { data: 'full_name',
+                        render : (data,type,row)=>{
+                            return row.btn;
+                        }
                     }
-                }
-            ]
-        })
+                ]
+            })
+        }
+
+        initialize_table();
+
+        @if (isset($name))
+            $('#employee_list').DataTable().search('{{ $name }}').draw();
+        @endif
 
         var myInterval;
         function chat_click(btn,name,pic,id){
+            if(btn.getElementsByClassName('badge')[0]){
+                btn.getElementsByClassName('badge')[0].className ='d-none'
+            }
+
             clearInterval(myInterval);
             $('#rid').val(id)
             btn.className = "text-dark card w-100 alert-primary shadow-lg text-center p-2 m-2"
@@ -73,6 +85,14 @@
 
             $('#emp_name').html(name)
             $('#emp_pic').attr("src",pic)
+
+            $.ajax({
+                url: `/markAsReadChat/${id}`,
+                type: 'get',
+                success: function(response){
+
+                }
+            });
 
             function load_chat(){
                 $.ajax({
@@ -117,7 +137,7 @@
             load_chat()
             myInterval = setInterval(function(){
                 load_chat()
-            }, 5000);
+            }, 2000);
         }
 
         function send_click(){

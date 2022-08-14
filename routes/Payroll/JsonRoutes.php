@@ -23,6 +23,7 @@ Route::prefix('')->group(function () {
 
     // Overtime JSON ROUTE
     Route::get('/overtimejson', [PayrollJSONController::class,'Overtime']);
+    Route::get('/DeniedOvertime', [PayrollJSONController::class,'DeniedOvertime']);
     Route::get('/getPaidOvertime', [PayrollJSONController::class,'getPaidOvertime']);
 
 
@@ -42,8 +43,7 @@ Route::prefix('')->group(function () {
 
 
     // Message JSON ROUTE
-    Route::get('/messagejson/{r_id}',[PayrollJSONController::class,'Message']);
-    Route::get('/chatemployeelistjson', [PayrollJSONController::class,'ChatEmployeeDetails']);
+
 
 
     // Notification JSON ROUTE
@@ -63,7 +63,7 @@ Route::prefix('')->group(function () {
 
     Route::get('/employeelistjson', [PayrollJSONController::class,'EmployeeDetails']);
 
-    Route::get('/payrollauditjson', [PayrollJSONController::class,'payroll_audit']);
+    Route::get('/payrollauditjson', [PayrollJSONController::class,'Audit']);
 
 
 

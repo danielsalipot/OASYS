@@ -4,6 +4,15 @@
     <h1 class="section-title mt-4 pb-1 text-center w-100">Employee Contributions</h1>
 @endsection
 
+
+@section('controls')
+
+    <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">SSS Contribution</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Pagibig Contribution</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu2">Philhealth Contribution</a></li>
+@endsection
+
+
 @section('first')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">SSS Contribution</h1>
 
@@ -68,11 +77,11 @@
 @endsection
 
 @section('second')
-<div class="container">
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Pagibig Contribution</h1>
 
     <div class="shadow-lg m-auto p-5">
         <h3 class="w-100 text-center">Pagibig Contribution Details</h3>
+
         {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_pagibig']) !!}
         <div class="row p-3">
             <div class="row">
@@ -107,6 +116,7 @@
                 </div>
                 <div class="col"></div>
             </div>
+            <div class="row">
                 <div class="d-flex flex-row justify-content-center mt-3">
                     <button type="button" id="pagibig_lock" class="btn btn-outline-primary h-100 me-2 px-4 p-3"><i class="bi bi-lock"></i></button>
                     {!! Form::submit('Update Pagibig Rate', ['disabled','id' =>'pagibig_update','class'=>'btn btn-success px-5 p-3']) !!}
@@ -133,7 +143,6 @@
                 <button type="button" name="pagibig_refresh" id="pagibig_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
             </div>
         </div>
-
     </div>
 
     <table class="table table-striped text-center w-100" id="pagibig_table">
@@ -148,11 +157,10 @@
             </tr>
         </thead>
     </table>
-</div>
 @endsection
 
-@section('extra')
-<div class="item">
+@section('third')
+<div class="container p-5 border shadow-lg">
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Philhealth Contribution</h1>
 
     <div class="shadow-lg m-auto p-5">
@@ -222,7 +230,6 @@
                 <button type="button" name="philhealth_refresh" id="philhealth_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
             </div>
         </div>
-
     </div>
 
     <table class="table table-striped text-center w-100" id="philhealth_table">

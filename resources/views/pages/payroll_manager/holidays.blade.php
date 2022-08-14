@@ -4,6 +4,12 @@
     <h1 class="section-title mt-5 pb-5 text-center w-100">Holidays Management</h1>
 @endsection
 
+@section('controls')
+    <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Listed Holidays</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Add Holiday Pay</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu2">Holiday Attendance</a></li>
+@endsection
+
 @section('first')
 <div class="container">
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Listed Holidays</h1>
@@ -64,7 +70,7 @@
                 </div>
             </div>
 
-            <table class="table table-striped table-dark" id="delete_table">
+            <table class="table table-striped " id="delete_table">
                 <thead>
                     <tr>
                         <th class="col">Holiday Name</th>
@@ -157,6 +163,7 @@
                         </div>
                         <div class="col-3 text-center">
                             <button class="btn btn-outline-danger w-100 p-3">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -165,41 +172,41 @@
 </div>
 @endsection
 
-@section('extra')
+@section('third')
+<div class="container p-5 border shadow-lg">
+    <h1 class="display-4 pb-5 mt-5 text-center w-100">Holiday Attendance</h1>
+    <hr>
+    <h4>Delete all Attendance</h4>
+    <hr>
 
-<div class="item">
-    <div class="container">
-        <h1 class="display-4 pb-5 mt-5 text-center w-100">Holiday Attendance</h1>
-        <hr>
-        <h4>Delete all Attendance</h4>
-        <hr>
-        <div class="row mb-3 mt-3 input-daterange" >
-            <div class="col-md-2">
-                <input type="text" name="delete_all_from_date" id="delete_all_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
-            </div>
-            <div class="col-md-2">
-                <input type="text" name="delete_all_to_date" id="delete_all_to_date" class="form-control h-100" placeholder="To Date" readonly />
-            </div>
-            <div class="col-2">
-                <button type="button" name="delete_all_filter" id="delete_all_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
-                <button type="button" name="delete_all_refresh" id="delete_all_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
-            </div>
+    <div class="row mb-3 mt-3 input-daterange" >
+        <div class="col-md-2">
+            <input type="text" name="delete_all_from_date" id="delete_all_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
         </div>
-        <table class="table table-striped text-center table-dark w-100" id="delete_all_attendance">
-            <thead>
-                <tr>
-                    <th class="col">Holiday Name</th>
-                    <th class="col">Holiday Start Date</th>
-                    <th class="col">Holiday End Date</th>
-                    <th class="col">Number of Attendance</th>
-                    <th class="col">Payroll Manager</th>
-                    <th class="col">Added on</th>
-                    <th class="col">Delete</th>
-                </tr>
-            </thead>
-        </table>
+        <div class="col-md-2">
+            <input type="text" name="delete_all_to_date" id="delete_all_to_date" class="form-control h-100" placeholder="To Date" readonly />
+        </div>
+        <div class="col-2">
+            <button type="button" name="delete_all_filter" id="delete_all_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
+            <button type="button" name="delete_all_refresh" id="delete_all_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+        </div>
     </div>
-    <div class="container w-100">
+
+    <table class="table table-striped text-center table-dark w-100" id="delete_all_attendance">
+        <thead>
+            <tr>
+                <th class="col">Holiday Name</th>
+                <th class="col">Holiday Start Date</th>
+                <th class="col">Holiday End Date</th>
+                <th class="col">Number of Attendance</th>
+                <th class="col">Payroll Manager</th>
+                <th class="col">Added on</th>
+                <th class="col">Delete</th>
+            </tr>
+        </thead>
+    </table>
+
+    <div class="container mt-5 w-100 p-5 border shadow-lg">
         <hr>
         <h4>Delete Selected Attendance</h3>
         <hr>
@@ -428,7 +435,7 @@
             var to_date = $('#to_date').val();
             if(from_date != '' &&  to_date != ''){
                 $('#holiday_attendance').DataTable().destroy();
-                load_table(from_date, to_date);
+                load_attendance(from_date, to_date);
             }else{
                 alert('Both Date is required');
             }
@@ -439,7 +446,7 @@
             $('#from_date').val(start_date);
             $('#to_date').val(end_date);
             $('#holiday_attendance').DataTable().destroy();
-            load_table(start_date,end_date);
+            load_attendance(start_date,end_date);
         });
 
 
@@ -500,11 +507,11 @@
         }
 
         $('#delete_all_filter').click(function(){
-            var from_date = $('#from_date').val();
-            var to_date = $('#to_date').val();
+            var from_date = $('#delete_all_from_date').val();
+            var to_date = $('#delete_all_to_date').val();
             if(from_date != '' &&  to_date != ''){
                 $('#delete_all_attendance').DataTable().destroy();
-                load_table(from_date, to_date);
+                load_delete_all(from_date, to_date);
             }else{
                 alert('Both Date is required');
             }
@@ -515,7 +522,7 @@
             $('#delete_all_from_date').val(start_date);
             $('#delete_all_to_date').val(end_date);
             $('#delete_all_attendance').DataTable().destroy();
-            load_table(start_date,end_date);
+            load_delete_all(start_date,end_date);
         });
     })
 

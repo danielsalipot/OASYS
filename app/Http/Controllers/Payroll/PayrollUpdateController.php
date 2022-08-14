@@ -3,22 +3,151 @@
 namespace App\Http\Controllers\Payroll;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 
 use App\Models\EmployeeDetail;
 use App\Models\Contributions;
 use App\Models\Pagibig;
 use App\Models\philhealth;
-use App\Models\payroll_audit;
+use App\Models\Audit;
+use App\Models\Leave;
+use App\Models\leave_approval;
 use App\Models\notification_message;
-use App\Models\notification_receiver;
+use App\Models\overtime_approval;
+use Carbon\CarbonPeriod;
 
 class PayrollUpdateController extends Controller
 {
+    public function updateRecoverLeave(Request $request){
+        $leave = leave_approval::find($request->id);
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$leave->employee_id)->first();
+
+        if($leave->status){
+            $period = CarbonPeriod::create($leave->start_date, $leave->end_date);
+            foreach ($period as $key => $value) {
+                if(!in_array(date('w',strtotime($value->format('Y-m-d'))),json_decode($employee->schedule_days))){
+                    continue;
+                }
+
+                $attendance = Attendance::where('employee_id',$employee->employee_id)->where('attendance_date',$value->format('Y-m-d'))->first();
+                $leave = Leave::where('attendance_id',$attendance->attendance_id)->delete();
+                Attendance::where('attendance_id',$attendance->attendance_id)->delete();
+            }
+        }
+
+        leave_approval::find($request->id)->update([
+            'status' => null,
+            'approver_id' => null,
+            'approval_date' => null
+        ]);
+
+        Audit::create(['activity_type' => 'payroll',
+            'payroll_manager_id' => session()->get('user_id'),
+            'type' => 'Leave',
+            'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
+            'activity' => 'Recover Leave Application',
+            'amount' => ' - ',
+            'tid' => ' - ',
+        ]);
+
+        return back()->with(['update'=>'Leave application has been recovered']);
+    }
+
+    public function updateApprovalLeave(Request $request){
+        $leave = leave_approval::find($request->id);
+        leave_approval::find($request->id)->update([
+            'status' => $request->status,
+            'approver_id' => session('user_id'),
+            'approval_date' => date('Y-m-d')
+        ]);
+
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$leave->employee_id)->first();
+        if($request->status){
+            $str = 'Leave Application Approved from '.$leave->start_date. ' to '. $leave->end_date ;
+            $period = CarbonPeriod::create($leave->start_date, $leave->end_date);
+            foreach ($period as $key => $value) {
+                if(!in_array(date('w',strtotime($value->format('Y-m-d'))),json_decode($employee->schedule_days))){
+                    continue;
+                }
+                $attendance = Attendance::create([
+                    'employee_id' => $employee->employee_id,
+                    'time_in' => $employee->schedule_Timein,
+                    'time_out' => $employee->schedule_Timeout,
+                    'attendance_day' => date('w',strtotime($value->format('Y-m-d'))),
+                    'attendance_date'=> $value->format('Y-m-d')
+                ]);
+
+                $id = Leave::create([
+                    'employee_id' => $employee->employee_id,
+                    'attendance_id' => $attendance->id,
+                    'payrollManager_id' =>session('user_id')
+                ]);
+            }
+
+            Audit::create(['activity_type' => 'payroll',
+                'payroll_manager_id' => session()->get('user_id'),
+                'type' => 'Leave',
+                'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
+                'activity' => $str,
+                'amount' => ' - ',
+                'tid' => ' - ',
+            ]);
+        }
+        else{
+            $str = 'Leave Application Disapproved';
+        }
+
+        return back()->with(['update'=>$str]);
+    }
+
+
+    function updateDenyOvertime(Request $request){
+        $overtime = overtime_approval::where('attendance_id', $request->attendance_id)->first();
+        overtime_approval::where('attendance_id', $request->attendance_id)->update([
+            'status' => 0,
+            'approval_date' => date('Y-m-d'),
+            'approver_id' => session('user_id')
+        ]);
+
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$overtime->employee_id)->first();
+        Audit::create(['activity_type' => 'payroll',
+            'payroll_manager_id' => session()->get('user_id'),
+            'type' => 'Overtime',
+            'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
+            'activity' => 'Deny of Overtime',
+            'amount' => ' - ',
+            'tid' => ' - ',
+        ]);
+
+        return back()->with(['update'=>'Overtime application has been denied']);
+    }
+
+    function updateRecoverApproval(Request $request){
+        overtime_approval::find($request->approval_id)->update([
+            'status' => null,
+            'approval_date' => null,
+            'approver_id' => null
+        ]);
+
+        $approval = overtime_approval::find($request->approval_id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$approval->employee_id)->first();
+        Audit::create(['activity_type' => 'payroll',
+            'payroll_manager_id' => session()->get('user_id'),
+            'type' => 'Overtime',
+            'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
+            'activity' => 'Deny of Overtime',
+            'amount' => ' - ',
+            'tid' => ' - ',
+        ]);
+
+        return back()->with(['update'=>'Overtime application has been recovered']);
+    }
+
     function editrate(Request $request){
         $rate = EmployeeDetail::where('employee_id',$request->emp_id)->first();
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Employee Rate',
             'employee' => $rate->employee_id,
@@ -65,7 +194,7 @@ class PayrollUpdateController extends Controller
             $str .= 'Update High Additional | ';
         }
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'SSS',
             'employee' => ' - ',
@@ -111,7 +240,7 @@ class PayrollUpdateController extends Controller
             $str .= 'Update High Additional | ';
         }
 
-            payroll_audit::create([
+            Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Philhealth',
                 'employee' => ' - ',
@@ -150,7 +279,7 @@ class PayrollUpdateController extends Controller
             $str .= 'Update High Additional | ';
         }
 
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Pagibig',
             'employee' => ' - ',

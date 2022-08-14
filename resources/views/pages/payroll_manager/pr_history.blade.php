@@ -4,6 +4,12 @@
     <h1 class="section-title mt-5 w-100 text-center pb-5">Payroll/Payslip History</h1>
 @endsection
 
+@section('controls')
+    <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Payroll History</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Payslip History</a></li>
+@endsection
+
+
 @section('first')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Payroll History</h1>
     <div class="row shadow-lg m-4">

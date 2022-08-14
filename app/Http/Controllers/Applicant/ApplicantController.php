@@ -50,7 +50,6 @@ class ApplicantController extends Controller
                 $value->sender = UserDetail::where('login_id',$value->message->sender_id)->first();
             }
 
-
             foreach ($notif as $key => $value) {
                 $value->acknowledgements = notification_acknowledgements::where('notification_receiver_id',$value->id)->count();
             }

@@ -1,72 +1,81 @@
 @extends('layout.admin_app')
     @section('content')
-    <div class="row">
-        <div class="col-1" style="width:6vw"></div>
-        <div class="col">
-            <h1 class="section-title mt-5 pb-2">Performance Assessment</h1>
+        <h1 class="section-title mt-5 pb-2">Performance Assessment</h1>
 
-                <div class="row">
-                    <div class ="col-5">
-                        <div class=" border rounded me-2">
-                            <h1 class="h2 w-100 text-center text-secondary p-3 font-weight-bold">Search Employee</h1>
-                            <div class="d-flex w-50 m-auto">
-                                <input type="text" class="rounded-left w-100" placeholder="Search">
-                                <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
-                            </div>
-                            <div class="row p-5 d-flex align-items-center">
-                                <div class="col">
-                                    <img src="pictures/1.png" style="height: 150px; width:150px">
-                                </div>
-                            <div class="col">
-                                <h2 class="display-5">Name</h2>
-                                <h5>Employee ID</h5>
-                                <h5>Employee Position</h5>
-                                <h5>Employment Status</h5>
-                            </div>
-                            </div>
-                        </div>
+        <h1 class="display-5 text-center w-100">Employee Selection</h1>
+        <div class="container w-100">
+            <table class="table w-100 table-striped text-center" id="employee_table">
+                <thead>
+                    <tr class="text-center">
+                        <th class="col">Employee ID</th>
+                        <th class="col">Employee Picture</th>
+                        <th class="col">Employee Name</th>
+                        <th class="col">Department</th>
+                        <th class="col">Position</th>
+                        <th class="col">Status</th>
+                        <th class="col">Assessment Progress</th>
+                        <th class="col">Select</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    @endsection
 
-                    </div>
+    @section('script')
+        <script>
+        $(document).ready(function(){
 
-                    <div class="col ">
-                        <div class="row">
-                            <h2>Attendance</h2>
-                            <h5>Score <input type="text" class="rounded-left w-60" placeholder="Score"></h5>
-                        </div>
-                        <div class="row">
-                            <h3>Feedback</h3>
-                            {!! Form::open() !!}
-                            {{Form::textarea('body','',['id'=>'article-ckeditor','class'=>'form-control h-25 w-75',
-                                'placeholder'=>'Comments and Suggestion'])}}
-                                <h2 class="pt-2">Performance</h2>
-                                <h5>Score <input type="text" class="rounded-left w-60" placeholder="Score"></h5>
-                                <h3>Feedback</h3>
-                                {{Form::textarea('body','',['id'=>'article-ckeditor','class'=>'form-control h-25 w-75',
-                                'placeholder'=>'Comments and Suggestion'])}}
-                                <br>
-                                {!! Form::submit('Submit Assessment', ['class'=>'btn btn-primary w-50 ']) !!}
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="row">
-                            <h2>Character</h2>
-                            <h5>Score <input type="text" class="rounded-left w-60" placeholder="Score"></h5>
-                        </div>
-                        <div class="row">
-                            <h3>Feedback</h3>
-                            {!! Form::open() !!}
-                            {{Form::textarea('body','',['id'=>'article-ckeditor','class'=>'form-control h-25 w-75',
-                                'placeholder'=>'Comments and Suggestion'])}}
-                                <h2 class="pt-2">Performance</h2>
-                                <h5>Score <input type="text" class="rounded-left w-60" placeholder="Score"></h5>
-                                <h3>Feedback</h3>
-                                {{Form::textarea('body','',['id'=>'article-ckeditor','class'=>'form-control h-25 w-75',
-                                'placeholder'=>'Comments and Suggestion'])}}
-                                <br>
-                                {!! Form::submit('Cancel', ['class'=>'btn btn-danger w-50']) !!}
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-@endsection
+            $('#employee_table').DataTable({
+                    processing: true,
+                    serverSide: false,
+                    ajax: {
+                        url: '/assessmentEmployeeList'
+                    },
+                    columns: [
+                        { data: 'employee_id',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'employee_id',
+                            render : (data,type,row)=>{
+                                return `<img src="{{ URL::asset('${row.user_detail.picture}')}}" class="rounded" width="50" height="50">`
+                            }
+                        },
+                        { data: 'user_detail.fname',
+                            render : (data,type,row)=>{
+                                return `<b>${data} ${row.user_detail.mname} ${row.user_detail.lname}</b>`
+                            }
+                        },
+                        { data: 'department',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'position',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'employment_status',
+                            render : (data,type,row)=>{
+                                return `<b>${data}</b>`
+                            }
+                        },
+                        { data: 'assessment.length',
+                            render : (data,type,row)=>{
+                                return `<div class="progress" style="height:50px">
+                                            <div class="progress-bar" role="progressbar" style="width: ${((row.assessment.length / 4) / 4) * 100}%;" aria-valuenow="${((row.assessment.length / 4) / 4) * 100}" aria-valuemin="0" aria-valuemax="100">${((row.assessment.length / 4) / 4) * 100}%</div>
+                                        </div>`
+                            }
+                        },
+                        { data: 'employee_id',
+                            render : (data,type,row)=>{
+                                return `<a href="/admin/performance/${data}" class='btn btn-outline-primary w-100 m-0 '><i class="bi bi-person-bounding-box h1"></i><br>Create Assessment</a>`
+                            }
+                        }
+                    ]
+                })
+        })
+        </script>
+    @endsection

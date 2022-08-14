@@ -11,7 +11,8 @@
             <li><a href="/staff/interview" class="nav-link py-3" title="Interviews" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-file-earmark-person-fill"></i></a></li>
             <li><a href="/staff/department" class="nav-link py-3" title="Departments" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-building"></i></a></li>
             <li><a href="/staff/position" class="nav-link py-3" title="Positions" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-workspace"></i></a></li>
-            <li><a href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i></a></li>
+            <li><a href="/staff/audittrail" class="nav-link py-3 pb-4" title="Performance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-list-check"></i></a></li>
+            <li><a href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i> <span id='badge' style="font-size: 9px"></span></a></li>
             <li><a href="/notification" class="nav-link py-3" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
         </ul>
         </nav><!-- .nav-menu -->
@@ -31,7 +32,8 @@
             <li><a href="/staff/interview" class="nav-link py-3" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-file-earmark-person-fill  pe-4"></i> Interview Management</a></li>
             <li><a href="/staff/department" class="nav-link py-3"  data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-building  pe-4"></i>Department Management</a></li>
             <li><a href="/staff/position" class="nav-link py-3" title="Positions" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-workspace  pe-4"></i>Position Management</a></li>
-            <li><a href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text  pe-4"></i>Messages</a></li>
+            <li><a href="/staff/audittrail" class="nav-link py-3 pb-4" title="Performance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-list-check pe-4"></i> Audit Logs</a></li>
+            <li><a href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text  pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></li>
             <li><a href="/notification" class="nav-link py-3" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell  pe-4"></i>Notification</a></li>
         </ul>
         </nav><!-- .nav-menu -->
@@ -43,7 +45,7 @@
 
         $("[name='hidden_name']").hover(
             function (){
-                console.log('hover')
+
                 $("[name='hidden_name']").toggleClass('d-none')
                 $("[name='show_name']").toggleClass('d-none')
             },
@@ -55,7 +57,7 @@
 
         $("[name='show_name']").hover(
             function (){
-                console.log('hover')
+
                 $("[name='hidden_name']").toggleClass('d-none')
                 $("[name='show_name']").toggleClass('d-none')
             },
@@ -64,5 +66,33 @@
                 $("[name='show_name']").toggleClass('d-none')
             }
         )
+
+        function load_chat(){
+                $.ajax({
+                url: `/fetchNavBarMessageCount`,
+                type: 'get',
+                success: function(response){
+                    var badge = document.getElementById('badge')
+                    var extended_badge = document.getElementById('extended_badge')
+
+                    if(parseInt(response)){
+                        var badgeClass = 'badge badge-pill bg-danger p-2 ms-3 rounded'
+                        badge.innerHTML = response
+                        extended_badge.innerHTML = response
+
+                        badge.className = badgeClass
+                        extended_badge.className = badgeClass
+                    }else{
+                        var badgeClass = 'badge badge-pill bg-danger p-2 ms-1 rounded d-none'
+                        badge.className = badgeClass
+                        extended_badge.className = badgeClass
+                    }
+                }
+            });
+            }
+            load_chat()
+            myInterval = setInterval(function(){
+                load_chat()
+            }, 5000);
     });
 </script>

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 
 use App\Models\UserCredential;
@@ -9,6 +10,7 @@ use App\Models\UserDetail;
 use App\Models\EmployeeDetail;
 use App\Models\Onboardee;
 use App\Models\Offboardee;
+use App\Models\Position;
 use App\Models\Regular;
 use App\Models\Resigned;
 use App\Models\Retired;
@@ -26,6 +28,8 @@ class EmployeeSeeder extends Seeder
     {
         $faker = Faker::create();
         $username = $faker->username;
+        $departments = Department::all('department_name');
+        $positions = Position::all('position_title');
 
         $login_id = UserCredential::create([
             'username' => $username,
@@ -64,12 +68,13 @@ class EmployeeSeeder extends Seeder
             'login_id' => $login_id->id,
             'information_id' =>$info_id->id,
             'educ' => 'College',
-            'position' => (rand(0,1)) ? 'Manager' : 'Teacher',
-            'department' => (rand(0,1)) ? 'Faculty' : 'Marketing',
+            'position' => $positions[(rand(0,count($positions) - 1))]->position_title,
+            'department' => $departments[(rand(0,count($departments)-1  ))]->department_name,
             'rate' => rand(500,1500) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
             'employment_status' => $status,
-            'resume' => 'resume/1.pdf',
-            'start_date' => $faker->date('Y-m-d','now'),
+            'resume' => 'resumes/resume'.rand(1,3).'.pdf',
+            'start_date' => $faker->dateTimeBetween('2022-08-01', '2022-08-01'),
+            'schedule_days' => json_encode([1,2,3,4,5]),
             'schedule_Timein' => date('H:i:s', 25200),
             'schedule_Timeout' => date('H:i:s', 68400)
         ]);
@@ -79,15 +84,12 @@ class EmployeeSeeder extends Seeder
         }elseif($rand_num == 1){
             Offboardee::create(['employee_id'=>$emp_id->id]);
 
-            $rand = rand(0,2);
-            if($rand == 2){
+            $rand = rand(0,1);
+            if($rand){
                 Retired::create(['employee_id'=>$emp_id->id]);
-            }elseif($rand_num == 1){
-                Terminated::create(['employee_id'=>$emp_id->id]);
             }else{
-                Resigned::create(['employee_id'=>$emp_id->id]);
+                Terminated::create(['employee_id'=>$emp_id->id]);
             }
-
         }else{
             Regular::create(['employee_id'=>$emp_id->id]);
         }

@@ -18,14 +18,25 @@
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif
 
-    @include('inc.profile')
-
     @if (session('user_type') == 'payroll')
         @include('inc.payroll_navbar')
+        @include('inc.profile')
     @endif
+
     @if (session('user_type') == 'staff')
         @include('inc.staff_navbar')
+        @include('inc.profile')
     @endif
+
+    @if (session('user_type') == 'admin')
+        @include('inc.admin_navbar')
+        @include('inc.profile')
+    @endif
+
+        @if (session('user_type') == 'employee')
+        @include('inc.employee_navbar');
+    @endif
+
 
     <div class="row mt-4">
         <div class="col-1" style="width:6vw"></div>

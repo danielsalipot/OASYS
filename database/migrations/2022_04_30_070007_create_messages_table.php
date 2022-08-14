@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('sender_id');
             $table->string('receiver_id');
             $table->LONGTEXT('message');
+            $table->integer('read_status')->nullable();
             $table->timestamps();
         });
     }

@@ -8,5 +8,8 @@ Route::prefix('')->group(function () {
     Route::get('/WithResponseInterview', [StaffUpdateController::class,'WithResponseInterview']);
     Route::get('/NoResponseInterview', [StaffUpdateController::class,'NoResponseInterview']);
     Route::get('/UpdateSchedule', [StaffUpdateController::class,'UpdateSchedule']);
+    Route::POST('/updateScheduleDays', [StaffUpdateController::class,'updateScheduleDays']);
+    Route::POST('/updateEmployeeResignation', [StaffUpdateController::class,'updateEmployeeResignation']);
+
 });
 

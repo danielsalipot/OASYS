@@ -4,7 +4,7 @@
     @endsection
 
     @section('content')
-    <table class="table table-striped table-dark w-100 text-center" id="employee_table">
+    <table class="table table-striped  w-100 text-center" id="employee_table">
         <thead>
         <tr>
             <th class="col-1">Picture</th>

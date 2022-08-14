@@ -7,8 +7,6 @@
     <title>OASYS</title>
 
     <link href="{{ URL::asset('assets/css/style.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css')}} " rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="{{ URL::asset('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css')}}" rel="stylesheet" >
 
     @include('inc.datatables')
     @include('inc.navIncludes')
@@ -29,33 +27,31 @@
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container">
-            @yield('Title')
-            <div id="myCarousel" class="carousel carousel-dark slide" data-interval="false" data-ride="carousel">
+                @include('inc.alerts.admin_alerts')
+                @yield('Title')
 
-                <a class="carousel-control-prev" href="#myCarousel" style="height:0px;margin-top:55px;margin-left:20vw" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#myCarousel" style="height:0px;margin-top:55px;margin-right:20vw" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+                <ul class="nav nav-tabs">
+                    @yield('controls')
+                </ul>
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        @yield('first')
+                <div class="tab-content">
+                    <div id="home" class="tab-pane in active">
+                        <div class="container p-5 border shadow-lg">
+                            @yield('first')
+                        </div>
                     </div>
-
-                    @yield('extra')
-
-                    <div class="item">
-                        @yield('second')
+                    <div id="menu1" class="tab-pane">
+                        <div class="container p-5 border shadow-lg">
+                            @yield('second')
+                        </div>
                     </div>
+                    <div id="menu2" class="tab-pane">
+                        @yield('third')
+                    </div>
+                    @yield('fourth')
                 </div>
             </div>
         </div>
-    </div>
 
     @yield('modal')
     @yield('script')

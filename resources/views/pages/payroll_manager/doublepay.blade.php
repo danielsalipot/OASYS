@@ -4,12 +4,17 @@
 <h1 class="section-title w-100 text-center mt-5 pb-5">Multi Pay Managament</h1>
 @endsection
 
+@section('controls')
+    <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Multi Pay Management</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Multi Pay History</a></li>
+@endsection
+
 @section('first')
         {{-- START --}}
     <div class="container">
-        <h1 class="display-4 pb-5 mt-5 text-center w-100">Multi Pay History</h1>
+        <h1 class="display-4 pb-5 mt-5 text-center w-100">Multi Pay Management</h1>
         @include('inc.date_filter')
-        <table class="table table-striped text-center table-dark" id="multi_pay_table">
+        <table class="table table-striped text-center" id="multi_pay_table">
             <thead>
                 <tr>
                     <th class="col-1">Employee ID</th>

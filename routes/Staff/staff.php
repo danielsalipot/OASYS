@@ -10,6 +10,7 @@ Route::prefix('staff')->group(function () {
     Route::get('/schedules', [StaffController::class, 'schedules']);
     Route::get('/interview', [StaffController::class, 'interview']);
     Route::get('/department', [StaffController::class, 'department']);
+    Route::get('/audittrail', [StaffController::class, 'audittrail']);
     Route::get('/position', [StaffController::class, 'position']);
     Route::get('/message', [StaffController::class, 'staffmessage']);
     Route::get('/notification', [StaffController::class, 'staffnotification']);

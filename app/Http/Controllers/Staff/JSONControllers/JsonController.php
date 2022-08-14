@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Staff\JSONControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Audit;
 use App\Models\Clearance;
 use App\Models\EmployeeDetail;
 use App\Models\Interview;
@@ -10,6 +11,7 @@ use App\Models\Resigned;
 use App\Models\Retired;
 use App\Models\Terminated;
 use App\Models\UserCredential;
+use DateTime;
 use Illuminate\Http\Request;
 
 class JsonController extends Controller
@@ -86,6 +88,145 @@ class JsonController extends Controller
     public function schedulejson(){
         $employeelist = EmployeeDetail::with('UserDetail')->get();
         return datatables()->of($employeelist)
+        ->addColumn('sched_days',function($data){
+            $days = json_decode($data->schedule_days);
+            $sched_days = "
+            <form action='/updateScheduleDays' method='POST' id='schedule_form_". $data->employee_id."'>
+            <input type='hidden' value='". $data->employee_id ."' name='emp_id' disabled>
+            <div class='row m-2'>";
+
+            if(in_array(1,$days)){
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='monday' name='monday' value='1' checked disabled>
+                    <label class='form-check-label' for='monday'>Monday</label><br>
+                </div>";
+            }else {
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='monday' name='monday' value='1' disabled>
+                    <label class='form-check-label' for='monday'>Monday</label><br>
+                </div>";
+            }
+
+            if(in_array(2,$days)){
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='tuesday' name='tuesday' value='2' checked disabled>
+                    <label class='form-check-label' for='tuesday'>Tuesday</label><br>
+                </div>";
+            }else {
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='tuesday' name='tuesday' value='2' disabled>
+                    <label class='form-check-label' for='tuesday'>Tuesday</label><br>
+                </div>";
+            }
+
+            if(in_array(3,$days)){
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='wednesday' name='wednesday' value='3' checked disabled>
+                    <label class='form-check-label' for='wednesday'>Wednesday</label><br>
+                </div>";
+            }else {
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='wednesday' name='wednesday' value='3' disabled>
+                    <label class='form-check-label' for='wednesday'>Wednesday</label><br>
+                </div>";
+            }
+
+            if(in_array(4,$days)){
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='thursday' name='thursday' value='4' checked disabled>
+                    <label class='form-check-label' for='thursday'>Thursday</label><br>
+                </div>";
+            }else {
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='thursday' name='thursday' value='4' disabled>
+                    <label class='form-check-label' for='thursday'>Thursday</label><br>
+                </div>";
+            }
+
+            if(in_array(5,$days)){
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='friday' name='friday' value='5' checked disabled>
+                    <label class='form-check-label' for='friday'>Friday</label><br>
+                </div>";
+            }else {
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='friday' name='friday' value='5' disabled>
+                    <label class='form-check-label' for='friday'>Friday</label><br>
+                </div>";
+            }
+
+            if(in_array(6,$days)){
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='saturday' name='saturday' value='6' checked disabled>
+                    <label class='form-check-label' for='saturday'>Saturday</label><br>
+                </div>";
+            }else {
+                $sched_days .= "
+                <div class='col form-check'>
+                    <input type='checkbox' class='form-check-input' id='saturday' name='saturday' value='6' disabled>
+                    <label class='form-check-label' for='saturday'>Saturday</label><br>
+                </div>";
+            }
+
+            if(in_array(0,$days)){
+                $sched_days .= "
+                    <div class='col form-check'>
+                        <input type='checkbox' class='form-check-input' id='sunday' name='sunday' value='0' checked disabled>
+                        <label class='form-check-label' for='sunday'>Sunday</label><br>
+                    </div>
+                </div>";
+            }else {
+                $sched_days .= "
+                    <div class='col form-check'>
+                        <input type='checkbox' class='form-check-input' id='sunday' name='sunday' value='0' disabled>
+                        <label class='form-check-label' for='sunday'>Sunday</label><br>
+                    </div>
+                </div>";
+            }
+
+            $sched_days .= "
+            <div class='row m-3'>
+                <button type='button' class='btn btn-lg btn-outline-primary w-100 mx-auto' onclick='editScheduleDays(\"". $data->employee_id."\",this)'>Edit Schedule Days</button>
+                <div class='row d-none p-0 mx-auto w-100 mt-2' id='days_submit_". $data->employee_id."'>
+                    <div class='col'>
+                        <button type='submit' class='btn btn-lg btn-success w-100 mx-auto' disabled>Submit new Schedule</button>
+                    </div>
+                    <div class='col'>
+                        <button type='button' onclick='location.reload()'class='btn btn-lg btn-danger w-100 mx-auto' disabled>Cancel</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+
+            <script>
+                function editScheduleDays(id,btn){
+                    var controls = document.getElementById('days_submit_'+id)
+                    var form = document.getElementById('schedule_form_'+id)
+                    controls.classList.toggle('d-none')
+
+                    var elements = form.elements;
+                    for (var i = 0, len = elements.length; i < len; ++i) {
+                        elements[i].disabled = !elements[i].disabled;
+                    }
+
+                    btn.disabled = false
+                }
+            </script>
+            ";
+
+            return $sched_days;
+        })
         ->addColumn('timein',function($data){
             $timein = '<h5>Current Time in:</h5>
                 '.$data->schedule_Timein.'<br>
@@ -134,12 +275,12 @@ class JsonController extends Controller
 
         return $timeout;
         })
-        ->rawColumns(['timein','timeout'])
+        ->rawColumns(['timein','timeout','sched_days'])
         ->make(true);
     }
 
     public function offboardingjson(){
-        $offboardee = EmployeeDetail::with('UserDetail')->where('employment_status','offboardee')->get();
+        $offboardee = EmployeeDetail::with('UserDetail')->where('employment_status','Offboardee')->get();
 
         return datatables()->of($offboardee)
         ->addColumn('full_name',function($data){
@@ -179,7 +320,11 @@ class JsonController extends Controller
         })
         ->addColumn('delete',function($data){
             if(Clearance::where('employee_id',$data->employee_id)->count()){
-                $clear_btn = "<button class='btn btn-danger p-3 w-50'>Delete</button>";
+                $clear_btn = "
+                    <form action='/deleteEmployee' method='POST'>
+                        <input type='hidden' name='id' value='". $data->employee_id ."'>
+                        <button class='btn btn-danger p-3 w-50'>Delete</button>
+                    </form>";
             }
             else{
                 $clear_btn = "<button disabled class='btn btn-danger p-3 w-50'>Delete</button>";
@@ -194,6 +339,7 @@ class JsonController extends Controller
     public function terminationjson(){
         $employees = EmployeeDetail::with('UserDetail')
             ->where('employment_status','!=','Offboardee')
+            ->join('resigneds', 'resigneds.employee_id', '!=', 'employee_details.employee_id')
             ->get();
 
         return datatables()->of($employees)
@@ -220,15 +366,10 @@ class JsonController extends Controller
         })
         ->addColumn('retire',function($data){
             $full_name = $data->userDetail->fname .' '. $data->userDetail->mname . ' '. $data->userDetail->lname ;
-            $retire = '<button onclick="offboarding(\'Retirement\',\''.$data->employee_id.'\',\'/'.$data->userDetail->picture.'\',\''.$full_name.'\',\''.$data->department.'\',\''.$data->position.'\',\''.$data->userDetail->cnum.'\',\''.$data->userDetail->email.'\')"  class="btn btn-outline-light w-25 py-4" data-toggle="modal" data-target="#edit_modal">Retire</button>';
+            $retire = '<button onclick="offboarding(\'Retirement\',\''.$data->employee_id.'\',\'/'.$data->userDetail->picture.'\',\''.$full_name.'\',\''.$data->department.'\',\''.$data->position.'\',\''.$data->userDetail->cnum.'\',\''.$data->userDetail->email.'\')"  class="btn btn-outline-info w-25 py-4" data-toggle="modal" data-target="#edit_modal">Retire</button>';
             return $retire;
         })
-        ->addColumn('resign',function($data){
-            $full_name = $data->userDetail->fname .' '. $data->userDetail->mname . ' '. $data->userDetail->lname ;
-            $resign = '<button onclick="offboarding(\'Resignation\',\''.$data->employee_id.'\',\'/'.$data->userDetail->picture.'\',\''.$full_name.'\',\''.$data->department.'\',\''.$data->position.'\',\''.$data->userDetail->cnum.'\',\''.$data->userDetail->email.'\')"  class="btn btn-outline-warning w-25 py-4" data-toggle="modal" data-target="#edit_modal">Resign</button>';
-            return $resign;
-        })
-        ->rawColumns(['full_name','img','employed_for','terminate','retire','resign'])
+        ->rawColumns(['full_name','img','employed_for','terminate','retire'])
         ->make(true);
     }
 
@@ -243,7 +384,6 @@ class JsonController extends Controller
                 <h4>Scheduled On</h4>
                 <h6>$interview->interview_schedule</h6>
                 <div class='row text-center'>
-                    <div class='col'></div>
                     <div class='col-4'>
                         <button onclick=\"modal_update(
                             '/".$data->picture."',
@@ -261,7 +401,12 @@ class JsonController extends Controller
                             </button>
                         </form>
                     </div>
-                    <div class='col'></div>
+                    <div class='col'>
+                        <form action='/deleteInterviewSchedule' method='POST'>
+                            <input type='hidden' name='interview_id' value=".$interview->id.">
+                            <button type='submit' class='btn btn-outline-warning w-100 h-100'><i class='bi bi-calendar-fill h1'></i><br>Reschedule</button>
+                        </form>
+                    </div>
                 </div>";
             }
             else{
@@ -309,5 +454,37 @@ class JsonController extends Controller
             </script>
             ";
         }
+    }
+
+
+    public function getAuditJson(Request $request){
+        $audit = Audit::with('payroll_manager','employee_detail')
+        ->whereBetween('created_at',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
+        ->where('activity_type','staff')
+            ->get();
+
+        return datatables()->of($audit)
+        ->addColumn('date',function($data){
+            $date = date($data->created_at);
+
+            return $date;
+        })
+        ->addColumn('payroll',function($data){
+            $payroll = '<h5>'. $data->payroll_manager->fname . ' ' . $data->payroll_manager->mname . ' '. $data->payroll_manager->lname .'</h5>';
+
+            return $payroll;
+        })
+        ->addColumn('employee_detail',function($data){
+            if(isset($data->employee)){
+                $payroll = '<h5>'. $data->employee .'</h5>';
+
+                return $payroll;
+            }
+            else{
+                return ' - ';
+            }
+        })
+        ->rawColumns(['payroll','employee_detail','date'])
+        ->make(true);
     }
 }

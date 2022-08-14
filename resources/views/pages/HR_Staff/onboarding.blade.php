@@ -5,7 +5,7 @@
     @endsection
 
     @section('content')
-        <table class="table table-striped table-dark w-100 text-center" id="applicant_table">
+        <table class="table table-striped  w-100 text-center" id="applicant_table">
             <thead>
             <tr>
                 <th class="col">Picture</th>

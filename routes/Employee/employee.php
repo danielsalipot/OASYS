@@ -7,7 +7,9 @@ Route::prefix('employee')->group(function () {
     Route::get('/orientation', [EmployeeController::class, 'employeeorientation']);
     Route::get('/training', [EmployeeController::class, 'employeetraining']);
     Route::get('/correction', [EmployeeController::class, 'employeecorrection']);
-    Route::get('/message', [EmployeeController::class, 'employeemessage']);
-    Route::get('/profile', [EmployeeController::class, 'employeeprofile']);
+    Route::get('/profile', [EmployeeController::class, 'profile']);
+    Route::get('/overtime', [EmployeeController::class, 'overtime']);
+    Route::get('/leave', [EmployeeController::class, 'leave']);
+    Route::get('/profile/update', [EmployeeController::class, 'updateProfile']);
 });
 

@@ -7,14 +7,22 @@
     <title>OASYS</title>
 </head>
 <body>
-    @if (!session()->has('user_id') && !session()->get('user_type') == 'employee')
+    @if (!session()->has('user_id') || !session()->get('user_type') == 'employee')
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif
 
+    @include('inc.datatables')
     @include('inc.navincludes')
     @include('inc.employee_navbar')
-    @include('inc.alerts.employee_alerts')
-    @yield('content')
+    <div class="row mt-4">
+        <div class="col w-100">
+            <div class="mx-auto ps-5" style="width: 90vw">
+                @include('inc.alerts.employee_alerts')
+                @yield('content')
+            </div>
+        </div>
+    </div>
 
+    @yield('script')
 </body>
 </html>

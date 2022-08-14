@@ -22,12 +22,21 @@
 
     @if(session()->get('user_type') == 'payroll')
         @include('inc.payroll_navbar')
+        @include('inc.profile')
     @endif
     @if(session()->get('user_type') == 'staff')
         @include('inc.staff_navbar')
+        @include('inc.profile')
+    @endif
+    @if(session()->get('user_type') == 'admin')
+        @include('inc.admin_navbar')
+        @include('inc.profile')
     @endif
 
-    @include('inc.profile')
+    @if(session()->get('user_type') == 'employee')
+        @include('inc.employee_navbar')
+    @endif
+
 
     <div class="row mt-4">
         <div class="col-1" style="width:6vw"></div>

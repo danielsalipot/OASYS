@@ -24,4 +24,6 @@ Route::prefix('')->group(function () {
 
     //leave INSERT ROUTE
     Route::post('/insertleave', [PayrollInsertController::class,'InsertLeave']);
+    Route::post('/insertApprovalLeave', [PayrollInsertController::class,'insertApprovalLeave']);
+
 });

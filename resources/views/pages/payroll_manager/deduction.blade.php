@@ -4,10 +4,15 @@
 <h1 class="section-title mt-4 pb-1 w-100 text-center pt-4">Deduction Management</h1>
 @endsection
 
+@section('controls')
+    <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Employee Deductions</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Create Employee Deductions</a></li>
+@endsection
+
 @section('first')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Deductions</h1>
     @include('inc.date_filter')
-    <table class="table table-striped text-center table-dark" id="deduction_table">
+    <table class="table table-striped text-center" id="deduction_table">
         <thead>
             <tr class="text-center">
                 <th class="col">Transaction ID</th>

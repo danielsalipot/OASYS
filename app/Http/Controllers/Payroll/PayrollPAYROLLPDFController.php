@@ -9,7 +9,7 @@ use Fpdf\Fpdf;
 
 use App\Models\Payroll;
 use App\Models\UserDetail;
-use App\Models\payroll_audit;
+use App\Models\Audit;
 use App\Models\payroll_approval;
 
 class PayrollPAYROLLPDFController extends Controller
@@ -301,7 +301,7 @@ $total_philhealth = $total_philhealth_ee + $total_philhealth_er;
 *==============================================================================*/
 
         // AUDIT INSERTION
-        payroll_audit::create([
+        Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Payroll',
             'employee' => ' - ',

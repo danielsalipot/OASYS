@@ -27,7 +27,8 @@ use App\Models\Pagibig;
 use App\Models\philhealth;
 use App\Models\Payslips;
 use App\Models\UserCredential;
-use App\Models\payroll_audit;
+use App\Models\Audit;
+use App\Models\overtime_approval;
 
 class PayrollJSONController extends Controller
 {
@@ -151,7 +152,6 @@ class PayrollJSONController extends Controller
     public function Overtime(Request $request){
         $employee_schedules = EmployeeDetail::all();
         $employee_overtime_arr =[];
-        $paid_overtime_arr =[];
 
         foreach ($employee_schedules as $key => $employee) {
 
@@ -166,9 +166,8 @@ class PayrollJSONController extends Controller
                 ->get();
 
             foreach ($temp as $key => $value) {
-                if(Overtime::where('attendance_id',$value->attendance_id)->first()){
-                    array_push($paid_overtime_arr,$value);
-                }else{
+                $value->approval = overtime_approval::where('attendance_id',$value->attendance_id)->first();
+                if(!Overtime::where('attendance_id',$value->attendance_id)->first()){
                     array_push($employee_overtime_arr,$value);
                 }
             }
@@ -188,6 +187,23 @@ class PayrollJSONController extends Controller
         return datatables()->of($employee_overtime_arr)->make(true);
     }
 
+    public function DeniedOvertime(){
+        $overtime = overtime_approval::where('status',0)->get();
+        foreach ($overtime as $key => $value) {
+            $value->employee = EmployeeDetail::with('UserDetail')->where('employee_id',$value->employee_id)->first();
+            $value->manager = UserDetail::where('login_id',$value->approver_id)->first();
+            $value->attendance = Attendance::where('attendance_id',$value->attendance_id)->first();
+        }
+
+        return datatables()->of($overtime)
+            ->addColumn('payroll_manager',function($data){
+                $pr_manager = UserDetail::where('login_id',$data->approver_id)->first();
+                return "$pr_manager->fname $pr_manager->mname $pr_manager->lname";
+            })
+            ->rawColumns(['payroll_manager'])
+            ->make(true);
+    }
+
     public function getPaidOvertime(){
         $paid_overtime_arr = Overtime::join('attendances','attendances.attendance_id','=','overtimes.attendance_id')
             ->join('employee_details','employee_details.employee_id','=','overtimes.employee_id')
@@ -203,6 +219,7 @@ class PayrollJSONController extends Controller
             $stimeout = $this->timeCalculator($employee->user_details->schedule_Timeout);
 
             $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
+            $employee->approval = overtime_approval::where('attendance_id',$employee->attendance_id)->first();
         }
         return datatables()->of($paid_overtime_arr)
             ->addColumn('payroll_manager',function($data){
@@ -680,76 +697,6 @@ class PayrollJSONController extends Controller
 |                                   END
 *==============================================================================*/
 
-
-
-
-/*=============================================================================
-|                                 START
-|                             Messaging JSON
-|
-*==============================================================================*/
-
-    public function Message($r_id){
-        $send = Message::where(function ($query) use ($r_id) {
-            $query->where('receiver_id',$r_id)
-            ->where('sender_id',session('user_id'));
-            })
-            ->orWhere(function ($query) use ($r_id) {
-                $query->where('sender_id',$r_id)
-                ->where('receiver_id',session('user_id'));
-                })
-            ->orderBy('created_at','ASC')
-            ->get();
-
-        foreach ($send as $key => $value) {
-            $value->sender = UserDetail::where('login_id',$value->sender_id)->first();
-            $value->receiver = UserDetail::where('login_id',$value->receiver_id)->first();
-        }
-
-        return $send;
-    }
-
-    public function ChatEmployeeDetails(){
-        //all pwera lang sa applicants
-
-        $users = UserCredential::join('user_details','user_details.login_id','=','user_credentials.login_id')
-            ->where('user_credentials.user_type','!=','applicant')
-            ->where('user_credentials.login_id','!=',session('user_id'))
-            ->get();
-
-        foreach ($users as $key => $user) {
-            $user->userDetail = UserDetail::where("login_id", $user->login_id)->first();
-        }
-
-        return datatables()->of($users)
-            ->addColumn('full_name',function($data){
-                return $data->userDetail->fname . " " . $data->userDetail->mname . " " . $data->userDetail->lname;
-            })
-            ->addColumn('btn',function($data){
-                $full_name = $data->userDetail->fname . " " . $data->userDetail->mname . " " . $data->userDetail->lname;
-
-                $button ='
-                <button id="btn'.$data->information_id.'" onclick="chat_click(this,\''. addslashes($full_name) .'\',\'/'.$data->userDetail->picture.'\','.$data->information_id.')" class="text-dark card w-100 p-2 m-2 shadow-lg">
-                    <div class="row w-100">
-                        <div class="col-3">
-                            <img src="/'.$data->userDetail->picture.'" class="rounded" width="50" height="50">
-                        </div>
-
-                        <div class="col text-center mt-3"><h5>'. $full_name .'</h5>'. $data->user_type .'
-                        </div>
-                    </div>
-                </button>';
-                return $button;
-            })
-            ->rawColumns(['full_name','btn'])
-            ->make(true);
-    }
-
-/*=============================================================================
-|                                   END
-*==============================================================================*/
-
-
 /*=============================================================================
 |                                 START
 |                              Holiday JSON
@@ -940,6 +887,37 @@ public function thirteenthMonthJSON(Request $request){
         ->make(true);
 }
 
+function Audit(Request $request){
+    $audit = Audit::with('payroll_manager','employee_detail')
+    ->whereBetween('created_at',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
+    ->where('activity_type','payroll')
+        ->get();
+
+    return datatables()->of($audit)
+    ->addColumn('date',function($data){
+        $date = date($data->created_at);
+
+        return $date;
+    })
+    ->addColumn('payroll',function($data){
+        $payroll = '<h5>'. $data->payroll_manager->fname . ' ' . $data->payroll_manager->mname . ' '. $data->payroll_manager->lname .'</h5>';
+
+        return $payroll;
+    })
+    ->addColumn('employee_detail',function($data){
+        if(isset($data->employee_detail)){
+            $payroll = '<h5>'. $data->employee_detail->fname . ' ' . $data->employee_detail->mname . ' '. $data->employee_detail->lname .'</h5>';
+
+            return $payroll;
+        }
+        else{
+            return ' - ';
+        }
+    })
+    ->rawColumns(['payroll','employee_detail','date'])
+    ->make(true);
+}
+
 /*=============================================================================
 |                                   END
 *==============================================================================*/
@@ -956,33 +934,4 @@ public function thirteenthMonthJSON(Request $request){
 
     }
 
-    function payroll_audit(Request $request){
-        $audit = payroll_audit::with('payroll_manager','employee_detail')
-        ->whereBetween('created_at',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
-            ->get();
-
-        return datatables()->of($audit)
-        ->addColumn('date',function($data){
-            $date = date($data->created_at);
-
-            return $date;
-        })
-        ->addColumn('payroll',function($data){
-            $payroll = '<h5>'. $data->payroll_manager->fname . ' ' . $data->payroll_manager->mname . ' '. $data->payroll_manager->lname .'</h5>';
-
-            return $payroll;
-        })
-        ->addColumn('employee_detail',function($data){
-            if(isset($data->employee_detail)){
-                $payroll = '<h5>'. $data->employee_detail->fname . ' ' . $data->employee_detail->mname . ' '. $data->employee_detail->lname .'</h5>';
-
-                return $payroll;
-            }
-            else{
-                return ' - ';
-            }
-        })
-        ->rawColumns(['payroll','employee_detail','date'])
-        ->make(true);
-    }
 }

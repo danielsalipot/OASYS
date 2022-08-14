@@ -1,10 +1,15 @@
-@extends('layout.staff_app')
-    @section('title')
+@extends('layout.staff_carousel')
+    @section('Title')
         <h1 class="section-title mt-2 pb-1">Offboarding Management</h1>
     @endsection
 
-    @section('content')
-        <table class="table table-striped table-dark w-100 text-center" id="employee_table">
+    @section('controls')
+        <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Termination Management</a></li>
+        <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Resignation Management</a></li>
+    @endsection
+
+    @section('first')
+        <table class="table table-striped  w-100 text-center" id="employee_table">
             <thead>
             <tr>
                 <th class="col-1">Picture</th>
@@ -18,6 +23,118 @@
             </thead>
             <tbody></tbody>
         </table>
+        <script>
+            $(document).ready(function(){
+                $('#employee_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: '/terminationjson',
+                    },
+                    columns: [
+                        { data: 'img',
+                            render : (data,type,row)=>{
+                                return data
+                            }
+                        },
+                        { data: 'full_name',
+                            render : (data,type,row)=>{
+                                return `<h4>${data}</h4>
+                                    <h5>Sex: ${row.user_detail.sex}</h5>
+                                    <h5>Age: ${row.user_detail.age}</h5>`
+                            }
+                        },
+                        { data: 'department',
+                            render : (data,type,row)=>{
+                                return `<h5>${data}</h5>`
+                            }
+                        },
+                        { data: 'position',
+                            render : (data,type,row)=>{
+                                return `<h5>${data}</h5>`
+                            }
+                        },
+                        { data: 'employment_status',
+                            render : (data,type,row)=>{
+                                return `<h5>${data}</h5>`
+                            }
+                        },
+                        { data: 'employed_for',
+                            render : (data,type,row)=>{
+                                return data
+                            }
+                        },
+                        { data: 'employee_id',
+                            render : (data,type,row)=>{
+                                return `${row.retire} ${row.terminate}`
+                            }
+                        },
+                    ]
+                });
+            })</script>
+    @endsection
+
+    @section('second')
+    <div class="d-flex" style="overflow-x: scroll">
+        @foreach($resigneds as $key => $data)
+            <div class="card shadow-sm col-6 mx-5">
+                <div class="alert-info ">
+                    <h3 class="p-3 w-100 text-center">Employee Details</h2>
+                    <div class="bg-white m-1 rounded p-3">
+                        <div class="row px-3">
+                            <div class="col-9">
+                                <h6 class="text-secondary">Employee Name</h6>
+                                <div class="display-6">{{ $data->employee->userDetail->fname }} {{ $data->employee->userDetail->mname }} {{ $data->employee->userDetail->lname }}</div>
+                            </div>
+                            <div class="col text-center">
+                                <h6 class="text-secondary">Employee ID</h6>
+                                <div class="display-6">{{ $data->employee->employee_id}}</div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row my-3 text-center">
+                            <h6 class="text-secondary">Employment Status</h6>
+                            <h4>{{ $data->employee->employment_status}}</h4>
+                        </div>
+
+                        <div class="row my-3 text-center">
+                            <div class="col">
+                                <h6 class="text-secondary">Employee Position</h6>
+                                <h4>{{ $data->employee->position}}</h4>
+                            </div>
+                            <div class="col">
+                                <h6 class="text-secondary">Employee Department</h6>
+                                <h4>{{ $data->employee->department}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="w-100 alert-light p-3">Resignation Letter</h4>
+                <div class="row">
+                    <embed src="/{{$data->resignation_path}}" height="600px"/>
+                </div>
+                <div class="row p-3 bg-dark w-100 mx-auto">
+                    <div class="col">
+                        <form action="/updateEmployeeResignation" method="POST">
+                            @csrf
+                            {!! Form::hidden('id', $data->id ) !!}
+                            {!! Form::hidden('status', 1) !!}
+                            <button type="submit" class="btn btn-success p-3 w-100">Approve</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form action="/updateEmployeeResignation" method="POST">
+                            @csrf
+                            {!! Form::hidden('id', $data->id ) !!}
+                            {!! Form::hidden('status', 0) !!}
+                            <button tpye="submit" class="btn btn-danger p-3 w-100">Deny</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
     @endsection
 
     @section('modal')
@@ -75,55 +192,6 @@
 
     @section('script')
     <script>
-    $(document).ready(function(){
-        $('#employee_table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: '/terminationjson',
-            },
-            columns: [
-                { data: 'img',
-                    render : (data,type,row)=>{
-                        return data
-                    }
-                },
-                { data: 'full_name',
-                    render : (data,type,row)=>{
-                        return `<h4>${data}</h4>
-                            <h5>Sex: ${row.user_detail.sex}</h5>
-                            <h5>Age: ${row.user_detail.age}</h5>`
-                    }
-                },
-                { data: 'department',
-                    render : (data,type,row)=>{
-                        return `<h5>${data}</h5>`
-                    }
-                },
-                { data: 'position',
-                    render : (data,type,row)=>{
-                        return `<h5>${data}</h5>`
-                    }
-                },
-                { data: 'employment_status',
-                    render : (data,type,row)=>{
-                        return `<h5>${data}</h5>`
-                    }
-                },
-                { data: 'employed_for',
-                    render : (data,type,row)=>{
-                        return data
-                    }
-                },
-                { data: 'employee_id',
-                    render : (data,type,row)=>{
-                        return `${row.retire} ${row.resign} ${row.terminate}`
-                    }
-                },
-            ]
-        });
-    })
-
     function offboarding(offboarding_type,emp_id,picture,fullname,dept,pos,phone,email){
         $('#emp_picture').attr('src',picture)
 

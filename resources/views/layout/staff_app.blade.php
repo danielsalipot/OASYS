@@ -18,14 +18,10 @@
     @include('inc.staff_navbar')
 
     <div class="row mt-4">
-        <div class="col-1" style="width:6vw"></div>
         <div class="col">
             <div class="container">
+                @include('inc.alerts.admin_alerts')
                 @yield('title')
-                @if(Session::get('success'))
-                    <div class="alert alert-success w-100 m-auto my-3">{{Session::get('success')}}</div>
-                @endif
-
                 @yield('content')
             </div>
         </div>

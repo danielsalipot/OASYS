@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 
 use Faker\Factory as Faker;
 use App\Models\Message;
+use App\Models\UserCredential;
 
 class MessageSeeder extends Seeder
 {
@@ -19,22 +20,23 @@ class MessageSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        Message::create([
-            'sender_id' => rand(1,50),
-            'receiver_id' => rand(1,50),
-            'message' => $faker->realText(500)
-        ]);
+        $users = UserCredential::join('user_details','user_details.login_id','=','user_credentials.login_id')
+            ->where('user_credentials.user_type','!=','applicant')
+            ->where('user_credentials.login_id','!=',session('user_id'))
+            ->get();
 
-        Message::create([
-            'sender_id' => rand(1,50),
-            'receiver_id' => rand(2,7),
-            'message' => $faker->realText(500)
-        ]);
+        foreach ($users as $key => $value) {
+            $except = $key;
 
-        Message::create([
-            'sender_id' => rand(2,7),
-            'receiver_id' => rand(1,50),
-            'message' => $faker->realText(500)
-        ]);
+            do {
+                $rand = rand(0, count($users) - 1);
+            } while ($rand == $except);
+
+            Message::create([
+                'sender_id' => $value->login_id,
+                'receiver_id' => $rand,
+                'message' => $faker->realText(500)
+            ]);
+        }
     }
 }

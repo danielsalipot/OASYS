@@ -3,6 +3,12 @@
         <h1 class="section-title mt-2 pb-1">Department Management</h1>
     @endsection
 
+    @section('controls')
+        <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Department Overview</a></li>
+        <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Update Employee Department</a></li>
+    @endsection
+
+
     @section('first')
         <h1 class="display-4 mt-5 text-center">Department Overview</h1>
         <hr>
@@ -20,7 +26,7 @@
         <div class="row mb-5">
             <div class="col-8 card shadow-sm pt-3 me-2">
                 {!! $departments->links() !!}
-                <table class="table table-striped table-dark w-100 text-center" id="applicant_table">
+                <table class="table table-striped  w-100 text-center" id="applicant_table">
                     <thead>
                     <tr>
                         <th class="col">Department ID</th>

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('employment_status');
             $table->string('resume');
             $table->date('start_date');
+            $table->json('schedule_days');
             $table->string('schedule_Timein');
             $table->string('schedule_Timeout');
             $table->timestamps();

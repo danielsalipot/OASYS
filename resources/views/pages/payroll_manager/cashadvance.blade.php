@@ -4,11 +4,17 @@
 <h1 class="section-title w-100 text-center mt-5 pb-5">Cash Advance Managament</h1>
 @endsection
 
+@section('controls')
+    <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Cash Advance History</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Add Cash Advance</a></li>
+@endsection
+
+
 @section('first')
 <div class="container">
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Cash Advance History</h1>
     @include('inc.date_filter')
-        <table class="table table-striped table-dark" id="cash_advance_table">
+        <table class="table table-striped " id="cash_advance_table">
             <thead>
                 <tr>
                     <th class="col">Transaction ID</th>

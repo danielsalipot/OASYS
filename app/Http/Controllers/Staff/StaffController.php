@@ -9,6 +9,7 @@ use App\Models\Offboardee;
 use App\Models\Onboardee;
 use App\Models\Position;
 use App\Models\Regular;
+use App\Models\Resigned;
 use App\Models\UserCredential;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
@@ -159,15 +160,50 @@ class StaffController extends Controller
                                             ".$dep."
                                         </select>
                                     </div>
+
+                                    <div class='m-2'>
+                                        <h3>Enter Employee Rate</h3>
+                                        <input type='number' name='rate' class='form-control mx-auto w-75 text-center' step='.01'>
+                                    </div>
                                 </div>
 
                                 <div class='col'>
                                     <div class='m-2 text-center'>
-                                        <h3>Enter Employee Rate</h3>
-                                        <input type='number' name='rate' class='form-control mx-auto w-75 text-center' step='.01'>
+                                    <h3>Schedule Days</h3>
+                                        <div class='row'>
+                                            <div class='col'>
+                                                <input type='checkbox' id='sunday' name='sunday' value='0'>
+                                                <label for='sunday'>Sunday</label><br>
+                                            </div>
+                                            <div class='col'>
+                                                <input type='checkbox' id='monday' name='monday' value='1'>
+                                                <label for='monday'>Monday</label><br>
+                                            </div>
+                                            <div class='col'>
+                                                <input type='checkbox' id='tuesday' name='tuesday' value='2'>
+                                                <label for='tuesday'>Tuesday</label><br>
+                                            </div>
+                                            <div class='col'>
+                                                <input type='checkbox' id='wednesday' name='wednesday' value='3'>
+                                                <label for='wednesday'>Wednesday</label><br>
+                                            </div>
+                                            <div class='col'>
+                                                <input type='checkbox' id='thursday' name='thursday' value='4'>
+                                                <label for='thursday'>Thursday</label><br>
+                                            </div>
+                                            <div class='col'>
+                                                <input type='checkbox' id='friday' name='friday' value='5'>
+                                                <label for='friday'>Friday</label><br>
+                                            </div>
+                                            <div class='col'>
+                                                <input type='checkbox' id='saturday' name='saturday' value='6'>
+                                                <label for='saturday'>Saturday</label><br>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class='m-2 text-center'>
                                         <h3>Enter Employee Time Schedules</h3>
+
                                         <div class='row w-100 text-center'>
                                             <div class='col'>
                                                 <h5>Time in Schedule</h5>
@@ -218,20 +254,33 @@ class StaffController extends Controller
 
     function termination(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_staff.termination')->with(['profile'=>$profile]);
+
+        $resigneds = Resigned::where('status',null)->get();
+        foreach ($resigneds as $key => $value) {
+            $value->employee = EmployeeDetail::with('UserDetail')->where('employee_id',$value->employee_id)->first();
+        }
+
+        return view('pages.hr_staff.termination')->with([
+            'profile' => $profile,
+            'resigneds' => $resigneds
+        ]);
     }
+
     function offboarding(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
         return view('pages.hr_staff.offboarding')->with(['profile'=>$profile]);
     }
+
     function schedules(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
         return view('pages.hr_staff.schedules')->with(['profile'=>$profile]);
     }
+
     function interview(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
         return view('pages.hr_staff.interview')->with(['profile'=>$profile]);
     }
+
     function department(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
 
@@ -251,6 +300,8 @@ class StaffController extends Controller
         }
         return view('pages.hr_staff.department')->with(['profile'=>$profile,'departments'=>$departments,'all_dept'=>$all_dept]);
     }
+
+
     function position(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
         $positions = Position::all();
@@ -265,11 +316,11 @@ class StaffController extends Controller
         return view('pages.hr_staff.position')->with(['profile'=>$profile, 'positions'=>$positions]);
     }
 
-    function staffmessage(){
-        return view('pages.hr_staff.staffmessage');
-    }
-    function staffnotification(){
-        return view('pages.hr_staff.staffnotification');
+    function audittrail(){
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.HR_staff.audittrail')->with([
+            'profile' => $profile,
+        ]);
     }
 
     function modal_interview_controller($applicant,$detail){

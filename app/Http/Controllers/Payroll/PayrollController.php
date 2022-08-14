@@ -12,7 +12,8 @@ use App\Models\Pagibig;
 use App\Models\philhealth;
 use App\Models\EmployeeDetail;
 use App\Models\UserCredential;
-use App\Models\payroll_audit;
+use App\Models\Audit;
+use App\Models\leave_approval;
 use App\Models\payroll_approval;
 use App\Models\Payroll;
 use App\Models\UserDetail;
@@ -144,8 +145,23 @@ class PayrollController extends Controller
         }
 
         function leave(){
+            $applications = leave_approval::where('status',null)->orderBy('created_at','DESC')->get();
+            foreach ($applications as $key => $value) {
+                $value->employee = EmployeeDetail::with('UserDetail')->where('employee_id',$value->employee_id)->first();
+            }
+            $updated = leave_approval::where('status','!=',null)->orderBy('created_at','DESC')->get();
+
+            foreach ($updated as $key => $value) {
+                $value->manager = UserDetail::where('login_id',$value->approver_id)->first();
+                $value->employee = EmployeeDetail::with('UserDetail')->where('employee_id',$value->employee_id)->first();
+            }
+
             $profile = UserDetail::where('login_id',session('user_id'))->first();
-            return view('pages.payroll_manager.leave')->with(['profile'=>$profile]);
+            return view('pages.payroll_manager.leave')->with([
+                'profile'=>$profile,
+                'applications' => $applications,
+                'updatedApplications' => $updated
+            ]);
         }
 
         function audittrail(){

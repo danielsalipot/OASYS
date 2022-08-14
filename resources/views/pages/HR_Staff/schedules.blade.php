@@ -5,14 +5,14 @@
 
     @section('content')
     <div class="container w-100 p-2">
-        <table class="table table-striped table-dark text-center w-100" id="employee_table">
+        <table class="table table-striped  text-center w-100" id="employee_table">
             <thead>
                 <tr class="text-center">
-                    <th class="col-1">Employee ID</th>
                     <th class="col">Picture</th>
                     <th class="col">Employee Details</th>
                     <th class="col">Department</th>
                     <th class="col">Position</th>
+                    <th class="col-3">Schedule Days</th>
                     <th class="col-2">Time in</th>
                     <th class="col-2">Time out</th>
                 </tr>
@@ -29,11 +29,6 @@
                         url: '/schedulejson',
                     },
                 columns: [
-                    { data: 'employee_id',
-                        render : (data,type,row)=>{
-                            return `<b>${data}</b>`
-                        }
-                    },
                     { data: 'user_detail.picture',
                         render : (data,type,row)=>{
                             return `<img src="{{ URL::asset('${data}') }}" class="rounded" width="50" height="50">`
@@ -54,6 +49,11 @@
                         }
                     },
                     { data: 'position',
+                        render : (data,type,row)=>{
+                            return `<b>${data}</b>`
+                        }
+                    },
+                    { data: 'sched_days',
                         render : (data,type,row)=>{
                             return `<b>${data}</b>`
                         }

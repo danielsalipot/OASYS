@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container w-100 p-2">
-    <table class="table table-striped table-dark text-center w-100" id="employee_table">
+    <table class="table table-striped  text-center w-100" id="employee_table">
         <thead>
             <tr class="text-center">
                 <th class="col">Employee ID</th>

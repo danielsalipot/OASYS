@@ -12,6 +12,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "laravelcollective/html": "^6.3",
+        "nesbot/carbon": "^2.59",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.3",
         "yajra/laravel-datatables-oracle": "~9.0"

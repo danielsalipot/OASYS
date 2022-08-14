@@ -23,9 +23,9 @@
 
     @include('inc.payroll_navbar')
     <div class="row mt-4">
-        <div class="col-1" style="width:6vw"></div>
         <div class="col">
-            <div class="container w-100 p-2">
+            <div class="container w-100">
+            @include('inc.alerts.admin_alerts')
             @yield('title')
             @yield('content')
         </div>
