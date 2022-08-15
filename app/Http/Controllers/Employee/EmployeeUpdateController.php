@@ -34,6 +34,9 @@ class EmployeeUpdateController extends Controller
 
     public function employeeUpdateDetail(Request $request){
         $request->validate([
+            'fname' => 'required',
+            'mname' => 'required',
+            'lname' => 'required',
             'email'=>'required|email',
             'cnum'=>['required','regex:/^(09|\+639)\d{9}$/u'],
             'bday'=>'required',
@@ -53,6 +56,9 @@ class EmployeeUpdateController extends Controller
         ]);
 
         UserDetail::where('login_id',session('user_id'))->update([
+            'fname' => $request->fname,
+            'mname' => $request->mname,
+            'lname' => $request->lname,
             'bday' => $request->bday,
             'email' => $request->email,
             'cnum' => $request->cnum,

@@ -242,6 +242,7 @@ class EmployeeController extends Controller
         $profile = EmployeeDetail::with('UserDetail')->where('login_id',session('user_id'))->first();
         $profile->age = Carbon::parse($profile->userDetail->bday)->age;
         $profile->resign = Resigned::where('employee_id',$profile->employee_id)->first();
+
         if(isset($profile->resign)){
             $profile->resign->manager = UserDetail::where('login_id',$profile->resign->manager_id)->first();
         }
@@ -356,6 +357,8 @@ class EmployeeController extends Controller
     function updateProfile(){
         $profile = EmployeeDetail::with('UserDetail')->where('login_id',session('user_id'))->first();
         $profile->age = Carbon::parse($profile->userDetail->bday)->age;
+        $profile->password = UserCredential::where('login_id',session('user_id'))->first();
+
         return view('pages.employee.employee_update')->with([
             'profile' => $profile
         ]);

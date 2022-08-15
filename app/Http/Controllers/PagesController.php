@@ -12,6 +12,8 @@ use App\Models\UserDetail;
 use App\Models\ApplicantDetail;
 use App\Models\notification_message;
 use App\Models\notification_acknowledgements;
+use Carbon\Carbon;
+use Illuminate\Validation\Rules\Password;
 
 
 class PagesController extends Controller
@@ -62,6 +64,83 @@ class PagesController extends Controller
     function change_picture(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
         return view('pages.change_picture')->with(['profile'=>$profile]);
+    }
+
+    function hrProfile(){
+        $details = UserDetail::where('login_id',session('user_id'))->first();
+        $details->age = Carbon::parse($details->bday)->age;
+        return view('pages.hr_profile')->with([
+            'details' => $details,
+            'profile' => $details
+        ]);
+    }
+
+    function change_pass(){
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.change_pass')->with(['
+            profile' => $profile
+        ]);
+    }
+
+    function changePassword(Request $request){
+        $request->validate([
+            'currentpass' =>'required',
+            'newpass' =>'required',
+                            Password::min(8)
+                            ->mixedCase() // allows both uppercase and lowercase
+                            ->letters() //accepts letter
+                            ->numbers() //accepts numbers
+                            ->symbols() //accepts special character
+                            ->uncompromised(),//check to be sure that there is no data leak
+            'confirmpass' =>'required',
+        ]);
+
+        $password = UserCredential::where('login_id',session('user_id'))->first(['password'])->password;
+        if(md5(md5($request->currentpass)) == $password){
+            if ($request->newpass == $request->confirmpass) {
+                UserCredential::where('login_id',session('user_id'))->update([
+                    'password' => md5(md5($request->newpass))
+                ]);
+
+                return back()->with([
+                    'success' => 'Password has been changed'
+                ]);
+            }
+            else{
+                return back()->with([
+                    'confirmation' => 'The new password and confirmation does not match'
+                ]);
+            }
+        }else{
+            return back()->with([
+                'incorrect' => "Incorrect current password"
+            ]);
+        }
+    }
+
+    function managerUpdateAccount(Request $request){
+        $request->validate([
+            'fname' => 'required',
+            'mname' => 'required',
+            'lname' => 'required',
+            'email'=>'required|email',
+            'cnum'=>['required','regex:/^(09|\+639)\d{9}$/u'],
+            'bday'=>'required',
+        ]);
+
+        UserDetail::where('login_id',session('user_id'))->update([
+            'fname' => $request->fname,
+            'mname' => $request->mname,
+            'lname' => $request->lname,
+            'email' => $request->email,
+            'cnum' => $request->cnum,
+            'bday' => $request->bday,
+            'sex' => $request->sex
+        ]);
+
+        return back()->with([
+            'update' => 'Account has been updated'
+        ]);
     }
 
     function submit_change_picture(Request $request){

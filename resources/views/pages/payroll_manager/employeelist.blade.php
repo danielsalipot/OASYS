@@ -137,7 +137,7 @@
                     },
                     { data: 'employee_id',
                         render : (data,type,row)=>{
-                            return `<button type="button" id="${data}" onclick="editRate(${data})" class="btn btn-outline-light" data-toggle="modal" data-target="#edit_modal"><i class="h3 bi bi-cash-coin"></i><br>Edit Rate</button>`
+                            return `<button type="button" id="${data}" onclick="editRate(${data})" class="btn btn-outline-dark  " data-toggle="modal" data-target="#edit_modal"><i class="h3 bi bi-cash-coin"></i><br>Edit Rate</button>`
                         }
                     },
                 ]

@@ -113,6 +113,9 @@ Route::prefix('')->group(function () {
     include 'Staff/delete.php';
 });
 
+Route::get('/profile', [PagesController::class, 'hrProfile']);
+Route::post('/managerUpdateAccount', [PagesController::class, 'managerUpdateAccount']);
+
 
 Route::get('/message', [MessageController::class, 'message']);
 Route::get('/message/{name}', [MessageController::class, 'message_search']);
@@ -131,6 +134,10 @@ Route::get('/notification_acknowledgement_insert', [PagesController::class, 'not
 // Landing Pages
 Route::get('/change_picture', [PagesController::class, 'change_picture']);
 Route::post('/submit_change_picture', [PagesController::class, 'submit_change_picture']);
+
+Route::get('/password', [PagesController::class, 'change_pass']);
+Route::post('/changePassword', [PagesController::class, 'changePassword']);
+
 
                 ////////////////////////
                 //Landing Pages routes//

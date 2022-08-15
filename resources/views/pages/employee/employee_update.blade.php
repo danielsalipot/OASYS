@@ -55,6 +55,7 @@
                     </div>
                 </div>
             </div>
+            <a href="/password" class="btn btn-primary w-100 btn-lg p-3 rounded-0 rounded-bottom shadow-sm"> Change Password</a>
         </div>
         <div class="col text-end pt-3">
             <a href="./" class="text-black text-decoration-none h4"><i class="bi bi-chevron-left"></i> Go to Profile</a>
@@ -63,6 +64,27 @@
             <div class="card shadow-sm p-0 mt-4 text-start">
                 <h1 class="alert-primary w-100 m-0 p-4">Update Account Details</h1>
                 <div class="p-5">
+                    <div class="row mb-5">
+                        <div class="alert-light w-100 p-3 h3">Full Name</div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="alert-light w-100 p-1 h6">First Name</div>
+                                <input type="text" name="fname" class="form-control" value="{{$profile->userDetail->fname}}">
+                                <span class="text-danger">@error('fname'){{$message}}@enderror</span>
+                            </div>
+                            <div class="col">
+                                <div class="alert-light w-100 p-1 h6">First Name</div>
+                                <input type="text" name="mname" class="form-control" value="{{$profile->userDetail->mname}}">
+                                <span class="text-danger">@error('mname'){{$message}}@enderror</span>
+                            </div>
+                            <div class="col">
+                                <div class="alert-light w-100 p-1 h6">First Name</div>
+                                <input type="text" name="lname" class="form-control" value="{{$profile->userDetail->lname}}">
+                                <span class="text-danger">@error('lname'){{$message}}@enderror</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row mb-5">
                         <div class="alert-light w-100 p-3 h3">Personal Details</div>
                         <div class="col">
