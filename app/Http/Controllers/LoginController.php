@@ -28,6 +28,10 @@ class LoginController extends Controller
             $request->session()->put('password',$check->password);
             $request->session()->put('user_type',$check->user_type);
 
+            if(isset($request->remem)){
+                $request->session()->put('remember_me',1);
+            }
+
             switch($check->user_type){
                 case 'applicant':
                     return redirect('/applicant/home');

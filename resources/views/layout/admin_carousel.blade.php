@@ -11,7 +11,12 @@
     @include('inc.navincludes')
 </head>
 <body>
-    @include('inc.profile')
+    @if (!session('user_id') || session('user_type') != 'admin')
+        {!! '<script>window.location.replace("/logout");</script>' !!}
+    @else
+        @include('inc.profile')
+    @endif
+
     @include('inc.admin_navbar')
     <div class="row mt-5">
         <div class="col-1" style="width:6vw"></div>

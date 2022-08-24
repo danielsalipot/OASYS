@@ -567,6 +567,20 @@ class AdminController extends Controller
         ]);
     }
 
+    public function employee_activities(){
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.HR_admin.employee_activities')->with([
+            'profile' => $profile,
+        ]);
+    }
+
+    public function LegalForms(){
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.HR_admin.legal_forms.BIR2316')->with([
+            'profile' => $profile,
+        ]);
+    }
+
     function ordinal($number) {
         $ends = array('th','st','nd','rd','th','th','th','th','th','th');
         if ((($number % 100) >= 11) && (($number%100) <= 13))

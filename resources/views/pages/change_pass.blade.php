@@ -72,12 +72,12 @@
                             <div class="col">
                                 <div class="alert-light w-100 p-1 h6">New Password</div>
                                 <input type="password" name="newpass" class="form-control" value="">
-                                <span class="text-danger">@error('currentpass'){{$message}}@enderror</span>
+                                <span class="text-danger">@error('newpass'){{$message}}@enderror</span>
                             </div>
                             <div class="col">
                                 <div class="alert-light w-100 p-1 h6">Re-enter New Password</div>
                                 <input type="password" name="confirmpass" class="form-control" value="">
-                                <span class="text-danger">@error('currentpass'){{$message}}@enderror</span>
+                                <span class="text-danger">@error('confirmpass'){{$message}}@enderror</span>
                             </div>
                         </div>
                         <div class="row mb-0">

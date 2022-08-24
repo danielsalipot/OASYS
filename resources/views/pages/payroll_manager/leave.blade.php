@@ -7,7 +7,7 @@
 @section('controls')
     <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Paid Leave Approvals</a></li>
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Add Paid Leave</a></li>
-    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu2">Add Paid Application</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu2">Paid Application History</a></li>
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu3">Paid Leave History</a></li>
 @endsection
 

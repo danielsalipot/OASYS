@@ -10,11 +10,12 @@
     @include('inc.navIncludes')
 </head>
 <body style="overflow-x:hidden;">
-    @if (!session()->has('user_id') && !session()->get('user_type') == 'staff')
+    @if (!session('user_id') || session('user_type') != 'staff')
         {!! '<script>window.location.replace("/logout");</script>' !!}
+    @else
+        @include('inc.profile')
     @endif
 
-    @include('inc.profile')
     @include('inc.staff_navbar')
 
     <div class="row mt-4">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
+use App\Models\employee_activity;
 use App\Models\EmployeeDetail;
 use App\Models\HealthCheck;
 use App\Models\leave_approval;
@@ -21,6 +22,12 @@ class EmployeeInsertController extends Controller
             'attendance_date'=> $request->time_in_date,
         ]);
 
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Time in',
+            'activity_date' => date('Y-m-d h:i:s')
+        ]);
+
         return back()->with([
             'insert'=>'You have successfully Timed in',
         ]);
@@ -34,6 +41,12 @@ class EmployeeInsertController extends Controller
             'attendance_id' => $request->attendance_id
         ]);
 
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Answered health check form',
+            'activity_date' => date('Y-m-d h:i:s')
+        ]);
+
         return back()->with([
             'insert'=>'You have successfully Timed in'
         ]);
@@ -44,6 +57,13 @@ class EmployeeInsertController extends Controller
             ->update([
                 'time_out'=>$request->time_out
             ]);
+
+        $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Time out',
+            'activity_date' => date('Y-m-d h:i:s')
+        ]);
 
         return back()->with(['insert'=>'You have successfully Timed Out']);
     }
@@ -57,17 +77,30 @@ class EmployeeInsertController extends Controller
             'message' => $request->message,
         ]);
 
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Sent an application for overtime for attendance #'.$request->attendance_id,
+            'activity_date' => date('Y-m-d h:i:s')
+        ]);
+
+
         return back()->with(['insert'=>'Your Application for overtime on '. $request->attendance_date .' has been submitted']);
     }
 
     function insertEmployeeLeave(Request $request){
-        return $request;
         leave_approval::create([
             'employee_id' => $request->employee_id,
             'start_date' => $request->from_date,
             'end_date' => $request->to_date,
             'title' => $request->title,
             'detail' => $request->detail,
+        ]);
+
+        $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Sent an application for leave for ' . $request->from_date . ' to ' . $request->to_date,
+            'activity_date' => date('Y-m-d h:i:s')
         ]);
 
         return back()->with(['insert'=>'Your Application for leave on '.  $request->from_date .' to ' . $request->to_date .' has been submitted']);
@@ -81,6 +114,12 @@ class EmployeeInsertController extends Controller
         Resigned::create([
             'employee_id' => $employee->employee_id,
             'resignation_path' => 'resignation/' . $filename
+        ]);
+
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Sent an application for resignation',
+            'activity_date' => date('Y-m-d h:i:s')
         ]);
 
         return back()->with(['insert'=>'Your Application for Resignation has been submitted on '. date('Y-m-d')]);

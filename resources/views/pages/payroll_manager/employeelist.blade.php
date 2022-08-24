@@ -5,7 +5,38 @@
 @endsection
 
 @section('content')
-<div class="container w-100 p-2">
+<div class="row">
+    <h4 class="alert-primary p-4 shadow-sm w-100 mb-4">Average Salary of Positions</h4>
+
+    @foreach ($positions as $position)
+        <div class="col-3 card mb-4 p-0">
+            <h5 class="alert-light shadow-sm w-100 p-3">{{ $position->position_title }}</h5>
+            <h5 class="ms-2 w-100 text-secondary p-3 pb-2">{{ count($position->employee) }} Employees occupying the position</h5>
+            <div class="row mx-auto w-100">
+                <div class="col alert-success rounded text-center p-4 m-2">
+                    <h2 class="my-3">₱{{ round($position->average_salary,2) }} <small class="text-success">Per hr.</small></h2>
+                </div>
+                <div class="col m-2 text-center">
+                    <h6 class="w-100 text-center p-2 alert-light">Top 3 Salaries</h6>
+                    @if (isset($position->employee[0]))
+                        <h6 class="w-100">{{ $position->employee[0]->employee_id }}# {{ $position->employee[0]->userDetail->lname }} <b class="text-success">(₱{{ $position->employee[0]->rate }})</b></h6>
+                    @endif
+
+                    @if (isset($position->employee[1]))
+                        <h6 class="w-100">{{ $position->employee[1]->employee_id }}# {{ $position->employee[1]->userDetail->lname }} <b class="text-success">(₱{{ $position->employee[1]->rate }})</b></h6>
+                    @endif
+
+                    @if (isset($position->employee[2]))
+                        <h6 class="w-100">{{ $position->employee[2]->employee_id }}# {{ $position->employee[2]->userDetail->lname }} <b class="text-success">(₱{{ $position->employee[2]->rate }})</b></h6>
+                    @endif
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+<div class="row p-3"></div>
+
+<div class="row card p-3">
     <table class="table table-striped  text-center w-100" id="employee_table">
         <thead>
             <tr class="text-center">
@@ -13,15 +44,16 @@
                 <th class="col">Picture</th>
                 <th class="col">Employee Details</th>
                 <th class="col">Department</th>
-                <th class="col">Position</th>
+                <th class="col-2">Position</th>
                 <th class="col">Rate/hr</th>
                 <th class="col">Start Date</th>
                 <th class="col">Employement <br>Status</th>
-                <th class="col">Edit</th>
+                <th class="col-2">Edit</th>
             </tr>
         </thead>
     </table>
 </div>
+
 @endsection
 
 @section('modal')
@@ -137,7 +169,15 @@
                     },
                     { data: 'employee_id',
                         render : (data,type,row)=>{
-                            return `<button type="button" id="${data}" onclick="editRate(${data})" class="btn btn-outline-dark  " data-toggle="modal" data-target="#edit_modal"><i class="h3 bi bi-cash-coin"></i><br>Edit Rate</button>`
+                            return `
+                            <div class="row p-0 w-100 mx-auto">
+                                <div class="col p-0">
+                                    <button type="button" id="${data}" onclick="editRate(${data})" class="btn btn-outline-dark w-100" data-toggle="modal" data-target="#edit_modal"><i class="h3 bi bi-cash-coin"></i><br>Edit Rate</button>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <a href="/payroll/employee/profile/${row.login_id}" class="btn btn-outline-primary w-100"><i class="bi bi-person-square h3"></i><br>Profile</a>
+                                </div>
+                            </div>`
                         }
                     },
                 ]

@@ -64,16 +64,23 @@ class AdminEditController extends Controller
                 'tid' => $learner_ids[$i],
             ]);
 
+            $head = 'Completion of ' .Learners::find($learner_ids[$i])->module;
+            $text = $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
+            " your completion of " .Learners::find($learner_ids[$i])->module. " on ". Learners::find($learner_ids[$i])->completion_date ."  has been marked completed on " . date('Y-m-d');
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'Completion of ' .Learners::find($learner_ids[$i])->module,
-                'message' => $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
-                            " your completion of " .Learners::find($learner_ids[$i])->module. " on ". Learners::find($learner_ids[$i])->completion_date ."  has been marked completed on " . date('Y-m-d')
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
         }
 
         return back();
@@ -96,16 +103,23 @@ class AdminEditController extends Controller
                 'tid' => $request->ids[$i],
             ]);
 
+            $head = 'Quarterly Assessment on '. Assessment::find($request->ids[$i])->start_date . ' - ' . Assessment::find($request->ids[$i])->end_date . " has been update";
+            $text =  $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
+            " your quarterly assessment for ". Assessment::find($request->ids[$i])->start_date . ' - ' . Assessment::find($request->ids[$i])->end_date . "has been update";
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'Quarterly Assessment on '. Assessment::find($request->ids[$i])->start_date . ' - ' . Assessment::find($request->ids[$i])->end_date . " has been update",
-                'message' => $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
-                            " your quarterly assessment for ". Assessment::find($request->ids[$i])->start_date . ' - ' . Assessment::find($request->ids[$i])->end_date . "has been update"
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
         };
 
         return session()->flash('update', 'The assessment has been updated');
@@ -126,16 +140,23 @@ class AdminEditController extends Controller
             'tid' => ' - ',
         ]);
 
+        $head = 'Employment status update';
+        $text = $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
+        " you have been promoted to a regular employee on ". date('Y-m-d');
+
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Employment status update',
-            'message' => $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
-                        " you have been promoted to a regular employee on ". date('Y-m-d')
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $employee->login_id]
         ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         return back()->with(['update'=>'The assessment has been updated']);
     }

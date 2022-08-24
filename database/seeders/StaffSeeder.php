@@ -35,7 +35,7 @@ class StaffSeeder extends Seeder
             'age' => rand(21,55),
             'bday' => $faker->date($format = 'Y-m-d'),
             'cnum' => $faker->e164PhoneNumber,
-            'email' => $faker->email,
+            'email' => 'danielsalipot1@gmail.com',
             'picture' => 'pictures/temp'.rand(1,9).'.jpg',
         ]);
     }

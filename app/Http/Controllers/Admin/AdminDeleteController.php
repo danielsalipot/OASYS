@@ -47,16 +47,23 @@ class AdminDeleteController extends Controller
             ]);
         }
 
+        $head = 'Quarterly assessment on '. $assessment->start_date . ' - ' . $assessment->end_date;
+        $text = $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
+        " your quarterly assessment on ". $assessment->start_date . ' - ' . $assessment->end_date ." was deleted on " . date('Y-m-d');
+
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Quarterly assessment on '. $assessment->start_date . ' - ' . $assessment->end_date,
-            'message' => $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
-                        " your quarterly assessment on ". $assessment->start_date . ' - ' . $assessment->end_date ." was deleted on " . date('Y-m-d')
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $employee->login_id]
         ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         return session()->flash('delete', 'The assessment has been deleted');
     }

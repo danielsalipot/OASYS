@@ -59,7 +59,8 @@ class MessageController extends Controller
             ->where('receiver_id', session('user_id'))
             ->where('read_status',null)
             ->update([
-                'read_status' => 1
+                'read_status' => 1,
+                'read_date' => date('Y-m-d  h:i:s')
             ]);
     }
 
@@ -141,6 +142,8 @@ class MessageController extends Controller
         foreach ($send as $key => $value) {
             $value->sender = UserDetail::where('login_id',$value->sender_id)->first();
             $value->receiver = UserDetail::where('login_id',$value->receiver_id)->first();
+
+            $value->sent_on = date('Y-m-d h:i:s', strtotime($value->created_at));
         }
 
         return $send;

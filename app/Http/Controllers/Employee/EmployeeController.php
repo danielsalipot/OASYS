@@ -11,7 +11,6 @@ use App\Models\Holiday;
 use App\Models\holiday_attendance;
 use App\Models\Learners;
 use App\Models\leave_approval;
-use App\Models\Message;
 use App\Models\notification_acknowledgements;
 use App\Models\notification_receiver;
 use App\Models\overtime_approval;
@@ -22,7 +21,6 @@ use App\Models\UserDetail;
 use App\Models\Video;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -103,7 +101,7 @@ class EmployeeController extends Controller
             }
         }
 
-        $payslips = Payslips::where('employee_id',session('user_id'))->get();
+        $payslips = Payslips::where('employee_id',$employee->employee_id)->get();
         return view('pages.employee.employeehome')->with([
             'attendance' => $attendance,
             'employee' => $employee,
@@ -229,17 +227,66 @@ class EmployeeController extends Controller
     function leave(){
         $employee = EmployeeDetail::with('UserDetail')->where('login_id',session('user_id'))->first();
         $applications = leave_approval::where('employee_id',$employee->employee_id)->orderBy('created_at','DESC')->get();
+
+        $leaves = leave_approval::where('employee_id',$employee->employee_id)->get();
+
+        // [total, current year]
+        $total_count = [0,0];
+        $approved_count = [0,0];
+        $denied_count = [0,0];
+
+        foreach ($leaves as $key => $value) {
+            if(date('Y') == date('Y', strtotime($value->created_at))){
+                $key = 1;
+                if(isset($value->status)){
+                    if($value->status){
+                        $approved_count[$key] += 1;
+                        $approved_count[0] += 1;
+
+                    }else{
+                        $denied_count[$key] += 1;
+                        $denied_count[0] += 1;
+
+                    }
+                }
+
+                $total_count[$key] += 1;
+                $total_count[0] += 1;
+            }
+            else{
+                $key = 0;
+                if(isset($value->status)){
+                    if($value->status){
+                        $approved_count[$key] += 1;
+                    }else{
+                        $denied_count[$key] += 1;
+                    }
+                }
+
+                $total_count[$key] += 1;
+            }
+        }
+
         foreach ($applications as $key => $value) {
             $value->manager = UserDetail::where('login_id',$value->approver_id)->first();
         }
         return view('pages.employee.leave')->with([
             'employee' => $employee,
-            'applications' => $applications
+            'applications' => $applications,
+            'total_count' => $total_count,
+            'approved_count' => $approved_count,
+            'denied_count' => $denied_count
         ]);
     }
 
-    function profile(){
-        $profile = EmployeeDetail::with('UserDetail')->where('login_id',session('user_id'))->first();
+    function profile($id = 0){
+        if($id){
+            $profile = EmployeeDetail::with('UserDetail')->where('login_id',$id)->first();
+        }
+        else{
+            $profile = EmployeeDetail::with('UserDetail')->where('login_id',session('user_id'))->first();
+        }
+
         $profile->age = Carbon::parse($profile->userDetail->bday)->age;
         $profile->resign = Resigned::where('employee_id',$profile->employee_id)->first();
 
@@ -258,69 +305,103 @@ class EmployeeController extends Controller
             $type->average = round($type->average / count($assessment),2);
         }
 
+
         $attendance_display_arr = [];
-        $attendance = Attendance::where('employee_id',$profile->employee_id)->get();
-        foreach ($attendance as $key => $value) {
-            if(count(holiday_attendance::where('attendance_id',$value->attendance_id)->get())){
-                array_push($attendance_display_arr,[
-                    'title'=>' Paid Holiday',
-                    'start'=> $value->attendance_date,
-                    'color' => 'Blue'
-                ]);
-            }else{
-                if($this->timeCalculator($profile->schedule_Timein) >= $this->timeCalculator($value->time_in))
-                {
-                    if($this->timeCalculator($profile->schedule_Timeout) > $this->timeCalculator($value->time_out)){
+        $graph_arr = [0,0,0,0];
+        $period = CarbonPeriod::create($profile->start_date, date('Y-m-d'));
+        foreach ($period as $key => $date) {
+            $day = date('w',strtotime($date));
+            if(in_array($day,json_decode($profile->schedule_days))){
+                $attendance = Attendance::where('employee_id',$profile->employee_id)
+                    ->where('attendance_date',date('Y-m-d',strtotime($date)))
+                    ->first();
+
+                if(isset($attendance)){
+                    $check = holiday_attendance::where('attendance_id',$attendance->attendance_id)->first();
+                    if(isset($check)){
                         array_push($attendance_display_arr,[
-                            'title'=>'ON TIME (Under Time)',
+                            'title'=>' Paid Holiday',
                             'start'=> $value->attendance_date,
-                            'color' => 'Orange'
+                            'color' => 'Blue'
                         ]);
-
-                        array_push($attendance_display_arr,[
-                            'title'=>'Time in',
-                            'start'=> $value->attendance_date . ' ' . $value->time_in,
-                        ]);
-
-                        array_push($attendance_display_arr,[
-                            'title'=>'Time out',
-                            'start'=>$value->attendance_date . ' ' . $value->time_out,
-                        ]);
-                    }else{
-                        array_push($attendance_display_arr,[
-                            'title'=>'ON TIME',
-                            'start'=> $value->attendance_date,
-                            'color' => 'Green'
-                        ]);
-
-                        array_push($attendance_display_arr,[
-                            'title'=>'Time in',
-                            'start'=> $value->attendance_date . ' ' . $value->time_in,
-                        ]);
-
-                        array_push($attendance_display_arr,[
-                            'title'=>'Time out',
-                            'start'=>$value->attendance_date . ' ' . $value->time_out,
-                        ]);
+                        $graph_arr[0] += 1;
                     }
-                }else
-                {
-                    array_push($attendance_display_arr,
-                    [
-                        'title'=>'LATE',
-                        'start'=> $value->attendance_date,
-                        'color' => 'Red'
+                    else{
+                        if($this->timeCalculator($profile->schedule_Timein) >= $this->timeCalculator($attendance->time_in))
+                        {
+                            if($this->timeCalculator($profile->schedule_Timeout) > $this->timeCalculator($attendance->time_out)){
+                                array_push($attendance_display_arr,[
+                                    'title'=>'ON TIME (Under Time)',
+                                    'start'=> $attendance->attendance_date,
+                                    'color' => 'rgb(255, 133, 73)'
+                                ]);
+
+                                array_push($attendance_display_arr,[
+                                    'title'=>'Time in',
+                                    'start'=> $attendance->attendance_date . ' ' . $attendance->time_in,
+                                ]);
+
+                                array_push($attendance_display_arr,[
+                                    'title'=>'Time out',
+                                    'start'=>$attendance->attendance_date . ' ' . $attendance->time_out,
+                                ]);
+                                $graph_arr[1] += 1;
+                            }else{
+                                array_push($attendance_display_arr,[
+                                    'title'=>'ON TIME',
+                                    'start'=> $attendance->attendance_date,
+                                    'color' => 'rgb(85, 183, 70)'
+                                ]);
+
+                                array_push($attendance_display_arr,[
+                                    'title'=>'Time in',
+                                    'start'=> $attendance->attendance_date . ' ' . $attendance->time_in,
+                                ]);
+
+                                array_push($attendance_display_arr,[
+                                    'title'=>'Time out',
+                                    'start'=>$attendance->attendance_date . ' ' . $attendance->time_out,
+                                ]);
+                                $graph_arr[0] += 1;
+                            }
+                        }else
+                        {
+                            array_push($attendance_display_arr,
+                            [
+                                'title'=>'LATE',
+                                'start'=> $attendance->attendance_date,
+                                'color' => 'rgb(285, 193, 73)'
+                            ]);
+
+                            array_push($attendance_display_arr,[
+                                'title'=>'Time in',
+                                'start'=> $attendance->attendance_date . ' ' . $attendance->time_in,
+                            ]);
+
+                            array_push($attendance_display_arr,[
+                                'title'=>'Time out',
+                                'start'=>$attendance->attendance_date . ' ' . $attendance->time_out,
+                            ]);
+                            $graph_arr[2] += 1;
+                        }
+                    }
+                }
+                else{
+                    array_push($attendance_display_arr,[
+                        'title'=>'Absent',
+                        'start'=> date('Y-m-d',strtotime($date)),
+                        'color' => 'rgb(183, 70, 70)'
+                    ]);
+                    array_push($attendance_display_arr,[
+                        'title'=>'Scheduled Time in',
+                        'start'=> date('Y-m-d',strtotime($date)) . ' ' . $profile->schedule_Timein,
                     ]);
 
                     array_push($attendance_display_arr,[
-                        'title'=>'Time in',
-                        'start'=> $value->attendance_date . ' ' . $value->time_in,
+                        'title'=>'Scheduled Time out',
+                        'start'=>date('Y-m-d',strtotime($date)) . ' ' . $profile->schedule_Timeout,
                     ]);
-
-                    array_push($attendance_display_arr,[
-                        'title'=>'Time out',
-                        'start'=>$value->attendance_date . ' ' . $value->time_out,
-                    ]);
+                    $graph_arr[3] += 1;
                 }
             }
         }
@@ -349,6 +430,7 @@ class EmployeeController extends Controller
         return view('pages.employee.employeeprofile')->with([
             'profile' => $profile,
             'types' => $types,
+            'graph_arr' => $graph_arr,
             'attendance_display_arr' => $attendance_display_arr,
             'years' => $years
         ]);

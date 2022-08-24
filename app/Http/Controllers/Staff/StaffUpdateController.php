@@ -33,16 +33,23 @@ class StaffUpdateController extends Controller
                 'tid' => '',
             ]);
 
+            $head = 'Department Change';
+            $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+            " has been moved to the " . $request->department_name . ' department';
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'Department Change',
-                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
-                            " has been moved to the " . $request->department_name . ' department'
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
         }
 
         return back()->with(['update'=>'The Employee\'s department has been updated successfully']);
@@ -67,16 +74,23 @@ class StaffUpdateController extends Controller
                 'tid' => '',
             ]);
 
+            $head = 'Position Change';
+            $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+            " your position has been changed into " . $request->position_title;
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'Position Change',
-                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
-                            " your position has been changed into " . $request->position_title
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
         }
 
         return back()->with(['update'=>'The Employee\'s position has been updated successfully']);
@@ -100,18 +114,24 @@ class StaffUpdateController extends Controller
             'tid' => '',
         ]);
 
+
+        $head = 'Interview Response';
+        $text = $employee->fname . " " . $employee->mname . " " . $employee->lname .
+        "You scored " .$request->score . " on your interview on " . $interview->interview_schedule . " the feed back was: " . $request->feedback;
+
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Interview Response',
-            'message' => $employee->fname . " " . $employee->mname . " " . $employee->lname .
-                        "You scored " .$request->score . " on your interview on " . $interview->interview_schedule . " the feed back was: " . $request->feedback
+            'title' => $head,
+            'message' => $text
         ]);
-
 
         $notif->receivers()->createMany([
             ['receiver_id' => $employee->login_id]
         ]);
 
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         return back()->with(['update'=>'The applicant\'s scores and feedback has been recorded successfully']);
     }
@@ -132,16 +152,23 @@ class StaffUpdateController extends Controller
             'tid' => '',
         ]);
 
+        $head = 'Interview Response';
+        $text = $employee->fname . " " . $employee->mname . " " . $employee->lname .
+        "You scored did not responded on your interview on " . $interview->interview_schedule;
+
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Interview Response',
-            'message' => $employee->fname . " " . $employee->mname . " " . $employee->lname .
-                        "You scored did not responded on your interview on " . $interview->interview_schedule
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $employee->login_id]
         ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         return back()->with(['update'=>'The applicant\'s no response has been recorded successfully']);
     }
@@ -160,16 +187,23 @@ class StaffUpdateController extends Controller
                 'tid' => '',
             ]);
 
+            $head = 'Time in schedule changes';
+            $text = $employee->fname . " " . $employee->mname . " " . $employee->lname .
+            "Your time in schedule has been change into ". $request->sched.':00';
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'Time in schedule changes',
-                'message' => $employee->fname . " " . $employee->mname . " " . $employee->lname .
-                            "Your time in schedule has been change into ". $request->sched.':00'
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
 
             return back()->with(['update'=>'Employee '. $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .' time in has been updated']);
         }
@@ -185,16 +219,23 @@ class StaffUpdateController extends Controller
                 'tid' => '',
             ]);
 
+            $head = 'Time out schedule changes';
+            $text = $employee->fname . " " . $employee->mname . " " . $employee->lname .
+            "Your time out schedule has been change into ". $request->sched.':00';
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'Time out schedule changes',
-                'message' => $employee->fname . " " . $employee->mname . " " . $employee->lname .
-                            "Your time out schedule has been change into ". $request->sched.':00'
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
 
             return back()->with(['update'=>'Employee '. $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .' time out has been updated']);
         }
@@ -247,16 +288,23 @@ class StaffUpdateController extends Controller
         ]);
 
 
+        $head = 'Schedule days changes';
+        $text = $employee->fname . " " . $employee->mname . " " . $employee->lname .
+        "Your scheduled days has been change into ".  substr_replace($str_days ,"", -1);
+
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Schedule days changes',
-            'message' => $employee->fname . " " . $employee->mname . " " . $employee->lname .
-                        "Your scheduled days has been change into ".  substr_replace($str_days ,"", -1)
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $employee->login_id]
         ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         return back()->with(['update'=>'Employee '. $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .' scheduled days has been updated']);
     }
@@ -274,16 +322,23 @@ class StaffUpdateController extends Controller
                 'employment_status' => 'Offboardee'
             ]);
 
+            $head = 'Resignation Update';
+            $text =$employee->fname . " " . $employee->mname . " " . $employee->lname .
+            "Your resignation has been approved on " . date('Y-m-d');
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'Resignation Update',
-                'message' => $employee->fname . " " . $employee->mname . " " . $employee->lname .
-                            "Your resignation has been approved on " . date('Y-m-d')
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
 
             return back()->with(['update'=>'Employee '. $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .' resignation has been approved']);
 
@@ -294,16 +349,23 @@ class StaffUpdateController extends Controller
                 'manager_id' => session('user_id')
             ]);
 
+            $head = 'Resignation Update';
+            $text = $employee->fname . " " . $employee->mname . " " . $employee->lname .
+            "Your resignation has been denied on " . date('Y-m-d');
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'Resignation Update',
-                'message' => $employee->fname . " " . $employee->mname . " " . $employee->lname .
-                            "Your resignation has been denied on " . date('Y-m-d')
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
 
             return back()->with(['update'=>'Employee '. $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .' resignation has been denied']);
         }

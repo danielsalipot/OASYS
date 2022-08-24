@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\UserCredential;
 use App\Models\UserDetail;
 use App\Models\ApplicantDetail;
+use App\Models\coe;
 use App\Models\notification_message;
 use App\Models\notification_acknowledgements;
 use Carbon\Carbon;
@@ -29,12 +30,28 @@ class PagesController extends Controller
     }
 
     function login(){
-        // check if a user is logged in, redirect them accourdingly
-        if(session()->has('user_id') && session('user_type') == 'applicant'){
-            return redirect('/applicant/home');
-        }
-        if(session()->has('user_id') && session('user_type') == 'payroll'){
-            return redirect('/payroll/home');
+        if(session('remember_me')){
+            //check user type then redirect
+            if(session('user_type') == 'payroll'){
+                return redirect('/payroll/home');
+            }
+
+            if(session('user_type') == 'admin'){
+                return redirect('/admin/home');
+            }
+
+            if(session('user_type') == 'staff'){
+                return redirect('/staff/home');
+            }
+
+            if(session('user_type') == 'employee'){
+                return redirect('/employee/home');
+            }
+
+            if(session('user_type') == 'applicant'){
+                return redirect('/applicant/home');
+            }
+
         }
         return view('pages.login');
     }
@@ -85,13 +102,14 @@ class PagesController extends Controller
     function changePassword(Request $request){
         $request->validate([
             'currentpass' =>'required',
-            'newpass' =>'required',
-                            Password::min(8)
-                            ->mixedCase() // allows both uppercase and lowercase
-                            ->letters() //accepts letter
-                            ->numbers() //accepts numbers
-                            ->symbols() //accepts special character
-                            ->uncompromised(),//check to be sure that there is no data leak
+            'newpass' =>['required',
+                Password::min(8)
+                    ->mixedCase() // allows both uppercase and lowercase
+                    ->letters() //accepts letter
+                    ->numbers() //accepts numbers
+                    ->symbols() //accepts special character
+                    ->uncompromised(),//check to be sure that there is no data leak
+                ],
             'confirmpass' =>'required',
         ]);
 

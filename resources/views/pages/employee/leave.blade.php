@@ -66,8 +66,49 @@
                 </div>
                 <div id="menu1" class="tab-pane">
                     <div class="container p-5 border shadow-lg">
-                        @foreach ($applications as $data)
+                        <div class="row w-75 mx-auto my-5">
+                            <div class="col card p-0 m-3">
+                                <h5 class="w-100 text-center alert-primary p-3">Number of Application</h5>
+                                <div class="row m-2">
+                                    <div class="col card mx-2">
+                                        <h6 class="alert-light w-100 p-2 text-center">Total</h6>
+                                        <h1 class="w-100 text-center">{{ $total_count[0] }}</h1>
+                                    </div>
+                                    <div class="col card mx-2">
+                                        <h6 class="alert-light w-100 p-2 text-center">This Year</h6>
+                                        <h1 class="w-100 text-center">{{ $total_count[1] }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col card p-0 m-3">
+                                <h5 class="w-100 text-center alert-success p-3">Number of Approved Application</h5>
+                                <div class="row m-2">
+                                    <div class="col card mx-2">
+                                        <h6 class="alert-light w-100 p-2 text-center">Total</h6>
+                                        <h1 class="w-100 text-center">{{ $approved_count[0] }}</h1>
+                                    </div>
+                                    <div class="col card mx-2">
+                                        <h6 class="alert-light w-100 p-2 text-center">This Year</h6>
+                                        <h1 class="w-100 text-center">{{ $approved_count[1] }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col card p-0 m-3">
+                                <h5 class="w-100 text-center alert-danger p-3">Number of Denied Application</h5>
+                                <div class="row m-2">
+                                    <div class="col card mx-2">
+                                        <h6 class="alert-light w-100 p-2 text-center">Total</h6>
+                                        <h1 class="w-100 text-center">{{ $denied_count[0] }}</h1>
+                                    </div>
+                                    <div class="col card mx-2">
+                                        <h6 class="alert-light w-100 p-2 text-center">This Year</h6>
+                                        <h1 class="w-100 text-center">{{ $denied_count[1] }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="container my-3">
+                        @foreach ($applications as $data)
                             <div class="row">
                                 <div class="col card shadow-sm p-4 rounded-0 rounded-start">
                                     <div class="display-6 alert-light mb-4">Application Letter</div>

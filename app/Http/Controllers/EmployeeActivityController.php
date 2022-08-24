@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HealthCheck;
-use App\Http\Requests\StoreHealthCheckRequest;
-use App\Http\Requests\UpdateHealthCheckRequest;
+use App\Models\employee_activity;
+use App\Http\Requests\Storeemployee_activityRequest;
+use App\Http\Requests\Updateemployee_activityRequest;
 
-class HealthCheckController extends Controller
+class EmployeeActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class HealthCheckController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreHealthCheckRequest  $request
+     * @param  \App\Http\Requests\Storeemployee_activityRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreHealthCheckRequest $request)
+    public function store(Storeemployee_activityRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class HealthCheckController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\HealthCheck  $healthCheck
+     * @param  \App\Models\employee_activity  $employee_activity
      * @return \Illuminate\Http\Response
      */
-    public function show(HealthCheck $healthCheck)
+    public function show(employee_activity $employee_activity)
     {
         //
     }
@@ -53,10 +53,10 @@ class HealthCheckController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\HealthCheck  $healthCheck
+     * @param  \App\Models\employee_activity  $employee_activity
      * @return \Illuminate\Http\Response
      */
-    public function edit(HealthCheck $healthCheck)
+    public function edit(employee_activity $employee_activity)
     {
         //
     }
@@ -64,11 +64,11 @@ class HealthCheckController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateHealthCheckRequest  $request
-     * @param  \App\Models\HealthCheck  $healthCheck
+     * @param  \App\Http\Requests\Updateemployee_activityRequest  $request
+     * @param  \App\Models\employee_activity  $employee_activity
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHealthCheckRequest $request, HealthCheck $healthCheck)
+    public function update(Updateemployee_activityRequest $request, employee_activity $employee_activity)
     {
         //
     }
@@ -76,10 +76,10 @@ class HealthCheckController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\HealthCheck  $healthCheck
+     * @param  \App\Models\employee_activity  $employee_activity
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HealthCheck $healthCheck)
+    public function destroy(employee_activity $employee_activity)
     {
         //
     }

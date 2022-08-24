@@ -93,8 +93,8 @@
             });
             }
             load_chat()
-            myInterval = setInterval(function(){
+            setInterval(function(){
                 load_chat()
-            }, 5000);
+            }, 3000);
     });
 </script>

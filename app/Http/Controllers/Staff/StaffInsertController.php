@@ -78,18 +78,24 @@ class StaffInsertController extends Controller
             'tid' => '',
         ]);
 
+
         if($request->int_status == 1){
+            $head = 'Your First Interview';
+            $text =  $applicant_detail->fname ." ". $applicant_detail->mname ." ". $applicant_detail->lname . " your first interview is scheduled on " . $request->sched;
             $notif = notification_message::create([
                 'sender_id' => session()->get('user_id'),
-                'title' => 'Your First Interview',
-                'message' => $applicant_detail->fname ." ". $applicant_detail->mname ." ". $applicant_detail->lname . " your first interview is scheduled on " . $request->sched
+                'title' => $head,
+                'message' => $text
             ]);
         }
         else{
+
+            $head = 'Your Second Interview';
+            $text = $applicant_detail->fname ." ". $applicant_detail->mname ." ". $applicant_detail->lname . " your second interview is scheduled on " . $request->sched;
             $notif = notification_message::create([
                 'sender_id' => session()->get('user_id'),
-                'title' => 'Your Second Interview',
-                'message' => $applicant_detail->fname ." ". $applicant_detail->mname ." ". $applicant_detail->lname . " your second interview is scheduled on " . $request->sched
+                'title' => $head,
+                'message' => $text
             ]);
         }
 
@@ -97,32 +103,43 @@ class StaffInsertController extends Controller
             ['receiver_id' => $applicant_detail->login_id]
         ]);
 
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $applicant_detail->email, 'name' => $applicant_detail->fname . ' ' . $applicant_detail->lname]]
+        );
 
         return back()->with(['insert'=>'The action was recorded successfully']);
     }
 
     public function InsertOnboardee(Request $request){
         $days = [];
+        $str_days = '';
         if(isset($request->sunday)){
             array_push($days,(int)$request->sunday);
+            $str_days .= ' Sunday,';
         }
         if(isset($request->monday)){
             array_push($days,(int)$request->monday);
+            $str_days .= ' Monday,';
         }
         if(isset($request->tuesday)){
             array_push($days,(int)$request->tuesday);
+            $str_days .= ' Tuesday,';
         }
         if(isset($request->wednesday)){
             array_push($days,(int)$request->wednesday);
+            $str_days .= ' Wednesday,';
         }
         if(isset($request->thursday)){
             array_push($days,(int)$request->thursday);
+            $str_days .= ' Thursday,';
         }
         if(isset($request->friday)){
             array_push($days,(int)$request->friday);
+            $str_days .= ' Friday,';
         }
         if(isset($request->saturday)){
             array_push($days,(int)$request->saturday);
+            $str_days .= ' Saturday,';
         }
 
         $applicant_detail = ApplicantDetail::where('applicant_id',$request->app_id)->first();
@@ -141,19 +158,35 @@ class StaffInsertController extends Controller
             'schedule_Timeout' => $request->timeout,
         ]);
 
-
         $detail = UserDetail::where('information_id',  $applicant_detail->information_id)->first();
+
+        $head = 'You have been onboarded';
+        $text = $detail->fname . " " . $detail->mname . " " . $detail->lname .
+            " You have been onboarded on  " . date('Y-m-d') . "<br>
+                The details of your employment is as follows </p>
+                <ul>
+                    <li><b>Position: </b> ". $request->position ."</li>
+                    <li><b>Department: </b> ". $request->department ."</li>
+                    <li><b>Hourly Rate: </b> ". $request->rate ."</li>
+                    <li><b>Scheduled Days: </b> ".  $str_days ."</li>
+                    <li><b>Scheduled Time in: </b> ". $request->timein ."</li>
+                    <li><b>Scheduled Time out: </b> ". $request->timeout ."</li>
+                </ul><p>
+            ";
 
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'You have been onboarded',
-            'message' => $detail->fname . " " . $detail->mname . " " . $detail->lname .
-                        "You have been onboarded on  " . date('Y-m-d')
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $applicant_detail->login_id]
         ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $detail->email, 'name' => $detail->fname . ' ' . $detail->lname]]
+        );
 
         Audit::create(['activity_type' => 'staff',
             'payroll_manager_id' => session()->get('user_id'),
@@ -186,17 +219,23 @@ class StaffInsertController extends Controller
             'tid' => '',
         ]);
 
+        $head = 'Cleared for clearance';
+        $text = $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .
+            " You have been cleared on offboardee clearance on " . date('Y-m-d');
+
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Cleared for clearance',
-            'message' => $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .
-                        " You have been cleared on offboardee clearance on" . date('Y-m-d')
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $employee->information_id]
         ]);
 
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         return back()->with(['insert'=>'The action was recorded successfully']);
     }
@@ -228,17 +267,23 @@ class StaffInsertController extends Controller
             'tid' => '',
         ]);
 
+        $head = 'Employment status change to offboardee';
+        $text = $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .
+        "Your employment status has been change to offboardee on " . date('Y-m-d');
+
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Employment status change to offboardee',
-            'message' => $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .
-                        "Your employment status has been change to offboardee on" . date('Y-m-d')
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $employee->information_id]
         ]);
 
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         EmployeeDetail::where('employee_id',$request->emp_id)->update(['employment_status'=>'Offboardee']);
         return back()->with(['insert'=>'The action was recorded successfully']);

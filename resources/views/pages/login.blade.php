@@ -31,6 +31,7 @@
                     <br>{!! Form::submit('Login', ['class' => 'btn btn-primary w-100 mt-3']) !!}
                     <br><a href="/" class="btn btn-outline-primary w-100 mt-1 ">Cancel</a>
                 {!! Form::close() !!}
+                <div class="w-100 text-center mt-3"><a href="/Password/Forget" class="text-decoration-none text-secondary">Forgot Password</a></div>
                 </div>
             </div>
         </div>

@@ -9,6 +9,8 @@ use Fpdf\Fpdf;
 
 use App\Models\Payroll;
 use App\Models\UserDetail;
+use App\Models\UserCredential;
+use App\Models\notification_message;
 use App\Models\Payslips;
 use App\Models\Audit;
 
@@ -22,7 +24,6 @@ class PayrollPAYSLIPPDFController extends Controller
         }
 
         foreach ($EmployeePaylipDetails as $key => $employee) {
-
 /*=============================================================================
 |                                   START
 |                            HEADER INFORMATION
@@ -365,9 +366,36 @@ Audit::create(['activity_type' => 'payroll',
     'tid' => ' - ',
 ]);
 
+$notif = notification_message::create([
+    'sender_id' => session()->get('user_id'),
+    'title' => 'Payslip generated ' ,
+    'message' => 'Payslip has been generated for payroll' . $payroll_file_record->from_date . ' - ' .$payroll_file_record->to_date
+]);
+
+$notif->receivers()->createMany([
+    ['receiver_id' => $employee->employee_id]
+]);
+
+
 /*=============================================================================
 |                                   END
 *==============================================================================*/
+        }
+
+        $manager = UserDetail::where('login_id',session('user_id'))->first();
+        $head = 'Payslip has been generated for payroll '. $payroll_file_record->from_date . " - " . $payroll_file_record->to_date;
+        $text = $manager->fname . " " . $manager->mname . " " . $manager->lname .
+        " have generated the payslip for payroll " . $payroll_file_record->from_date . " - " . $payroll_file_record->to_date . " on " . date('Y-m-d');
+
+        $reciever_manager = UserCredential::where('user_type','payroll')
+            ->where('login_id','!=',session('user_id'))
+            ->get();
+
+        foreach ($reciever_manager as $key => $value) {
+            $detail = UserDetail::where('login_id',$value->login_id)->first();
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $detail->email, 'name' => $detail->fname . ' ' . $detail->lname]]
+            );
         }
         return 'payslip have been successfully generated';
     }

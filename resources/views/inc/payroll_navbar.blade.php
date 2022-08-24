@@ -4,7 +4,7 @@
         <nav id="navbar" class="nav-menu navbar p-0">
             <ul>
                 <li><a href="/payroll/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
-                <li><a href="/payroll/employeelist"  class="nav-link py-3 pt-4" title="Employee List" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-lines-fill"></i></a></li>
+                <li><a href="/payroll/employee/list"  class="nav-link py-3 pt-4" title="Employee List" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-lines-fill"></i></a></li>
                 <li><a href="/payroll/deduction" class="nav-link py-3 pt-4" title="Employee Deduction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calculator"></i></a></li>
                 <li><a href="/payroll/overtime" class="nav-link py-3 pt-4" title="Overtime Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock"></i></a></li>
                 <li><a href="/payroll/cashadvance" class="nav-link py-3 pt-4" title="Cash Advance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-cash-stack"></i></a></li>
@@ -29,7 +29,7 @@
         <nav id="navbar" class="nav-menu navbar p-0">
         <ul class="w-100">
             <li><a href="/payroll/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home pe-4"></i>Home</a></li>
-            <li><a href="/payroll/employeelist"  class="nav-link py-3 pt-4" title="Employee List" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-lines-fill pe-4"></i>Employee List</a></li>
+            <li><a href="/payroll/employee/list"  class="nav-link py-3 pt-4" title="Employee List" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-lines-fill pe-4"></i>Employee List</a></li>
             <li><a href="/payroll/deduction" class="nav-link py-3 pt-4" title="Employee Deduction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calculator pe-4"></i>Deductions</a></li>
             <li><a href="/payroll/overtime" class="nav-link py-3 pt-4" title="Overtime Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock pe-4"></i>Overtime</a></li>
             <li><a href="/payroll/cashadvance" class="nav-link py-3 pt-4" title="Cash Advance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-cash-stack pe-4"></i>Cash Advance</a></li>
@@ -75,8 +75,8 @@
             }
         )
 
-        function load_chat(){
-                $.ajax({
+        function load_chat_count(){
+            $.ajax({
                 url: `/fetchNavBarMessageCount`,
                 type: 'get',
                 success: function(response){
@@ -97,11 +97,12 @@
                     }
                 }
             });
-            }
-            load_chat()
-            myInterval = setInterval(function(){
-                load_chat()
-            }, 5000);
+        }
+        load_chat_count()
+
+        setInterval(function(){
+            load_chat_count()
+        }, 3000);
     });
 </script>
 

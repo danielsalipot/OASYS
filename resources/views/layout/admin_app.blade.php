@@ -11,11 +11,11 @@
     @include('inc.navincludes')
 </head>
 <body>
-    @if (!session()->has('user_id') && !session()->get('user_type') == 'admin')
+    @if (!session('user_id') || session('user_type') != 'admin')
         {!! '<script>window.location.replace("/logout");</script>' !!}
+    @else
+        @include('inc.profile')
     @endif
-
-    @include('inc.profile')
 
     @include('inc.admin_navbar')
     <div class="row">

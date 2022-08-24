@@ -27,8 +27,8 @@ class AttendanceSeeder extends Seeder
                 }
                 Attendance::create([
                     'employee_id' => $employee->employee_id,
-                    'time_in' => date('H:i:s', rand(24200,26200)),
-                    'time_out' => date('H:i:s', rand(64800,72000)),
+                    'time_in' => date('H:i:s', rand(24200,25500)),
+                    'time_out' => date('H:i:s', rand(66000,72000)),
                     'attendance_day' =>date("w", strtotime("2022-08-".$j)),
                     'attendance_date'=> $date
                 ]);

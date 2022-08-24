@@ -25,7 +25,7 @@ class AuditController extends Controller
         // Prints a cell with given text
         $pdf->Cell(280,7,'Beulah Land Christian College Inc.',0,1,'C');
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(280,7,'Audit Trail Sheet',0,1,'C');
+        $pdf->Cell(280,7,'Audit Trail Sheet ('.ucfirst(session('user_type')) . ')',0,1,'C');
         $pdf->Cell(280,7,'Date duration:',0,1,'C');
         $pdf->Cell(280,7,$request->from . " - " . $request->to,0,1,'C');
 
@@ -36,7 +36,7 @@ class AuditController extends Controller
 
         //Table with 20 rows and 4 columns
         $pdf->SetWidths(array(40,20,40,40,60,40,40));
-        $pdf->Row(array('Date of Activity (UTC)','Payroll Manager','Type','Employee','Activity','Detail','Activity'));
+        $pdf->Row(array('Date of Activity (UTC)',ucfirst(session('user_type')).' Manager','Type','Employee','Activity','Detail','Activity'));
 
         foreach ($audit as $key => $value) {
             $employee = ' - ';

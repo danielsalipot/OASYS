@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Assessment;
 use App\Models\Attendance;
 use App\Models\Audit;
+use App\Models\employee_activity;
 use App\Models\EmployeeDetail;
 use App\Models\HealthCheck;
 use App\Models\Learners;
@@ -172,6 +173,18 @@ class AdminJSONController extends Controller
         })
         ->rawColumns(['payroll','employee_detail','date'])
         ->make(true);
+    }
+
+    public function getEmployeeActivitiesJson(Request $request){
+        $activities = employee_activity::whereBetween('created_at',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
+            ->get();
+
+        foreach ($activities as $key => $value) {
+            $value->employee = EmployeeDetail::with('UserDetail')->where('employee_id',$value->employee_id)->first();
+        }
+
+        return datatables()->of($activities)
+            ->make(true);
     }
 
     public function timeCalculator($time){

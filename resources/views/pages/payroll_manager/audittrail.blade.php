@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container w-100 p-2">
-    <div class="w-100 shadow-lg p-3 mb-4">
+    <div class="w-100 card shadow-sm p-3 mb-4">
         <button onclick="audit_click()" class="btn btn-outline-success w-25 py-4" id="btn_audit">Generate Audit Summary</button>
         {!! Form::open(['action'=>'App\Http\Controllers\AuditController@audit','method'=>'GET',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
                 <div id="audit_pdf_actions" class="row d-flex w-25 d-none">
@@ -24,20 +24,22 @@
     </div>
 
     @include('inc.date_filter')
-    <table class="table table-striped  text-center w-100" id="audit_table">
-        <thead>
-            <tr class="text-center">
-                <th class="col">Date of Activity</th>
-                <th class="col">Payroll Manager</th>
-                {{-- insertion, deletion update --}}
-                <th class="col">Type</th>
-                <th class="col">Affected Employee</th>
-                <th class="col">Activtiy</th>
-                <th class="col">Details</th>
-                <th class="col">Activity ID</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="card p-3 bg-white shadow-sm">
+        <table class="table table-striped  text-center w-100" id="audit_table">
+            <thead>
+                <tr class="text-center">
+                    <th class="col">Date of Activity</th>
+                    <th class="col">Payroll Manager</th>
+                    {{-- insertion, deletion update --}}
+                    <th class="col">Type</th>
+                    <th class="col">Affected Employee</th>
+                    <th class="col">Activtiy</th>
+                    <th class="col">Details</th>
+                    <th class="col">Activity ID</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>
 @endsection
 

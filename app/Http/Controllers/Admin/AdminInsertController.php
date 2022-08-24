@@ -75,16 +75,23 @@ class AdminInsertController extends Controller
                 'tid' => '',
             ]);
 
+            $head = 'You have been enrolled on '.$request->module;
+            $text = $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
+            " you have been enrolled on " . $request->module . " on ". date('Y-m-d');
+
             $notif = notification_message::create([
                 'sender_id' => session('user_id'),
-                'title' => 'You have been onboarded',
-                'message' => $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
-                            " you have been enrolled on " . $request->module . " on ". date('Y-m-d')
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $employee->login_id]
             ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
         }
 
 
@@ -122,16 +129,23 @@ class AdminInsertController extends Controller
             'tid' => '',
         ]);
 
+        $head = 'Quarterly assessment created';
+        $text = $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
+        " your quarterly assessment for ". $request->start_date . ' - ' . $request->end_date . "has been created";
+
         $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Quarterly assessment created',
-            'message' => $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname .
-                        " your quarterly assessment for ". $request->start_date . ' - ' . $request->end_date . "has been created"
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $employee->login_id]
         ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         return back()->with(['insert'=>'New assessment has been added']);
     }

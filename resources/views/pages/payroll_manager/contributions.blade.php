@@ -14,45 +14,50 @@
 
 
 @section('first')
-    <h1 class="display-4 pb-5 mt-5 text-center w-100">SSS Contribution</h1>
+    <div class="m-auto p-5">
+        <div class="row">
+            <div class="col card p-0 shadow-sm">
+                <h3 class="w-100 text-center alert-primary p-3">SSS Contribution Details</h3>
+                {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_sss', 'class'=>'w-100']) !!}
+                <div class="row p-4 mx-auto w-100">
+                    <div class="row">
+                        <div class="col text-center">
+                            {!! Form::label('sss_ee_rate', "Employee SSS Rate", []) !!}
+                            {!! Form::text('sss_ee_rate',"$sss->employee_contribution",['disabled','id'=>'sss_ee_rate','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col text-center">
+                            {!! Form::label('sss_er_rate', "Employer SSS Rate", []) !!}
+                            {!! Form::text('sss_er_rate',"$sss->employer_contribution",['disabled','id'=>'sss_er_rate', 'class'=>'form-control text-center p-3']) !!}
+                        </div>
+                    </div>
 
-    <div class="shadow-lg m-auto p-5">
-        <h3 class="w-100 text-center">SSS Contribution Details</h3>
-        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_sss']) !!}
-        <div class="row p-3">
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-2 text-center">
-                    {!! Form::label('sss_ee_rate', "Employee SSS Rate", []) !!}
-                    {!! Form::text('sss_ee_rate',"$sss->employee_contribution",['disabled','id'=>'sss_ee_rate','class'=>'form-control text-center p-3']) !!}
+                    <div class="row mt-3 ">
+                        <div class="col-4 text-center">
+                            {!! Form::label('sss_add_low', "Lower Addition", []) !!}
+                            {!! Form::text('sss_add_low',"$sss->add_low",['disabled','id'=>'sss_add_low','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-4 text-center">
+                            {!! Form::label('sss_add_high', "Higher Addition", []) !!}
+                            {!! Form::text('sss_add_high',"$sss->add_high",['disabled','id'=>'sss_add_high', 'class'=>'form-control text-center p-3']) !!}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-2 text-center">
-                    {!! Form::label('sss_er_rate', "Employer SSS Rate", []) !!}
-                    {!! Form::text('sss_er_rate',"$sss->employer_contribution",['disabled','id'=>'sss_er_rate', 'class'=>'form-control text-center p-3']) !!}
+
+                <div class="d-flex flex-row justify-content-center mt-3 p-0 w-100 text-center">
+                    <button type="button" id="sss_lock" class="btn btn-outline-primary h-100 px-4 p-3 rounded-0 rounded-start"><i class="bi bi-lock"></i></button>
+                    {!! Form::submit('Update SSS Rate', ['disabled','id' =>'sss_update','class'=>'btn btn-success px-5 p-3 w-100 rounded-0']) !!}
+                    <button disabled type="button" id="sss_cancel" class="btn btn-outline-danger h-100 px-4 p-3 rounded-0 rounded-end"><i class="bi bi-x-circle"></i></button>
                 </div>
-                <div class="col"></div>
+                {!! Form::close() !!}
             </div>
-
-            <div class="row mt-3 ">
-                <div class="col"></div>
-                <div class="col-1 text-center">
-                    {!! Form::label('sss_add_low', "Lower Addition", []) !!}
-                    {!! Form::text('sss_add_low',"$sss->add_low",['disabled','id'=>'sss_add_low','class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col-1 text-center">
-                    {!! Form::label('sss_add_high', "Higher Addition", []) !!}
-                    {!! Form::text('sss_add_high',"$sss->add_high",['disabled','id'=>'sss_add_high', 'class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col"></div>
-            </div>
-
-            <div class="d-flex flex-row justify-content-center mt-3 mx-0">
-                <button type="button" id="sss_lock" class="btn btn-outline-primary h-100 me-2 px-4 p-3"><i class="bi bi-lock"></i></button>
-                {!! Form::submit('Update SSS Rate', ['disabled','id' =>'sss_update','class'=>'btn btn-success px-5 p-3']) !!}
-                <button disabled type="button" id="sss_cancel" class="btn btn-outline-danger h-100 ms-2 px-4 p-3"><i class="bi bi-x-circle"></i></button>
+            <div class="col"></div>
+            <div class="col card p-0 shadow-sm">
+                <h3 class="w-100 text-center alert-primary p-3">SSS Forms</h3>
+                <p class="m-3 text-center" style="font-size: 13px">Employers are obliged to submit several forms on a regular basis to SSS; to obtain the relevant form, click the button below.</p>
+                <a href="https://www.sss.gov.ph/sss/appmanager/sss_downloads.jsp?type=forms" target="_blank" class="btn btn-primary p-3 w-75 mx-auto">SSS List of Forms</a>
             </div>
         </div>
-        {!! Form::close() !!}
     </div>
 
     <br>
@@ -77,54 +82,51 @@
 @endsection
 
 @section('second')
-    <h1 class="display-4 pb-5 mt-5 text-center w-100">Pagibig Contribution</h1>
-
-    <div class="shadow-lg m-auto p-5">
-        <h3 class="w-100 text-center">Pagibig Contribution Details</h3>
-
-        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_pagibig']) !!}
-        <div class="row p-3">
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-2 text-center">
-                    {!! Form::label('pagibig_ee_min_rate', "Employee Pagibig Low Rate", []) !!}
-                    {!! Form::text('pagibig_ee_min_rate',"$pagibig->ee_min_rate",['disabled','id'=>'pagibig_ee_min_rate','class'=>'form-control text-center p-3']) !!}
+    <div class="m-auto p-5">
+        <div class="row">
+            <div class="col card p-0 shadow-sm">
+                <h3 class="w-100 text-center alert-primary p-3">Pagibig Contribution Details</h3>
+                {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_pagibig']) !!}
+                <div class="row p-4">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            {!! Form::label('pagibig_ee_min_rate', "Employee Pagibig Low Rate", []) !!}
+                            {!! Form::text('pagibig_ee_min_rate',"$pagibig->ee_min_rate",['disabled','id'=>'pagibig_ee_min_rate','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col-4 text-center">
+                            {!! Form::label('pagibig_ee_max_rate', "Employee Pagibig High Rate", []) !!}
+                            {!! Form::text('pagibig_ee_max_rate',"$pagibig->ee_max_rate",['disabled','id'=>'pagibig_ee_max_rate','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col-4 text-center">
+                            {!! Form::label('pagibig_er_rate', "Employer Pagibig Rate", []) !!}
+                            {!! Form::text('pagibig_er_rate',"$pagibig->er_rate",['disabled','id'=>'pagibig_er_rate', 'class'=>'form-control text-center p-3']) !!}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col text-center">
+                            {!! Form::label('pagibig_max', "Maximum Contribution", []) !!}
+                            {!! Form::text('pagibig_max',"$pagibig->maximum",['disabled','id'=>'pagibig_max','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col text-center">
+                            {!! Form::label('pagibig_divider', "Pagibig Maximum Salary", []) !!}
+                            {!! Form::text('pagibig_divider',"$pagibig->divider",['disabled','id'=>'pagibig_divider','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-2 text-center">
-                    {!! Form::label('pagibig_ee_max_rate', "Employee Pagibig High Rate", []) !!}
-                    {!! Form::text('pagibig_ee_max_rate',"$pagibig->ee_max_rate",['disabled','id'=>'pagibig_ee_max_rate','class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col-2 text-center">
-                    {!! Form::label('pagibig_er_rate', "Employer Pagibig Rate", []) !!}
-                    {!! Form::text('pagibig_er_rate',"$pagibig->er_rate",['disabled','id'=>'pagibig_er_rate', 'class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col"></div>
-            </div>
-            <div class="row mt-3">
-                <div class="col"></div>
-                <div class="col-2 text-center">
-                    {!! Form::label('pagibig_max', "Maximum Contribution", []) !!}
-                    {!! Form::text('pagibig_max',"$pagibig->maximum",['disabled','id'=>'pagibig_max','class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col"></div>
-            </div>
-            <div class="row my-3">
-                <div class="col"></div>
-                <div class="col-1 text-center">
-                    {!! Form::label('pagibig_divider', "Pagibig Maximum Salary", []) !!}
-                    {!! Form::text('pagibig_divider',"$pagibig->divider",['disabled','id'=>'pagibig_divider','class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col"></div>
-            </div>
-            <div class="row">
                 <div class="d-flex flex-row justify-content-center mt-3">
-                    <button type="button" id="pagibig_lock" class="btn btn-outline-primary h-100 me-2 px-4 p-3"><i class="bi bi-lock"></i></button>
-                    {!! Form::submit('Update Pagibig Rate', ['disabled','id' =>'pagibig_update','class'=>'btn btn-success px-5 p-3']) !!}
-                    <button disabled type="button" id="pagibig_cancel" class="btn btn-outline-danger h-100 ms-2 px-4 p-3"><i class="bi bi-x-circle"></i></button>
+                    <button type="button" id="pagibig_lock" class="btn btn-outline-primary h-100 px-4 p-3 rounded-0 rounded-start "><i class="bi bi-lock"></i></button>
+                    {!! Form::submit('Update Pagibig Rate', ['disabled','id' =>'pagibig_update','class'=>'btn btn-success px-5 p-3 w-100 rounded-0']) !!}
+                    <button disabled type="button" id="pagibig_cancel" class="btn btn-outline-danger h-100 px-4 p-3 rounded-0 rounded-end"><i class="bi bi-x-circle"></i></button>
                 </div>
+                {!! Form::close() !!}
+            </div>
+            <div class="col"></div>
+            <div class="col card p-0 shadow-sm">
+                <h3 class="w-100 text-center alert-primary p-3">Pagibig Forms</h3>
+                <p class="m-3 text-center" style="font-size: 13px">Employers are obliged to submit several forms on a regular basis to Pagibig; to obtain the relevant form, click the button below.</p>
+                <a href="https://www.pagibigfund.gov.ph/forms_provident.html" target="_blank" class="btn btn-primary p-3 w-75 mx-auto">Pagibig List of Forms</a>
             </div>
         </div>
-        {!! Form::close() !!}
     </div>
 
     <br>
@@ -161,57 +163,57 @@
 
 @section('third')
 <div class="container p-5 border shadow-lg">
-    <h1 class="display-4 pb-5 mt-5 text-center w-100">Philhealth Contribution</h1>
-
-    <div class="shadow-lg m-auto p-5">
-        <h3 class="w-100 text-center">Philhealth Contribution Details</h3>
-        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_philhealth']) !!}
-        <div class="row p-3">
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-2 text-center">
-                    {!! Form::label('philhealth_rate', "Philhealth Rate", []) !!}
-                    {!! Form::text('philhealth_rate',"$philhealth->ph_rate",['disabled','id'=>'philhealth_rate','class'=>'form-control text-center p-3']) !!}
+    <div class="m-auto p-5">
+        <div class="row">
+            <div class="col card p-0 shadow-sm">
+                <h3 class="w-100 text-center p-3 alert-primary">Philhealth Contribution Details</h3>
+                {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_philhealth']) !!}
+                <div class="row p-4">
+                    <div class="row">
+                        <div class="col text-center">
+                            {!! Form::label('philhealth_rate', "Philhealth Rate", []) !!}
+                            {!! Form::text('philhealth_rate',"$philhealth->ph_rate",['disabled','id'=>'philhealth_rate','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col text-center">
+                            {!! Form::label('philhealth_max_share', "Philhealth Maximum Share", []) !!}
+                            {!! Form::text('philhealth_max_share',"$philhealth->ph_cap",['disabled','id'=>'philhealth_max_share','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col text-center">
+                            {!! Form::label('philhealth_min', "Philhealth Minimum Range", []) !!}
+                            {!! Form::text('philhealth_min',"$philhealth->minimum",['disabled','id'=>'philhealth_min','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col text-center">
+                            {!! Form::label('philhealth_max', "Philhealth Maximum Range", []) !!}
+                            {!! Form::text('philhealth_max',"$philhealth->maximum",['disabled','id'=>'philhealth_max', 'class'=>'form-control text-center p-3']) !!}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col text-center">
+                            {!! Form::label('philhealth_ee_rate', "Employee Philhealth Rate", []) !!}
+                            {!! Form::text('philhealth_ee_rate',"$philhealth->ee_rate",['disabled','id'=>'philhealth_ee_rate','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col text-center">
+                            {!! Form::label('philhealth_er_rate', "Employer Philhealth Rate", []) !!}
+                            {!! Form::text('philhealth_er_rate',"$philhealth->er_rate",['disabled','id'=>'philhealth_er_rate', 'class'=>'form-control text-center p-3']) !!}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-1 text-center"></div>
-                <div class="col-2 text-center">
-                    {!! Form::label('philhealth_max_share', "Philhealth Maximum Share", []) !!}
-                    {!! Form::text('philhealth_max_share',"$philhealth->ph_cap",['disabled','id'=>'philhealth_max_share','class'=>'form-control text-center p-3']) !!}
+                <div class="d-flex flex-row justify-content-center mt-3">
+                    <button type="button" id="philhealth_lock" class="btn btn-outline-primary h-100 px-4 p-3 rounded-0 rounded-start"><i class="bi bi-lock"></i></button>
+                    {!! Form::submit('Update Philhealth Rate', ['disabled','id' =>'philhealth_update','class'=>'btn btn-success px-5 w-100 p-3 rounded-0']) !!}
+                    <button disabled type="button" id="philhealth_cancel" class="btn btn-outline-danger h-100 px-4 p-3 rounded-0 rounded-end"><i class="bi bi-x-circle"></i></button>
                 </div>
-                <div class="col"></div>
+                {!! Form::close() !!}
             </div>
-            <div class="row mt-3">
-                <div class="col"></div>
-                <div class="col-3 text-center">
-                    {!! Form::label('philhealth_min', "Philhealth Minimum Range", []) !!}
-                    {!! Form::text('philhealth_min',"$philhealth->minimum",['disabled','id'=>'philhealth_min','class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col-3 text-center">
-                    {!! Form::label('philhealth_max', "Philhealth Maximum Range", []) !!}
-                    {!! Form::text('philhealth_max',"$philhealth->maximum",['disabled','id'=>'philhealth_max', 'class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col"></div>
-            </div>
-            <div class="row mt-3">
-                <div class="col"></div>
-                <div class="col-2 text-center">
-                    {!! Form::label('philhealth_ee_rate', "Employee Philhealth Rate", []) !!}
-                    {!! Form::text('philhealth_ee_rate',"$philhealth->ee_rate",['disabled','id'=>'philhealth_ee_rate','class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col-2 text-center">
-                    {!! Form::label('philhealth_er_rate', "Employer Philhealth Rate", []) !!}
-                    {!! Form::text('philhealth_er_rate',"$philhealth->er_rate",['disabled','id'=>'philhealth_er_rate', 'class'=>'form-control text-center p-3']) !!}
-                </div>
-                <div class="col"></div>
-            </div>
-
-            <div class="d-flex flex-row justify-content-center mt-3">
-                <button type="button" id="philhealth_lock" class="btn btn-outline-primary h-100 me-2 px-4 p-3"><i class="bi bi-lock"></i></button>
-                {!! Form::submit('Update Philhealth Rate', ['disabled','id' =>'philhealth_update','class'=>'btn btn-success px-5 p-3']) !!}
-                <button disabled type="button" id="philhealth_cancel" class="btn btn-outline-danger h-100 ms-2 px-4 p-3"><i class="bi bi-x-circle"></i></button>
+            <div class="col"></div>
+            <div class="col card p-0 shadow-sm">
+                <h3 class="w-100 text-center alert-primary p-3">PhilHealth Forms</h3>
+                <p class="m-3 text-center" style="font-size: 13px">Employers are obliged to submit several forms on a regular basis to PhilHealth; to obtain the relevant form, click the button below.</p>
+                <a href="https://www.philhealth.gov.ph/downloads/" target="_blank" class="btn btn-primary p-3 w-75 mx-auto">PhilHealth List of Forms</a>
             </div>
         </div>
-        {!! Form::close() !!}
     </div>
 
     <br>

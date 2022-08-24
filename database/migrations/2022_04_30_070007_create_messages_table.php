@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('receiver_id');
             $table->LONGTEXT('message');
             $table->integer('read_status')->nullable();
+            $table->dateTime('read_date')->nullable();
             $table->timestamps();
         });
     }

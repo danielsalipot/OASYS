@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    @if (!session()->has('user_id') && !session()->get('user_type') == 'payroll')
+    @if (!session('user_id'))
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif
 

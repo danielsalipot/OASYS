@@ -20,17 +20,23 @@ class StaffDeleteController extends Controller
             ->where('applicant_id',Interview::find($request->interview_id)->applicant_id)
             ->first();
 
-        $notif = notification_message::create([
+        $head = 'Rescheduling of Interview';
+        $text = $applicant->fname . " " . $applicant->mname . " " . $applicant->lname .
+            "Your interview has been rescheduled.";
+
+            $notif = notification_message::create([
             'sender_id' => session('user_id'),
-            'title' => 'Rescheduling of Interview',
-            'message' => $applicant->fname . " " . $applicant->mname . " " . $applicant->lname .
-                        "Your interview has been rescheduled."
+            'title' => $head,
+            'message' => $text
         ]);
 
         $notif->receivers()->createMany([
             ['receiver_id' => $applicant->login_id]
         ]);
 
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $applicant->userDetail->email, 'name' => $applicant->userDetail->fname . ' ' . $applicant->userDetail->lname]]
+        );
         return back()->with(['delete'=>'The schedule was removed successfully']);
     }
 
@@ -49,13 +55,21 @@ class StaffDeleteController extends Controller
             'tid' => '',
         ]);
 
+        $head = 'Your account has been deleted';
+        $text = $employee->fname . " " . $employee->mname . " " . $employee->lname .
+        " your account has been deleted on " . date('Y-m-d');
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
+
         $employee->delete();
-        //email applicant
         return back()->with(['delete'=>'The action was recorded successfully']);
     }
 
     public function deleteEmployee(Request $request){
         $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$request->id)->first();
+        $link = app('App\Http\Controllers\Staff\CertificateController')->employmentCertificate($request->id);
 
         Audit::create(['activity_type' => 'staff',
             'payroll_manager_id' => session()->get('user_id'),
@@ -66,9 +80,10 @@ class StaffDeleteController extends Controller
             'tid' => '',
         ]);
 
+        app('App\Http\Controllers\EmailSendingController')->sendCOE( 'localhost:8000/certificate/employment/'.$link, $employee->userDetail->email, $employee->userDetail->fname,$employee->userDetail->lname);
+
         EmployeeDetail::with('UserDetail')->where('employee_id',$request->id)->delete();
         UserCredential::where('login_id',$employee->login_id)->delete();
         return back()->with(['delete'=>'The employee has been deleted successfully']);
-        // email the user
     }
 }

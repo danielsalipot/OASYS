@@ -7,6 +7,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/home', [AdminController::class, 'adminhome']);
     Route::get('/attendance', [AdminController::class, 'attendance']);
     Route::get('/audittrail', [AdminController::class, 'audittrail']);
+    Route::get('/LegalForms', [AdminController::class, 'LegalForms']);
+
+    Route::get('/employees/activities', [AdminController::class, 'employee_activities']);
+
     Route::get('/regularization', [AdminController::class, 'regularization']);
     Route::get('/regularization/{id}', [AdminController::class, 'regularization_main']);
 

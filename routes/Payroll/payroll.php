@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Payroll\PayrollController;
 use App\Http\Controllers\PagesController;
 
@@ -7,7 +8,7 @@ Route::prefix('payroll')->group(function () {
     Route::get('/home', [PayrollController::class, 'payroll']);
     Route::get('/history', [PayrollController::class, 'History']);
     Route::get('/history/payslip', [PayrollController::class, 'display_payslip']);
-    Route::get('/employeelist', [PayrollController::class, 'employeelist']);
+    Route::get('/employee/list', [PayrollController::class, 'employeelist']);
     Route::get('/deduction', [PayrollController::class, 'deduction']);
     Route::get('/contributions', [PayrollController::class, 'contributions']);
     Route::get('/bonus', [PayrollController::class, 'bonus']);
@@ -22,4 +23,5 @@ Route::prefix('payroll')->group(function () {
     Route::get('/approval', [PayrollController::class, 'approval']);
 
     Route::get('/progress/{btn}', [PayrollController::class, 'progress']);
+    Route::get('/employee/profile/{id}', [EmployeeController::class, 'profile']);
 });

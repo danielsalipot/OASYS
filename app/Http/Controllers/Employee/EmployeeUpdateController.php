@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Models\employee_activity;
 use App\Models\EmployeeDetail;
 use App\Models\Learners;
 use App\Models\UserDetail;
@@ -11,10 +12,18 @@ use Illuminate\Http\Request;
 class EmployeeUpdateController extends Controller
 {
     public function updateModule(Request $request){
-        Learners::find($request->learner_id)
-            ->update([
-                'progress' => 1
-            ]);
+        $module = Learners::find($request->learner_id)->first();
+
+        $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Finished a lesson on ' . $module->module . ' module',
+            'activity_date' => date('Y-m-d h:i:s')
+        ]);
+
+        Learners::find($request->learner_id)->update([
+            'progress' => 1
+        ]);
 
         return back();
     }
@@ -28,6 +37,14 @@ class EmployeeUpdateController extends Controller
                 'completion_date' => date("Y-m-d"),
             ]);
         }
+
+        $module = Learners::find($learner_ids[0])->first();
+        $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Completed ' . $module->module . ' module',
+            'activity_date' => date('Y-m-d h:i:s')
+        ]);
 
         return back();
     }
@@ -49,6 +66,13 @@ class EmployeeUpdateController extends Controller
             EmployeeDetail::where('login_id',session('user_id'))->update([
                 'resume' =>  "resumes/" . $resumefilename
             ]);
+
+            $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+            employee_activity::create([
+                'employee_id' => $employee->employee_id,
+                'description' => 'Updated employee resume' ,
+                'activity_date' => date('Y-m-d h:i:s')
+            ]);
         }
 
         EmployeeDetail::where('login_id',session('user_id'))->update([
@@ -63,6 +87,13 @@ class EmployeeUpdateController extends Controller
             'email' => $request->email,
             'cnum' => $request->cnum,
             'sex' => $request->sex
+        ]);
+
+        $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Update employee information on the account' ,
+            'activity_date' => date('Y-m-d h:i:s')
         ]);
 
         return back();

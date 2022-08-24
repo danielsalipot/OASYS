@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 use Fpdf\Fpdf;
 
+
 use App\Models\Payroll;
 use App\Models\UserDetail;
 use App\Models\Audit;
+use App\Models\UserCredential;
 use App\Models\payroll_approval;
 
 class PayrollPAYROLLPDFController extends Controller
@@ -332,6 +334,22 @@ $total_philhealth = $total_philhealth_ee + $total_philhealth_er;
             'to_date' => $dates[1],
         ]);
 
+
+        $manager = UserDetail::where('login_id',session('user_id'))->first();
+        $head = 'Generated payroll '. $request->pr_col2;
+        $text = $manager->fname . " " . $manager->mname . " " . $manager->lname .
+        " have generated  payroll " . $request->pr_col2 . " on " . date('Y-m-d') . ' check your account for approvals';
+
+        $reciever_manager = UserCredential::where('user_type','payroll')
+            ->where('login_id','!=',session('user_id'))
+            ->get();
+
+        foreach ($reciever_manager as $key => $value) {
+            $detail = UserDetail::where('login_id',$value->login_id)->first();
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $detail->email, 'name' => $detail->fname . ' ' . $detail->lname]]
+            );
+        }
 
         $pdf->Output('F',"payrolls/payroll(" . $request->pr_col2 .").pdf");
         $pdf->Output();

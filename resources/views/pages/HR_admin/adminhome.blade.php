@@ -4,6 +4,50 @@
     <div class="row py-2">
         <div class="col">
             <div class="row w-100 m-0 p-0">
+                @if (!count($videos))
+                <div class="col text-center alert-success border border-success p-0 rounded-start">
+                    <h4 class="w-100 bg-success text-white m-0 p-2">Orientation Module</h4>
+                    <div class="row py-4">
+                        <div class="col-1"></div>
+                        <div class="col p-0 my-3">
+                            <small class="text-secondary" style="font-size: 10px;">TOTAL VIDEOS</small><h1 style="font-size: 30px;" class="text-secondary">00</h1>
+                        </div>
+                        <div class="col p-0">
+                            <h6 style="font-size: 10px;">Number of Enrolled</h6><h1 style="font-size: 50px;">00</h1>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    <a href="/admin/orientation/module" class="btn btn-lg p-3 m-0 btn-outline-success w-100 rounded-0"> <i class="bi bi-journal-bookmark me-2"></i>Edit Orientation Module</a>
+                </div>
+                <div class="col text-center alert-primary border border-primary p-0 rounded-start">
+                    <h4 class="w-100 bg-primary text-white m-0 p-2">Training Module</h4>
+                    <div class="row py-4">
+                        <div class="col-1"></div>
+                        <div class="col p-0 my-3">
+                            <small class="text-secondary" style="font-size: 10px;">TOTAL VIDEOS</small><h1 style="font-size: 30px;" class="text-secondary">00</h1>
+                        </div>
+                        <div class="col p-0">
+                            <h6 style="font-size: 10px;">Number of Enrolled</h6><h1 style="font-size: 50px;">00</h1>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    <a href="/admin/training/module" class="btn btn-lg p-3 m-0 btn-outline-primary w-100 rounded-0"> <i class="bi bi-journal-bookmark me-2"></i>Edit Training Module</a>
+                </div>
+                <div class="col text-center alert-danger border border-danger p-0 rounded-start">
+                    <h4 class="w-100 bg-danger text-white m-0 p-2">Correction Module</h4>
+                    <div class="row py-4">
+                        <div class="col-1"></div>
+                        <div class="col p-0 my-3">
+                            <small class="text-secondary" style="font-size: 10px;">TOTAL VIDEOS</small><h1 style="font-size: 30px;" class="text-secondary">00</h1>
+                        </div>
+                        <div class="col p-0">
+                            <h6 style="font-size: 10px;">Number of Enrolled</h6><h1 style="font-size: 50px;">00</h1>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    <a href="/admin/correction/module" class="btn btn-lg p-3 m-0 btn-outline-danger w-100 rounded-0"> <i class="bi bi-journal-bookmark me-2"></i>Edit Correction Module</a>
+                </div>
+                @endif
                 @foreach ($videos as $key => $video)
                 @switch($video->category)
                     @case("orientation")

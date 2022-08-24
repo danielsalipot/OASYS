@@ -13,11 +13,13 @@ use App\Models\philhealth;
 use App\Models\EmployeeDetail;
 use App\Models\UserCredential;
 use App\Models\Audit;
+use App\Models\employee_activity;
 use App\Models\leave_approval;
 use App\Models\payroll_approval;
 use App\Models\Payroll;
 use App\Models\UserDetail;
 use App\Models\Payslips;
+use App\Models\Position;
 
 class PayrollController extends Controller
 {
@@ -80,12 +82,38 @@ class PayrollController extends Controller
         }
 
         function display_payslip(Request $request){
+
+            if(session('user_type') == 'employee'){
+                $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+                employee_activity::create([
+                    'employee_id' => $employee->employee_id,
+                    'description' => 'Employee viewed their payslip (' . $request->path . ')',
+                    'activity_date' => date('Y-m-d h:i:s')
+                ]);
+            }
+
             echo '<iframe src="'.$request->path.'" width="100%" style="height:100%"></iframe>';
         }
 
         function employeelist(){
             $profile = UserDetail::where('login_id',session('user_id'))->first();
-            return view('pages.payroll_manager.employeelist')->with(['profile'=>$profile]);
+            $positions = Position::all();
+            foreach ($positions as $key => $position) {
+                $position->employee = EmployeeDetail::with('UserDetail')->where('position',$position->position_title)->orderBy('rate','DESC')->get();
+                $position->average_salary = 0;
+                if(count($position->employee)){
+                    foreach ($position->employee as $key => $employee) {
+                        $position->average_salary += $employee->rate;
+                    }
+
+                    $position->average_salary = $position->average_salary / count($position->employee);
+                }
+            }
+
+            return view('pages.payroll_manager.employeelist')->with([
+                'profile' => $profile,
+                'positions' => $positions
+            ]);
         }
 
         function deduction(){

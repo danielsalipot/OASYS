@@ -1,4 +1,4 @@
-@extends('layout.employee_app')
+@extends('layout.employee_profile_layout')
     @section('content')
     @include('inc.chart')
     <style>
@@ -172,7 +172,44 @@
             <div class="tab-content">
                 <div id="home" class="tab-pane in active">
                     <div class="container p-5 border shadow-sm">
+                        <div class="row p-3">
+                            <h1 class="alert-light">Attendance Overview</h1>
+                        </div>
                         <div id="calendar"></div>
+                        <div class="row p-3">
+                            <h1 class="alert-light">Overall Attendance Summary</h1>
+
+                            <div class="row">
+                                <div class="container card shadow-sm p-3 ">
+                                    <canvas id="attendance_pie" width="1" height="1"></canvas>
+                                </div>
+                            <script>
+                                var ctx = document.getElementById('attendance_pie').getContext('2d');
+                                var myChart = new Chart(ctx,{
+                                    type: 'pie',
+                                    data: {
+                                        labels: [
+                                            'On Time',
+                                            'Under Time',
+                                            'Late',
+                                            'Absent',
+                                        ],
+                                        datasets: [{
+                                            label: 'My First Dataset',
+                                            data: ['{!! $graph_arr[0] !!}','{!! $graph_arr[1] !!}','{!! $graph_arr[2] !!}','{!! $graph_arr[3] !!}'],
+                                            backgroundColor: [
+                                                'rgb(85, 183, 70)',
+                                                'rgb(255, 133, 73)',
+                                                'rgb(285, 193, 73)',
+                                                'rgb(183, 70, 70)',
+                                            ],
+                                            hoverOffset: 4
+                                        }]
+                                    },
+                                })
+                                </script>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="menu1" class="tab-pane">

@@ -29,6 +29,7 @@ use App\Models\Payslips;
 use App\Models\UserCredential;
 use App\Models\Audit;
 use App\Models\overtime_approval;
+use Throwable;
 
 class PayrollJSONController extends Controller
 {
@@ -843,45 +844,64 @@ public function thirteenthMonthJSON(Request $request){
         $employee->payroll = $employee->FilteredPayroll($employee->employee_id, $request->from_date,$request->to_date);
     }
 
-
     return datatables()->of($employees)
         ->addColumn('employee_details',function($data){
-            $detail = '<h5>'. $data->fname . ' ' . $data->mname . ' '. $data->lname .'</h5>
-                '. $data->department. '<br>
-                '.$data->position;
+            try {
+                $detail = '<h5>'. $data->fname . ' ' . $data->mname . ' '. $data->lname .'</h5>
+                    '. $data->department. '<br>
+                    '.$data->position;
 
-            return $detail;
+                return $detail;
+            } catch (\Throwable $th) {
+                return '';
+            }
         })
         ->addColumn('net_sum',function($data){
-            $detail = 0;
-            foreach ($data->payroll as $key => $value) {
-                $detail += $value->net_pay;
+            try {
+                $detail = 0;
+                foreach ($data->payroll as $key => $value) {
+                    $detail += $value->net_pay;
+                }
+                return round($detail,2  );
+            } catch (\Throwable $th) {
+                return '';
             }
-            return round($detail,2  );
         })
         ->addColumn('bonus',function($data){
-            $detail = 0;
-            foreach ($data->payroll as $key => $value) {
-                $detail += $value->net_pay;
+            try {
+                $detail = 0;
+                foreach ($data->payroll as $key => $value) {
+                    $detail += $value->net_pay;
+                }
+                return round($detail / 12,2);
+            } catch (\Throwable $th) {
+                return '';
             }
-            return round($detail / 12,2);
         })
         ->addColumn('dates',function($data){
-            $detail = '';
-            $detail .= $data->payroll[0]->payroll_date;
-            $detail .= ' - ';
-            $detail .= $data->payroll[count($data->payroll)-1]->payroll_date;
-            return $detail;
+            try {
+                $detail = '';
+                $detail .= $data->payroll[0]->payroll_date;
+                $detail .= ' - ';
+                $detail .= $data->payroll[count($data->payroll)-1]->payroll_date;
+                return $detail;
+            } catch (\Throwable $th) {
+                return '';
+            }
         })
         ->addColumn('total_months',function($data){
-            $date1 = new DateTime($data->payroll[0]->payroll_date);
+            try {
+                $date1 = new DateTime($data->payroll[0]->payroll_date);
 
-            $date2 = date_create($data->payroll[count($data->payroll)-1]->payroll_date);
-            date_add($date2,date_interval_create_from_date_string("15 days"));
+                $date2 = date_create($data->payroll[count($data->payroll)-1]->payroll_date);
+                date_add($date2,date_interval_create_from_date_string("15 days"));
 
-            $interval = $date1->diff($date2);
+                $interval = $date1->diff($date2);
 
-            return  $interval->m." mos, ".$interval->d." days ";
+                return  $interval->m." mos, ".$interval->d." days ";
+            } catch (\Throwable $th) {
+                return '';
+            }
         })
         ->rawColumns(['net_sum','employee_details','bonus','dates','total_months'])
         ->make(true);
@@ -928,10 +948,8 @@ function Audit(Request $request){
     }
 
     function dateDiff($d1, $d2) {
-
         // Return the number of days between the two dates:
         return round(abs(strtotime($d1) - strtotime($d2))/86400);
 
     }
-
 }

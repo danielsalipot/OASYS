@@ -16,6 +16,7 @@ use App\Models\leave_approval;
 use App\Models\notification_message;
 use App\Models\overtime_approval;
 use Carbon\CarbonPeriod;
+use Throwable;
 
 class PayrollUpdateController extends Controller
 {
@@ -23,6 +24,8 @@ class PayrollUpdateController extends Controller
         $leave = leave_approval::find($request->id);
         $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$leave->employee_id)->first();
 
+        $start = $leave->start_date;
+        $end = $leave->end_date;
         if($leave->status){
             $period = CarbonPeriod::create($leave->start_date, $leave->end_date);
             foreach ($period as $key => $value) {
@@ -30,17 +33,39 @@ class PayrollUpdateController extends Controller
                     continue;
                 }
 
-                $attendance = Attendance::where('employee_id',$employee->employee_id)->where('attendance_date',$value->format('Y-m-d'))->first();
-                $leave = Leave::where('attendance_id',$attendance->attendance_id)->delete();
-                Attendance::where('attendance_id',$attendance->attendance_id)->delete();
+                try {
+                    $attendance = Attendance::where('employee_id',$employee->employee_id)->where('attendance_date',$value->format('Y-m-d'))->first();
+                    $leave = Leave::where('attendance_id',$attendance->attendance_id)->delete();
+                    Attendance::where('attendance_id',$attendance->attendance_id)->delete();
+                } catch (Throwable $th) {
+                    continue;
+                }
             }
-        }
 
-        leave_approval::find($request->id)->update([
-            'status' => null,
-            'approver_id' => null,
-            'approval_date' => null
-        ]);
+            $head = 'Leave Application Recovered';
+            $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+            " Your application of leave on " . $start ." to ".  $end . " has been recovered";
+
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => $head,
+                'message' => $text
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $employee->employee_id]
+            ]);
+
+            leave_approval::find($request->id)->update([
+                'status' => null,
+                'approver_id' => null,
+                'approval_date' => null
+            ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
+        }
 
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
@@ -85,6 +110,25 @@ class PayrollUpdateController extends Controller
                 ]);
             }
 
+
+            $head = 'Leave Application Approved';
+            $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+            " Your application of leave on " . $leave->start_date . " to " . $leave->end_date . ' has been approved';
+
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => $head,
+                'message' => $text
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $employee->employee_id]
+            ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
+
             Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Leave',
@@ -95,7 +139,25 @@ class PayrollUpdateController extends Controller
             ]);
         }
         else{
-            $str = 'Leave Application Disapproved';
+            $str = 'Leave Application Denied';
+
+            $head =  $str;
+            $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+            " Your application of leave on " . $leave->start_date. ' to '. $leave->end_date . ' has been denied';
+
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => $head,
+                'message' => $text
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $employee->employee_id]
+            ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
         }
 
         return back()->with(['update'=>$str]);
@@ -120,6 +182,25 @@ class PayrollUpdateController extends Controller
             'tid' => ' - ',
         ]);
 
+        $head = 'Overtime Application Denied';
+        $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+        " Your application of overtime on " . $overtime->overtime_date . ' has been denied';
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => $head,
+            'message' => $text
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $employee->employee_id]
+        ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
+
+
         return back()->with(['update'=>'Overtime application has been denied']);
     }
 
@@ -132,6 +213,7 @@ class PayrollUpdateController extends Controller
 
         $approval = overtime_approval::find($request->approval_id)->first();
         $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$approval->employee_id)->first();
+
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Overtime',
@@ -140,6 +222,24 @@ class PayrollUpdateController extends Controller
             'amount' => ' - ',
             'tid' => ' - ',
         ]);
+
+        $head = 'Overtime Application has been Recovered';
+        $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+        " Your application of overtime on " . $approval->overtime_date . ' has been recovered';
+
+        $notif = notification_message::create([
+            'sender_id' => session()->get('user_id'),
+            'title' => $head,
+            'message' => $text
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $employee->employee_id]
+        ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
 
         return back()->with(['update'=>'Overtime application has been recovered']);
     }
@@ -158,23 +258,30 @@ class PayrollUpdateController extends Controller
 
         if(isset($request->chk)){
             // AUTOMATIC SENDING OF NOTIFICATION
-            $employee = EmployeeDetail::where('employee_id',$rate->employee_id)->first();
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$rate->employee_id)->first();
+
+            $head = 'Pay rate Adjusted';
+            $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+            " Your Salary rate has been adjusted from " . $rate->rate . " to " . $request->rate;
+
             $notif = notification_message::create([
                 'sender_id' => session()->get('user_id'),
-                'title' => 'Pay rate Adjusted',
-                'message' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
-                            " Your Salary rate has been adjusted from " . $rate->rate . " to " . $request->rate
+                'title' => $head,
+                'message' => $text
             ]);
 
             $notif->receivers()->createMany([
                 ['receiver_id' => $rate->employee_id]
             ]);
-        }
 
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
+        }
 
         EmployeeDetail::where('employee_id',$request->emp_id)->update(['rate' => $request->rate]);
 
-        return redirect('/payroll/employeelist')->with('success','Post Created');
+        return back()->with(['success'=>'Post Created']);
     }
 
     function edit_sss(Request $request){

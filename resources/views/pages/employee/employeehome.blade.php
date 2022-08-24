@@ -11,11 +11,11 @@
                 <div class="col-3 card me-4 shadow-sm p-0">
                     <h4 class="w-100 m-0 rounded-top alert-warning p-2 text-center">Health Condition Today</h4>
                     @if($health_check->score <= 3)
-                        <div class="row alert-danger">
+                        <div class="row alert-danger w-100 mx-auto">
                     @elseif($health_check->score == 4)
                         <div class="row w-100 mx-auto">
                     @else
-                        <div class="row alert-success">
+                        <div class="row alert-success w-100 mx-auto" >
                     @endif
                         @if ($health_check->score == 0)
                             <div class="col text-center card m-2 p-0">

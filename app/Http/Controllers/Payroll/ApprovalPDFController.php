@@ -11,6 +11,7 @@ use App\Models\payroll_approval;
 use App\Models\Payroll;
 use App\Models\UserDetail;
 use App\Models\Audit;
+use App\Models\UserCredential;
 
 class ApprovalPDFController extends Controller
 {
@@ -101,6 +102,22 @@ class ApprovalPDFController extends Controller
         }
         else{
             $str = 'Dispproved';
+        }
+
+        $manager = UserDetail::where('login_id',session('user_id'))->first();
+        $head = $str . " payroll " . $payroll->from_date . " to " . $payroll->to_date;
+        $text = $manager->fname . " " . $manager->mname . " " . $manager->lname .
+        " have approved the payroll " . $payroll->from_date . " - " . $payroll->to_date . " on " . date('Y-m-d');
+
+        $reciever_manager = UserCredential::where('user_type','payroll')
+            ->where('login_id','!=',session('user_id'))
+            ->get();
+
+        foreach ($reciever_manager as $key => $value) {
+            $detail = UserDetail::where('login_id',$value->login_id)->first();
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $detail->email, 'name' => $detail->fname . ' ' . $detail->lname]]
+            );
         }
 
         Audit::create(['activity_type' => 'payroll',

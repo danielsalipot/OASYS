@@ -1,15 +1,40 @@
 <?php
 
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\RequestCertificate;
+use App\Http\Controllers\TestController;
 
+Route::prefix('')->group(function () {
+    include 'emails.php';
+});
 
+Route::get('/Password/Forget',
+    function (){
+        return view('pages.forgot_password.landing');
+    }
+);
 
-Route::get('/test',[PagesController::class,'test']);
+Route::get('/Password/Forget/{id}/{date}',
+    function ($id,$date){
+        return view('pages.forgot_password.change_password')->with([
+            'id' => $id,
+            'date' => $date
+        ]);
+    }
+);
+
+Route::get('/request/employment',[RequestCertificate::class,'requestCOE']);
+Route::POST('/sendRequestCOE',[RequestCertificate::class,'sendRequestCOE']);
+
+Route::POST('/forgotPassword',[ForgotPasswordController::class,'forgotPassword']);
+
+Route::get('/test',[TestController::class,'PhilHealthform']);
 
 Route::get('/display_resume', [PagesController::class, 'display_resume']);
 
@@ -112,8 +137,13 @@ Route::prefix('')->group(function () {
 Route::prefix('')->group(function () {
     include 'Staff/delete.php';
 });
+Route::prefix('')->group(function () {
+    include 'Staff/certificate.php';
+});
+
 
 Route::get('/profile', [PagesController::class, 'hrProfile']);
+
 Route::post('/managerUpdateAccount', [PagesController::class, 'managerUpdateAccount']);
 
 

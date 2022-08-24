@@ -10,5 +10,5 @@ Route::prefix('')->group(function () {
     Route::GET('/attendanceTodayJSON', [AdminJSONController::class, 'attendanceTodayJSON']);
     Route::GET('/getEmployeeOverallAttendance', [AdminJSONController::class, 'getEmployeeOverallAttendance']);
     Route::GET('/getAuditJson', [AdminJSONController::class, 'getAuditJson']);
-
+    Route::GET('/getEmployeeActivitiesJson', [AdminJSONController::class, 'getEmployeeActivitiesJson']);
 });

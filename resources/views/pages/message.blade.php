@@ -106,28 +106,63 @@
                     }
                     response.forEach(element => {
                         if(element.sender_id == {{session()->get('user_id')}}){
-                            $('#message_div').html(`${$('#message_div').html()}
-                            <div class="w-50 mt-4" style="margin-left: auto; margin-right: 0;font-size:13px">${element.sender.fname} ${element.sender.mname} ${element.sender.lname}</div>
-                            <div class="alert-primary w-50 p-4 rounded shadow-sm"
-                                style="margin-left: auto; margin-right: 0;font-size:13px">
-                                ${element.message}
-                            </div>
-                            <div class="w-50 mb-4 text-right"
-                                style="margin-left: auto; margin-right: 0;font-size:13px">
-                                ${new Date(element.created_at)}
-                            </div>`)
+                            if(element.read_status){
+                                $('#message_div').html(`${$('#message_div').html()}
+                                    <div class="w-50 mt-4" style="margin-left: auto; margin-right: 0;font-size:13px">${element.sender.fname} ${element.sender.mname} ${element.sender.lname}</div>
+                                    <div class="alert-primary w-50 p-4 rounded shadow-sm"
+                                        style="margin-left: auto; margin-right: 0;font-size:13px">
+                                        ${element.message}
+                                    </div>
+                                    <div class="w-50 mb-4 text-right text-secondary"
+                                        style="margin-left: auto; margin-right: 0;font-size:10px">
+                                        sent on: ${element.sent_on}
+                                        <br>
+                                        seen on: ${element.read_date}
+                                    </div>`)
+                            }else{
+                                $('#message_div').html(`${$('#message_div').html()}
+                                <div class="w-50 mt-4" style="margin-left: auto; margin-right: 0;font-size:13px">${element.sender.fname} ${element.sender.mname} ${element.sender.lname}</div>
+                                <div class="alert-primary w-50 p-4 rounded shadow-sm"
+                                    style="margin-left: auto; margin-right: 0;font-size:13px">
+                                    ${element.message}
+                                </div>
+                                <div class="w-50 mb-4 text-right text-secondary"
+                                    style="margin-left: auto; margin-right: 0;font-size:10px">
+                                    sent on: ${element.sent_on}
+                                    <br>
+                                    sent
+                                </div>`)
+                            }
                         }
                         else{
-                            $('#message_div').html(`${$('#message_div').html()}
-                            <div class="w-50 mt-4" style="font-size:13px">${element.sender.fname} ${element.sender.mname} ${element.sender.lname}</div>
-                            <div class="alert-secondary w-50 p-4 rounded shadow-sm"
-                                style="font-size:13px">
-                                ${element.message}
-                            </div>
-                            <div class="w-50 mb-4 text-right"
-                                style="font-size:13px">
-                                ${new Date(element.created_at)}
-                            </div>`)
+                            if(element.read_status){
+                                $('#message_div').html(`${$('#message_div').html()}
+                                <div class="w-50 mt-4" style="font-size:13px">${element.sender.fname} ${element.sender.mname} ${element.sender.lname}</div>
+                                <div class="alert-secondary w-50 p-4 rounded shadow-sm"
+                                    style="font-size:13px">
+                                    ${element.message}
+                                </div>
+                                <div class="w-50 mb-4 text-right text-secondary"
+                                    style="font-size:10px">
+                                    sent on: ${element.sent_on}
+                                    <br>
+                                    seen on: ${element.read_date}
+                                </div>`)
+                            }
+                            else{
+                                $('#message_div').html(`${$('#message_div').html()}
+                                <div class="w-50 mt-4" style="font-size:13px">${element.sender.fname} ${element.sender.mname} ${element.sender.lname}</div>
+                                <div class="alert-secondary w-50 p-4 rounded shadow-sm"
+                                    style="font-size:13px">
+                                    ${element.message}
+                                </div>
+                                <div class="w-50 mb-4 text-right  text-secondary"
+                                    style="font-size:10px">
+                                    sent on: ${element.sent_on}
+                                    <br>
+                                    sent
+                                </div>`)
+                            }
                         }
 
                     });
