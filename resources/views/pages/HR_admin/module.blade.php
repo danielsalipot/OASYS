@@ -5,7 +5,7 @@
 
     @section('controls')
         <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Module Management</a></li>
-        <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Orientation Employee Progress</a></li>
+        <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">{{ ucfirst($category) }} Employee Progress</a></li>
         <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu2">Enroll Employees</a></li>
     @endsection
 
@@ -15,16 +15,11 @@
         <div class="card shadow-sm w-100 p-2">
             <div class="row m-0 p-0">
                 <div class="col row">
-                    <div class="col p-0 m-0">
-                        <input type="text" class="rounded-0 rounded-start w-100 form-control m-0" placeholder="Search">
-                    </div>
-                    <div class="col p-0 m-0">
-                        <button class="btn btn-primary rounded-0 rounded-end"><i class="bi bi-search"></i></button>
-                    </div>
+
                 </div>
 
-                <div class="col-2 text-center">
-                    <a href="./add" class='btn btn-lg btn-outline-primary w-100'><i class="bi bi-plus-circle"></i> Add Lesson</a>
+                <div class="col-3 p-0 text-center">
+                    <a href="./add" class='btn btn-lg btn-outline-primary w-100 h-100'><i class="bi bi-plus-circle"></i> Add Lesson</a>
                 </div>
             </div>
 
@@ -173,10 +168,10 @@
     <div class="container p-5 bg-white border shadow-lg">
         <div class="row">
             <h1 class="display-4 pb-5 mt-5 text-center w-100">Enroll Employees</h1>
-            <div class="col">
+            <div class="col card shadow-sm p-4">
                 <h1 class="display-5 text-center w-100">Employee Selection</h1>
                 <div class="container w-100">
-                    <table class="table w-100 table-striped text-center table-dark" id="employee_table">
+                    <table class="table w-100 table-striped text-center" id="employee_table">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee Picture</th>
@@ -190,7 +185,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="container">
+                <div class="container card p-4 shadow-sm mb-3" style="height: 400px;overflow-y:scroll;overflow-x:hidden;">
                     <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
                     <table class="table table-striped text-center">
                         <thead>
@@ -204,7 +199,7 @@
                         <tbody id="selected_employee_table"></tbody>
                     </table>
                 </div>
-                <div class="container">
+                <div class="container card shadow-sm p-4">
                     <h1 class="display-5 m-3 text-center w-100">Enrollent Details Details</h1>
                     <form action="/enrollEmployee" method="POST">
                         {!! Form::hidden('emp_ids', '',['id'=>'emp_ids']) !!}

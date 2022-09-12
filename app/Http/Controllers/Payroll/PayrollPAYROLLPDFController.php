@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 
 use Fpdf\Fpdf;
 
-
 use App\Models\Payroll;
 use App\Models\UserDetail;
 use App\Models\Audit;
+use App\Models\Deduction;
 use App\Models\UserCredential;
 use App\Models\payroll_approval;
+use Carbon\Carbon;
 
 class PayrollPAYROLLPDFController extends Controller
 {
@@ -22,11 +23,23 @@ class PayrollPAYROLLPDFController extends Controller
         if($PayrollDetails == null){
             echo "<script>window.close();</script>";
         }
-        $pdf = new FPDF();
+
+        if(!file_exists("signature/". "payroll(" . $request->pr_col2 .")")){
+            mkdir("signature/". "payroll(" . $request->pr_col2 .")");
+        }
+
+        $pdf = new FPDF('P','mm',array( 215.9,330.2));
 
         // upload signature
-        $signfilename =  session('user_id').".".$request->file('esignature')->getClientOriginalExtension();
-        $request->file('esignature')->storeAs("signature/", $signfilename,'public_uploads');
+        try {
+            $signfilename =  session('user_id').".".$request->file('esignature')->getClientOriginalExtension();
+            $request->file('esignature')->storeAs("signature/". "payroll(" . $request->pr_col2 .")", $signfilename,'public_uploads');
+        } catch (\Throwable $th) {
+            session()->flash('err','E-signature is required to create payroll');
+            echo "<script>window.close();</script>";
+            return;
+        }
+
 
 /*=============================================================================
 |                                   START
@@ -35,272 +48,160 @@ class PayrollPAYROLLPDFController extends Controller
 *==============================================================================*/
 
         //Add a new page
-        $pdf->AddPage();
-
-        // Set the font for the text
-        $pdf->SetFont('Arial', 'B', 12);
-
-        // Prints a cell with given text
-        $pdf->Cell(190,7,'Beulah Land Christian College Inc.',0,1,'C');
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(190,7,'Employee Payroll Sheet',0,1,'C');
-        $pdf->Cell(190,7,'Cutoff Date:',0,1,'C');
-        $pdf->Cell(190,7,$request->pr_col2,0,1,'C');
-
-/*=============================================================================
-|                                   END
-*==============================================================================*/
-
-
-
-/*=============================================================================
-|                                   START
-|                                  SUMMARY
-|
-*==============================================================================*/
-
-$pdf->Ln(5);
-$pdf->SetFont('Arial', 'B', 12);
-
-// Employee Payroll Summary
-$total_net = 0;
-foreach ($PayrollDetails as $key => $employee) {
-    $total_net += $employee->net_pay;
-}
-
-        $pdf->Cell(190,10,'Employee Payroll Summary',"T,B",1,'');
-        $pdf->Cell(130,10,'Total Employee Payment: ',0,0,'');
-        $pdf->Cell(60,10,number_format($total_net, 2, '.', ',') . " Php",0,1,'C');
-
-// TOTAL WITHOLDING TAX
-$total_wtax = 0;
-foreach ($PayrollDetails as $key => $employee) {
-    $total_wtax += $employee->witholding_tax;
-}
-
-        $pdf->Cell(130,10,'Total Employee Witholding Taxes: ',0,0,'');
-        $pdf->Cell(60,10,number_format($total_wtax, 2, '.', ',') . " Php",0,1,'C');
-
-// TOTAL EMPLOYEE BONUS
-$total_employee_bonus = 0;
-foreach ($PayrollDetails as $key => $employee) {
-    $total_employee_bonus += $employee->total_bonus;
-}
-
-        $pdf->Cell(130,10,'Total Employee Bonus: ',0,0,'');
-        $pdf->Cell(60,10,number_format($total_employee_bonus, 2, '.', ',') . " Php",0,1,'C');
-
-// TOTAL EMPLOYEE DEDUCTION
-$total_deduction = 0;
-foreach ($PayrollDetails as $key => $employee) {
-    $total_deduction += $employee->total_deduction;
-}
-        $pdf->Cell(130,10,'Total Employee deductions: ',0,0,'');
-        $pdf->Cell(60,10,number_format($total_deduction, 2, '.', ',') . " Php",0,1,'C');
-
-// TOTAL EMPLOYEE CASH ADVANCE
-$total_ca = 0;
-foreach ($PayrollDetails as $key => $employee) {
-    $total_ca += $employee->total_cash_advance;
-}
-
-        $pdf->Cell(130,10,'Total Employee Cash Advance: ',0,0,'');
-        $pdf->Cell(60,10,number_format($total_ca, 2, '.', ',') . " Php",0,1,'C');
-
-/*=============================================================================
-|                                   END
-*==============================================================================*/
-
-
-
-/*=============================================================================
-|                                   START
-|                       SSS CONTRIBUTION COMPUTATION
-|
-*==============================================================================*/
-
-        $total_sss_er = 0;
-        foreach ($PayrollDetails as $key => $employee) {
-            $total_sss_er += $employee->employer_contribution;
-        }
-
-        $total_sss_ee = 0;
-        foreach ($PayrollDetails as $key => $employee) {
-            $total_sss_ee += $employee->employee_contribution;
-        }
-
-        $total_sss = $total_sss_ee + $total_sss_er;
-
-        $pdf->Ln(5);
-        $pdf->Cell(190,10,'SSS Summary',"T,B",1,'C');
-        $pdf->Cell(95,10,'Total SSS Employee Contribution: ',0,0,'C');
-        $pdf->Cell(95,10,'Total SSS Employer Contribution: ',0,1,'C');
-
-        $pdf->Cell(95,10,number_format($total_sss_ee, 2, '.', ',') . " Php",0,0,'C');
-        $pdf->Cell(95,10,number_format($total_sss_er, 2, '.', ',') . " Php",0,1,'C');
-
-        $pdf->Cell(130,10,'Total SSS Payment: ',0,0,'');
-        $pdf->Cell(60,10,number_format($total_sss, 2, '.', ',') . " Php",0,1,'C');
-
-/*=============================================================================
-|                                   END
-*==============================================================================*/
-
-
-
-/*=============================================================================
-|                                   START
-|                       Pag-ibig CONTRIBUTION COMPUTATION
-|
-*==============================================================================*/
-
-        $total_pagibig_er = 0;
-        foreach ($PayrollDetails as $key => $employee) {
-            $total_pagibig_er += $employee->employer_pagibig_contribution;
-        }
-
-        $total_pagibig_ee = 0;
-        foreach ($PayrollDetails as $key => $employee) {
-            $total_pagibig_ee += $employee->employee_pagibig_contribution;
-        }
-
-        $total_pagibig = $total_pagibig_ee + $total_pagibig_er;
-
-        $pdf->Ln(5);
-        $pdf->Cell(190,10,'Pag-ibig Summary',"T,B",1,'C');
-        $pdf->Cell(95,10,'Total Pag-ibig Employee Contribution: ',0,0,'C');
-        $pdf->Cell(95,10,'Total Pag-ibig Employer Contribution: ',0,1,'C');
-
-        $pdf->Cell(95,10,number_format($total_pagibig_er, 2, '.', ',') . " Php",0,0,'C');
-        $pdf->Cell(95,10,number_format($total_pagibig_ee, 2, '.', ',') . " Php",0,1,'C');
-
-        $pdf->Cell(130,10,'Total Pag-ibig Payment: ',0,0,'');
-        $pdf->Cell(60,10,number_format($total_pagibig, 2, '.', ',') . " Php",0,1,'C');
-
-/*=============================================================================
-|                                   END
-*==============================================================================*/
-
-
-
-/*=============================================================================
-|                                   START
-|                       Philhealth CONTRIBUTION COMPUTATION
-|
-*==============================================================================*/
-
-$total_philhealth_er = 0;
-foreach ($PayrollDetails as $key => $employee) {
-    $total_philhealth_er += $employee->employer_philhealth_contribution;
-}
-
-$total_philhealth_ee = 0;
-foreach ($PayrollDetails as $key => $employee) {
-    $total_philhealth_ee += $employee->employee_philhealth_contribution;
-}
-
-$total_philhealth = $total_philhealth_ee + $total_philhealth_er;
-
-    $pdf->Ln(5);
-    $pdf->Cell(190,10,'Philhealth Summary',"T,B",1,'C');
-    $pdf->Cell(95,10,'Total Philhealth Employee Contribution: ',0,0,'C');
-    $pdf->Cell(95,10,'Total Philhealth Employer Contribution: ',0,1,'C');
-
-    $pdf->Cell(95,10,number_format($total_philhealth_er, 2, '.', ',') . " Php",0,0,'C');
-    $pdf->Cell(95,10,number_format($total_philhealth_ee, 2, '.', ',') . " Php",0,1,'C');
-
-    $pdf->Cell(130,10,'Total Philhealth Payment: ',0,0,'');
-    $pdf->Cell(60,10,number_format($total_philhealth, 2, '.', ',') . " Php",0,1,'C');
-
-/*=============================================================================
-|                                   END
-*==============================================================================*/
-
-
-
-/*=============================================================================
-|                                   START
-|                              Employee Table
-|
-*==============================================================================*/
-
         $pdf->AddPage('L');
 
-        //Employee Payroll Information
-        $pdf->Ln(5);
-        $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(275,10,'Employee Payroll Information',"T,B",1,'');
+        // Prints a cell with given text
+        $logo = "school_assets/blcc_header.jpg";
+        $pdf->Image($logo, $pdf->GetX() + 80, $pdf->GetY() -7,150);
 
-        //start of table
-        //Table Header
-        $pdf->Ln(3);
-        $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(10.1,7,'ID',1,0,'C');
-        $pdf->Cell(36.1,7,'Employee Name',1,0,'C');
-        $pdf->Cell(17.1,7,'Hours',1,0,'C');
-        $pdf->Cell(21.1,7,'Rate',1,0,'C');
-        $pdf->Cell(21.1,7,'Bonus',1,0,'C');
-        $pdf->Cell(21.1,7,'Gross Pay',1,0,'C');
+        $pdf->Ln(35);
 
-        $pdf->Cell(21.1,7,'SSS',1,0,'C');
-        $pdf->Cell(21.1,7,'Pag-ibig',1,0,'C');
-        $pdf->Cell(21.1,7,'Philhealth',1,0,'C');
+        $pdf->SetFont('Arial', 'I', 9);
 
-        $pdf->Cell(21.1,7,'Deductions',1,0,'C');
-        $pdf->Cell(21.1,7,'Cash Advance',1,0,'C');
-        $pdf->Cell(21.1,7,'Taxes',1,0,'C');
-        $pdf->Cell(21.1,7,'Net Pay',1,1,'C');
-
-        $pdf->SetFont('Arial', '', 7);
-        foreach ($PayrollDetails as $key => $employee) {
-            $pdf->Cell(10.1,7,$employee->employee_id,1,0,'C');
-            $pdf->Cell(36.1,7,$employee->full_name,1,0,'C');
-            $pdf->Cell(17.1,7,$employee->complete_hours,1,0,'C');
-
-            $pdf->Cell(21.1,7,number_format($employee->rate, 2, '.', ',') . " Php",1,0,'C');
-            $pdf->Cell(21.1,7,number_format($employee->total_bonus, 2, '.', ',') . " Php",1,0,'C');
-            $pdf->Cell(21.1,7,number_format($employee->gross_pay, 2, '.', ',') . " Php",1,0,'C');
-
-            $pdf->Cell(21.1,7,number_format($employee->total_sss, 2, '.', ',') . " Php",1,0,'C');
-            $pdf->Cell(21.1,7,number_format($employee->total_pagibig_contribution, 2, '.', ',') . " Php",1,0,'C');
-            $pdf->Cell(21.1,7,number_format($employee->total_philhealth_contribution, 2, '.', ',') . " Php", 1,0,'C');
-
-            $pdf->Cell(21.1,7,number_format($employee->total_deduction, 2, '.', ',') . " Php",1,0,'C');
-            $pdf->Cell(21.1,7,number_format($employee->total_cash_advance, 2, '.', ',') . " Php", 1,0,'C');
-            $pdf->Cell(21.1,7,number_format($employee->witholding_tax, 2, '.', ',') . " Php",1,0,'C');
-            $pdf->Cell(21.1,7,number_format($employee->net_pay, 2, '.', ',') . " Php",1,1,'C');
+        $dates = explode(' - ',$request->pr_col2);
+        $str = '';
+        if(date('F',strtotime($dates[0])) == date('F',strtotime($dates[1]))){
+            $str .= date('F',strtotime($dates[0])) . ' ' . date('d',strtotime($dates[0])) . '-' . date('d',strtotime($dates[1])) . ',' .  date('Y',strtotime($dates[1]));
         }
 
+        $pdf->Cell(277,5,'Payroll for the period covered ' . $str ,0,1,'L');
+
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(42,16,'Name of Employees',1,0,'C');
+        $pdf->Cell(20,8,'Gross','T,L,R',0,'C');
+        $pdf->Cell(198,8,"Deductions",1,0,'C');
+        $pdf->Cell(25,8,'Total','T,L,R',0,'C');
+        $pdf->Cell(25,8,'Net','T,L,R',1,'C');
+
+        $pdf->Cell(42,16,'',0,0,'C');
+        $pdf->Cell(20,8,'Salary','B,L,R',0,'C');
+
+        $deductions =  Deduction::whereBetween('deduction_start_date',[$dates[0],$dates[1]])
+            ->whereBetween('deduction_start_date',[$dates[0],$dates[1]])
+            ->groupBy('deduction_name')
+            ->get('deduction_name');
+
+        $size = 198 / (count($deductions) + 5);
+
+        $pdf->SetFont('Arial', 'B', 7);
+        $pdf->Cell($size,8,"SSS",1,0,'C');
+        $pdf->Cell($size,8,"Philhealth",1,0,'C');
+        $pdf->Cell($size,8,"Pagibig",1,0,'C');
+        foreach ($deductions as $key => $value) {
+            $pdf->Cell($size,8,$value->deduction_name,1,0,'C');
+        }
+        $pdf->Cell($size,8,'Witholding Tax',1,0,'C');
+        $pdf->Cell($size,8,'Cash Advance',1,0,'C');
+
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(25,8,'Deductions','B,L,R',0,'C');
+        $pdf->Cell(25,8,'Salary','B,L,R',1,'C');
+
+        $total_pdf_gross = 0;
+        $total_pdf_dd = 0;
+        $total_pdf_net = 0;
+
+        foreach ($PayrollDetails as $key => $employee) {
+            $pdf->SetFont('Arial', '', 9);
+            $pdf->Cell(42,8,$employee->user_detail->fname . ' ' . substr($employee->user_detail->mname,0,1) . '. ' . $employee->user_detail->lname,1,0,'L');
+            $total_pdf_gross += $employee->gross_pay;
+            $pdf->Cell(20,8,number_format($employee->gross_pay,2),'B,L,R',0,'C');
+
+            $deductions =  Deduction::whereBetween('deduction_start_date',[$dates[0],$dates[1]])
+                ->whereBetween('deduction_start_date',[$dates[0],$dates[1]])
+                ->groupBy('deduction_name')
+                ->get('deduction_name');
+
+            $size = 198 / (count($deductions) + 5);
+
+
+            $ttl_deduction = 0;
+            $pdf->SetFont('Arial', '', 9);
+
+            $ttl_deduction += $employee->employee_contribution;
+            $pdf->Cell($size,8,number_format($employee->employee_contribution,2),1,0,'R');
+
+            $ttl_deduction += $employee->employee_philhealth_contribution;
+            $pdf->Cell($size,8,number_format($employee->employee_philhealth_contribution,2),1,0,'R');
+
+            $ttl_deduction += $employee->employee_pagibig_contribution;
+            $pdf->Cell($size,8,number_format($employee->employee_pagibig_contribution,2),1,0,'R');
+
+            foreach ($deductions as $key => $value) {
+                $deduction = Deduction::where('employee_id',$employee->employee_id)
+                    ->whereBetween('deduction_start_date',[$dates[0],$dates[1]])
+                    ->whereBetween('deduction_start_date',[$dates[0],$dates[1]])
+                    ->where('deduction_name', $value->deduction_name)
+                    ->get();
+
+                if(count($deduction)){
+                    $amount = 0;
+                    foreach ($deduction as $key => $dd_amount) {
+                        $days = Carbon::parse($dd_amount->deduction_start_date)->diffInDays(Carbon::parse($dd_amount->deduction_end_date));
+                        $amount += $dd_amount->deduction_amount / $days;
+                    }
+                    $ttl_deduction += $amount;
+                    $pdf->Cell($size,8,number_format($amount,2),1,0,'R');
+                }
+                else{
+                    $pdf->Cell($size,8,'-',1,0,'R');
+                }
+            }
+
+            $ttl_deduction += $employee->witholding_tax;
+            $pdf->Cell($size,8,number_format($employee->witholding_tax,2),1,0,'R');
+
+            $ttl_ca = 0;
+            foreach ($employee->cashAdvance as $key => $cash_advance) {
+                $ttl_deduction += $cash_advance->cashAdvance_amount;
+                $ttl_ca += $cash_advance->cashAdvance_amount;
+            }
+
+            if($ttl_ca){
+                $pdf->Cell($size,8,number_format($ttl_ca,2),1,0,'R');
+            }
+            else{
+                $pdf->Cell($size,8,'-',1,0,'R');
+            }
+
+            $total_pdf_dd += $ttl_deduction;
+            $pdf->Cell(25,8,number_format($ttl_deduction,2),'B,L,R',0,'R');
+            $total_pdf_net += $employee->net_pay;
+            $pdf->Cell(25,8,number_format($employee->net_pay,2),'B,L,R',1,'R');
+        }
+
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(42,8,'SUB-TOTAL',0,0,'R');
+        $pdf->Cell(20,8,number_format($total_pdf_gross,2),'B',0,'C');
+        $pdf->Cell(198,8,"","B",0,'C');
+        $pdf->Cell(25,8,number_format($total_pdf_dd,2),'B',0,'C');
+        $pdf->Cell(25,8,number_format($total_pdf_net,2),'B',1,'C');
+
+
+        $pdf->Ln(10);
+
+        $manager = UserDetail::join('user_credentials', 'user_credentials.login_id', '=' , 'user_details.login_id' )
+            ->where('user_details.login_id',session('user_id'))->first();
+
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(42,5,'Prepared By: ',0,1,'L');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'B', 10);
+
+        $sign_file_path = 'signature/payroll('.$request->pr_col2.')';
+        $pdf->Image( $sign_file_path . "/" .$manager->login_id . '.png', $pdf->GetX() + 2, $pdf->GetY() -10,28,15);
+
+        $height_reference = $pdf->GetY();
+        $pdf->Cell(42,5,$manager->fname. ' ' . substr($manager->mname,0,1) . '. ' . $manager->lname ,0,1,'L');
+
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(42,5,ucfirst($manager->user_type) . ' Manager' ,0,1,'L');
+
+        $pdf->Output('F','payrolls/payroll('.$request->pr_col2.').pdf');
 /*=============================================================================
 |                                   END
 *==============================================================================*/
 
-
-
-/*=============================================================================
-|                                   START
-|                         PAYROLL GENERATION PAGE
-|
-*==============================================================================*/
-
-        $pdf->AddPage();
-        $pdf->Ln(20);
-
-        $pdf->SetFont('Arial', 'B', 12);
-        $pr_sign = "signature/".$employee->prm_id.".png";
-        $pdf->Image($pr_sign, $pdf->GetX() + 78, $pdf->GetY() - 7, 33.78);
-        $prm_name = UserDetail::where('login_id', $employee->prm_id)->first();
-        $pdf->Cell(190,10,"$prm_name->fname $prm_name->mname $prm_name->lname",0,1,'C');
-
-        $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(63,10,'',0,0,'C');
-        $pdf->Cell(63,10,'Generated by:','T',0,'C');
-        $pdf->Cell(63,10,'',0,1,'C');
-
-
-/*=============================================================================
-|                                   END
-*==============================================================================*/
 
         // AUDIT INSERTION
         Audit::create(['activity_type' => 'payroll',
@@ -332,6 +233,7 @@ $total_philhealth = $total_philhealth_ee + $total_philhealth_er;
             'payroll_manager_id'=> session()->get('user_id'),
             'from_date' => $dates[0],
             'to_date' => $dates[1],
+            'height_reference' => $height_reference
         ]);
 
 
@@ -351,7 +253,6 @@ $total_philhealth = $total_philhealth_ee + $total_philhealth_er;
             );
         }
 
-        $pdf->Output('F',"payrolls/payroll(" . $request->pr_col2 .").pdf");
         $pdf->Output();
         exit;
     }

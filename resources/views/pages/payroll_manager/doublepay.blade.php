@@ -256,14 +256,14 @@
                                     '${row.attendance_date}',
                                     '${row.total_hours}',
                                     '${row.employee_id}',
-                                    '${row.fname.replace("\'","\\'")} ${row.mname.replace("\'","\\'")} ${row.lname.replace("\'","\\'")}',
+                                    '${row.fname.replace("\'","\\'")} ${row.mname.replace("\'","\\'")} ${row.lname.replace("\'","asd")}',
                                     '${row.department}',
                                     '${row.position}',
                                     '${row.rate}',
                                     '${row.schedule_Timein}',
                                     '${row.schedule_Timeout}',
                                     '${row.time_in}',
-                                    '${row.time_out}',
+                                    '${row.time_out}'
 
                                 )" class="btn btn-outline-warning w-25" data-toggle="modal" data-target="#edit_modal"><i class="h2 bi bi-cash"></i><br>2X</button>
                                 <button type="button" onclick="MultiPayButtonClick(
@@ -272,14 +272,14 @@
                                     '${row.attendance_date}',
                                     '${row.total_hours}',
                                     '${row.employee_id}',
-                                    '${row.fname.replace("\'","\\'")} ${row.mname.replace("\'","\\'")} ${row.lname.replace("\'","\\'")}',
+                                    '${row.fname.replace("\'","\\'")} ${row.mname.replace("\'","\\'")} ${row.lname.replace("\'","asd")}',
                                     '${row.department}',
                                     '${row.position}',
                                     '${row.rate}',
                                     '${row.schedule_Timein}',
                                     '${row.schedule_Timeout}',
                                     '${row.time_in}',
-                                    '${row.time_out}',
+                                    '${row.time_out}'
 
                                 )" class="btn btn-outline-info w-25" data-toggle="modal" data-target="#edit_modal"><i class="h2 bi bi-cash"></i><br>3X</button>`
                             }

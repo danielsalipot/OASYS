@@ -1,5 +1,10 @@
 @extends('layout.applicant_app')
     @section('content')
+    <style>
+        body{
+                background-color: #d2edff;
+            }
+    </style>
         <div class="text-center text-primary m-auto">
             @if(Session::get('taken'))
                 <div class="alert alert-danger w-50 m-auto">{{Session::get('taken')}}</div>
@@ -11,11 +16,12 @@
                 <div class="alert alert-danger w-50 m-auto">{{Session::get('pass')}}</div>
             @endif
 
-            <div class="row" style="padding-top:13vh">
+            <div class="row p-2"></div>
+            <div class="row" style="padding-top:4vh">
                 <div class="col">
 
                 </div>
-                <div class="col border border-primary shadow-lg p-5 rounded">
+                <div class="col border border-primary bg-white shadow-lg p-5 rounded">
                     <h1 class="section-title">Create your Account</h1>
                     <h5 class="text-secondary pt-3">Step 1 out of 3</h5>
 

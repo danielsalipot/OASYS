@@ -476,6 +476,7 @@
                                     break;
 
                                 default:
+                                    return `-`
                                     break;
                             }
 

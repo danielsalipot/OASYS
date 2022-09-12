@@ -34,10 +34,10 @@
 <div class="container">
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Add Cash Advance</h1>
     <div class="row">
-        <div class="col">
+        <div class="col card p-2 shadow-sm">
             <h1 class="display-5 text-center w-100">Employee Selection</h1>
             <div class="container w-100">
-                <table class="table w-100 table-striped text-center table-dark" id="employee_table">
+                <table class="table w-100 table-striped text-center" id="employee_table">
                     <thead>
                         <tr class="text-center">
                             <th class="col">Employee ID</th>
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="container">
+            <div class="container border-bottom" style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
                 <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
                 <table class="table table-striped text-center">
                     <thead>
@@ -68,8 +68,8 @@
                 </table>
             </div>
 
-            <div class="container">
-                <h1 class="display-5 mb-3 text-center w-100">Cash Advance Details</h1>
+            <div class="container alert-light mt-4 p-0 rounded shadow-sm">
+                <h3 class="mb-3 text-center p-3 w-100 alert-warning">Cash Advance Details</h3>
                 <div class="m-5 ps-5 pe-5">
                     {!! Form::label('cash_advance_date_input', 'Cash Advance Date', ['class'=>'w-100 text-center']) !!}
                     <div class="row mb-3 w-100">
@@ -83,9 +83,9 @@
 
                         <div class="row">
                             <div class="col">
-                                <button type="button" onclick="addCashAdvance()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Cash Advance</button>
+                                <button type="button" onclick="addCashAdvance()" class="btn btn-outline-success w-100 p-3" data-toggle="modal" data-target="#edit_modal">Add Cash Advance</button>
                             </div>
-                            <div class="col-2">
+                            <div class="col-4">
                                 <button onclick="location.reload()" class="btn btn-danger w-100 p-3">Cancel</button>
                             </div>
                         </div>

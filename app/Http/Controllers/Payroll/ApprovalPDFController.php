@@ -16,23 +16,23 @@ use App\Models\UserCredential;
 class ApprovalPDFController extends Controller
 {
     function Approval(Request $request){
-        $request->validate([
-            'hidden_filename'=>'required',
-            'esignature'=>'required',
-        ]);
-
         $filename = explode('/',$request->hidden_filename);
 
         if(!file_exists("signature/". str_replace(".pdf",'',$filename[2]))){
             mkdir("signature/". str_replace(".pdf",'',$filename[2]));
         }
 
-        $sign_file_pate = "signature/". str_replace(".pdf",'',$filename[2]);
+        try {
+            $sign_file_pate = "signature/". str_replace(".pdf",'',$filename[2]);
 
-        // upload signature
-        $signfilename =  session('user_id').".".$request->file('esignature')->getClientOriginalExtension();
-        $request->file('esignature')->storeAs($sign_file_pate, $signfilename,'public_uploads');
-
+            // upload signature
+            $signfilename =  session('user_id').".".$request->file('esignature')->getClientOriginalExtension();
+            $request->file('esignature')->storeAs($sign_file_pate, $signfilename,'public_uploads');
+        } catch (\Throwable $th) {
+            session()->flash('err','E-signature is required');
+            echo "<script>window.close();</script>";
+            return;
+        }
 
         $payroll = Payroll::where('filename',ltrim($request->hidden_filename, '/'))->first();
         //insert sa database payroll_approval
@@ -59,7 +59,8 @@ class ApprovalPDFController extends Controller
         $pdf = new Fpdi();
         $pagecount = $pdf->setSourceFile(ltrim($request->hidden_filename, '/'));
 
-        $prm_name = UserDetail::where('login_id', session('user_id'))->first();
+        $prm_name = UserDetail::join('user_credentials', 'user_credentials.login_id', '=' , 'user_details.login_id' )
+        ->where('user_details.login_id',session('user_id'))->first();
 
         $approves = payroll_approval::where('payroll_id',$payroll->id)->get();
 
@@ -71,37 +72,56 @@ class ApprovalPDFController extends Controller
 
 
             if($i == $pagecount){
-                $pdf->SetFont('Arial', 'B', 12);
-                $y=0;
+                $x=0;
                 if(count($approves) == 1){
-                    $y=60;
+                    $x=75;
                 }else{
-                    $y=60;
+                    $x=90;
                     for ($j=0; $j < count($approves) - 1; $j++) {
-                        $y +=30;
+                        $x += 70;
                     }
                 }
 
-                $pdf->Ln($y);
-                $pdf->Cell(190,7,"$prm_name->fname $prm_name->mname $prm_name->lname",0,1,'C');
-                $pdf->Image( $sign_file_pate . "/" .$signfilename, $pdf->GetX() + 78, $pdf->GetY() -20,35,15);
+                $pdf->Ln($payroll->height_reference- 30.1);
+                $pdf->SetFont('Arial', '', 10);
+                if($request->status == 1){
+                    $pdf->Cell($x,5,'',0,0,'L');
+                    $pdf->Cell(42,5,'Approved by:',0,1,'L');
+                }
+                if($request->status == 2){
+                    $pdf->Cell($x,5,'',0,0,'L');
+                    $pdf->Cell(42,5,'Noted by:',0,1,'L');
+                }
+                if($request->status == 0){
+                    $pdf->Cell($x,5,'',0,0,'L');
+                    $pdf->Cell(42,5,'Disapproved by:',0,1,'L');
+                }
+
+                $pdf->Ln(15);
+
+                $pdf->SetFont('Arial', 'B', 10);
+                $pdf->Cell($x,5,'',0,0,'L');
+
+                $pdf->Image( $sign_file_pate . "/" .$signfilename, $pdf->GetX(), $pdf->GetY() -10,28,15);
+                $pdf->Cell(42,5,"$prm_name->fname " . substr($prm_name->mname,0,1) .". $prm_name->lname",0,1,'L');
+                $pdf->SetFont('Arial', '', 10);
+                $pdf->Cell($x,5,'',0,0,'L');
+                $pdf->Cell(42,5,ucfirst($prm_name->user_type) . ' Manager' ,0,1,'L');
+
                 $pdf->Cell(63,7,'',0,0,'C');
-                if($request->status){
-                    $pdf->Cell(63,7,'Approved by:','T',0,'C');
-                }
-                else{
-                    $pdf->Cell(63,7,'Disapproved by:','T',0,'C');
-                }
 
                 $pdf->Cell(63,7,'',0,0,'C');
             }
         }
 
-        if($request->status){
+        if($request->status == 1){
             $str = 'Approved';
         }
-        else{
-            $str = 'Dispproved';
+        if($request->status  == 2){
+            $str = 'Noted';
+        }
+        if($request->status  == 0){
+            $str = 'Disapproved';
         }
 
         $manager = UserDetail::where('login_id',session('user_id'))->first();
@@ -129,8 +149,8 @@ class ApprovalPDFController extends Controller
             'tid' => ' - ',
         ]);
 
+
         $pdf->Output('F', ltrim($request->hidden_filename, '/'));
         $pdf->Output();
-
     }
 }

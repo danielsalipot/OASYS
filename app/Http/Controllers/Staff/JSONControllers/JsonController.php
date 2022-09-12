@@ -306,13 +306,13 @@ class JsonController extends Controller
         })
         ->addColumn('clear',function($data){
             if(Clearance::where('employee_id',$data->employee_id)->count()){
-                $clear_btn = "<button type='submit' disabled class='btn btn-primary p-3 w-50 m-0'>Cleared</button>";
+                $clear_btn = "<button type='submit' disabled class='btn btn-danger mb-4 p-3 w-50 m-0'>Cleared</button>";
             }
             else{
                 $clear_btn = "
                 <form action='/InsertClearance' method='GET'>
                     <input type='hidden' name='employee_id' value='".$data->employee_id."'>
-                    <button type='submit' class='btn btn-outline-light p-3 w-50 m-0'>Clear for Clearance</button>
+                    <button type='submit' class='btn btn-outline-danger p-3 w-50 m-0'>Clear for Clearance</button>
                 </form>";
             }
 
@@ -339,8 +339,13 @@ class JsonController extends Controller
     public function terminationjson(){
         $employees = EmployeeDetail::with('UserDetail')
             ->where('employment_status','!=','Offboardee')
-            ->join('resigneds', 'resigneds.employee_id', '!=', 'employee_details.employee_id')
             ->get();
+
+        foreach ($employees as $key => $value) {
+            if(Resigned::where('employee_id',$value->employee_id)->first()){
+                unset($employees[$key]);
+            }
+        }
 
         return datatables()->of($employees)
         ->addColumn('full_name',function($data){

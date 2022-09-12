@@ -87,13 +87,17 @@
                         <h2>Attendance</h2>
 
                         <div class="col-2 py-2 text-end"><h4>Score</h4></div>
-                        <div class="col"><input type="number" name="attendance_score" id="attendance_score" class="form-control rounded-left w-100" placeholder="Score"></div>
+                        <div class="col">
+                            <input type="number" max="100" min="0" oninput="minMaxNumberInput(this)" name="attendance_score" id="attendance_score" class="form-control rounded-left w-100" placeholder="Score">
+                            <span class="text-danger">@error('attendance_score'){{$message}}@enderror</span>
+                        </div>
 
                     </div>
                     <div class="row">
                         <h3>Feedback</h3>
                         {{Form::textarea('attendance_feedback','',['id'=>'attendance_feedback','class'=>'form-control h-25 w-100','style'=>'font-size:15px',
                             'placeholder'=>'Comments and Suggestion'])}}
+                        <span class="text-danger">@error('attendance_feedback'){{$message}}@enderror</span>
                     </div>
                 </div>
                 <div class="col">
@@ -101,12 +105,17 @@
                         <h2>Performance</h2>
 
                         <div class="col-2 py-2 text-end"><h4>Score</h4></div>
-                        <div class="col"><input name="performance_score" id="performance_score" type="text" class="form-control rounded-left w-100" placeholder="Score"></div>
+                        <div class="col">
+                            <input name="performance_score" id="performance_score" type="number" max="100" min="0" oninput="minMaxNumberInput(this)" class="form-control rounded-left w-100" placeholder="Score">
+                            <span class="text-danger">@error('performance_score'){{$message}}@enderror</span>
+                        </div>
                     </div>
                     <div class="row">
                         <h3>Feedback</h3>
                         {{Form::textarea('performance_feedback','',['id'=>'performance_feedback','class'=>'form-control h-25 w-100','style'=>'font-size:15px',
                             'placeholder'=>'Comments and Suggestion'])}}
+                        <span class="text-danger">@error('performance_feedback'){{$message}}@enderror</span>
+
                     </div>
                 </div>
             </div>
@@ -117,12 +126,16 @@
                         <h2>Character</h2>
 
                         <div class="col-2 py-2 text-end"><h4>Score</h4></div>
-                        <div class="col"><input type="text" name="character_score" id="character_score" class="form-control rounded-left w-100" placeholder="Score"></div>
+                        <div class="col">
+                            <input type="number" max="100" min="0" oninput="minMaxNumberInput(this)" name="character_score" id="character_score" class="form-control rounded-left w-100" placeholder="Score">
+                            <span class="text-danger">@error('character_score'){{$message}}@enderror</span>
+                        </div>
                     </div>
                     <div class="row">
                         <h3>Feedback</h3>
                         {{Form::textarea('character_feedback','',['id'=>'character_feedback','class'=>'form-control h-25 w-100','style'=>'font-size:15px',
                             'placeholder'=>'Comments and Suggestion'])}}
+                            <span class="text-danger">@error('character_feedback'){{$message}}@enderror</span>
                     </div>
                 </div>
                 <div class="col">
@@ -130,12 +143,16 @@
                         <h2>Cooperation</h2>
 
                         <div class="col-2 py-2 text-end"><h4>Score</h4></div>
-                        <div class="col"><input type="text" name="cooperation_score" id="cooperation_score" class="form-control rounded-left w-100" placeholder="Score"></div>
+                        <div class="col">
+                            <input type="number" max="100" min="0" oninput="minMaxNumberInput(this)" name="cooperation_score" id="cooperation_score" class="form-control rounded-left w-100" placeholder="Score">
+                            <span class="text-danger">@error('cooperation_score'){{$message}}@enderror</span>
+                        </div>
                     </div>
                     <div class="row">
                         <h3>Feedback</h3>
                         {{Form::textarea('cooperation_feedback','',['id'=>'cooperation_feedback','class'=>'form-control h-25 w-100','style'=>'font-size:15px',
                             'placeholder'=>'Comments and Suggestion'])}}
+                        <span class="text-danger">@error('cooperation_feedback'){{$message}}@enderror</span>
                     </div>
                 </div>
             </div>
@@ -293,6 +310,12 @@
             function(data,status){
                 location.reload()
             });
+        }
+
+        function minMaxNumberInput(input){
+            if(input.value > 101){
+                input.value = input.value.slice(0,-1)
+            }
         }
     </script>
     @endsection

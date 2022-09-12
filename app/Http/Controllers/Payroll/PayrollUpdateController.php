@@ -294,6 +294,12 @@ class PayrollUpdateController extends Controller
         if($sss->employer_contribution != $request->sss_er_rate){
             $str .= 'Update Employer Contribution | ';
         }
+        if($sss->add_low != $request->sss_low_limit){
+            $str .= 'Update Lower Range | ';
+        }
+        if($sss->add_high != $request->sss_high_limit){
+            $str .= 'Update Higher Range | ';
+        }
         if($sss->add_low != $request->sss_add_low){
             $str .= 'Update Low Additional | ';
         }

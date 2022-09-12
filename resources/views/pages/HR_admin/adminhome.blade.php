@@ -49,7 +49,7 @@
                 </div>
                 @endif
                 @foreach ($videos as $key => $video)
-                @switch($video->category)
+                @switch($video['category'])
                     @case("orientation")
                         @php ($color = 'success')
                         @break
@@ -65,18 +65,26 @@
 
                 @endswitch
                 <div class="col text-center alert-{{$color}} border border-{{$color}} p-0 rounded-start">
-                    <h4 class="w-100 bg-{{$color}} text-white m-0 p-2">{{ ucfirst($video->category) }} Module</h4>
+                    <h4 class="w-100 bg-{{$color}} text-white m-0 p-2">{{ ucfirst($video['category']) }} Module</h4>
                     <div class="row py-4">
                         <div class="col-1"></div>
                         <div class="col p-0 my-3">
-                            <small class="text-secondary" style="font-size: 10px;">TOTAL VIDEOS</small><h1 style="font-size: 30px;" class="text-secondary">{{ str_pad(count($video->videos),2, "0", STR_PAD_LEFT) }}</h1>
+                            @if (!count($video['videos']))
+                                <small class="text-secondary" style="font-size: 10px;">TOTAL VIDEOS</small><h1 style="font-size: 30px;" class="text-secondary">{{ str_pad(0,2, "0", STR_PAD_LEFT) }}</h1>
+                            @else
+                                <small class="text-secondary" style="font-size: 10px;">TOTAL VIDEOS</small><h1 style="font-size: 30px;" class="text-secondary">{{ str_pad(count($video['videos']),2, "0", STR_PAD_LEFT) }}</h1>
+                            @endif
                         </div>
                         <div class="col p-0">
-                            <h6 style="font-size: 10px;">Number of Enrolled</h6><h1 style="font-size: 50px;">{{  str_pad(floor(count($video->learners) / count($video->videos)),2, "0", STR_PAD_LEFT) }}</h1>
+                            @if (!count($video['videos']))
+                                <h6 style="font-size: 10px;">Number of Enrolled</h6><h1 style="font-size: 50px;">{{  str_pad(0,2, "0", STR_PAD_LEFT) }}</h1>
+                            @else
+                                <h6 style="font-size: 10px;">Number of Enrolled</h6><h1 style="font-size: 50px;">{{  str_pad(floor(count($video['learners']) / count($video['videos'])),2, "0", STR_PAD_LEFT) }}</h1>
+                            @endif
                         </div>
                         <div class="col-1"></div>
                     </div>
-                    <a href="/admin/{{ $video->category }}/module" class="btn btn-lg p-3 m-0 btn-outline-{{$color}} w-100 rounded-0"> <i class="bi bi-journal-bookmark me-2"></i>Edit {{ ucfirst($video->category) }}  Module</a>
+                    <a href="/admin/{{ $video['category'] }}/module" class="btn btn-lg p-3 m-0 btn-outline-{{$color}} w-100 rounded-0"> <i class="bi bi-journal-bookmark me-2"></i>Edit {{ ucfirst($video['category']) }}  Module</a>
                 </div>
                 @endforeach
             </div>

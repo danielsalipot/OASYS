@@ -273,6 +273,12 @@ class PayrollInsertController extends Controller
 
     public function InsertHoliday(Request $request)
     {
+        $request->validate([
+            'holiday_name' => 'required',
+            'insert_start_date' => 'required',
+            'insert_end_date' => 'required',
+        ]);
+
         $id = Holiday::create([
             'holiday_name' => $request->holiday_name,
             'holiday_start_date' => $request->insert_start_date,

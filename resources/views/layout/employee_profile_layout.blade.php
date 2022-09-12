@@ -7,6 +7,9 @@
     <title>OASYS</title>
 </head>
 <body>
+    @include('inc.datatables')
+    @include('inc.navincludes')
+
     @if (!session('user_id') || session('user_type') == 'applicant')
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif
@@ -27,8 +30,6 @@
         @include('inc.admin_navbar')
     @endif
 
-    @include('inc.datatables')
-    @include('inc.navincludes')
 
     <div class="row mt-4">
         <div class="col w-100">

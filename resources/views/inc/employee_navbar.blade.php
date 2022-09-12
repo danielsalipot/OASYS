@@ -37,7 +37,26 @@
         </nav><!-- .nav-menu -->
 </header>
 
+<button class="btn btn-oultine-dark border-0 btn-lg py-2" onclick="toggleHamburger()">
+    <i class="bi bi-list h1"></i>
+</button>
+<div class="d-none d-xl-none p-4" id="hamburger" style="background-color: rgba(0, 0, 0, 0.585); position: absolute; z-index:9998;">
+        <a href="/employee/home"  class="btn btn-lg btn-outline-light w-100 p-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home pe-4"></i>Dashboard</a></li>
+        <a href="/employee/orientation" class="btn btn-lg btn-outline-light w-100 p-3" title="Orientation" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-journal-bookmark pe-4"></i>Orientation</a></li>
+        <a href="/employee/training" class="btn btn-lg btn-outline-light w-100 p-3" title="Training" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-briefcase-fill pe-4"></i>Training</a></li>
+        <a href="/employee/correction" class="btn btn-lg btn-outline-light w-100 p-3" title="Correction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-wrench pe-4"></i>Correction</a></li>
+        <a href="/employee/overtime" class="btn btn-lg btn-outline-light w-100 p-3" title="Overtime" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock-history pe-4"></i>Overtime</a></li>
+        <a href="/employee/leave" class="btn btn-lg btn-outline-light w-100 p-3" title="Leave" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar2-minus pe-4"></i>Leave</a></li>
+        <a href="/message" class="btn btn-lg btn-outline-light w-100 p-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></li>
+        <a href="/employee/profile" class="btn btn-lg btn-outline-light w-100 p-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-fill pe-4"></i>Profile</a></li>
+        <a href="/logout" class="btn btn-lg btn-outline-light w-100 p-3 mt-5" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left pe-4"></i>Logout</a></li>
+</div>
+
 <script>
+    function toggleHamburger(){
+        $('#hamburger').toggleClass('d-none')
+    }
+
     $(document).ready(function(){
 
         $("[name='hidden_name']").hover(

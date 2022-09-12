@@ -20,16 +20,16 @@ class AttendanceSeeder extends Seeder
     {
         $employees = EmployeeDetail::all();
         foreach ($employees as $key => $employee) {
-            for ($j=1; $j<= 30; $j++) {
-                $date = date("2022-08-".$j);
-                if(!in_array(date("w",strtotime("2022-08-".$j)), json_decode($employee->schedule_days))){
+            for ($j=1; $j< date('d'); $j++) {
+                $date = date("2022-09-".$j);
+                if(!in_array(date("w",strtotime("2022-09-".$j)), json_decode($employee->schedule_days))){
                     continue;
                 }
                 Attendance::create([
                     'employee_id' => $employee->employee_id,
                     'time_in' => date('H:i:s', rand(24200,25500)),
                     'time_out' => date('H:i:s', rand(66000,72000)),
-                    'attendance_day' =>date("w", strtotime("2022-08-".$j)),
+                    'attendance_day' =>date("w", strtotime("2022-09-".$j)),
                     'attendance_date'=> $date
                 ]);
             }

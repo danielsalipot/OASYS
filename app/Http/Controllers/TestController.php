@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\EmployeeDetail;
-use Illuminate\Http\Request;
-use Fpdf\Fpdf;
+use App\Observer;
+use App\Spiders\BIRWebSpider;
+use App\Spiders\LaravelDocsSpider;
+use App\Spiders\PagibigWebSpider;
+use App\Spiders\PhilHealthWebSpider;
+use RoachPHP\Roach;
 use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\PdfReader;
+use Spatie\Crawler\Crawler;
 
 class TestController extends Controller
 {
@@ -200,5 +205,12 @@ class TestController extends Controller
         }
 
         $pdf->Output('I', 'generated.pdf');
+    }
+
+    public function PSPDFTest(){
+        // shit works
+        Roach::startSpider(BIRWebSpider::class);
+        $items = Roach::collectSpider(BIRWebSpider::class);
+        echo $items[0]->get('html');
     }
 }

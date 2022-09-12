@@ -1,9 +1,15 @@
-@extends("layout.admin_app")
+@extends("layout.admin_carousel")
 
-@section('content')
-<h1 class="section-title mt-5 pb-5">Audit Trail</h1>
-<div class="container w-100 p-2">
-    <div class="w-100 shadow-lg p-3 mb-4">
+@section('title')
+    <h1 class="section-title mt-5 pb-5">Audit Trail</h1>
+@endsection
+@section('controls')
+    <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Audit Logs</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Audit History</a></li>
+@endsection
+
+@section('first')
+    <div class="w-100 shadow-sm p-3 mb-4">
         <button onclick="audit_click()" class="btn btn-outline-success w-25 py-4" id="btn_audit">Generate Audit Summary</button>
         {!! Form::open(['action'=>'App\Http\Controllers\AuditController@audit','method'=>'GET',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
                 <div id="audit_pdf_actions" class="row d-flex w-25 d-none">
@@ -35,8 +41,46 @@
             </tr>
         </thead>
     </table>
-</div>
 @endsection
+
+@section('second')
+    <div class="row">
+        <div class="col-3 p-0">
+            @if (!$files_arr['files'])
+                <h1 class="w-100 display-5 text-center">No Audit file yet</h1>
+            @endif
+            <ul class="nav nav-pills p-0 w-100">
+                @foreach ($files_arr['files'] as $key => $item)
+                @if(!$key)
+                    <li class="active w-100 text-wrap"><a data-toggle="tab" class="nav-item nav-link text-decoration-none m-0 p-3 w-100 text-center border text-wrap" style="word-wrap: break-word;" href="#Philhealth_files_{{$key}}">{{ $item['name'] }}</a></li>
+                @else
+                    <li class="w-100 text-wrap"><a data-toggle="tab" class="nav-item nav-link text-decoration-none border m-0 w-100 p-3 text-center text-wrap" style="word-wrap: break-word;" href="#Philhealth_files_{{$key}}">{{ $item['name'] }}</a></li>
+                @endif
+                @endforeach
+            </ul>
+        </div>
+        <div class="col bg-dark">
+            <div class="tab-content">
+                @foreach ($files_arr['files'] as $key => $item)
+                @if(!$key)
+                    <div id="Philhealth_files_{{$key}}" class="tab-pane active in m-0">
+                        <div class="container text-center">
+                            <embed src="/{{$item['path']}}" width="800px" height="1600px" />
+                        </div>
+                    </div>
+                @else
+                    <div id="Philhealth_files_{{$key}}" class="tab-pane in m-0">
+                        <div class="container text-center">
+                            <embed src="/{{$item['path']}}" width="800px" height="1600px" />
+                        </div>
+                    </div>
+                @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endsection
+
 
 @section('script')
 <script>

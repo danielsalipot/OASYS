@@ -14,12 +14,11 @@ use Illuminate\Http\Request;
 class JsonController extends Controller
 {
     public function overtimeJsonEmployee(Request $request){
-        $employee_schedules = EmployeeDetail::where('employee_id',1)->get();
+        $employee_schedules = EmployeeDetail::where('login_id',7)->get();
         $employee_overtime_arr =[];
         $paid_overtime_arr =[];
 
         foreach ($employee_schedules as $key => $employee) {
-
                 $stimeout = $this->timeCalculator($employee->schedule_Timeout);
                 // Add 30 mins for minimum overtime
                 $stimeout += $request->time_filter;

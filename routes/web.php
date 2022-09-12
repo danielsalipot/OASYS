@@ -34,7 +34,7 @@ Route::POST('/sendRequestCOE',[RequestCertificate::class,'sendRequestCOE']);
 
 Route::POST('/forgotPassword',[ForgotPasswordController::class,'forgotPassword']);
 
-Route::get('/test',[TestController::class,'PhilHealthform']);
+Route::get('/test',[TestController::class,'PSPDFTest']);
 
 Route::get('/display_resume', [PagesController::class, 'display_resume']);
 
@@ -117,6 +117,9 @@ Route::prefix('')->group(function () {
 Route::prefix('')->group(function () {
     include 'Admin/json.php';
 });
+Route::prefix('')->group(function () {
+    include 'Admin/pdf.php';
+});
 
 
 
@@ -140,6 +143,8 @@ Route::prefix('')->group(function () {
 Route::prefix('')->group(function () {
     include 'Staff/certificate.php';
 });
+
+Route::get('/employees/list', [PagesController::class, 'employee_profile_list']);
 
 
 Route::get('/profile', [PagesController::class, 'hrProfile']);

@@ -7,9 +7,12 @@
     <div class="row w-100">
         <div class="col-3 rounded card p-2 shadow-sm">
             <h4 class="alert-primary shadow-sm p-4 text-center rounded">Payroll Report Generation Buttons</h4>
+            @if (session('err'))
+                <h6 class="alert-danger text-center w-100 p-2">{{ session('err') }}</h6>
+            @endif
             <p class="text-center py-2 my-2 border border-primary rounded shadow" id="cutOffDate">Cut Off Date: </p>
             <button type="button" name="payroll" id="payroll" class="btn p-4 w-100 btn-primary rounded"><i class="h3 bi bi-cash-stack"></i><br>Create Payroll</button>
-            <form action="/payrollPDF" method="post" enctype="multipart/form-data" id='payroll_form' target="_blank">
+            <form action="/payrollPDF" method="post" enctype="multipart/form-data" id='payroll_form' target="_blank" onsubmit="setTimeout(function(){window.location.reload();},10);">
                 @csrf
                 <div id="payroll_pdf_actions" class="row w-100 h-100 d-none">
                     <div class="row m-2 card p-2">
@@ -65,7 +68,7 @@
         <h4 class="alert-primary shadow-sm my-1 p-4 m-0 text-center rounded">Current Cutoff Overview</h4>
         <div class="p-4">
             @include('inc.date_filter')
-            <table class="table text-center table-bordered table-striped" id="payroll_table">
+            <table class="table text-center table-bordered table-striped w-100" id="payroll_table">
                 <thead>
                     <tr>
                         <th>Employee ID</th>

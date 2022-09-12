@@ -45,7 +45,7 @@
                                 <div class="row">
                                     <div class="col-5">
                                         <h4 class="w-100 text-center p-5 m-0 alert-primary">${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}</h4>
-                                        <div class="row w-100 m-0 pt-3 ps-2 alert-light">
+                                        <div class="row w-100 m-0 pt-3 ps-2 alert-light" style="height:200px">
                                             <div class="col">
                                                 <h5 class="p-0 m-0">Position</h5>
                                                 <h1 class="h4 mb-5">${row.position}</h1>
@@ -124,7 +124,7 @@
                             return `
                             <div class="border-top border-bottom border-end my-5 p-0" style="height:350px">
                                 <button type="button" data-toggle="modal" data-target="#modal_${row.employee_id}" class="btn btn-outline-success rounded-0 w-100" style="height:33.4%;"><i class="bi bi-award h1 mt-4"></i><br>Regularize</button>
-                                <button class="btn btn-outline-primary rounded-0 w-100" style="height:33.4%"><i class="bi bi-person-circle h1"></i><br>View Profile</button>
+                                <a href="/payroll/employee/profile/${row.login_id}" class="btn btn-outline-primary w-100 pt-5" style="height:33.4%"><i class="bi bi-person-square h1 mt-4"></i><br>Profile</a>
                                 <a href="/message/${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}" class="btn btn-outline-warning  pt-5 rounded-0 w-100" style="height:33.4%"><i class="bi bi-chat h1"></i><br>Message</a>
                             </div>
 

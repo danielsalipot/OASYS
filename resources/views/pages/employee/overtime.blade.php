@@ -203,6 +203,7 @@
                     {
                         data: 'time_in',
                         render: (data, type, row) => {
+                            console.log(row)
                             return `Time in: <h5 class="text-success">${data}</h5>
                                     Schedule: <h5>${row.user_details.schedule_Timein}</h5>`
                         }

@@ -56,10 +56,8 @@ class ApplicantSignUpController extends Controller
     function crudintroduce(Request $request){
         $request->validate([
             'fname'=>'required',
-            'mname'=>'required',
             'lname'=>'required',
             'sex'=>'required',
-            'age'=>'required',
             'email'=>'required|email',
             'cnum'=>['required','regex:/^(09|\+639)\d{9}$/u'],
             'bday'=>'required',
@@ -68,7 +66,9 @@ class ApplicantSignUpController extends Controller
 
         // Store in put session to pass to the next page
         $request->session()->put('fname',$request->input('fname'));
-        $request->session()->put('mname', $request->input('mname'));
+        if($request->input('mname')){
+            $request->session()->put('mname', $request->input('mname'));
+        }
         $request->session()->put('lname', $request->input('lname'));
         $request->session()->put('sex', $request->input('sex'));
         $request->session()->put('age', $request->input('age'));
@@ -100,18 +100,36 @@ class ApplicantSignUpController extends Controller
         $resumefilepath= "resumes/" . $resumefilename;
 
         //SQL query for information table
-        $query1 = UserDetail::create([
-            'login_id' => session('user_id'),
-            'fname' => session('fname'),
-            'mname' => session('mname'),
-            'lname' => session('lname'),
-            'sex' =>  session('sex'),
-            'age' => session('age'),
-            'bday' => session('bday'),
-            'cnum' => session('cnum'),
-            'email' => session('email'),
-            'picture' => $picfilepath,
-        ]);
+
+        if(session('mname')){
+            $query1 = UserDetail::create([
+                'login_id' => session('user_id'),
+                'fname' => session('fname'),
+                'mname' => session('mname'),
+                'lname' => session('lname'),
+                'sex' =>  session('sex'),
+                'age' => session('age'),
+                'bday' => session('bday'),
+                'cnum' => session('cnum'),
+                'email' => session('email'),
+                'picture' => $picfilepath,
+            ]);
+        }else{
+            $query1 = UserDetail::create([
+                'login_id' => session('user_id'),
+                'fname' => session('fname'),
+                'mname' => null,
+                'lname' => session('lname'),
+                'sex' =>  session('sex'),
+                'age' => session('age'),
+                'bday' => session('bday'),
+                'cnum' => session('cnum'),
+                'email' => session('email'),
+                'picture' => $picfilepath,
+            ]);
+
+        }
+
 
         // SQL insert record to applicants_tbl
         $info_id = UserDetail::where('login_id',session('user_id'))

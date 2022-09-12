@@ -11,6 +11,7 @@ use App\Models\UserCredential;
 use App\Models\UserDetail;
 use App\Models\ApplicantDetail;
 use App\Models\coe;
+use App\Models\EmployeeDetail;
 use App\Models\notification_message;
 use App\Models\notification_acknowledgements;
 use Carbon\Carbon;
@@ -218,5 +219,14 @@ class PagesController extends Controller
         $path =  str_replace('\\','',$request->path);
         echo '<iframe src="/'.$path .'" width="100%" style="height:100%"></iframe>';
     }
-}
 
+    public function employee_profile_list(){
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+
+        $employees = EmployeeDetail::with('UserDetail')->get();
+        return view('pages.employee_profile_list')->with([
+            'profile' => $profile,
+            'employees' => $employees
+        ]);
+    }
+}

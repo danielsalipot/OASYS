@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Assessment;
 use App\Models\Attendance;
-use App\Models\Audit;
 use App\Models\Department;
 use App\Models\EmployeeDetail;
 use App\Models\HealthCheck;
@@ -13,9 +12,14 @@ use App\Models\Learners;
 use App\Models\Position;
 use App\Models\UserDetail;
 use App\Models\Video;
+use App\Spiders\BIRWebSpider;
+use App\Spiders\PagibigWebSpider;
+use App\Spiders\PhilHealthWebSpider;
+use App\Spiders\SSSWebSpider;
 use Carbon\Carbon;
 use DateInterval;
 use DateTime;
+use RoachPHP\Roach;
 
 class AdminController extends Controller
 {
@@ -45,10 +49,15 @@ class AdminController extends Controller
             $value->healthCheck = HealthCheck::where('attendance_id',$value->attendance_id)->first('score');
         }
 
-        $category = Video::groupBy('category')->get('category');
+        $category = [
+            ['category'=>'orientation'],
+            ['category'=>'training'],
+            ['category'=>'correction']
+        ];
+
         foreach ($category as $key => $value) {
-            $value->learners = Learners::where('module',$value->category)->get();
-            $value->videos = Video::where('category',$value->category)->get();
+            $category[$key]['learners'] = Learners::where('module',$value['category'])->get();
+            $category[$key]['videos'] = Video::where('category',$value['category'])->get();
         }
 
         $onboardees = EmployeeDetail::with('UserDetail')->where('employment_status','onboardee')->orderBy('start_date','ASC')->get();
@@ -236,10 +245,11 @@ class AdminController extends Controller
                         $date->absent += 1;
 
                         foreach ($departments as $key => $dept) {
-                            if($departments->department_name == $employee->department){
+                            if($dept->department_name == $employee->department){
                                 $dept->absent += 1;
                             }
                         }
+
                         foreach ($positions as $key => $pos) {
                             if($pos->position_title == $employee->position){
                                 $pos->absent += 1;
@@ -266,7 +276,6 @@ class AdminController extends Controller
 
         return $all_time_attendance;
     }
-
 
     public function regularization(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
@@ -305,7 +314,10 @@ class AdminController extends Controller
 
         $learners = [];
         foreach ($employees as $key => $employee) {
-            $employee->module = Learners::where('employee_id',$employee->employee_id)->get();
+            $employee->module = Learners::where('employee_id',$employee->employee_id)
+                ->where('module',$category)
+                ->get();
+
             if(count($employee->module)){
                 array_push($learners,$employees[$key]);
             }
@@ -380,7 +392,10 @@ class AdminController extends Controller
 
         $learners = [];
         foreach ($employees as $key => $employee) {
-            $employee->module = Learners::where('employee_id',$employee->employee_id)->get();
+            $employee->module = Learners::where('employee_id',$employee->employee_id)
+                ->where('module',$category)
+                ->get();
+
             if(count($employee->module)){
                 array_push($learners,$employees[$key]);
             }
@@ -447,7 +462,10 @@ class AdminController extends Controller
 
         $learners = [];
         foreach ($employees as $key => $employee) {
-            $employee->module = Learners::where('employee_id',$employee->employee_id)->get();
+            $employee->module = Learners::where('employee_id',$employee->employee_id)
+                ->where('module',$category)
+                ->get();
+
             if(count($employee->module)){
                 array_push($learners,$employees[$key]);
             }
@@ -562,22 +580,125 @@ class AdminController extends Controller
 
     public function audittrail(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
+
+        $files_arr = ["files" =>[]];
+        foreach ($files_arr as $key => $value) {
+            if ($handle = opendir("audits/".session('user_type')."/")) {
+                while (false !== ($entry = readdir($handle))) {
+                    if ($entry != "." && $entry != ".." && $entry != 'upload') {
+                        array_push($files_arr["files"],["name" => "$entry","path"=> "audits/".session('user_type')."/" . $entry]);
+                    }
+                }
+                closedir($handle);
+            }
+        }
+
         return view('pages.HR_admin.audittrail')->with([
             'profile' => $profile,
+            'files_arr' => $files_arr
         ]);
     }
 
     public function employee_activities(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
+
+        $files_arr = ["files" =>[]];
+        foreach ($files_arr as $key => $value) {
+            if ($handle = opendir("employee_activities/")) {
+                while (false !== ($entry = readdir($handle))) {
+                    if ($entry != "." && $entry != ".." && $entry != 'upload') {
+                        array_push($files_arr["files"],["name" => "$entry","path"=> "employee_activities/" . $entry]);
+                    }
+                }
+                closedir($handle);
+            }
+        }
+
         return view('pages.HR_admin.employee_activities')->with([
             'profile' => $profile,
+            'files_arr' => $files_arr
         ]);
     }
 
     public function LegalForms(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.HR_admin.legal_forms.BIR2316')->with([
+
+        try{
+            Roach::startSpider(SSSWebSpider::class);
+            $items = Roach::collectSpider(SSSWebSpider::class);
+            $sss = str_replace('/sss/DownloadContent','https://www.sss.gov.ph/sss/DownloadContent', $items[0]->get('subtitle'));
+            $sss = str_replace('<a','<a class="text-decoration-none btn btn-outline-primary border-0" style="font-size:13px;"', $sss);
+        }
+        catch(\Throwable $th){
+            $sss = 0;
+        }
+
+
+        try{
+            Roach::startSpider(PhilHealthWebSpider::class);
+            $items = Roach::collectSpider(PhilHealthWebSpider::class);
+            $philhealth = str_replace('href="','href="https://www.philhealth.gov.ph/downloads/', $items[0]->get('html'));
+            $philhealth = str_replace('<a','<a class="text-decoration-none btn btn-outline-primary border-0" style="font-size:13px;margin-left:80px;"', $philhealth);
+            $philhealth = str_replace('h5','h4', $philhealth);
+        }
+        catch(\Throwable $th){
+            $philhealth = 0;
+        }
+
+        try {
+            Roach::startSpider(PagibigWebSpider::class);
+            $items = Roach::collectSpider(PagibigWebSpider::class);
+            $pagibig = "<table class='table'>";
+            $pagibig .= str_replace('href="','href="https://www.pagibigfund.gov.ph/', $items[0]->get('html'));
+            $pagibig = str_replace('images/PDF-icon.gif"','https://t4.ftcdn.net/jpg/03/80/53/35/360_F_380533515_CWsTHnDBMVgtNt3eCdHvdBkWgxNkTm9W.jpg" height="20px" width="20px" ', $pagibig);
+            $pagibig = str_replace('<img src="images/excel-icon.png" alt="" height="20" width="20" border="0">','<img src="https://findicons.com/files/icons/2795/office_2013_hd/2000/excel.png" alt="" height="20" width="20" border="0">', $pagibig);
+            $pagibig = str_replace('<img src="images/word-icon.png">','<img src="https://cdn.icon-icons.com/icons2/2397/PNG/512/microsoft_office_word_logo_icon_145724.png" height="20" width="20" border="0">', $pagibig);
+            $pagibig .= "</table>";
+        } catch (\Throwable $th) {
+            $pagibig = 0;
+        }
+
+        try {
+            Roach::startSpider(BIRWebSpider::class);
+            $items = Roach::collectSpider(BIRWebSpider::class);
+            $bir = str_replace('href="/index.php/bir-forms','target="blank" href="https://www.bir.gov.ph/index.php/bir-forms', $items[0]->get('html'));
+            $bir = str_replace('<table','<table class="table table-striped"', $bir);
+        } catch (\Throwable $th) {
+            $bir = 0;
+        }
+
+        $files_arr = ["SSS" => [ "files" =>[] ], "Pagibig" => [ "files" =>[] ], "Philhealth" => [ "files" =>[] ], "BIR" => [ "files" =>[] ]];
+        foreach ($files_arr as $key => $value) {
+            if ($handle = opendir("LegalForms/$key/")) {
+                while (false !== ($entry = readdir($handle))) {
+                    if ($entry != "." && $entry != ".." && $entry != 'upload') {
+                        array_push($files_arr[$key]['files'],["name" => "$entry","path"=>"LegalForms/$key/".$entry]);
+                    }
+                }
+                closedir($handle);
+            }
+        }
+
+        $accomplished_files_arr = ["SSS" => [ "files" =>[] ], "Pagibig" => [ "files" =>[] ], "Philhealth" => [ "files" =>[] ], "BIR" => [ "files" =>[] ]];
+        foreach ($accomplished_files_arr as $key => $value) {
+            if ($handle = opendir("LegalForms/$key/upload/")) {
+                while (false !== ($entry = readdir($handle))) {
+                    if ($entry != "." && $entry != ".." && $entry != 'upload') {
+                        array_push($accomplished_files_arr[$key]['files'],["name" => "$entry","path"=>"LegalForms/$key/upload/".$entry]);
+                    }
+                }
+                closedir($handle);
+            }
+        }
+
+        return view('pages.HR_admin.legal_forms')->with([
             'profile' => $profile,
+            'sss' => $sss,
+            'philhealth' => $philhealth,
+            'pagibig' => $pagibig,
+            'bir' => $bir,
+            'files_arr' => $files_arr,
+            'accomplished_files_arr' => $accomplished_files_arr
         ]);
     }
 

@@ -50,6 +50,19 @@ class EmployeeController extends Controller
             ->orderBy('attendance_date','desc')
             ->paginate(10);
 
+        foreach ($attendance_history as $key => $value) {
+            if(isset($value->time_out)){
+                if($this->timeCalculator($value->schedule_Timein) >= $this->timeCalculator($value->time_in) && $this->timeCalculator($value->schedule_Timeout) <= $this->timeCalculator($value->time_out)){
+                    $value->attendance_status = 1;
+                }else{
+                    $value->attendance_status = 0;
+                }
+            }
+            else{
+                $value->attendance_status = 2;
+            }
+        }
+
         $notif = notification_receiver::with('message')
             ->where('receiver_id',session('user_id'))
             ->orderBy('created_at','desc')

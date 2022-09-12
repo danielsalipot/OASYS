@@ -3,6 +3,11 @@
     @if(Session::get('success'))
         <div class="alert alert-success w-50 m-auto">{{Session::get('success')}}</div>
     @endif
+    <style>
+        body{
+                background-color: #d2edff;
+            }
+    </style>
     <div class="p-5"></div>
     <div class="card shadow-lg w-75 p-5  m-auto">
         <div class='row m-auto w-100'>

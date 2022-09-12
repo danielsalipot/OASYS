@@ -1,13 +1,20 @@
 @extends('layout.payroll_app')
 
 @section('title')
+    @if (session('err'))
+        <h4 class="alert-danger text-center w-100 p-3">{{ session('err') }}</h4>
+    @endif
+
+    @if (session('payslip_done'))
+        <h4 class="alert-success text-center w-100 p-3">{{ session('payslip_done') }}</h4>
+    @endif
     <h1 class="section-title mt-5 pb-5">Approval</h1>
 @endsection
 
+
 @section('content')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Payroll History</h1>
-
-    @foreach ($progress_bar as $item)
+    @foreach (array_reverse($progress_bar) as $item)
         {!! $item !!}
     @endforeach
     <div class="w-25 m-auto border border-success rounded p-2 d-none" id="payslip_controls">
@@ -27,6 +34,9 @@
         <div class="row">
             <div class="col" id="approval_div">
                 <button id="approval_btn" onclick="approve_show(this)" class="btn btn-primary w-100 p-2 m-0">Approve</button>
+            </div>
+            <div class="col" id="note_div">
+                <button id="note_btn" onclick="approve_show(this)" class="btn btn-success w-100 p-2 m-0">Note</button>
             </div>
             <div class="col"  id="disapproval_div">
                 <button id="disapproval_btn"  onclick="approve_show(this)" class="btn btn-outline-danger w-100 p-2 m-0">Disapprove</button>
@@ -49,12 +59,12 @@
 
     <div class="row shadow-lg m-4">
         <div class="col-2 pe-3 bg-dark p-0" id="payroll_history" style="overflow-y:scroll; overflow-x:hidden; height:1000px;">
-            @foreach ($btn_arr_pr as $item)
+            @foreach (array_reverse($btn_arr_pr) as $item)
                 {!! $item !!}
             @endforeach
         </div>
         <div class="col p-0 alert-secondary">
-            @foreach ($file_arr_pr as $item)
+            @foreach (array_reverse($file_arr_pr) as $item)
                 {!! $item !!}
             @endforeach
         </div>
@@ -71,6 +81,7 @@
     })
 
     function display(btn,key,value,from_date1,to_date1,progress,payslip_generate,vote,generator){
+        console.log(value)
         if(btn.innerHTML == "Close"){
             $("iframe").each(function() {
                 $(this).css('display','none');
@@ -84,6 +95,7 @@
 
             $('#approve_sign').addClass('d-none')
             $('#approval_div').removeClass('d-none')
+            $('#note_div').removeClass('d-none')
             $('#disapproval_div').removeClass('d-none')
 
         }else{
@@ -104,8 +116,8 @@
 
             if(progress >= 100){
                 $('#approval_btn').prop('disabled',true)
+                $('#note_btn').prop('disabled',true)
                 $('#disapproval_btn').prop('disabled',true)
-                console.log(payslip_generate)
 
                 if(payslip_generate == 0){
                     $('#payslip').prop('disabled',false)
@@ -118,6 +130,7 @@
 
             }else{
                 $('#approval_btn').prop('disabled',false)
+                $('#note_btn').prop('disabled',false)
                 $('#disapproval_btn').prop('disabled',false)
                 $('#payslip').prop('disabled',true)
             }
@@ -125,9 +138,11 @@
 
             if(vote){
                 $('#approval_btn').prop('disabled',true)
+                $('#note_btn').prop('disabled',true)
                 $('#disapproval_btn').prop('disabled',true)
             }else{
                 $('#approval_btn').prop('disabled',false)
+                $('#note_btn').prop('disabled',false)
                 $('#disapproval_btn').prop('disabled',false)
             }
 
@@ -143,15 +158,20 @@
     }
 
     function approve_show(btn){
-
         if(btn.innerHTML == 'Approve'){
-            $('#status').val(1)
-        }else{
+            $('#status').val('1')
+        }
+        if(btn.innerHTML == 'Note'){
+            $('#status').val(2)
+        }
+
+        if(btn.innerHTML == 'Disapprove'){
             $('#status').val(0)
         }
 
         $('#approve_sign').toggleClass('d-none')
         $('#approval_div').toggleClass('d-none')
+        $('#note_div').toggleClass('d-none')
         $('#disapproval_div').toggleClass('d-none')
     }
 </script>

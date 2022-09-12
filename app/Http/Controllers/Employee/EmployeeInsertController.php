@@ -20,6 +20,7 @@ class EmployeeInsertController extends Controller
             'employee_id'=> $employee->employee_id,
             'time_in'=> $request->time_in,
             'attendance_date'=> $request->time_in_date,
+            'attendance_day' => date('w')
         ]);
 
         employee_activity::create([
@@ -34,10 +35,22 @@ class EmployeeInsertController extends Controller
     }
 
     function insertHealthCheck(Request $request){
+        $score = 0;
+        for ($i=0; $i < 7; $i++) {
+            $score += $request['choice_'.$i];
+        }
+
+        if($temp = round(($score-1 + $request->health_check_option ) / 2)){
+            $score = $temp;
+        }
+        else{
+            $score = 0;
+        }
+
         $employee = EmployeeDetail::with('UserDetail')->where('login_id',session('user_id'))->first();
         HealthCheck::create([
             'employee_id' => $employee->employee_id,
-            'score' => $request->score,
+            'score' => $score,
             'attendance_id' => $request->attendance_id
         ]);
 

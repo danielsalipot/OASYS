@@ -91,15 +91,15 @@
 <div class="container">
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Add Holiday Pay</h1>
     <div class="row">
-        <div class="col">
+        <div class="col p-4 shadow-sm card">
             <h5 class="w-100 text-center">Pay All Employee Holiday</h5>
             <button onclick="select_all(this)" id="selectAll" class="w-100 p-4 btn btn-primary">Select All Employee</button>
 
             <hr>
 
             <h5 class="w-100 text-center">Pay Selected Employee Holiday</h5>
-            <div class="container w-100">
-                <table class="table w-100 table-striped text-center table-dark" id="employee_table">
+            <div class="container w-100 ">
+                <table class="table w-100 table-striped text-center" id="employee_table">
                     <thead>
                         <tr class="text-center">
                             <th class="col">Employee Picture</th>
@@ -113,7 +113,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="container">
+            <div class="container card bg-white mb-3 shadow-sm" style="height: 500px;overflow-y:scroll;overflow-x:hidden;">
                 <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
                 <table class="table table-striped text-center">
                     <thead>
@@ -129,7 +129,7 @@
                 <div id="select_all_div"></div>
             </div>
 
-            <div class="container card shadow-lg p-4">
+            <div class="container card shadow-sm p-4">
                 <h1 class="display-5 mb-3 text-center w-100">Holiday Detail</h1>
                 <div class="m-3 px-5">
                     {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollInsertController@InsertAttendanceHoliday']) !!}
@@ -174,39 +174,41 @@
 
 @section('third')
 <div class="container p-5 border shadow-lg">
-    <h1 class="display-4 pb-5 mt-5 text-center w-100">Holiday Attendance</h1>
-    <hr>
-    <h4>Delete all Attendance</h4>
-    <hr>
+        <div class="card p-5 shadow-sm">
+        <hr>
+        <h4>Delete all Attendance</h4>
+        <hr>
 
-    <div class="row mb-3 mt-3 input-daterange" >
-        <div class="col-md-2">
-            <input type="text" name="delete_all_from_date" id="delete_all_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+        <div class="row mb-3 mt-3 input-daterange" >
+            <div class="col-md-2">
+                <input type="text" name="delete_all_from_date" id="delete_all_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="delete_all_to_date" id="delete_all_to_date" class="form-control h-100" placeholder="To Date" readonly />
+            </div>
+            <div class="col-2">
+                <button type="button" name="delete_all_filter" id="delete_all_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
+                <button type="button" name="delete_all_refresh" id="delete_all_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+            </div>
         </div>
-        <div class="col-md-2">
-            <input type="text" name="delete_all_to_date" id="delete_all_to_date" class="form-control h-100" placeholder="To Date" readonly />
-        </div>
-        <div class="col-2">
-            <button type="button" name="delete_all_filter" id="delete_all_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
-            <button type="button" name="delete_all_refresh" id="delete_all_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
-        </div>
+
+        <table class="table table-striped text-center table-dark w-100" id="delete_all_attendance">
+            <thead>
+                <tr>
+                    <th class="col">Holiday Name</th>
+                    <th class="col">Holiday Start Date</th>
+                    <th class="col">Holiday End Date</th>
+                    <th class="col">Number of Attendance</th>
+                    <th class="col">Payroll Manager</th>
+                    <th class="col">Added on</th>
+                    <th class="col">Delete</th>
+                </tr>
+            </thead>
+        </table>
+
     </div>
 
-    <table class="table table-striped text-center table-dark w-100" id="delete_all_attendance">
-        <thead>
-            <tr>
-                <th class="col">Holiday Name</th>
-                <th class="col">Holiday Start Date</th>
-                <th class="col">Holiday End Date</th>
-                <th class="col">Number of Attendance</th>
-                <th class="col">Payroll Manager</th>
-                <th class="col">Added on</th>
-                <th class="col">Delete</th>
-            </tr>
-        </thead>
-    </table>
-
-    <div class="container mt-5 w-100 p-5 border shadow-lg">
+    <div class="container mt-5 w-100 p-5 border shadow-sm">
         <hr>
         <h4>Delete Selected Attendance</h3>
         <hr>

@@ -23,8 +23,7 @@
     <link href="assets/css/style.css" rel="stylesheet">
 
 </head>
-<body style="overflow-x: hidden">
-    @include('inc.navbar')
+<body style="overflow-x: hidden" class="p-0 m-0">
     @yield('content')
 
     <!-- Vendor JS Files -->

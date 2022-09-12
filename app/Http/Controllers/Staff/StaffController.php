@@ -86,11 +86,11 @@ class StaffController extends Controller
 
                         <!-- Modal body -->
                         <div class='modal-body row'>
-                            <div class='row'>
+                            <div class='row mb-3'>
                                 <div class='col-3'>
-                                <img src='/".$applicant->picture."' class='rounded-circle w-100 h-100'>
+                                <img src='/".$applicant->picture."' class='rounded-circle w-100 h-100 shadow-sm'>
                                 </div>
-                                <div class='col-4'>
+                                <div class='col-5'>
                                     <div class='row m-2'>
                                         <h6 class='text-secondary'>Full Name</h6>
                                         <h2>".$applicant->fname." " .$applicant->mname." ".$applicant->lname."</h2>
@@ -110,7 +110,7 @@ class StaffController extends Controller
                                         <h2>".$applicant->educ."</h2>
                                     </div>
                                 </div>
-                                <div class='col'>
+                                <div class='col text-center'>
                                     <div class='row m-2'>
                                         <h6 class='text-secondary'>Contact Number</h6>
                                         <h3>".$applicant->cnum."</h3>
@@ -126,12 +126,12 @@ class StaffController extends Controller
                                     <div class='row'>
                                     <form action='/display_resume'method='GET' target='_blank'>
                                         <input type='hidden' name='path' value='".$applicant->resume."'>
-                                        <button type='submit' class='btn btn-outline-primary w-50 p-2 m-auto'>View Resume</button>
+                                        <button type='submit' class='btn btn-outline-primary border-0 w-50 p-2 m-auto'>View Resume</button>
                                     </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class='row text-center my-3'>
+                            <div class='row text-center alert-secondary mx-auto p-4'>
                                 <h3>Interview Details</h3>
                                 <div class='col'>
                                     <h5>First Interview</h5>
@@ -143,33 +143,33 @@ class StaffController extends Controller
                                 </div>
                             </div>
 
-                            <form action='/InsertOnboardee' method='GET'>
+                            <form action='/InsertOnboardee' method='GET' class='m-0 p-0'>
                             <input type='hidden' name='app_id' value='".$applicant->applicant_id."'>
-                            <div class='row mt-1'>
-                                <div class='col text-center'>
+                            <div class='row w-100 alert-primary p-3 mx-auto'>
+                                <div class='col-5 text-left'>
                                     <div class='m-2'>
-                                        <h3>Choose Position</h3>
-                                        <select name='position' id='position' class='h4 py-3 w-50 btn btn-outline-primary'>
+                                        <h6>Choose Position</h6>
+                                        <select name='position' id='position' class='h4 py-3 w-100 btn btn-outline-primary bg-white text-primary'>
                                             ".$pos."
                                         </select>
                                     </div>
 
                                     <div class='m-2'>
-                                        <h3>Choose Department</h3>
-                                        <select name='department' id='department' class='h4 py-3 w-50 btn btn-outline-success'>
+                                        <h6>Choose Department</h6>
+                                        <select name='department' id='department' class='h4 py-3 w-100 btn btn-outline-success bg-white text-success'>
                                             ".$dep."
                                         </select>
                                     </div>
 
                                     <div class='m-2'>
-                                        <h3>Enter Employee Rate</h3>
-                                        <input type='number' name='rate' class='form-control mx-auto w-75 text-center' step='.01'>
+                                        <h6>Enter Employee Rate</h6>
+                                        <input type='number' name='rate' class='form-control w-100 text-center' step='.01' placeholder='000.00'>
                                     </div>
                                 </div>
 
-                                <div class='col'>
-                                    <div class='m-2 text-center'>
-                                    <h3>Schedule Days</h3>
+                                <div class='col border-start border-primary'>
+                                    <div class='m-2 text-center mt-4'>
+                                    <h6>Schedule Days</h6>
                                         <div class='row'>
                                             <div class='col'>
                                                 <input type='checkbox' id='sunday' name='sunday' value='0'>
@@ -192,7 +192,7 @@ class StaffController extends Controller
                                                 <label for='thursday'>Thursday</label><br>
                                             </div>
                                             <div class='col'>
-                                                <input type='checkbox' id='friday' name='friday' value='5'>
+                                                <input type='checkbox' id='friday' name='friday' value='5'><br>
                                                 <label for='friday'>Friday</label><br>
                                             </div>
                                             <div class='col'>
@@ -201,16 +201,17 @@ class StaffController extends Controller
                                             </div>
                                         </div>
                                     </div>
+                                    <hr class='mx-3'>
                                     <div class='m-2 text-center'>
-                                        <h3>Enter Employee Time Schedules</h3>
+                                        <h5>Enter Employee Time Schedules</h5>
 
                                         <div class='row w-100 text-center'>
                                             <div class='col'>
-                                                <h5>Time in Schedule</h5>
+                                                <h6>Time in Schedule</h6>
                                                 <input type='text' name='timein' id='timein".$applicant->applicant_id."' class='text-center form-control w-75 m-auto my-2 datetime'>
                                             </div>
                                             <div class='col'>
-                                                <h5>Time out Schedule</h5>
+                                                <h6>Time out Schedule</h6>
                                                 <input type='text' name='timeout' id='timeout".$applicant->applicant_id."' class='text-center form-control w-75 m-auto my-2 datetime'>
                                             </div>
                                         </div>
@@ -233,15 +234,13 @@ class StaffController extends Controller
                         <!-- Modal footer -->
                         <div class='modal-footer'>
                             <div class='row w-100 text-center'>
-                                <div class='col'></div>
-                                <div class='col'>
-                                    <button type='submit' class='btn btn-primary p-2 w-100'>Onboard</button>
+                                <div class='col-9'>
+                                    <button type='submit' class='btn btn-outline-primary p-3 w-100'>Onboard</button>
                                     </form>
                                 </div>
                                 <div class='col'>
-                                    <button type='button' class='btn btn-danger w-100 p-2 ' data-dismiss='modal'>Close</button>
+                                    <button type='button' class='btn btn-outline-danger w-100 p-3 ' data-dismiss='modal'>Close</button>
                                 </div>
-                                <div class='col'></div>
                             </div>
                         </div>
                     </div>
@@ -318,8 +317,21 @@ class StaffController extends Controller
 
     function audittrail(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
+        $files_arr = ["files" =>[]];
+        foreach ($files_arr as $key => $value) {
+            if ($handle = opendir("audits/".session('user_type')."/")) {
+                while (false !== ($entry = readdir($handle))) {
+                    if ($entry != "." && $entry != ".." && $entry != 'upload') {
+                        array_push($files_arr["files"],["name" => "$entry","path"=> "audits/".session('user_type')."/" . $entry]);
+                    }
+                }
+                closedir($handle);
+            }
+        }
+
         return view('pages.HR_staff.audittrail')->with([
             'profile' => $profile,
+            'files_arr' => $files_arr
         ]);
     }
 

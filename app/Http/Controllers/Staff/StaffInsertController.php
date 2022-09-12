@@ -21,6 +21,10 @@ use Illuminate\Http\Request;
 class StaffInsertController extends Controller
 {
     public function InsertDepartment(Request $request){
+        $request->validate([
+            'dept_name' => 'required'
+        ]);
+
         Department::create([
             'department_name'=> $request->dept_name
         ]);
@@ -38,6 +42,11 @@ class StaffInsertController extends Controller
     }
 
     public function InsertPosition(Request $request){
+        $request->validate([
+            'pos_title' => 'required',
+            'pos_desc' => 'required'
+        ]);
+
         Position::create([
             'position_title'=> $request->pos_title,
             'position_description'=> $request->pos_desc
@@ -56,9 +65,10 @@ class StaffInsertController extends Controller
     }
 
     public function InsertInterview(Request $request){
-        $request->validate([
-            'sched'=>'required'
-        ]);
+
+        if($request->sched == "____-__-__ __:__"){
+            return back()->with(['delete'=>'The schedule field is required']);
+        }
 
         Interview::create([
             'applicant_id'=> $request->emp_id,

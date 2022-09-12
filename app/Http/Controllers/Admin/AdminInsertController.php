@@ -100,6 +100,17 @@ class AdminInsertController extends Controller
     }
 
     public function addAssessment(Request $request){
+        $request->validate([
+            'attendance_score' => 'required',
+            'performance_score' => 'required',
+            'character_score' => 'required',
+            'cooperation_score' => 'required',
+            'attendance_feedback' => 'required',
+            'performance_feedback' => 'required',
+            'character_feedback' => 'required',
+            'cooperation_feedback' => 'required'
+        ]);
+
         $types = ['attendance','performance','character','cooperation'];
         $scores = [$request->attendance_score,$request->performance_score,$request->character_score,$request->cooperation_score,];
         $feedbacks = [$request->attendance_feedback,$request->performance_feedback,$request->character_feedback,$request->cooperation_feedback,];
@@ -148,5 +159,17 @@ class AdminInsertController extends Controller
         );
 
         return back()->with(['insert'=>'New assessment has been added']);
+    }
+
+    public function uploadLegalFormFiles(Request $request){
+        //Upload file
+        try {
+            $filname = $request->file('file_input')->getClientOriginalName();
+            $request->file('file_input')->storeAs('LegalForms/'. $request->form_type . '/upload', $filname,'public_uploads');
+        } catch (\Throwable $th) {
+            return back();
+        }
+
+        return back()->with(['insert' => 'The file has been uploaded']);
     }
 }

@@ -1,6 +1,11 @@
 @extends('layout.applicant_app')
     @section('content')
 
+    <style>
+        body{
+            background-color: #d2edff;
+        }
+    </style>
     @if (!session()->has('user_id') && !session()->get('user_type') == 'applicant')
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif

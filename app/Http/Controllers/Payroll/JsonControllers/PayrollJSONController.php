@@ -29,6 +29,7 @@ use App\Models\Payslips;
 use App\Models\UserCredential;
 use App\Models\Audit;
 use App\Models\overtime_approval;
+use Carbon\Carbon;
 use Throwable;
 
 class PayrollJSONController extends Controller
@@ -473,7 +474,7 @@ class PayrollJSONController extends Controller
             $er_rate = $sss_rate->employer_contribution / 100;
 
             // Check Additional for ER
-            if($gross_pay < 15000){$er_add = $sss_rate->add_low;}
+            if($gross_pay < $sss_rate->high_limit){$er_add = $sss_rate->add_low;}
             else{$er_add = $sss_rate->add_high;}
 
             while(1){
@@ -641,21 +642,24 @@ class PayrollJSONController extends Controller
         $detail->employer_philhealth_contribution = 0;
         $detail->employee_philhealth_contribution = 0;
 
+        $date = Carbon::parse($request->from_date);
+        $diff = $date->diffInDays($request->to_date) + 1;
+
         if($detail->gross_pay < $philhealth->minimum){
             $detail->employer_philhealth_contribution += 0;
             $detail->employee_philhealth_contribution += 137.50;
         }
         elseif($detail->gross_pay > $philhealth->maximum){
             $total_philhealth_payment = $philhealth->ph_cap;
-            $detail->employer_philhealth_contribution = $total_philhealth_payment * ($philhealth->er_rate / 100);
-            $detail->employee_philhealth_contribution = $total_philhealth_payment * ($philhealth->ee_rate / 100);
+            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 365.25) ;
+            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 365.25) ;
         }else{
             $total_philhealth_payment = $detail->gross_pay * ($philhealth->ph_rate/100);
-            $detail->employer_philhealth_contribution = $total_philhealth_payment * ($philhealth->er_rate / 100);
-            $detail->employee_philhealth_contribution = $total_philhealth_payment * ($philhealth->ee_rate / 100);
+            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 365.25);
+            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 365.25);
         }
 
-        $detail->employer_philhealth_contribution = round($detail->employer_philhealth_contribution,2);
+        $detail->employer_philhealth_contribution = $detail->employer_philhealth_contribution;
         $detail->employee_philhealth_contribution = round($detail->employee_philhealth_contribution,2);
 
         $detail->total_philhealth_contribution = round($detail->employer_philhealth_contribution + $detail->employee_philhealth_contribution,2);

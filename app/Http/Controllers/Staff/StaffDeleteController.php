@@ -37,6 +37,8 @@ class StaffDeleteController extends Controller
         app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
             [['email' => $applicant->userDetail->email, 'name' => $applicant->userDetail->fname . ' ' . $applicant->userDetail->lname]]
         );
+
+        Interview::find($request->interview_id)->delete();
         return back()->with(['delete'=>'The schedule was removed successfully']);
     }
 

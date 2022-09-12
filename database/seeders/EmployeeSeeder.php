@@ -64,16 +64,18 @@ class EmployeeSeeder extends Seeder
             $status = 'Regular';
         }
 
+        $month = date('m');
+
         $emp_id = EmployeeDetail::create([
             'login_id' => $login_id->id,
             'information_id' =>$info_id->id,
             'educ' => 'College',
             'position' => $positions[(rand(0,count($positions) - 1))]->position_title,
             'department' => $departments[(rand(0,count($departments)-1  ))]->department_name,
-            'rate' => rand(500,1500) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
+            'rate' => rand(50,100) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
             'employment_status' => $status,
             'resume' => 'resumes/resume'.rand(1,3).'.pdf',
-            'start_date' => $faker->dateTimeBetween('2022-08-01', '2022-08-01'),
+            'start_date' => $faker->dateTimeBetween('2022-'. $month .'-01', '2022-'. $month .'-01'),
             'schedule_days' => json_encode([1,2,3,4,5]),
             'schedule_Timein' => date('H:i:s', 25200),
             'schedule_Timeout' => date('H:i:s', 68400)

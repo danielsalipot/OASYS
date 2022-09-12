@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApplicantDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -34,7 +35,12 @@ class LoginController extends Controller
 
             switch($check->user_type){
                 case 'applicant':
-                    return redirect('/applicant/home');
+                    if(ApplicantDetail::where('login_id', $check->login_id)->first()){
+                        return redirect('/applicant/home');
+                    }else{
+                        return redirect('/applicant/introduce');
+                    }
+
                     break;
                 case 'employee':
                     return redirect('/employee/home');

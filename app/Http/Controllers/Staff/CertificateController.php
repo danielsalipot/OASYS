@@ -31,7 +31,7 @@ class CertificateController extends Controller
         $pdf->Ln(35);
         $pdf->Cell(190,7,'Beulah Land Christian College Inc.',0,1,'C');
         $pdf->SetFont('Times', '', 10);
-        $pdf->Cell(190,5,'Mandaluyong City, Metro Manila, Philippines',0,1,'C');
+        $pdf->Cell(190,5,'2 Marytown Cir, Novaliches, Quezon City, 1124 Metro Manila',0,1,'C');
         $pdf->Cell(190,5,'blccinc2020@gmail.com',0,1,'C');
         $pdf->Cell(190,5,'(033) 320-8347',0,1,'C');
 

@@ -56,8 +56,8 @@ class EmployeeDetail extends Model
 
     public function FilteredDeductions($id,$start_date,$end_date) {
         return Deduction::where('employee_id',$id)
-            ->where('deduction_start_date','<=',$start_date)
-            ->where('deduction_end_date','>=',$end_date)
+            ->whereBetween('deduction_start_date',[$start_date,$end_date])
+            ->whereBetween('deduction_start_date',[$start_date,$end_date])
             ->orderBy('deduction_start_date','ASC')
             ->get();
     }

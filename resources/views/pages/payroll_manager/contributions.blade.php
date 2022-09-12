@@ -16,7 +16,7 @@
 @section('first')
     <div class="m-auto p-5">
         <div class="row">
-            <div class="col card p-0 shadow-sm">
+            <div class="col-4 card p-0 shadow-sm">
                 <h3 class="w-100 text-center alert-primary p-3">SSS Contribution Details</h3>
                 {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_sss', 'class'=>'w-100']) !!}
                 <div class="row p-4 mx-auto w-100">
@@ -28,6 +28,17 @@
                         <div class="col text-center">
                             {!! Form::label('sss_er_rate', "Employer SSS Rate", []) !!}
                             {!! Form::text('sss_er_rate',"$sss->employer_contribution",['disabled','id'=>'sss_er_rate', 'class'=>'form-control text-center p-3']) !!}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col text-center">
+                            {!! Form::label('sss_low_limit', "Lower Range", []) !!}
+                            {!! Form::text('sss_low_limit',"$sss->low_limit",['disabled','id'=>'sss_low_limit','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col text-center">
+                            {!! Form::label('sss_high_limit', "Higher Range", []) !!}
+                            {!! Form::text('sss_high_limit',"$sss->high_limit",['disabled','id'=>'sss_high_limit', 'class'=>'form-control text-center p-3']) !!}
                         </div>
                     </div>
 
@@ -51,11 +62,24 @@
                 </div>
                 {!! Form::close() !!}
             </div>
-            <div class="col"></div>
             <div class="col card p-0 shadow-sm">
-                <h3 class="w-100 text-center alert-primary p-3">SSS Forms</h3>
-                <p class="m-3 text-center" style="font-size: 13px">Employers are obliged to submit several forms on a regular basis to SSS; to obtain the relevant form, click the button below.</p>
-                <a href="https://www.sss.gov.ph/sss/appmanager/sss_downloads.jsp?type=forms" target="_blank" class="btn btn-primary p-3 w-75 mx-auto">SSS List of Forms</a>
+                <h3 class="w-100 text-center alert-primary p-3">Instructions</h3>
+                <div class="row p-4" style="font-size: 15px">
+                    <div class="col">
+                        <ul>
+                            <li class="p-2">Employees must contribute {{$sss->employee_contribution + $sss->employer_contribution}}% of their monthly wage credit (MSC).</li>
+                            <li class="p-2">Currently the employee pays {{$sss->employee_contribution}}% of the total contribution (<b>Employee SSS Rate</b>)</li>
+                            <li class="p-2">Currently the business contributes {{$sss->employer_contribution}}% of the total contribution of employee (<b>Employer SSS Rate</b>). </li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li class="p-2" >A little payment to the Employee Compensation Program is also included in the overall contribution.</li>
+                            <li class="p-2" >For MSCs up to ₱{{ $sss->low_limit }} (<b>Lower Range</b>) the total payment is ₱10.00  (<b>Lower Addition</b>)</li>
+                            <li class="p-2" >For an MSC of ₱{{ $sss->high_limit }} (<b>Higher Range</b>) or more, the total payment is ₱30.00  (<b>Higher Addition</b>)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -84,10 +108,10 @@
 @section('second')
     <div class="m-auto p-5">
         <div class="row">
-            <div class="col card p-0 shadow-sm">
+            <div class="col-4 card p-0 shadow-sm">
                 <h3 class="w-100 text-center alert-primary p-3">Pagibig Contribution Details</h3>
                 {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_pagibig']) !!}
-                <div class="row p-4">
+                <div class="row p-4 h-100">
                     <div class="row">
                         <div class="col-4 text-center">
                             {!! Form::label('pagibig_ee_min_rate', "Employee Pagibig Low Rate", []) !!}
@@ -108,7 +132,7 @@
                             {!! Form::text('pagibig_max',"$pagibig->maximum",['disabled','id'=>'pagibig_max','class'=>'form-control text-center p-3']) !!}
                         </div>
                         <div class="col text-center">
-                            {!! Form::label('pagibig_divider', "Pagibig Maximum Salary", []) !!}
+                            {!! Form::label('pagibig_divider', "Pagibig Salary Division", []) !!}
                             {!! Form::text('pagibig_divider',"$pagibig->divider",['disabled','id'=>'pagibig_divider','class'=>'form-control text-center p-3']) !!}
                         </div>
                     </div>
@@ -120,11 +144,24 @@
                 </div>
                 {!! Form::close() !!}
             </div>
-            <div class="col"></div>
             <div class="col card p-0 shadow-sm">
-                <h3 class="w-100 text-center alert-primary p-3">Pagibig Forms</h3>
-                <p class="m-3 text-center" style="font-size: 13px">Employers are obliged to submit several forms on a regular basis to Pagibig; to obtain the relevant form, click the button below.</p>
-                <a href="https://www.pagibigfund.gov.ph/forms_provident.html" target="_blank" class="btn btn-primary p-3 w-75 mx-auto">Pagibig List of Forms</a>
+                <h3 class="w-100 text-center alert-primary p-3">Instructions</h3>
+                <div class="row p-4" style="font-size: 15px">
+                    <div class="col">
+                        <ul>
+                            <li class="p-3"> The Employee share is based on their salary.</li>
+                            <li class="p-3">If the employee's salary is lower than ₱{{ $pagibig->divider }} (<b>Pagibig Salary Division</b>) then there share will be {{ $pagibig->ee_min_rate }}% of their salary (<b>Employee Pagibig Low Rate</b>)</li>
+                            <li class="p-3">If the employee's salary is Higher than ₱{{ $pagibig->divider }} (<b>Pagibig Salary Division</b>) then there share will be {{ $pagibig->ee_min_rate }}% of their salary (<b>Employee Pagibig Low Rate</b>)</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li class="p-3">The current Maximum contribution of Pag ibig is ₱{{$pagibig->maximum}} (<b>Maximum Contribution</b>) </li>
+                            <li class="p-3">The current Pagibig Employer rate is {{ $pagibig->er_rate }}% (<b>Employer Pagibig Rate</b>)</li>
+                            <li class="p-3">The total contribution is the sum of the Employee and Employer shares</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -165,7 +202,7 @@
 <div class="container p-5 border shadow-lg">
     <div class="m-auto p-5">
         <div class="row">
-            <div class="col card p-0 shadow-sm">
+            <div class="col-4 card p-0 shadow-sm">
                 <h3 class="w-100 text-center p-3 alert-primary">Philhealth Contribution Details</h3>
                 {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_philhealth']) !!}
                 <div class="row p-4">
@@ -191,11 +228,11 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col text-center">
-                            {!! Form::label('philhealth_ee_rate', "Employee Philhealth Rate", []) !!}
+                            {!! Form::label('philhealth_ee_rate', "Employee Philhealth Share", []) !!}
                             {!! Form::text('philhealth_ee_rate',"$philhealth->ee_rate",['disabled','id'=>'philhealth_ee_rate','class'=>'form-control text-center p-3']) !!}
                         </div>
                         <div class="col text-center">
-                            {!! Form::label('philhealth_er_rate', "Employer Philhealth Rate", []) !!}
+                            {!! Form::label('philhealth_er_rate', "Employer Philhealth Share", []) !!}
                             {!! Form::text('philhealth_er_rate',"$philhealth->er_rate",['disabled','id'=>'philhealth_er_rate', 'class'=>'form-control text-center p-3']) !!}
                         </div>
                     </div>
@@ -207,11 +244,23 @@
                 </div>
                 {!! Form::close() !!}
             </div>
-            <div class="col"></div>
             <div class="col card p-0 shadow-sm">
-                <h3 class="w-100 text-center alert-primary p-3">PhilHealth Forms</h3>
-                <p class="m-3 text-center" style="font-size: 13px">Employers are obliged to submit several forms on a regular basis to PhilHealth; to obtain the relevant form, click the button below.</p>
-                <a href="https://www.philhealth.gov.ph/downloads/" target="_blank" class="btn btn-primary p-3 w-75 mx-auto">PhilHealth List of Forms</a>
+                <h3 class="w-100 text-center alert-primary p-3">Instructions</h3>
+                <div class="row p-4" style="font-size: 15px">
+                    <div class="col">
+                        <ul>
+                            <li class="p-3">The current Philhealth Premium Rate is {{ $philhealth->ph_rate }}% (<b>Philhealth Rate</b>)</li>
+                            <li class="p-3">The maximum annual contribution is ₱{{ $philhealth->ph_cap }} (<b>Philhealth Maximum Share</b>)</li>
+                            <li class="p-3">If the employee's salary is lower than ₱{{ $philhealth->minimum }} (<b>Philhealth Minimum Range</b>) their contribution will be fixed at ₱400</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li class="p-3">If the employee's salary is higher than ₱{{ $philhealth->maximum }} (<b>Philhealth Maximum Range</b>) their contribution will be fixed at ₱{{ $philhealth->ph_cap }} (<b>Philhealth Maximum Share</b>)</li>
+                            <li class="p-3">The Employee and Employer will split the contribution into {{ $philhealth->ee_rate }}/{{ $philhealth->er_rate }} (<b>Employee Philhealth Share</b> / <b>Employer Philhealth Share</b>)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -263,7 +312,7 @@
             var to_date = $('#to_date').val();
             if(from_date != '' &&  to_date != ''){
                 $('#sss_table').DataTable().destroy();
-                load_table(from_date, to_date);
+                load_sss(from_date, to_date);
             }else{
                 alert('Both Date is required');
             }
@@ -274,7 +323,7 @@
             $('#from_date').val(start_date);
             $('#to_date').val(end_date);
             $('#sss_table').DataTable().destroy();
-            load_table(start_date,end_date);
+            load_sss(start_date,end_date);
         });
 
         let { start_date, end_date } = getDateToday();
@@ -337,7 +386,7 @@
             var to_date = $('#pagibig_to_date').val();
             if(from_date != '' &&  to_date != ''){
                 $('#pagibig_table').DataTable().destroy();
-                load_table(from_date, to_date);
+                load_pagibig(from_date, to_date);
             }else{
                 alert('Both Date is required');
             }
@@ -348,7 +397,7 @@
             $('#pagibig_from_date').val(start_date);
             $('#pagibig_to_date').val(end_date);
             $('#pagibig_table').DataTable().destroy();
-            load_table(start_date,end_date);
+            load_pagibig(start_date,end_date);
         });
 
         $('#pagibig_from_date').val(start_date);
@@ -409,7 +458,7 @@
             var to_date = $('#philhealth_to_date').val();
             if(from_date != '' &&  to_date != ''){
                 $('#philhealth_table').DataTable().destroy();
-                load_table(from_date, to_date);
+                load_philhealth(from_date, to_date);
             }else{
                 alert('Both Date is required');
             }
@@ -420,7 +469,7 @@
             $('#philhealth_from_date').val(start_date);
             $('#philhealth_to_date').val(end_date);
             $('#philhealth_table').DataTable().destroy();
-            load_table(start_date,end_date);
+            load_philhealth(start_date,end_date);
         });
 
         $('#philhealth_from_date').val(start_date);
@@ -500,6 +549,8 @@
 
         $('#sss_ee_rate').removeAttr("disabled")
         $('#sss_er_rate').removeAttr("disabled")
+        $('#sss_low_limit').removeAttr("disabled")
+        $('#sss_high_limit').removeAttr("disabled")
         $('#sss_add_low').removeAttr("disabled")
         $('#sss_add_high').removeAttr("disabled")
     })

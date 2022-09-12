@@ -95,6 +95,7 @@ class AdminJSONController extends Controller
                 {
                     $value->time_in_status = 'Late';
                 }
+                $value->healthCheck = null;
                 $value->healthCheck = HealthCheck::where('attendance_id',$value->attendance_today->attendance_id)->first('score');
             }
         }

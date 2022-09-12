@@ -2,6 +2,17 @@
     @section('content')
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+
+    @php ($health_check_assets = [
+        ['icon' => '🤢' , 'description' => 'Sick'],
+        ['icon' => '😷'  , 'description' => 'Bad'],
+        ['icon' => '😕' , 'description' => 'Unpleasant'],
+        ['icon' => '😐' , 'description' => 'Neutral'],
+        ['icon' => '🙂' , 'description' => 'Good'],
+        ['icon' => '😀' , 'description' => 'Better'],
+        ['icon' => '😁' , 'description' => 'Best'],
+    ])
+
         <div class="container w-100 p-2">
             <div class="row">
                 <div class="col">
@@ -98,71 +109,63 @@
                     </div>
 
                     <!-- Modal body -->
-                    <div class="modal-body text-center">
-                        <h1 class="p-4">How are you feeling today?</h1>
-                        <div class="row text-center">
-                            <div class="col">
-                                <form action="/insertHealthCheck" method="POST">
-                                    @csrf
-                                    {!! Form::hidden('attendance_id', $attendance->attendance_id) !!}
-                                    {!! Form::hidden('score', 0) !!}
-                                    <button type='submit' class="border-0 bg-white display-1">🤢 <h4 class="mt-3">Sick</h4></button>
-                                </form>
+                    <div class="modal-body">
+                        <form action="/insertHealthCheck" method="POST">
+                        @csrf
+                        {!! Form::hidden('attendance_id',$attendance->attendance_id) !!}
+                        <h1 class="p-4">Do you now have any of the following symptoms, or have you had any in the last 14 days? </h1>
+                            @php ($choices = [
+                                ['question' => 'Shortness of breath or difficulty breathing'],
+                                ['question' => 'Fever'],
+                                ['question' => 'Nausea, diarrhea, vomiting'],
+                                ['question' => 'Cough or Sore throat'],
+                                ['question' => 'New loss of taste or smell '],
+                                ['question' => 'Chills'],
+                                ['question' => 'Head or muscle aches '],
+                            ])
+
+                            @foreach($choices as $key => $value)
+                                <div class="row ms-5">
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="choice_{{$key}}" id="{{$key}}1" value="-1">
+                                            <label class="form-check-label" for="{{$key}}1">
+                                                Yes
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="choice_{{$key}}" id="{{$key}}2" value="1">
+                                            <label class="form-check-label" for="{{$key}}2">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-10"><h5>{{ $value['question'] }}</h5></div>
+                                </div>
+                            @endforeach
+                        <h1 class="p-4">Based on the scale below, How are you feeling today?</h1>
+                        <div class="row">
+                            @foreach ($health_check_assets as $key => $item)
+                            <div class="col text-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="health_check_option" id="health_check_option{{$key}}" value="{{$key}}">
+                                    <label class="form-check-label" for="health_check_option{{$key}}">
+                                        <h1 style="font-size: 50px">{{ $item['icon'] }}</h1>
+                                        <h5>{{ $item['description'] }}</h5>
+                                    </label>
+                                </div>
                             </div>
-                            <div class="col">
-                                <form action="/insertHealthCheck" method="POST">
-                                    @csrf
-                                    {!! Form::hidden('attendance_id', $attendance->attendance_id) !!}
-                                    {!! Form::hidden('score', 1) !!}
-                                    <button type='submit' class="border-0 bg-white display-1">😷 <h4 class="mt-3">Bad</h4></button>
-                                </form>
-                            </div>
-                            <div class="col">
-                                <form action="/insertHealthCheck" method="POST">
-                                    @csrf
-                                    {!! Form::hidden('attendance_id', $attendance->attendance_id) !!}
-                                    {!! Form::hidden('score', 2) !!}
-                                    <button type='submit' class="border-0 bg-white display-1">😕 <h4 class="mt-3">Unpleasant</h4></button>
-                                </form>
-                            </div>
-                            <div class="col">
-                                <form action="/insertHealthCheck" method="POST">
-                                    @csrf
-                                    {!! Form::hidden('attendance_id', $attendance->attendance_id) !!}
-                                    {!! Form::hidden('score', 3) !!}
-                                    <button type='submit' class="border-0 bg-white display-1">😐 <h4 class="mt-3">Neutral</h4></button>
-                                </form>
-                            </div>
-                            <div class="col">
-                                <form action="/insertHealthCheck" method="POST">
-                                    @csrf
-                                    {!! Form::hidden('attendance_id', $attendance->attendance_id) !!}
-                                    {!! Form::hidden('score', 4) !!}
-                                    <button type='submit' class="border-0 bg-white display-1">🙂 <h4 class="mt-3">Good</h4></button>
-                                </form>
-                            </div>
-                            <div class="col">
-                                <form action="/insertHealthCheck" method="POST">
-                                    @csrf
-                                    {!! Form::hidden('attendance_id', $attendance->attendance_id) !!}
-                                    {!! Form::hidden('score', 5) !!}
-                                    <button type='submit' class="border-0 bg-white display-1">😀 <h4 class="mt-3">Better</h4></button>
-                                </form>
-                            </div>
-                            <div class="col">
-                                <form action="/insertHealthCheck" method="POST">
-                                    @csrf
-                                    {!! Form::hidden('attendance_id', $attendance->attendance_id) !!}
-                                    {!! Form::hidden('score', 6) !!}
-                                    <button type='submit' class="border-0 bg-white display-1">😁 <h4 class="mt-3">Best</h4></button>
-                                </form>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success p-4 btn-lg w-50">Submit</button>
+                    </form>
+                        <button type="button" class="btn btn-outline-danger w-25 p-4 btn-lg" onclick="location.reload();">Reset</button>
                     </div>
 
                     </div>
@@ -308,7 +311,13 @@
 
                     {{ $attendance_history->links() }}
                     @foreach ($attendance_history as $key => $item)
-                    <div class="col m-3 border border-secondary m-auto mb-2 shadow-sm pb-2">
+                    @if ($item->attendance_status == 1)
+                    <div class="col m-3 border border-secondary alert-success m-auto mb-2 shadow-sm pb-2">
+                    @elseif($item->attendance_status == 2)
+                    <div class="col m-3 border border-secondary alert-primary m-auto mb-2 shadow-sm pb-2">
+                    @else
+                    <div class="col m-3 border border-secondary alert-danger m-auto mb-2 shadow-sm pb-2">
+                    @endif
                         <div class ="col border-secondary bg-light text-center border-bottom">
                             <h6>{{ $item->attendance_date}} </h6>
                         </div>

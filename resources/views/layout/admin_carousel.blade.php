@@ -18,10 +18,10 @@
     @endif
 
     @include('inc.admin_navbar')
-    <div class="row mt-5">
+    <div class="row mt-2">
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
-            <div class="container p-0 w-100">
+            <div class="container p-0 mx-auto w-100">
             @yield('title')
 
             <ul class="nav nav-tabs">

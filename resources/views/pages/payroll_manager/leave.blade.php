@@ -77,12 +77,12 @@
 
 @section('second')
 <div class="container">
-    <h1 class="display-4 pb-5 mt-5 text-center w-100">Add Paid Leave</h1>
+    <h1 class="display-4 pb-5 mt-5 text-center w-100">Add Attendance</h1>
     <div class="row">
-        <div class="col">
+        <div class="col card shadow-sm p-4">
             <h1 class="display-5 text-center w-100">Employee Selection</h1>
             <div class="container w-100">
-                <table class="table w-100 table-striped text-center table-dark" id="employee_table">
+                <table class="table w-100 table-striped text-center" id="employee_table">
                     <thead>
                         <tr class="text-center">
                             <th class="col">Employee ID</th>
@@ -97,7 +97,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="container">
+            <div class="container card p-4 shadow-sm bg-white mb-3" style="height: 500px; overflow-y:scroll; overflow-x:hidden;">
                 <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
                 <table class="table table-striped text-center">
                     <thead>
@@ -113,8 +113,8 @@
                 </table>
             </div>
 
-            <div class="container card shadow-lg p-5">
-                <h1 class="display-5 mb-3 text-center w-100">Paid Leave Details</h1>
+            <div class="container card shadow-sm p-5">
+                <h1 class="display-5 mb-3 text-center w-100">Attendance Details</h1>
                 <div class="m-5">
                     {!! Form::label('leave_input', 'Paid Leave Date', ['class'=>'w-100 text-center']) !!}
                     <div class="input-daterange row m-0">

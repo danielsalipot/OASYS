@@ -139,6 +139,7 @@
                     </div>
                 </div>
             </div>
+            @if (session('user_type') == 'employee')
             <div class="row mb-5">
                 <div class="col-4 pe-0">
                     <a href="/employee/profile/update" class='btn btn-primary p-3 rounded-0 btn-lg w-100 shadow-sm'>Update Profile <i class="bi bi-person"></i></a>
@@ -161,6 +162,7 @@
                     @endif
                 </div>
             </div>
+            @endif
         </div>
         <div class="col">
             <ul class="nav nav-tabs">

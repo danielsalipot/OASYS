@@ -65,6 +65,11 @@ class AdminDeleteController extends Controller
             [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
         );
 
-        return session()->flash('delete', 'The assessment has been deleted');
+        return back()->with(['delete'=> 'The assessment has been deleted']);
+    }
+
+    public function removeLegalFormFile(Request $request){
+        unlink($request->file_path);
+        return back()->with(['delete' => 'The file has been removed']);
     }
 }

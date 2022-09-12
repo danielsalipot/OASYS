@@ -9,5 +9,5 @@ class Contributions extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['employee_contribution','employer_contribution'];
+    protected $fillable = ['employee_contribution','employer_contribution','add_high','add_low','low_limit','high_limit'];
 }

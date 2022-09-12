@@ -8,11 +8,12 @@ Route::prefix('payroll')->group(function () {
     Route::get('/home', [PayrollController::class, 'payroll']);
     Route::get('/history', [PayrollController::class, 'History']);
     Route::get('/history/payslip', [PayrollController::class, 'display_payslip']);
-    Route::get('/employee/list', [PayrollController::class, 'employeelist']);
+    Route::get('/salary', [PayrollController::class, 'employeelist']);
     Route::get('/deduction', [PayrollController::class, 'deduction']);
     Route::get('/contributions', [PayrollController::class, 'contributions']);
     Route::get('/bonus', [PayrollController::class, 'bonus']);
     Route::get('/doublepay', [PayrollController::class, 'doublepay']);
+    Route::get('/payslip_land', [PayrollController::class, 'payslip_land']);
 
 
     Route::get('/cashadvance', [PayrollController::class, 'cashadvance']);

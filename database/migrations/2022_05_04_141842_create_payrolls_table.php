@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('payroll_manager_id');
             $table->date('from_date');
             $table->date('to_date');
+            $table->string('height_reference');
             $table->timestamps();
         });
     }

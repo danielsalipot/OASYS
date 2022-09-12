@@ -32,10 +32,10 @@
 @section('second')
     <div class="row">
         <h1 class="display-4 pb-5 mt-5 text-center w-100">Create Employee Deductions</h1>
-        <div class="col">
+        <div class="col card p-2 shadow-sm">
             <h1 class="display-5 text-center w-100">Employee Selection</h1>
             <div class="container w-100">
-                <table class="table w-100 table-striped text-center table-dark" id="employee_table">
+                <table class="table w-100 table-striped text-center " id="employee_table">
                     <thead>
                         <tr class="text-center">
                             <th class="col">Employee ID</th>
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="container">
+            <div class="container border-bottom" style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
                 <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
                 <table class="table table-striped text-center">
                     <thead>
@@ -65,8 +65,8 @@
                     <tbody id="selected_employee_table"></tbody>
                 </table>
             </div>
-            <div class="container">
-                <h1 class="display-5 m-3 text-center w-100">Deduction Details</h1>
+            <div class="container alert-light mt-4 p-0 rounded shadow-sm">
+                <h3 class="mb-3 text-center p-3 w-100 alert-info">Deduction Details</h3>
                 <div class="m-5 ps-5 pe-5">
                     {!! Form::label('deduction_start_date_input', 'Deduction Date', ['class'=>'w-100 text-center']) !!}
                     <div class="row mb-3 w-100">
@@ -80,16 +80,20 @@
                     </div>
 
                     {!! Form::label('deduction_name', 'Deduction Name', []) !!}
-                    {!! Form::text('deduction_name', '', ['id'=>'deduction_name','placeholder'=>'Deduction Name', 'class'=>'form-control mb-3']) !!}
-
+                    <input list="browsers" name="myBrowser" class="form-control" /></label>
+                    <datalist id="browsers">
+                        @foreach ($deduction_names as $item)
+                            <option value="{{$item->deduction_name}}">
+                        @endforeach
+                    </datalist>
                     {!! Form::label('deduction_amount', 'Deduction Amount', []) !!}
                     {!! Form::number('deduction_amount','', ['id'=>'deduction_amount', 'min' => '0.01', 'step'=>'any' ,'placeholder'=>'0.00','class'=>'text-center form-control mb-3']) !!}
 
                     <div class="row">
                         <div class="col">
-                            <button type="button" onclick="addDeduction()" class="btn btn-success" data-toggle="modal" data-target="#edit_modal">Add Deduction</button>
+                            <button type="button" onclick="addDeduction()" class="btn btn-outline-success w-100 p-3" data-toggle="modal" data-target="#edit_modal">Add Deduction</button>
                         </div>
-                        <div class="col-2">
+                        <div class="col-4">
                             <button onclick="location.reload()" class="btn btn-danger w-100 p-3">Cancel</button>
                         </div>
                     </div>
