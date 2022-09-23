@@ -86,7 +86,7 @@
                         success: function(data){
                             if(data == 'edit success'){
                                 alert(data)
-                                location.reload()
+                                window.location.href = "/admin/{{$category}}/module";
                             }
                         }
                     });

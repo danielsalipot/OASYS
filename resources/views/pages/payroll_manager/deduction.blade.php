@@ -80,7 +80,7 @@
                     </div>
 
                     {!! Form::label('deduction_name', 'Deduction Name', []) !!}
-                    <input list="browsers" name="myBrowser" class="form-control" /></label>
+                    <input list="browsers" name="deduction_name" id="deduction_name" class="form-control" /></label>
                     <datalist id="browsers">
                         @foreach ($deduction_names as $item)
                             <option value="{{$item->deduction_name}}">
@@ -384,7 +384,6 @@
 
             return {start_date,end_date};
         }
-
 
         function formatDate(date) {
             var d = new Date(date),

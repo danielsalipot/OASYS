@@ -100,27 +100,30 @@ class AdminInsertController extends Controller
     }
 
     public function addAssessment(Request $request){
-        $request->validate([
-            'attendance_score' => 'required',
-            'performance_score' => 'required',
-            'character_score' => 'required',
-            'cooperation_score' => 'required',
-            'attendance_feedback' => 'required',
-            'performance_feedback' => 'required',
-            'character_feedback' => 'required',
-            'cooperation_feedback' => 'required'
-        ]);
-
         $types = ['attendance','performance','character','cooperation'];
-        $scores = [$request->attendance_score,$request->performance_score,$request->character_score,$request->cooperation_score,];
+        $scores = [[],[],[],[]];
+        foreach ($types as $key => $type) {
+            $score = 0;
+            for ($i=0; $i < 5; $i++) {
+                $score += $request[$type . '_' . $i];
+            }
+
+            array_push($scores[$key],$score);
+            if(!$key){
+                array_push($scores[$key],3);
+            }else{
+                array_push($scores[$key],5);
+            }
+        }
+
         $feedbacks = [$request->attendance_feedback,$request->performance_feedback,$request->character_feedback,$request->cooperation_feedback,];
 
         for ($i=0; $i < 4; $i++) {
             Assessment::create([
                 'employee_id' => $request->employee_id,
                 'assessment_type' => $types[$i],
-                'score' => $scores[$i],
-                'feedback' => $feedbacks[$i],
+                'score' => ($scores[$i][0] / (5 * $scores[$i][1])) * 100,
+                'feedback' => isset($feedbacks[$i]) ? true : '' ,
                 'year' => date('Y'),
                 'quarter'=> $request->quarter,
                 'start_date' => $request->start_date,

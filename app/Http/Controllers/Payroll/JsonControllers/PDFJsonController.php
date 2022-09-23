@@ -22,7 +22,7 @@ class PDFJsonController extends Controller
 {
     //FILTERED THE DATES OF ATTENDANCE, cash advance, and deductions
     function payrollpdf(Request $request){
-        $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
+        $PayrollDetails = EmployeeDetail::with('UserDetail')->get();
 
         $date = Carbon::parse($request->from_date);
         $diff = $date->diffInDays($request->to_date) + 1;

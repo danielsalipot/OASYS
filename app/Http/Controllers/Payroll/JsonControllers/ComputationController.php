@@ -22,7 +22,7 @@ class ComputationController extends Controller
 {
     //FILTERED THE DATES OF ATTENDANCE, cash advance, and deductions
     function payroll(Request $request){
-        $PayrollDetails = EmployeeDetail::with('UserDetail','Taxes')->get();
+        $PayrollDetails = EmployeeDetail::with('UserDetail')->get();
 
         $date = Carbon::parse($request->from_date);
         $diff = $date->diffInDays($request->to_date) + 1;
@@ -56,6 +56,9 @@ class ComputationController extends Controller
 
         //Computes total time and gross pay with overtime and multipay
         foreach ($detail->attendance as $key => $attendance) {
+            if(!isset($attendance->time_out)){
+                continue;
+            }
             $overtime = Overtime::where('attendance_id',$attendance->attendance_id)->first();
             $sched = EmployeeDetail::where('employee_id',$attendance->employee_id)->first();
             $multipay = MultiPay::where('attendance_id',$attendance->attendance_id)->first();
@@ -96,9 +99,9 @@ class ComputationController extends Controller
             $detail->total_deduction = 0;
             foreach ($detail->deduction as $key => $deduction) {
                 $days = Carbon::parse($deduction->deduction_start_date)->diffInDays(Carbon::parse($deduction->deduction_end_date));
-                $detail->total_deduction += $deduction->deduction_amount / $days;
-                $detail->total_deduction = round($detail->total_deduction,2);
+                $detail->total_deduction += $deduction->deduction_amount / $days + 1;
             }
+            $detail->total_deduction = round($detail->total_deduction,2);
 
             // Computation for tatol cash advance amount
             $detail->total_cash_advance = 0;

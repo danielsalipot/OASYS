@@ -23,7 +23,7 @@ class CashAdvanceSeeder extends Seeder
             'payrollManager_id' => rand(2,4),
             'employee_id' => rand(1,10),
             'cashAdvance_amount' => $faker->randomFloat(2, 1,20000),
-            'cash_advance_date' => $faker->dateTimeInInterval('-7 weeks', '+14 weeks')
+            'cash_advance_date' => $faker->dateTimeInInterval('-1 weeks', '+1 weeks')
         ]);
     }
 }

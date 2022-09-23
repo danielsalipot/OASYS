@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class EmailSendingController extends Controller
 {
     function sendNotifEmail($head,$body,$reciever){
-        $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', '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');
+        $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'MyAPIKEY');
         $apiInstance = new \SendinBlue\Client\Api\TransactionalEmailsApi(
             // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
             // This is optional, `GuzzleHttp\Client` will be used as default.
@@ -36,7 +36,7 @@ class EmailSendingController extends Controller
     }
 
     function sendCOE($link,$email,$fname,$lname){
-        $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', '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');
+        $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'MyAPIKEY');
         $apiInstance = new \SendinBlue\Client\Api\TransactionalEmailsApi(
             // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
             // This is optional, `GuzzleHttp\Client` will be used as default.

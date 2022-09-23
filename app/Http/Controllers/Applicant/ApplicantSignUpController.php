@@ -48,8 +48,11 @@ class ApplicantSignUpController extends Controller
                 // before redirecting, create session to login the newly created user
                 return redirect('/applicant/introduce')->with('success', 'Data has been inserted successfuly');
             }else{
-                return back()->with('taken','Username is already taken');
+                return back()->with('taken','The password does not match');
             }
+        }
+        else{
+            return back()->with('taken','Username is already taken');
         }
     }
 

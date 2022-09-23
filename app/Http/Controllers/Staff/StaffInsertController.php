@@ -121,96 +121,100 @@ class StaffInsertController extends Controller
     }
 
     public function InsertOnboardee(Request $request){
-        $days = [];
-        $str_days = '';
-        if(isset($request->sunday)){
-            array_push($days,(int)$request->sunday);
-            $str_days .= ' Sunday,';
+        try {
+            $days = [];
+            $str_days = '';
+            if(isset($request->sunday)){
+                array_push($days,(int)$request->sunday);
+                $str_days .= ' Sunday,';
+            }
+            if(isset($request->monday)){
+                array_push($days,(int)$request->monday);
+                $str_days .= ' Monday,';
+            }
+            if(isset($request->tuesday)){
+                array_push($days,(int)$request->tuesday);
+                $str_days .= ' Tuesday,';
+            }
+            if(isset($request->wednesday)){
+                array_push($days,(int)$request->wednesday);
+                $str_days .= ' Wednesday,';
+            }
+            if(isset($request->thursday)){
+                array_push($days,(int)$request->thursday);
+                $str_days .= ' Thursday,';
+            }
+            if(isset($request->friday)){
+                array_push($days,(int)$request->friday);
+                $str_days .= ' Friday,';
+            }
+            if(isset($request->saturday)){
+                array_push($days,(int)$request->saturday);
+                $str_days .= ' Saturday,';
+            }
+
+            $applicant_detail = ApplicantDetail::where('applicant_id',$request->app_id)->first();
+            EmployeeDetail::create([
+                'login_id' => $applicant_detail->login_id,
+                'information_id' => $applicant_detail->information_id,
+                'educ' => $applicant_detail->educ,
+                'position' => $request->position,
+                'department' => $request->department,
+                'rate' => $request->rate,
+                'employment_status' => 'Onboardee',
+                'resume' => $applicant_detail->resume,
+                'start_date' => date('Y-m-d'),
+                'schedule_days' => json_encode($days),
+                'schedule_Timein' => $request->timein,
+                'schedule_Timeout' => $request->timeout,
+            ]);
+
+            $detail = UserDetail::where('information_id',  $applicant_detail->information_id)->first();
+
+            $head = 'You have been onboarded';
+            $text = $detail->fname . " " . $detail->mname . " " . $detail->lname .
+                " You have been onboarded on  " . date('Y-m-d') . "<br>
+                    The details of your employment is as follows </p>
+                    <ul>
+                        <li><b>Position: </b> ". $request->position ."</li>
+                        <li><b>Department: </b> ". $request->department ."</li>
+                        <li><b>Hourly Rate: </b> ". $request->rate ."</li>
+                        <li><b>Scheduled Days: </b> ".  $str_days ."</li>
+                        <li><b>Scheduled Time in: </b> ". $request->timein ."</li>
+                        <li><b>Scheduled Time out: </b> ". $request->timeout ."</li>
+                    </ul><p>
+                ";
+
+            $notif = notification_message::create([
+                'sender_id' => session('user_id'),
+                'title' => $head,
+                'message' => $text
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $applicant_detail->login_id]
+            ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $detail->email, 'name' => $detail->fname . ' ' . $detail->lname]]
+            );
+
+            Audit::create(['activity_type' => 'staff',
+                'payroll_manager_id' => session()->get('user_id'),
+                'type' => 'Onboarding',
+                'employee' =>  $detail->fname ." ". $detail->mname ." ". $detail->lname,
+                'activity' => 'Onboarded new employee',
+                'amount' => '-',
+                'tid' => '',
+            ]);
+
+            UserCredential::where('login_id',$applicant_detail->login_id)->update(['user_type'=>'employee']);
+            ApplicantDetail::where('applicant_id',$request->app_id)->delete();
+
+            return back()->with(['insert'=>'The action was recorded successfully']);
+        } catch (\Throwable $th) {
+            return back()->with(['delete'=>'Invalid submition of onboarding form, please retry']);
         }
-        if(isset($request->monday)){
-            array_push($days,(int)$request->monday);
-            $str_days .= ' Monday,';
-        }
-        if(isset($request->tuesday)){
-            array_push($days,(int)$request->tuesday);
-            $str_days .= ' Tuesday,';
-        }
-        if(isset($request->wednesday)){
-            array_push($days,(int)$request->wednesday);
-            $str_days .= ' Wednesday,';
-        }
-        if(isset($request->thursday)){
-            array_push($days,(int)$request->thursday);
-            $str_days .= ' Thursday,';
-        }
-        if(isset($request->friday)){
-            array_push($days,(int)$request->friday);
-            $str_days .= ' Friday,';
-        }
-        if(isset($request->saturday)){
-            array_push($days,(int)$request->saturday);
-            $str_days .= ' Saturday,';
-        }
-
-        $applicant_detail = ApplicantDetail::where('applicant_id',$request->app_id)->first();
-        EmployeeDetail::create([
-            'login_id' => $applicant_detail->login_id,
-            'information_id' => $applicant_detail->information_id,
-            'educ' => $applicant_detail->educ,
-            'position' => $request->position,
-            'department' => $request->department,
-            'rate' => $request->rate,
-            'employment_status' => 'Onboardee',
-            'resume' => $applicant_detail->resume,
-            'start_date' => date('Y-m-d'),
-            'schedule_days' => json_encode($days),
-            'schedule_Timein' => $request->timein,
-            'schedule_Timeout' => $request->timeout,
-        ]);
-
-        $detail = UserDetail::where('information_id',  $applicant_detail->information_id)->first();
-
-        $head = 'You have been onboarded';
-        $text = $detail->fname . " " . $detail->mname . " " . $detail->lname .
-            " You have been onboarded on  " . date('Y-m-d') . "<br>
-                The details of your employment is as follows </p>
-                <ul>
-                    <li><b>Position: </b> ". $request->position ."</li>
-                    <li><b>Department: </b> ". $request->department ."</li>
-                    <li><b>Hourly Rate: </b> ". $request->rate ."</li>
-                    <li><b>Scheduled Days: </b> ".  $str_days ."</li>
-                    <li><b>Scheduled Time in: </b> ". $request->timein ."</li>
-                    <li><b>Scheduled Time out: </b> ". $request->timeout ."</li>
-                </ul><p>
-            ";
-
-        $notif = notification_message::create([
-            'sender_id' => session('user_id'),
-            'title' => $head,
-            'message' => $text
-        ]);
-
-        $notif->receivers()->createMany([
-            ['receiver_id' => $applicant_detail->login_id]
-        ]);
-
-        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
-            [['email' => $detail->email, 'name' => $detail->fname . ' ' . $detail->lname]]
-        );
-
-        Audit::create(['activity_type' => 'staff',
-            'payroll_manager_id' => session()->get('user_id'),
-            'type' => 'Onboarding',
-            'employee' =>  $detail->fname ." ". $detail->mname ." ". $detail->lname,
-            'activity' => 'Onboarded new employee',
-            'amount' => '-',
-            'tid' => '',
-        ]);
-
-        UserCredential::where('login_id',$applicant_detail->login_id)->update(['user_type'=>'employee']);
-        ApplicantDetail::where('applicant_id',$request->app_id)->delete();
-
-        return back()->with(['insert'=>'The action was recorded successfully']);
     }
 
     public function InsertClearance(Request $request){

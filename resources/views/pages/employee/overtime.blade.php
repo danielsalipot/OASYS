@@ -56,10 +56,13 @@
                                 </table>
                             </div>
                             <div class="col card m-2 p-4 shadow-sm">
+                                @error('attendance_id'){!!"<span class='alert-danger w-100 p-2 rounded mb-1'>Pleases Select an Attendance</span><br>"!!}@enderror
+
                                 <form action="/overtimeApplicationInsert" method="POST">
                                     @csrf
                                     {!! Form::hidden('attendance_id', '',['id'=>'attendance_id']) !!}
                                     {!! Form::label('attendance_date', 'Attendance Date', ['class'=>'h5']) !!}
+
                                     {!! Form::text('attendance_date', '', ['class'=>'form-control','id'=>'attendance_date','readonly']) !!}
                                     <div class="row my-3 w-100 text-center mx-auto">
                                         <div class="col card p-0 me-1">
@@ -75,6 +78,7 @@
                                     </div>
                                     {!! Form::label('message', 'Message', ['class'=>'h5']) !!}
                                     {!! Form::textarea('message', '', ['class'=>'form-control']) !!}
+                                    <span class="text-danger">@error('message'){{"This Field is required"}}@enderror</span>
 
                                     <div class="row mt-4">
                                         <div class="col">

@@ -72,7 +72,7 @@
                         success: function(data){
                             if(data == 'upload success'){
                                 alert(data)
-                                location.reload()
+                                window.location.href = "/admin/{{$category}}/module";
                             }else{
                                 alert('Some Fields Are Missing')
                                 location.reload()

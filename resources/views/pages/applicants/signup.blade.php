@@ -6,16 +6,6 @@
             }
     </style>
         <div class="text-center text-primary m-auto">
-            @if(Session::get('taken'))
-                <div class="alert alert-danger w-50 m-auto">{{Session::get('taken')}}</div>
-            @endif
-            @if(Session::get('fail'))
-                <div class="alert alert-danger w-50 m-auto">{{Session::get('fail')}}</div>
-            @endif
-            @if(Session::get('pass'))
-                <div class="alert alert-danger w-50 m-auto">{{Session::get('pass')}}</div>
-            @endif
-
             <div class="row p-2"></div>
             <div class="row" style="padding-top:4vh">
                 <div class="col">
@@ -24,6 +14,16 @@
                 <div class="col border border-primary bg-white shadow-lg p-5 rounded">
                     <h1 class="section-title">Create your Account</h1>
                     <h5 class="text-secondary pt-3">Step 1 out of 3</h5>
+
+                    @if(Session::get('taken'))
+                        <div class="alert alert-danger w-100 m-auto">{{Session::get('taken')}}</div>
+                    @endif
+                    @if(Session::get('fail'))
+                        <div class="alert alert-danger w-100 m-auto">{{Session::get('fail')}}</div>
+                    @endif
+                    @if(Session::get('pass'))
+                        <div class="alert alert-danger w-100 m-auto">{{Session::get('pass')}}</div>
+                    @endif
 
                     <form class="p-1 mt-4" action="/applicant/crudsignup" method="post">
                         @csrf

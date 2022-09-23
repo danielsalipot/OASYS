@@ -43,10 +43,7 @@ class StaffDeleteController extends Controller
     }
 
     public function staffDeleteApplicant(Request $request){
-        UserCredential::where('login_id',$request->login_id)->delete();
-        $employee = UserDetail::where('login_id',$request->login_id)->get();
-        ApplicantDetail::where('login_id',$request->login_id)->delete();
-        notification_receiver::where('receiver_id',$request->login_id)->delete();
+        $employee = UserDetail::where('login_id',$request->login_id)->first();
 
         Audit::create(['activity_type' => 'staff',
             'payroll_manager_id' => session()->get('user_id'),
@@ -62,16 +59,23 @@ class StaffDeleteController extends Controller
         " your account has been deleted on " . date('Y-m-d');
 
         app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
-            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            [['email' => $employee->email, 'name' => $employee->fname . ' ' . $employee->lname]]
         );
 
-        $employee->delete();
+        UserDetail::where('login_id',$request->login_id)->delete();
+        UserCredential::where('login_id',$request->login_id)->delete();
+        ApplicantDetail::where('login_id',$request->login_id)->delete();
+        notification_receiver::where('receiver_id',$request->login_id)->delete();
         return back()->with(['delete'=>'The action was recorded successfully']);
     }
 
     public function deleteEmployee(Request $request){
         $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$request->id)->first();
         $link = app('App\Http\Controllers\Staff\CertificateController')->employmentCertificate($request->id);
+
+        if(!$link){
+            return redirect('/profile')->with(['coe_fail'=>'Please upload HR staff signature for the Employee COE']);
+        }
 
         Audit::create(['activity_type' => 'staff',
             'payroll_manager_id' => session()->get('user_id'),

@@ -229,4 +229,16 @@ class PagesController extends Controller
             'employees' => $employees
         ]);
     }
+
+    public function signatureUpload(Request $request){
+
+        $request->validate([
+            'signature_input'=>'required'
+        ]);
+
+        $signatureFile =  session('user_id').".".$request->file('signature_input')->getClientOriginalExtension();
+        $request->file('signature_input')->storeAs('signature', $signatureFile,'public_uploads');
+
+        return back()->with(['signature' => 'Signature has been uploaded']);
+    }
 }

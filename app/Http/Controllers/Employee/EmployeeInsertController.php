@@ -82,6 +82,11 @@ class EmployeeInsertController extends Controller
     }
 
     function overtimeApplicationInsert(Request $request){
+        $request->validate([
+            'attendance_id' => 'required',
+            'message' => 'required',
+        ]);
+
         $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
         overtime_approval::create([
             'employee_id' => $employee->employee_id,
@@ -101,6 +106,14 @@ class EmployeeInsertController extends Controller
     }
 
     function insertEmployeeLeave(Request $request){
+        $request->validate([
+            'employee_id' => 'required',
+            'from_date' => 'required',
+            'to_date' => 'required',
+            'title' => 'required',
+            'detail' => 'required',
+        ]);
+
         leave_approval::create([
             'employee_id' => $request->employee_id,
             'start_date' => $request->from_date,

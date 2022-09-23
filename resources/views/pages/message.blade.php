@@ -176,6 +176,10 @@
         }
 
         function send_click(){
+            if(!$('#editor1').val()){
+                return
+            }
+
             $.ajax({
                 url: `/sendmessage`,
                 type: 'get',

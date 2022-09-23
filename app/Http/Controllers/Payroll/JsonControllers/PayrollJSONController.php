@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use DateTime;
-use DatePeriod;
-use DateInterval;
 
 use App\Models\EmployeeDetail;
 use App\Models\UserDetail;
@@ -18,19 +16,15 @@ use App\Models\MultiPay;
 use App\Models\Overtime;
 use App\Models\Bonus;
 use App\Models\Contributions;
-use App\Models\Message;
 use App\Models\ApplicantDetail;
 use App\Models\Holiday;
 use App\Models\holiday_attendance;
 use App\Models\Leave;
 use App\Models\Pagibig;
 use App\Models\philhealth;
-use App\Models\Payslips;
-use App\Models\UserCredential;
 use App\Models\Audit;
 use App\Models\overtime_approval;
 use Carbon\Carbon;
-use Throwable;
 
 class PayrollJSONController extends Controller
 {
@@ -48,7 +42,7 @@ class PayrollJSONController extends Controller
 
             return datatables()->of($cashAdvanceRecord)
                 ->addColumn('delete',function($data){
-                $button = ' <form action="/removeCashAdvance/'. $data->cashAdvances_id .'" method="GET">
+                $button = ' <form action="/removeCashAdvance/'. $data->cashAdvances_id .'" onsubmit="return confirm(\'Do you really want to delete cash advance #'. $data->cashAdvances_id .'?\');" method="GET">
                             <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                             </form>';
                 return $button;
@@ -113,12 +107,13 @@ class PayrollJSONController extends Controller
     public function Deduction(Request $request){
         $deductions = Deduction::join('employee_details','employee_details.employee_id','=', 'deductions.employee_id')
             ->join('user_details','user_details.information_id','=','employee_details.information_id')
-            ->whereBetween('deductions.deduction_start_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
+            ->whereDate('deductions.deduction_start_date','<=',$request->to_date)
+            ->WhereDate('deductions.deduction_end_date','>=',$request->from_date)
             ->get();
 
         return datatables()->of($deductions)
             ->addColumn('delete',function($data){
-                $button = ' <form action="/removeDeduction/'.$data->deduction_id.'" method="GET">
+                $button = ' <form action="/removeDeduction/'.$data->deduction_id.'" onsubmit="return confirm(\'Do you really want to delete deduction #'.$data->deduction_id.'?\');" method="GET">
                             <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                             </form>';
                 return $button;
@@ -256,7 +251,7 @@ class PayrollJSONController extends Controller
 
         return datatables()->of($BonusRecords)
             ->addColumn('delete',function($data){
-            $button = ' <form action="/removeDeleteBonus/'. $data->bonus_id .'" method="GET">
+            $button = ' <form action="/removeDeleteBonus/'. $data->bonus_id .'" onsubmit="return confirm(\'Do you really want to delete bonus #'. $data->bonus_id .'?\');" method="GET">
                         <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
@@ -383,7 +378,7 @@ class PayrollJSONController extends Controller
 
         return datatables()->of($multipay)
             ->addColumn('delete',function($data){
-            $button = ' <form action="/removeMultiPay/'. $data->multi_pay_id .'" method="GET">
+            $button = ' <form action="/removeMultiPay/'. $data->multi_pay_id .'" onsubmit="return confirm(\'Do you really want to delete multi pay #'. $data->multi_pay_id .'?\');" method="GET">
                         <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
@@ -714,7 +709,7 @@ class PayrollJSONController extends Controller
 
         return datatables()->of($holiday_table)
             ->addColumn('delete',function($data){
-            $button = ' <form action="/removeHoliday/'. $data->holiday_id .'" method="GET">
+            $button = ' <form action="/removeHoliday/'. $data->holiday_id .'" onsubmit="return confirm(\'Do you really want to delete holiday #'. $data->holiday_id .'?\');" method="GET">
                         <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
@@ -734,7 +729,7 @@ class PayrollJSONController extends Controller
             return count($data->attendance);
         })
         ->addColumn('delete',function($data){
-            $button = ' <form action="/removeHolidayAllAttendance/'. $data->holiday_id .'" method="GET">
+            $button = ' <form action="/removeHolidayAllAttendance/'. $data->holiday_id .'" onsubmit="return confirm(\'Do you really want to delete all attendance on holiday #'. $data->holiday_id .'?\');" method="GET">
                         <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
@@ -768,7 +763,7 @@ class PayrollJSONController extends Controller
             return $detail;
         })
         ->addColumn('delete',function($data){
-            $button = ' <form action="/removeHolidayAttendance/'. $data->id .'/'. $data->attendance_id .'" method="GET">
+            $button = ' <form action="/removeHolidayAttendance/'. $data->id .'/'. $data->attendance_id .'" onsubmit="return confirm(\'Do you really want to delete holiday attendance #'. $data->attendance_id .'?\');" method="GET">
                         <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                         </form>';
             return $button;
@@ -812,7 +807,7 @@ class PayrollJSONController extends Controller
             return $detail;
             })
             ->addColumn('delete',function($data){
-                $button = ' <form action="/removeLeave/'. $data->id .'/'. $data->attendance_id .'" method="GET">
+                $button = ' <form action="/removeLeave/'. $data->id .'/'. $data->attendance_id .'" onsubmit="return confirm(\'Do you really want to delete leave #'. $data->id .'?\');" method="GET">
                             <button type="submit" class="btn btn-outline-danger p-3 px-4"><i class="h2 bi bi-trash"></i><br>Remove</button>
                             </form>';
                 return $button;

@@ -145,6 +145,106 @@ class AdminJSONController extends Controller
             ->make(true);
     }
 
+    public function getQuarterlyAttendance($employee_id,$from_date,$to_date){
+        $employees = EmployeeDetail::with('UserDetail')
+            ->where('employee_id',$employee_id)
+            ->get();
+
+        foreach ($employees as $key => $employee) {
+            $sched = json_decode($employee->schedule_days);
+            $employee->absent = 0;
+            $employee->ontime = 0;
+            $employee->late = 0;
+            $employee->total = 0;
+            $employee->absent_percentage = 0;
+            $employee->ontime_percentage = 0;
+            $employee->late_percentage = 0;
+
+            $period = CarbonPeriod::create($from_date, $to_date)
+                ->toArray();
+
+            foreach ($period as $key => $value) {
+                $period[$key] = [$value->format('Y-m-d')];
+                $period[$key][1] = (int)date('w',strtotime($value));
+            }
+
+            foreach ($period as $key => $date) {
+                $start_test = date('Y-m-d',strtotime($employee->start_date));
+                $date_test = date('Y-m-d',strtotime($date[0]));
+
+                if($start_test > $date_test){
+                    continue;
+                }
+                $attendance = Attendance::where('employee_id',$employee->employee_id)
+                    ->where('attendance_date',$date[0])
+                    ->first();
+
+                if(isset($attendance)){
+                    if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in)){
+                        $employee->ontime += 1;
+                    }else{
+                        $employee->late += 1;
+                    }
+                    $employee->total += 1;
+                }
+                else{
+                    if(in_array($date[1],$sched)){
+                        $employee->absent += 1;
+                        $employee->total += 1;
+                    }
+                }
+            }
+
+            if($employee->total){
+                $employee->absent_percentage = round(($employee->absent / $employee->total) * 100,2);
+                $employee->ontime_percentage = round(($employee->ontime / $employee->total) * 100,2);
+                $employee->late_percentage = round(($employee->late / $employee->total) * 100,2);
+            }
+        }
+
+        return $employees[0];
+    }
+
+    public function getEmployeeOverallAttendanceFiltered(Request $request){
+        $employees = EmployeeDetail::with('UserDetail')->get();
+        foreach ($employees as $key => $employee) {
+            $sched = json_decode($employee->schedule_days);
+            $employee->absent = 0;
+            $employee->ontime = 0;
+            $employee->late = 0;
+            $employee->total = 0;
+
+            $period = CarbonPeriod::create($request->from_date, $request->to_date)->toArray();
+            foreach ($period as $key => $value) {
+                $period[$key] = [$value->format('Y-m-d')];
+                $period[$key][1] = (int)date('w',strtotime($value));
+            }
+
+            foreach ($period as $key => $date) {
+                $attendance = Attendance::where('employee_id',$employee->employee_id)
+                    ->where('attendance_date',$date[0])
+                    ->first();
+
+                if(isset($attendance)){
+                    if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in)){
+                        $employee->ontime += 1;
+                    }else{
+                        $employee->late += 1;
+                    }
+
+                    $employee->total += 1;
+                }
+                else{
+                    if(in_array($date[1],$sched)){
+                        $employee->absent += 1;
+                    }
+                }
+            }
+        }
+        return datatables()->of($employees)
+            ->make(true);
+    }
+
     public function getAuditJson(Request $request){
         $audit = Audit::with('payroll_manager','employee_detail')
         ->whereBetween('created_at',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])

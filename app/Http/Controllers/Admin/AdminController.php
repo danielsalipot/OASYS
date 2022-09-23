@@ -183,7 +183,9 @@ class AdminController extends Controller
 
 
         $health_check_all = [[],[],[],[],[],[],[],[]];
-        $all_time_attendance = Attendance::groupBy('attendance_date')->get('attendance_date');
+        $all_time_attendance = Attendance::groupBy('attendance_date')
+            ->get('attendance_date');
+
         $employees = EmployeeDetail::all();
 
         foreach ($all_time_attendance as $key => $date) {
@@ -342,7 +344,10 @@ class AdminController extends Controller
             }
         }
 
-        $videos = Video::where('category',$category)->get();
+        $videos = Video::where('category',$category)
+            ->orderBy('order','ASC')
+            ->get();
+
         return view('pages.hr_admin.module')->with([
             'videos'=>$videos,
             'category' => $category,
@@ -529,17 +534,24 @@ class AdminController extends Controller
             ->first();
 
         $employee->assessment = Assessment::where('employee_id',$employee->employee_id)->where('year',date("Y"))->get(['quarter']);
+        $recorded_assessment =[
+            Assessment::where('employee_id',$employee->employee_id)->where('year',date("Y"))->where('quarter','1')->get(),
+            Assessment::where('employee_id',$employee->employee_id)->where('year',date("Y"))->where('quarter','2')->get(),
+            Assessment::where('employee_id',$employee->employee_id)->where('year',date("Y"))->where('quarter','3')->get(),
+            Assessment::where('employee_id',$employee->employee_id)->where('year',date("Y"))->where('quarter','4')->get(),
+        ];
+
         $quarters = [];
         foreach ($employee->assessment as $key => $value) {
             if(!in_array($value->quarter, $quarters)){
                 array_push($quarters, $value->quarter);
             }
         }
-
         return view('pages.HR_admin.assessment')->with([
             'employee'=> $employee,
             'profile' => $profile,
             'quarters' => $quarters,
+            'recorded_assessment' => $recorded_assessment,
             'carbon' => Carbon::now()
         ]);
     }

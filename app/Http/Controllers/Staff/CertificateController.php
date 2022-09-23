@@ -56,9 +56,13 @@ class CertificateController extends Controller
         $pdf->Ln(5);
         $pdf->MultiCell( 190, 10, 'Issued on '.date('l, jS \of F Y').'.', 0);
 
-        $pdf->Ln(40);
+        $pdf->Ln(20);
         $pr_sign = "signature/".$manager->login_id.".png";
-        $pdf->Image($pr_sign, $pdf->GetX() + 25, $pdf->GetY() - 10, 33.78);
+        try {
+            $pdf->Image($pr_sign, $pdf->GetX() + 25, $pdf->GetY() - 10, 33.78);
+        } catch (\Throwable $th) {
+            return false;
+        }
         $pdf->SetFont('Arial', 'B', 13);
         $pdf->Cell(80,6, $manager_full_name ,0,1,'C');
         $pdf->SetFont('Arial', '', 13);

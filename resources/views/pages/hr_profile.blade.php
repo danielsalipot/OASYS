@@ -1,7 +1,13 @@
 @extends('layout.messaging')
     @section('content')
+    @if (session('coe_fail'))
+        <div class="alert alert-danger p-3">
+            <h3>{{ session('coe_fail') }}</h3>
+        </div>
+    @endif
+
         <div class="row">
-            <div class="col-4 card p-0 me-2">
+            <div class="col-4 card p-0 me-2 h-100">
                 <div class="row p-5">
                     <img src="/{{$details->picture}}" class="rounded-circle shadow-sm px-0 m-auto" height="390px" width="390px">
                 </div>
@@ -123,6 +129,39 @@
                         </div>
                     </div>
                 </form>
+
+                @if(session('user_type') == 'staff')
+                <div class="p-0 mx-auto my-3 card p-4 shadow-sm">
+                    <div class="row h-100">
+                        <div class="col">
+                            <img src="/signature/{{session('user_id')}}.png" class="h-100 w-100 shadow-sm" alt="No file uploaded yet">
+                        </div>
+                        <div class="col-8">
+                            <form action="/signatureUpload" enctype="multipart/form-data" method="POST">
+                                @csrf
+
+                                @if (session('signature'))
+                                    <div class="alert alert-success">
+                                        {{ session('signature') }}
+                                    </div>
+                                @endif
+                                <label for="formFile" class="form-label m-0">Signature upload</label>
+                                <input class="form-control form-control-lg" name="signature_input" accept="image/png" type="file" id="formFile">
+                                <span class="text-danger">@error('signature_input'){{"This Field is required"}}@enderror</span>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-outline-success btn-lg my-3 w-100">Submit</button>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="button" class="btn btn-outline-danger btn-lg my-3 w-100" onclick="location.reload()">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
 

@@ -28,12 +28,16 @@ class MessageController extends Controller
 
     public function InsertMessage(Request $request)
     {
-        Message::create([
-            'sender_id' => $request->sid,
-            'receiver_id' => $request->rid,
-            'message' => $request->msg
-        ]);
-        return $request->rid;
+        try {
+            Message::create([
+                'sender_id' => $request->sid,
+                'receiver_id' => $request->rid,
+                'message' => $request->msg
+            ]);
+            return $request->rid;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     public function InsertNotification(Request $request)

@@ -29,11 +29,13 @@
 
                             {!! Form::label('title', 'Leave Application Title', ['class'=>'display-6']) !!}
                             {!! Form::text('title', '', ['class'=>'form-control form-control-lg', ]) !!}
+                            <span class="text-danger">@error('title'){{"This Field is required"}}@enderror</span>
 
                             <br>
 
                             {!! Form::label('detail', 'Leave Application Details', ['class'=>'display-6']) !!}
                             {!! Form::textarea('detail', '', ['class'=>'form-control','rows'=>'20']) !!}
+                            <span class="text-danger">@error('detail'){{"This Field is required"}}@enderror</span>
                         </div>
                         <div class="col-5 p-5 card m-2 shadow-sm">
                             <div class="display-6 w-100">Leave Duration</div>
@@ -41,11 +43,13 @@
                                 <div class="row h-50">
                                     {!! Form::label('from_date', 'Start Date', ['class'=>'h5']) !!}
                                     <input type="text" name="from_date" id="from_date" class="form-control py-2 h-75" placeholder="From Date" readonly onchange="dateonchange()"/>
+                                    <span class="text-danger">@error('from_date'){{"This Field is required"}}@enderror</span>
                                 </div>
 
                                 <div class="row h-50">
                                     {!! Form::label('to_date', 'End Date', ['class'=>'h5 mt-5']) !!}
                                     <input type="text" name="to_date" id="to_date" class="form-control h-75 py-2" placeholder="To Date" readonly onchange="dateonchange()"/>
+                                    <span class="text-danger">@error('to_date'){{"This Field is required"}}@enderror</span>
                                 </div>
                             </div>
                             <div class="row my-5">

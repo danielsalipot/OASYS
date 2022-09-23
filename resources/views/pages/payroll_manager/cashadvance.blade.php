@@ -379,5 +379,6 @@
             $('#modal_cash_advance_date').val($('#cash_advance_date_input').val())
             $('#modal_cash_advance_amount').val($('#cash_advance_amount').val())
         }
+
     </script>
 @endsection

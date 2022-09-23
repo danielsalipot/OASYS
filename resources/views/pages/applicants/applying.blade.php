@@ -21,17 +21,19 @@
                         <option class="dropdown-item" >{{ $data->position_title }}</option>
                         @endforeach
                     </select>
-                    <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
+                    <span class="text-danger">@error('position'){{"This Field is required"}}@enderror</span>
                     </div>
                 </div>
 
-                <div class='row m-auto mt-4'>
-                    <h6 class='text-secondary'>Send us your resume</h6>
+                <div class='row m-auto mt-4 mb-3'>
+                    <h6 class='text-secondary m-0 p-0'>Send us your resume</h6>
+                    <p class="p-0 m-0 w-100 text-center text-warning" style="font-size: 10px">The resume should be in PDF format</p>
                 </div>
 
                 <div class='col border w-75 mx-auto p-3 rounded shadow-sm'>
-                    <input type="file" name="resume" class="input-resume m-auto" id="resume">
-                    <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
+                    <input type="file" name="resume" class="input-resume m-auto" accept="application/pdf" id="resume">
+                    <br>
+                    <span class="text-danger">@error('resume'){{"This Field is required"}}@enderror</span>
                 </div>
         </div>
         <div class="col text-center p-0">
@@ -44,7 +46,8 @@
                     </div>
 
                     <input type="file" accept="image/*" name="picinput" id="picinput" onchange="loadFile(event)">
-                    <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
+                    <br>
+                    <span class="text-danger">@error('picinput'){{"This Field is required"}}@enderror</span>
                 </div>
                 {{-- picture preview script --}}
                 <script>

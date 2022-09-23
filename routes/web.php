@@ -29,6 +29,9 @@ Route::get('/Password/Forget/{id}/{date}',
     }
 );
 
+Route::POST('/signatureUpload',[PagesController::class,'signatureUpload']);
+
+
 Route::get('/request/employment',[RequestCertificate::class,'requestCOE']);
 Route::POST('/sendRequestCOE',[RequestCertificate::class,'sendRequestCOE']);
 

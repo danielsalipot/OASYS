@@ -45,6 +45,7 @@ class AdminDeleteController extends Controller
                 'amount' => $assessment->start_date . ' - ' . $assessment->end_date,
                 'tid' => '',
             ]);
+            Assessment::find($value)->delete();
         }
 
         $head = 'Quarterly assessment on '. $assessment->start_date . ' - ' . $assessment->end_date;

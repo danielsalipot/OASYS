@@ -132,6 +132,161 @@
 @endsection
 
 @section('second')
+    <div class="row mb-3 mt-3 input-daterange" >
+        <div class="col-md-2">
+            <input type="text" name="from_date" id="from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="to_date" id="to_date" class="form-control h-100" placeholder="To Date" readonly />
+        </div>
+        <div class="col-2">
+            <button type="button" name="filter" id="filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
+            <button type="button" name="refresh" id="refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+        </div>
+    </div>
+
+    <script>
+        var CTXs = [[],[],[],[]];
+        $('.input-daterange').datepicker({
+            todayBtn:'linked',
+            format:'yyyy-mm-dd',
+            autoclose:true
+        });
+
+        $('#filter').click(function(){
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+
+            $.ajax({url: `/getFilteredAttendanceGraph/0/${from_date}/${to_date}`,
+                success: function(result){
+                    const arrayColumn = (arr, n) => arr.map(x => x[n]);
+
+                    CTXs[0][1].destroy()
+                    CTXs[0][1] = OverallAttendanceOverview(
+                        CTXs[0][0],
+                        arrayColumn(result,'attendance_date') ,
+                        arrayColumn(result,'on_time_count') ,
+                        arrayColumn(result,'late_count') ,
+                        arrayColumn(result,'absent_count')
+                    )
+                }
+            });
+
+            $.ajax({url: `/getFilteredAttendanceGraph/4/${from_date}/${to_date}`,
+                success: function(result){
+                    CTXs[1][1].destroy()
+                    CTXs[1][1] = OverallHealthOverview(
+                        CTXs[1][0],
+                        result[0],
+                        result[1],
+                        result[2],
+                        result[3],
+                        result[4],
+                        result[5],
+                        result[6],
+                        result[7]
+                    )
+                }
+            });
+
+            $.ajax({url: `/getFilteredAttendanceGraph/2/${from_date}/${to_date}`,
+                success: function(result){
+                    var department_arr = {!! json_encode($deparment_attendance, JSON_HEX_TAG) !!}
+                    for (let i = 0; i < department_arr.length; i++) {
+                        CTXs[2][i][1].destroy()
+                        CTXs[2][i][1] = DepartmentAttendanceOverview(
+                            CTXs[2][i][0],
+                            result[i].ontime,
+                            result[i].absent,
+                            result[i].late
+                        )
+                    }
+                }
+            });
+
+            $.ajax({url: `/getFilteredAttendanceGraph/3/${from_date}/${to_date}`,
+                success: function(result){
+                    var position_arr = {!! json_encode($position_attendance, JSON_HEX_TAG) !!}
+                    for (let i = 0; i < position_arr.length; i++) {
+                        CTXs[3][i][1].destroy()
+                        CTXs[3][i][1] = PositionAttendanceOverview(
+                            CTXs[3][i][0],
+                            result[i].ontime,
+                            result[i].absent,
+                            result[i].late
+                        )
+                    }
+                }
+            });
+
+
+
+
+            $('#emp_attendance_table').DataTable().destroy();
+            EmployeeAttendanceOverview(
+                {
+                    url: '/getEmployeeOverallAttendanceFiltered',
+                    data:{
+                        from_date: from_date,
+                        to_date: to_date
+                    }
+                }
+            )
+        });
+
+        $('#refresh').click(function(){
+            $('#from_date').val('');
+            $('#to_date').val('');
+
+            CTXs[0][1].destroy()
+            CTXs[0][1] = OverallAttendanceOverview(
+                CTXs[0][0],
+                {!! json_encode($all_date, JSON_HEX_TAG) !!},
+                {!! json_encode($all_ontime, JSON_HEX_TAG) !!},
+                {!! json_encode($all_late, JSON_HEX_TAG) !!},
+                {!! json_encode($all_absent, JSON_HEX_TAG) !!}
+            )
+
+            CTXs[1][1].destroy()
+            CTXs[1][1] = OverallHealthOverview(
+                CTXs[1][0],
+                {!! json_encode($health_check_all[0], JSON_HEX_TAG) !!},
+                {!! json_encode($health_check_all[1], JSON_HEX_TAG) !!},
+                {!! json_encode($health_check_all[2], JSON_HEX_TAG) !!},
+                {!! json_encode($health_check_all[3], JSON_HEX_TAG) !!},
+                {!! json_encode($health_check_all[4], JSON_HEX_TAG) !!},
+                {!! json_encode($health_check_all[5], JSON_HEX_TAG) !!},
+                {!! json_encode($health_check_all[6], JSON_HEX_TAG) !!},
+                {!! json_encode($health_check_all[7], JSON_HEX_TAG) !!}
+            )
+
+            var department_arr = {!! json_encode($deparment_attendance, JSON_HEX_TAG) !!}
+            for (let i = 0; i < department_arr.length; i++) {
+                CTXs[2][i][1].destroy()
+                CTXs[2][i][1] = DepartmentAttendanceOverview(
+                    CTXs[2][i][0],
+                    department_arr[i].ontime,
+                    department_arr[i].absent,
+                    department_arr[i].late
+                )
+            }
+
+            var position_arr = {!! json_encode($position_attendance, JSON_HEX_TAG) !!}
+            for (let i = 0; i < position_arr.length; i++) {
+                CTXs[3][i][1].destroy()
+                CTXs[3][i][1] = PositionAttendanceOverview(
+                    CTXs[3][i][0],
+                    position_arr[i].ontime,
+                    position_arr[i].absent,
+                    position_arr[i].late
+                )
+            }
+
+            $('#emp_attendance_table').DataTable().destroy();
+            EmployeeAttendanceOverview({ url: '/getEmployeeOverallAttendance' })
+        });
+    </script>
+
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#overall">Overall Attendance Overview</a></li>
         <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#departments">Department Attendance Overview</a></li>
@@ -147,37 +302,15 @@
                     <div class="col">
                         <div class="container w-75">
                             <canvas id="line_chart" width="1" height="1"></canvas>
-                            <script>
-                                var ctx = document.getElementById('line_chart').getContext('2d');
-                                var myChart = new Chart(ctx,{
-                                    type: 'line',
-                                    data: {
-                                        labels: {!! json_encode($all_date, JSON_HEX_TAG) !!},
-                                        datasets: [
-                                        {
-                                            label: 'On time Attendance',
-                                            data: {!! json_encode($all_ontime, JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(75, 192, 192)',
-                                            tension: 0.1
-                                        },
-                                        {
-                                            label: 'Late Attendance',
-                                            data: {!! json_encode($all_late, JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(179, 142, 43)',
-                                            tension: 0.1
-                                        },
-                                        {
-                                            label: 'Absents',
-                                            data: {!! json_encode($all_absent, JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(179, 66, 43)',
-                                            tension: 0.1
-                                        }
-                                    ]
-                                    },
-                                })
+                            <script type="module">
+                                var OverallAttendanceOverviewCTX = document.getElementById('line_chart').getContext('2d');
+                                CTXs[0].push(OverallAttendanceOverviewCTX);
+
+                                CTXs[0].push(OverallAttendanceOverview(OverallAttendanceOverviewCTX,
+                                    {!! json_encode($all_date, JSON_HEX_TAG) !!},
+                                    {!! json_encode($all_ontime, JSON_HEX_TAG) !!},
+                                    {!! json_encode($all_late, JSON_HEX_TAG) !!},
+                                    {!! json_encode($all_absent, JSON_HEX_TAG) !!}))
                             </script>
                         </div>
                     </div>
@@ -203,65 +336,20 @@
                     <div class="col">
                         <div class="container w-100">
                             <canvas id="line_chart1" width="1" height="1"></canvas>
-                            <script>
-                                var ctx = document.getElementById('line_chart1').getContext('2d');
-                                var myChart = new Chart(ctx,{
-                                    type: 'line',
-                                    data: {
-                                        labels: {!! json_encode($health_check_all[0], JSON_HEX_TAG) !!},
-                                        datasets: [
-                                        {
-                                            label: 'Sick',
-                                            data: {!! json_encode($health_check_all[1], JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(158, 28, 28)',
-                                            tension: 0.1
-                                        },
-                                        {
-                                            label: 'Bad',
-                                            data: {!! json_encode($health_check_all[2], JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(158, 56, 28)',
-                                            tension: 0.1
-                                        },
-                                        {
-                                            label: 'Unpleasnt',
-                                            data: {!! json_encode($health_check_all[3], JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(158, 93, 28)',
-                                            tension: 0.1
-                                        },
-                                        {
-                                            label: 'Neutral',
-                                            data: {!! json_encode($health_check_all[4], JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(234, 255, 3)',
-                                            tension: 0.1
-                                        },
-                                        {
-                                            label: 'Good',
-                                            data: {!! json_encode($health_check_all[5], JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(123, 158, 28)',
-                                            tension: 0.1
-                                        },
-                                        {
-                                            label: 'Better',
-                                            data: {!! json_encode($health_check_all[6], JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(95, 158, 28)',
-                                            tension: 0.1
-                                        },
-                                        {
-                                            label: 'Best',
-                                            data: {!! json_encode($health_check_all[7], JSON_HEX_TAG) !!},
-                                            fill: false,
-                                            borderColor: 'rgb(41, 158, 28)',
-                                            tension: 0.1
-                                        }
-                                    ]
-                                    },
-                                })
+                            <script type="module">
+                                var OverallHealthOverviewCTX = document.getElementById('line_chart1').getContext('2d');
+                                CTXs[1].push(OverallHealthOverviewCTX);
+
+                                CTXs[1].push(OverallHealthOverview(OverallHealthOverviewCTX,
+                                    {!! json_encode($health_check_all[0], JSON_HEX_TAG) !!},
+                                    {!! json_encode($health_check_all[1], JSON_HEX_TAG) !!},
+                                    {!! json_encode($health_check_all[2], JSON_HEX_TAG) !!},
+                                    {!! json_encode($health_check_all[3], JSON_HEX_TAG) !!},
+                                    {!! json_encode($health_check_all[4], JSON_HEX_TAG) !!},
+                                    {!! json_encode($health_check_all[5], JSON_HEX_TAG) !!},
+                                    {!! json_encode($health_check_all[6], JSON_HEX_TAG) !!},
+                                    {!! json_encode($health_check_all[7], JSON_HEX_TAG) !!}
+                                ))
                             </script>
                         </div>
                     </div>
@@ -278,27 +366,18 @@
                         <canvas id="chart_{{ $key }}" width="1" height="1"></canvas>
                     </div>
 
-                    <script>
+                    <script type="module">
+                        var temp = []
                         var ctx = document.getElementById('chart_{{ $key }}').getContext('2d');
-                        var myChart = new Chart(ctx,{
-                            type: 'doughnut',
-                            data: {labels:[
-                                'On time',
-                                'Absent',
-                                'Late'
-                            ],
-                            datasets: [{
-                                label: 'Department Attendance',
-                                data: ['{{$data->ontime}}', '{{$data->absent}}', '{{$data->late}}'],
-                                backgroundColor: [
-                                    'rgb(54, 162, 235)',
-                                    'rgb(255, 99, 132)',
-                                    'rgb(255, 205, 86)'
-                                ],
-                                hoverOffset: 4
-                            }]
-                        }
-                        })
+                        temp.push(ctx)
+
+                        temp.push(DepartmentAttendanceOverview(ctx,
+                            '{{$data->ontime}}',
+                            '{{$data->absent}}',
+                            '{{$data->late}}'
+                        ))
+
+                        CTXs[2].push(temp)
                     </script>
                     @endforeach
                 </div>
@@ -314,27 +393,18 @@
                         <canvas id="chart_position{{ $key }}" width="1" height="1"></canvas>
                     </div>
 
-                    <script>
+                    <script type="module">
+                        var temp = []
                         var ctx = document.getElementById('chart_position{{ $key }}').getContext('2d');
-                        var myChart = new Chart(ctx,{
-                            type: 'doughnut',
-                            data: {labels:[
-                                'On time',
-                                'Absent',
-                                'Late'
-                            ],
-                            datasets: [{
-                                label: 'Position Title',
-                                data: ['{{$data->ontime}}', '{{$data->absent}}', '{{$data->late}}'],
-                                backgroundColor: [
-                                    'rgb(54, 212, 285)',
-                                    'rgb(305, 99, 182)',
-                                    'rgb(305, 255, 86)'
-                                ],
-                                hoverOffset: 4
-                            }]
-                        }
-                        })
+                        temp.push(ctx)
+
+                        temp.push(PositionAttendanceOverview(ctx,
+                            '{{$data->ontime}}',
+                            '{{$data->absent}}',
+                            '{{$data->late}}'
+                        ))
+
+                        CTXs[3].push(temp)
                     </script>
                     @endforeach
                 </div>
@@ -354,41 +424,8 @@
                 </thead>
             </table>
 
-            <script>
-                $('#emp_attendance_table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: { url: '/getEmployeeOverallAttendance' },
-                columns: [
-                    { data: 'employee_id',
-                        render : (data,type,row)=>{
-                            return  `<img src="{{ URL::asset('${row.user_detail.picture}')}}" class="rounded" width="50" height="50">`
-                        }
-                    },
-                    { data: 'user_detail.fname',
-                        render : (data,type,row)=>{
-                            return `<h3>${data} ${row.user_detail.mname} ${row.user_detail.lname}</h3>
-                            ${row.position}<br>
-                            ${row.department}`
-                        }
-                    },
-                    { data: 'ontime',
-                        render : (data,type,row)=>{
-                            return `<h5 class="border border-success p-4 text-success h5">${data} Records <b class="text-dark">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
-                        }
-                    },
-                    { data: 'late',
-                        render : (data,type,row)=>{
-                            return `<h5 class="border border-warning p-4 text-warning h5">${data} Records <b class="text-dark">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
-                        }
-                    },
-                    { data: 'absent',
-                        render : (data,type,row)=>{
-                            return `<h5 class="border border-danger p-4 text-danger h5">${data} Records <b class="text-secondary">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
-                        }
-                    },
-                ]
-            })
+            <script type="module">
+                EmployeeAttendanceOverview({ url: '/getEmployeeOverallAttendance' })
             </script>
         </div>
     </div>
@@ -438,7 +475,7 @@
                     },
                     { data: 'null',
                         render : (data,type,row)=>{
-                            if(row.attendance_today){
+                            if(row.attendance_today && row.attendance_today.time_out){
                                 return `${row.attendance_today.time_out}`
                             }
                             return `<b class="text-danger">No record</b>`
@@ -484,7 +521,191 @@
                     },
                 ]
             })
-
         })
+    </script>
+
+    {{-- GRAPH FUNCTIONS --}}
+    <script>
+        function OverallAttendanceOverview(ctx,labels,ontime,late,absent){
+            var myChart = new Chart(ctx,{
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                    {
+                        label: 'On time Attendance',
+                        data: ontime,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Late Attendance',
+                        data: late,
+                        fill: false,
+                        borderColor: 'rgb(179, 142, 43)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Absents',
+                        data:absent,
+                        fill: false,
+                        borderColor: 'rgb(179, 66, 43)',
+                        tension: 0.1
+                    }
+                ]
+                },
+            })
+
+            return myChart
+        }
+
+        function OverallHealthOverview(ctx,labels,sick,bad,unpleasant,neutral,good,better,best){
+            var myChart = new Chart(ctx,{
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                    {
+                        label: 'Sick',
+                        data: sick,
+                        fill: false,
+                        borderColor: 'rgb(158, 28, 28)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Bad',
+                        data: bad,
+                        fill: false,
+                        borderColor: 'rgb(158, 56, 28)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Unpleasant',
+                        data: unpleasant,
+                        fill: false,
+                        borderColor: 'rgb(158, 93, 28)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Neutral',
+                        data: neutral,
+                        fill: false,
+                        borderColor: 'rgb(234, 255, 3)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Good',
+                        data: good,
+                        fill: false,
+                        borderColor: 'rgb(123, 158, 28)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Better',
+                        data: better,
+                        fill: false,
+                        borderColor: 'rgb(95, 158, 28)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Best',
+                        data: best,
+                        fill: false,
+                        borderColor: 'rgb(41, 158, 28)',
+                        tension: 0.1
+                    }
+                ]
+                },
+            })
+
+            return myChart
+        }
+
+        function DepartmentAttendanceOverview(ctx,ontime,absent,late){
+            var myChart = new Chart(ctx,{
+                type: 'doughnut',
+                data: {labels:[
+                    'On time',
+                    'Absent',
+                    'Late'
+                ],
+                    datasets: [{
+                        label: 'Department Attendance',
+                        data: [ontime, absent, late],
+                        backgroundColor: [
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                }
+            })
+
+            return myChart
+        }
+
+        function PositionAttendanceOverview(ctx,ontime,absent,late){
+            var myChart = new Chart(ctx,{
+                    type: 'doughnut',
+                    data: {labels:[
+                        'On time',
+                        'Absent',
+                        'Late'
+                    ],
+                    datasets: [{
+                        label: 'Position Title',
+                        data: [ontime, absent, late],
+                        backgroundColor: [
+                            'rgb(54, 212, 285)',
+                            'rgb(305, 99, 182)',
+                            'rgb(305, 255, 86)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                }
+            })
+
+            return myChart
+        }
+
+        function EmployeeAttendanceOverview(ajax){
+            $('#emp_attendance_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: ajax,
+                columns: [
+                    { data: 'employee_id',
+                        render : (data,type,row)=>{
+                            return  `<img src="{{ URL::asset('${row.user_detail.picture}')}}" class="rounded" width="50" height="50">`
+                        }
+                    },
+                    { data: 'user_detail.fname',
+                        render : (data,type,row)=>{
+                            return `<h3>${data} ${row.user_detail.mname} ${row.user_detail.lname}</h3>
+                            ${row.position}<br>
+                            ${row.department}`
+                        }
+                    },
+                    { data: 'ontime',
+                        render : (data,type,row)=>{
+                            return `<h5 class="border border-success p-4 text-success h5">${data} Records <b class="text-dark">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
+                        }
+                    },
+                    { data: 'late',
+                        render : (data,type,row)=>{
+                            return `<h5 class="border border-warning p-4 text-warning h5">${data} Records <b class="text-dark">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
+                        }
+                    },
+                    { data: 'absent',
+                        render : (data,type,row)=>{
+                            return `<h5 class="border border-danger p-4 text-danger h5">${data} Records <b class="text-secondary">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
+                        }
+                    },
+                ]
+            })
+        }
+
     </script>
 @endsection

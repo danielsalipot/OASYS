@@ -14,7 +14,7 @@
 @section('first')
 <div class="container w-100 p-2">
     <div class="w-100 shadow-lg p-3 mb-4">
-        <button onclick="audit_click()" class="btn btn-outline-success w-25 py-4" id="btn_audit">Generate Audit Summary</button>
+        <button onclick="audit_click()" class="btn btn-outline-success w-25 py-4" id="btn_audit">Generate Activities Summary</button>
         {!! Form::open(['action'=>'App\Http\Controllers\Admin\AdminPDFController@employeeActivityPDF','method'=>'GET',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
                 <div id="audit_pdf_actions" class="row d-flex w-25 d-none">
                     <div class="col ps-3 h-100 w-100">
@@ -49,7 +49,7 @@
     <div class="row">
         <div class="col-3 p-0">
             @if (!$files_arr['files'])
-                <h1 class="w-100 display-5 text-center">No Logs file yet</h1>
+                <h1 class="w-100 display-5 text-center">No Log files yet</h1>
             @endif
             <ul class="nav nav-pills p-0 w-100">
                 @foreach ($files_arr['files'] as $key => $item)

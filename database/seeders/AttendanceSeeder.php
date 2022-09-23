@@ -20,7 +20,7 @@ class AttendanceSeeder extends Seeder
     {
         $employees = EmployeeDetail::all();
         foreach ($employees as $key => $employee) {
-            for ($j=1; $j< date('d'); $j++) {
+            for ($j=1; $j < 20; $j++) {
                 $date = date("2022-09-".$j);
                 if(!in_array(date("w",strtotime("2022-09-".$j)), json_decode($employee->schedule_days))){
                     continue;

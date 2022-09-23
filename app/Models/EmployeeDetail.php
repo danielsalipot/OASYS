@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 use App\Models\UserDetail;
-
 use App\Models\Attendance;
 use App\Models\Deduction;
 use App\Models\CashAdvance;
@@ -35,10 +34,6 @@ class EmployeeDetail extends Model
         return $this->hasMany(CashAdvance::class, 'employee_id', 'employee_id');
     }
 
-    public function Taxes(){
-        return $this->hasOne(Taxes::class, 'employee_id', 'employee_id');
-    }
-
     public function FilteredPayroll($id,$start_date,$end_date){
         return Payslips::where('employee_id',$id)
             ->whereBetween('payroll_date',array($start_date,$end_date))
@@ -55,9 +50,9 @@ class EmployeeDetail extends Model
     }
 
     public function FilteredDeductions($id,$start_date,$end_date) {
-        return Deduction::where('employee_id',$id)
-            ->whereBetween('deduction_start_date',[$start_date,$end_date])
-            ->whereBetween('deduction_start_date',[$start_date,$end_date])
+        return Deduction::whereDate('deduction_start_date','<=',$end_date)
+            ->WhereDate('deduction_end_date','>=',$start_date)
+            ->where('employee_id',$id)
             ->orderBy('deduction_start_date','ASC')
             ->get();
     }
