@@ -24,7 +24,7 @@
                         <div class="alert alert-danger w-75 m-auto">{{Session::get('fail')}}</div>
                     @endif
                         <div class='container w-75 mx-auto'>
-                        {!! Form::open(['action'=> 'App\Http\Controllers\LoginController@crudlogin','method'=>'POST']) !!}
+                        {!! Form::open(['action'=> '/crudlogin','method'=>'POST']) !!}
                             <h6 class="text-secondary m-0 p-0 mt-4">Username</h6>
                             {!! Form::text('user', '', ['class' => 'form-control border-0 border-bottom']) !!}
                             <span class="text-danger">@error('user'){{"This Field is required"}}@enderror</span>
