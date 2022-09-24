@@ -56,6 +56,9 @@
                     @csrf
                     <div class="col card shadow-sm p-0 ms-2 mt-4 text-start">
                         <h1 class="alert-primary w-100 m-0 p-4">Update Account Details</h1>
+                        @if(Session::get('success'))
+                            <div class="alert alert-success w-100 m-1">{{Session::get('success')}}</div>
+                        @endif
                         <div class="p-5">
                             <div class="row mb-5">
                                 <div class="alert-light w-100 p-3 h3">Full Name</div>
@@ -66,12 +69,12 @@
                                         <span class="text-danger">@error('fname'){{$message}}@enderror</span>
                                     </div>
                                     <div class="col">
-                                        <div class="alert-light w-100 p-1 h6">First Name</div>
+                                        <div class="alert-light w-100 p-1 h6">Middle Name</div>
                                         <input type="text" name="mname" class="form-control" value="{{$details->mname}}">
                                         <span class="text-danger">@error('mname'){{$message}}@enderror</span>
                                     </div>
                                     <div class="col">
-                                        <div class="alert-light w-100 p-1 h6">First Name</div>
+                                        <div class="alert-light w-100 p-1 h6">Last Name</div>
                                         <input type="text" name="lname" class="form-control" value="{{$details->lname}}">
                                         <span class="text-danger">@error('lname'){{$message}}@enderror</span>
                                     </div>
@@ -84,7 +87,7 @@
                                     <div class="alert-light w-100 p-1 h6">Sex</div>
                                     <select name="sex" id="" class='form-select p-3'>
                                         <option value="{{$details->sex}}" selected class="form-option">{{ucfirst($details->sex)}}</option>
-                                        @if ($details->sex == 'male')
+                                        @if ($details->sex == 'Male')
                                             <option value="Female" class="form-option">Female</option>
                                         @else
                                             <option value="Male" class="form-option">Male</option>
