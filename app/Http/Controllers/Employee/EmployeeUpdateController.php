@@ -51,9 +51,9 @@ class EmployeeUpdateController extends Controller
 
     public function employeeUpdateDetail(Request $request){
         $request->validate([
-            'fname' => 'required',
-            'mname' => 'required',
-            'lname' => 'required',
+            'fname' => ['required','alpha'],
+            'mname' => ['required','alpha'],
+            'lname' => ['required','alpha'],
             'email'=>'required|email',
             'cnum'=>['required','regex:/^(09|\+639)\d{9}$/u'],
             'bday'=>'required',

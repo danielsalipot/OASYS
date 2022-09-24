@@ -139,9 +139,9 @@ class PagesController extends Controller
 
     function managerUpdateAccount(Request $request){
         $request->validate([
-            'fname' => 'required',
-            'mname' => 'required',
-            'lname' => 'required',
+            'fname' => ['required','alpha'],
+            'mname' => ['required','alpha'],
+            'lname' => ['required','alpha'],
             'email'=>'required|email',
             'cnum'=>['required','regex:/^(09|\+639)\d{9}$/u'],
             'bday'=>'required',
@@ -158,7 +158,7 @@ class PagesController extends Controller
         ]);
 
         return back()->with([
-            'update' => 'Account has been updated'
+            'success' => 'Account has been updated'
         ]);
     }
 

@@ -11,7 +11,7 @@
     @endif
 
     <div class="row w-100 p-4"></div>
-    <div class='row m-3 card shadow-sm'>
+    <div class='row m-3 card shadow-sm' style="z-index: 9999">
         <div class='row m-auto'>
             <h1 class='section-title W-100 py-3 text-center'>Applicant Dasboard</h1>
         </div>
