@@ -5,14 +5,14 @@
         <h4 class="alert-danger text-center w-100 p-3">{{ session('err') }}</h4>
     @endif
 
-    @if (session('payslip_done'))
-        <h4 class="alert-success text-center w-100 p-3">{{ session('payslip_done') }}</h4>
-    @endif
     <h1 class="section-title mt-5 pb-5">Approval</h1>
 @endsection
 
 
 @section('content')
+    @if (session('payslip_done'))
+        <h4 class="alert-success text-center w-100 p-3">{{ session('payslip_done') }}</h4>
+    @endif
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Payroll History</h1>
     @foreach (array_reverse($progress_bar) as $item)
         {!! $item !!}

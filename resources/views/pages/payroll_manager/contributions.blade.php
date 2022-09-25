@@ -88,21 +88,51 @@
     <br>
 
     <div class="row">
-        @include('inc.date_filter')
-    </div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#sss_home">Employee Contribution Table</a></li>
+            <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#sss_manage">Employee Contribution Management</a></li>
+        </ul>
 
-    <table class="table table-striped w-100 text-center" id="sss_table">
-        <thead>
-            <tr class="text-center">
-                <th class="col">Employee Details</th>
-                <th class="col">Employee Rate</th>
-                <th class="col">Monthly Salary</th>
-                <th class="col">Employee Contribution</th>
-                <th class="col">Employer Contribution</th>
-                <th class="col">Total SSS Contibution</th>
-            </tr>
-        </thead>
-    </table>
+        <div class="tab-content w-100 p-0">
+            <div id="sss_home" class="tab-pane in active">
+                <div class="container p-5 bg-white border shadow-sm">
+                    <div class="row">
+                        @include('inc.date_filter')
+                    </div>
+                    <table class="table table-striped w-100 text-center" id="sss_table">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="col">Employee Details</th>
+                                <th class="col">Employee Rate</th>
+                                <th class="col">Monthly Salary</th>
+                                <th class="col">Employee Contribution</th>
+                                <th class="col">Employer Contribution</th>
+                                <th class="col">Total SSS Contibution</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div id="sss_manage" class="tab-pane">
+                <div class="container p-5 border bg-white shadow-sm">
+                    <table class="table table-striped  text-center w-100" id="sss_employee_table">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="col">Employee ID</th>
+                                <th class="col">Picture</th>
+                                <th class="col">Employee Details</th>
+                                <th class="col">Department</th>
+                                <th class="col-2">Position</th>
+                                <th class="col">Rate/hr</th>
+                                <th class="col">Employement <br>Status</th>
+                                <th class="col-2">Edit</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('second')
@@ -170,32 +200,62 @@
     <br>
 
     <div class="row">
-        <div class="row mb-3 mt-3 input-daterange" >
-            <div class="col-md-2">
-                <input type="text" name="pagibig_from_date" id="pagibig_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#pagibig_home">Employee Contribution Table</a></li>
+            <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#pagibig_manage">Employee Contribution Management</a></li>
+        </ul>
+
+        <div class="tab-content w-100 p-0">
+            <div id="pagibig_home" class="tab-pane in active">
+                <div class="container p-5 bg-white border shadow-sm">
+                    <div class="row">
+                        <div class="row mb-3 mt-3 input-daterange" >
+                            <div class="col-md-2">
+                                <input type="text" name="pagibig_from_date" id="pagibig_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="pagibig_to_date" id="pagibig_to_date" class="form-control h-100" placeholder="To Date" readonly />
+                            </div>
+                            <div class="col-2">
+                                <button type="button" name="pagibig_filter" id="pagibig_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
+                                <button type="button" name="pagibig_refresh" id="pagibig_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped text-center w-100" id="pagibig_table">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="col">Employee Details</th>
+                                <th class="col">Employee Rate</th>
+                                <th class="col">Monthly Salary</th>
+                                <th class="col">Employee Contribution</th>
+                                <th class="col">Employer Contribution</th>
+                                <th class="col">Total Pagibig Contibution</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
-            <div class="col-md-2">
-                <input type="text" name="pagibig_to_date" id="pagibig_to_date" class="form-control h-100" placeholder="To Date" readonly />
-            </div>
-            <div class="col-2">
-                <button type="button" name="pagibig_filter" id="pagibig_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
-                <button type="button" name="pagibig_refresh" id="pagibig_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+            <div id="pagibig_manage" class="tab-pane">
+                <div class="container p-5 border bg-white shadow-sm">
+                    <table class="table table-striped  text-center w-100" id="pagibig_employee_table">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="col">Employee ID</th>
+                                <th class="col">Picture</th>
+                                <th class="col">Employee Details</th>
+                                <th class="col">Department</th>
+                                <th class="col-2">Position</th>
+                                <th class="col">Rate/hr</th>
+                                <th class="col">Employement <br>Status</th>
+                                <th class="col-2">Edit</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
-    <table class="table table-striped text-center w-100" id="pagibig_table">
-        <thead>
-            <tr class="text-center">
-                <th class="col">Employee Details</th>
-                <th class="col">Employee Rate</th>
-                <th class="col">Monthly Salary</th>
-                <th class="col">Employee Contribution</th>
-                <th class="col">Employer Contribution</th>
-                <th class="col">Total Pagibig Contibution</th>
-            </tr>
-        </thead>
-    </table>
 @endsection
 
 @section('third')
@@ -269,33 +329,63 @@
     <br>
 
     <div class="row">
-        <div class="row mb-3 mt-3 input-daterange" >
-            <div class="col-md-2">
-                <input type="text" name="philhealth_from_date" id="philhealth_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#philhealth_home">Employee Contribution Table</a></li>
+            <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#philhealth_manage">Employee Contribution Management</a></li>
+        </ul>
+
+        <div class="tab-content w-100 p-0">
+            <div id="philhealth_home" class="tab-pane in active">
+                <div class="container p-5 bg-white border shadow-sm">
+                    <div class="row">
+                        <div class="row mb-3 mt-3 input-daterange" >
+                            <div class="col-md-2">
+                                <input type="text" name="philhealth_from_date" id="philhealth_from_date" class="form-control p-3 h-100" placeholder="From Date" readonly />
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="philhealth_to_date" id="philhealth_to_date" class="form-control h-100" placeholder="To Date" readonly />
+                            </div>
+                            <div class="col-2">
+                                <button type="button" name="philhealth_filter" id="philhealth_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
+                                <button type="button" name="philhealth_refresh" id="philhealth_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped text-center w-100" id="philhealth_table">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="col">Employee Details</th>
+                                <th class="col">Employee Rate</th>
+                                <th class="col">Monthly Salary</th>
+                                <th class="col">Employee Contribution</th>
+                                <th class="col">Employer Contribution</th>
+                                <th class="col">Total Pagibig Contibution</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
-            <div class="col-md-2">
-                <input type="text" name="philhealth_to_date" id="philhealth_to_date" class="form-control h-100" placeholder="To Date" readonly />
-            </div>
-            <div class="col-2">
-                <button type="button" name="philhealth_filter" id="philhealth_filter" class="btn h-100 w-25 btn-outline-primary">Filter</button>
-                <button type="button" name="philhealth_refresh" id="philhealth_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
+            <div id="philhealth_manage" class="tab-pane">
+                <div class="container p-5 border bg-white shadow-sm">
+                    <table class="table table-striped  text-center w-100" id="philhealth_employee_table">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="col">Employee ID</th>
+                                <th class="col">Picture</th>
+                                <th class="col">Employee Details</th>
+                                <th class="col">Department</th>
+                                <th class="col-2">Position</th>
+                                <th class="col">Rate/hr</th>
+                                <th class="col">Employement <br>Status</th>
+                                <th class="col-2">Edit</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <table class="table table-striped text-center w-100" id="philhealth_table">
-        <thead>
-            <tr class="text-center">
-                <th class="col">Employee Details</th>
-                <th class="col">Employee Rate</th>
-                <th class="col">Monthly Salary</th>
-                <th class="col">Employee Contribution</th>
-                <th class="col">Employer Contribution</th>
-                <th class="col">Total Pagibig Contibution</th>
-            </tr>
-        </thead>
-    </table>
-</div>
 @endsection
 
 @section('script')
@@ -526,6 +616,224 @@
         }
     })
 
+    $(document).ready(function(){
+        $('#sss_employee_table').DataTable({
+            ajax: {
+                    url: '/employeelistjson',
+                },
+            columns: [
+                { data: 'employee_id',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'user_detail.picture',
+                    render : (data,type,row)=>{
+                        return `<img src="{{ URL::asset('${data}') }}" class="rounded" width="50" height="50">`
+                    }
+                },
+                { data: 'user_detail.fname',
+                    render : (data,type,row)=>{
+                        return  `
+                                    <b>${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}</b><br>
+                                        Sex: ${row.user_detail.sex}<br>
+                                        age: ${row.user_detail.age}
+                                `
+                    }
+                },
+                { data: 'department',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'position',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'rate',
+                    render : (data,type,row)=>{
+                        return `<b class="h5">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                    }
+                },
+                { data: 'employment_status',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'sss_included',
+                    render : (data,type,row)=>{
+                        if(data){
+                            return `
+                            <form action="/updateContributionInclude" method="POST">
+                                @CSRF
+                                <input type="hidden" name="contribution_type" value="sss">
+                                <input type="hidden" name="employee_id" value="${row.employee_id}">
+                                <input type="hidden" name="included_value" value="0">
+                                <button type="submit" class="btn btn-outline-primary w-100 p-4">Included</button>
+                            </form>
+                            `
+                        }else{
+                            return `
+                            <form action="/updateContributionInclude" method="POST">
+                                @CSRF
+                                <input type="hidden" name="contribution_type" value="sss">
+                                <input type="hidden" name="employee_id" value="${row.employee_id}">
+                                <input type="hidden" name="included_value" value="1">
+                                <button type="submit" class="btn btn-outline-warning w-100 p-4">Exempted</button>
+                            </form>`
+                        }
+                    }
+                },
+            ]
+        })
+    })
+
+    $(document).ready(function(){
+        $('#philhealth_employee_table').DataTable({
+            ajax: {
+                    url: '/employeelistjson',
+                },
+            columns: [
+                { data: 'employee_id',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'user_detail.picture',
+                    render : (data,type,row)=>{
+                        return `<img src="{{ URL::asset('${data}') }}" class="rounded" width="50" height="50">`
+                    }
+                },
+                { data: 'user_detail.fname',
+                    render : (data,type,row)=>{
+                        return  `
+                                    <b>${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}</b><br>
+                                        Sex: ${row.user_detail.sex}<br>
+                                        age: ${row.user_detail.age}
+                                `
+                    }
+                },
+                { data: 'department',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'position',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'rate',
+                    render : (data,type,row)=>{
+                        return `<b class="h5">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                    }
+                },
+                { data: 'employment_status',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'philhealth_included',
+                    render : (data,type,row)=>{
+                        if(data){
+                            return `
+                            <form action="/updateContributionInclude" method="POST">
+                                @CSRF
+                                <input type="hidden" name="contribution_type" value="philhealth">
+                                <input type="hidden" name="employee_id" value="${row.employee_id}">
+                                <input type="hidden" name="included_value" value="0">
+                                <button type="submit" class="btn btn-outline-primary w-100 p-4">Included</button>
+                            </form>
+                            `
+                        }else{
+                            return `
+                            <form action="/updateContributionInclude" method="POST">
+                                @CSRF
+                                <input type="hidden" name="contribution_type" value="philhealth">
+                                <input type="hidden" name="employee_id" value="${row.employee_id}">
+                                <input type="hidden" name="included_value" value="1">
+                                <button type="submit" class="btn btn-outline-warning w-100 p-4">Exempted</button>
+                            </form>`
+                        }
+                    }
+                },
+            ]
+        })
+    })
+
+    $(document).ready(function(){
+        $('#pagibig_employee_table').DataTable({
+            ajax: {
+                    url: '/employeelistjson',
+                },
+            columns: [
+                { data: 'employee_id',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'user_detail.picture',
+                    render : (data,type,row)=>{
+                        return `<img src="{{ URL::asset('${data}') }}" class="rounded" width="50" height="50">`
+                    }
+                },
+                { data: 'user_detail.fname',
+                    render : (data,type,row)=>{
+                        return  `
+                                    <b>${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}</b><br>
+                                        Sex: ${row.user_detail.sex}<br>
+                                        age: ${row.user_detail.age}
+                                `
+                    }
+                },
+                { data: 'department',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'position',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'rate',
+                    render : (data,type,row)=>{
+                        return `<b class="h5">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                    }
+                },
+                { data: 'employment_status',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'pagibig_included',
+                    render : (data,type,row)=>{
+                        if(data){
+                            return `
+                            <form action="/updateContributionInclude" method="POST">
+                                @CSRF
+                                <input type="hidden" name="contribution_type" value="pagibig">
+                                <input type="hidden" name="employee_id" value="${row.employee_id}">
+                                <input type="hidden" name="included_value" value="0">
+                                <button type="submit" class="btn btn-outline-primary w-100 p-4">Included</button>
+                            </form>
+                            `
+                        }else{
+                            return `
+                            <form action="/updateContributionInclude" method="POST">
+                                @CSRF
+                                <input type="hidden" name="contribution_type" value="pagibig">
+                                <input type="hidden" name="employee_id" value="${row.employee_id}">
+                                <input type="hidden" name="included_value" value="1">
+                                <button type="submit" class="btn btn-outline-warning w-100 p-4">Exempted</button>
+                            </form>`
+                        }
+                    }
+                },
+            ]
+        })
+    })
 
     function getDateToday(){
         var today = new Date();

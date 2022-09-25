@@ -27,6 +27,9 @@ return new class extends Migration
             $table->json('schedule_days');
             $table->string('schedule_Timein');
             $table->string('schedule_Timeout');
+            $table->integer('sss_included');
+            $table->integer('philhealth_included');
+            $table->integer('pagibig_included');
             $table->timestamps();
         });
     }

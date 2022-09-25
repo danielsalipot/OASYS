@@ -14,6 +14,7 @@ use App\Models\notification_message;
 use App\Models\Payslips;
 use App\Models\Audit;
 use App\Models\payroll_approval;
+use Carbon\Carbon;
 
 class PayrollPAYSLIPPDFController extends Controller
 {
@@ -182,12 +183,14 @@ $total_deduction += $employee->employee_pagibig_contribution;
 
 if(count($employee->deduction) > 0){
     foreach ($employee->deduction as $key => $deduction) {
+        $days = Carbon::parse($deduction->deduction_start_date)->diffInDays(Carbon::parse($deduction->deduction_end_date));
         $pdf->Cell(20,7,'',1,0,'C');
         $pdf->Cell(108,7,'    '.'    '.$deduction->deduction_name,0,0,'L');
         $pdf->Cell(30,7,'',0,0,'R');
-        $pdf->Cell(30,7,number_format($deduction->deduction_amount,2),0,0,'R');
+        $pdf->Cell(30,7,number_format($deduction->deduction_amount / $days + 1 ,2),0,0,'R');
         $pdf->Cell(2,7,'','R',1,'L');
-        $total_deduction += $deduction->deduction_amount;
+
+        $total_deduction += $deduction->deduction_amount / $days + 1;
     }
 }
 
@@ -304,6 +307,9 @@ if(count($EmployeePaylipDetails)){
 *==============================================================================*/
         }
 
+        foreach ($EmployeePaylipDetails as $key => $employee) {
+            $employee->net_pay - $employee->net_pay;
+        }
 
         $head = 'Payslip has been generated for payroll '. $payroll_file_record->from_date . " - " . $payroll_file_record->to_date;
         $text = $manager->fname . " " . $manager->mname . " " . $manager->lname .
@@ -325,7 +331,8 @@ if(count($EmployeePaylipDetails)){
         session()->forget('payslip_request_col2_flash');
         session()->forget('payslip_employee_temp_flash');
 
-        return redirect('/payroll/approval')->with(['payslip_done'=>'Payslip has been generated successfully']);
+        session()->flash('payslip_done','Payslip has been generated successfully');
+        return redirect('/payroll/approval');
     }
 
     function convertNumberToWord($num = false)

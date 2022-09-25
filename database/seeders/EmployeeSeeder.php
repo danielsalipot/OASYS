@@ -78,7 +78,10 @@ class EmployeeSeeder extends Seeder
             'start_date' => $faker->dateTimeBetween('2022-'. $month .'-01', '2022-'. $month .'-01'),
             'schedule_days' => json_encode([1,2,3,4,5]),
             'schedule_Timein' => date('H:i:s', 25200),
-            'schedule_Timeout' => date('H:i:s', 68400)
+            'schedule_Timeout' => date('H:i:s', 68400),
+            'sss_included'=>1,
+            'philhealth_included'=>1,
+            'pagibig_included'=>1,
         ]);
 
         if($rand_num == 2){

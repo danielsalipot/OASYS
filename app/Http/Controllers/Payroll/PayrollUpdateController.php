@@ -411,4 +411,17 @@ class PayrollUpdateController extends Controller
 
         return redirect('/payroll/contributions')->with('success','Post Created');
     }
+
+    public function updateContributionInclude(Request $request){
+        EmployeeDetail::where('employee_id',$request->employee_id)->update([
+            $request->contribution_type.'_included' => $request->included_value
+        ]);
+
+        if($request->included_value){
+            return back()->with(['update'=>'Employee #' . $request->employee_id . ' has been included in '. $request->contribution_type .' contribution']);
+        }else{
+            return back()->with(['update'=>'Employee #' . $request->employee_id . ' has been exempted in '. $request->contribution_type .' contribution']);
+
+        }
+    }
 }

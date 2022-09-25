@@ -167,6 +167,12 @@ class ComputationController extends Controller
         $detail->employee_pagibig_contribution = round($detail->employee_pagibig_contribution * ($diff / 30),2);
         $detail->employer_pagibig_contribution = round($detail->employer_pagibig_contribution * ($diff / 30),2);
         $detail->total_pagibig_contribution = round($detail->employee_pagibig_contribution + $detail->employer_pagibig_contribution,2);
+
+        if(!$detail->philhealth_included){
+            $detail->employee_pagibig_contribution = 0;
+            $detail->employer_pagibig_contribution = 0;
+            $detail->total_pagibig_contribution = 0;
+        }
 /*=============================================================================
 |                                   END
 *==============================================================================*/
@@ -207,6 +213,12 @@ class ComputationController extends Controller
     $detail->employee_philhealth_contribution = round($detail->employee_philhealth_contribution,2);
 
     $detail->total_philhealth_contribution = round($detail->employer_philhealth_contribution + $detail->employee_philhealth_contribution,2);
+
+    if(!$detail->philhealth_included){
+        $detail->employer_philhealth_contribution = 0;
+        $detail->employee_philhealth_contribution = 0;
+        $detail->total_philhealth_contribution = 0;
+    }
 
 /*=============================================================================
 |                                   END
@@ -264,6 +276,12 @@ class ComputationController extends Controller
             $detail->employee_contribution = round($start * $ee_rate,1);
             $detail->total_sss = $detail->employer_contribution + $detail->employee_contribution;
 
+            if(!$detail->sss_included){
+                $detail->employer_contribution = 0;
+                $detail->employee_contribution = 0;
+                $detail->total_sss = 0;
+            }
+
 /*=============================================================================
 |                                   END
 *==============================================================================*/
@@ -308,7 +326,7 @@ class ComputationController extends Controller
 
 
 
-            $detail->net_pay = round($detail->gross_pay - $detail->witholding_tax  - $detail->total_deduction -  $detail->employee_contribution - $detail->total_cash_advance - $detail->employer_philhealth_contribution - $detail->employer_pagibig_contribution,2);
+            $detail->net_pay = round($detail->gross_pay - ($detail->witholding_tax + $detail->total_deduction + $detail->employee_contribution + $detail->total_cash_advance + $detail->employee_philhealth_contribution + $detail->employee_pagibig_contribution) ,2);
             $detail->gross_pay = round($detail->gross_pay,2);
 
             //Full name of employee

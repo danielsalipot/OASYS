@@ -167,6 +167,9 @@ class StaffInsertController extends Controller
                 'schedule_days' => json_encode($days),
                 'schedule_Timein' => $request->timein,
                 'schedule_Timeout' => $request->timeout,
+                'sss_included'=>1,
+                'philhealth_included'=>1,
+                'pagibig_included'=>1,
             ]);
 
             $detail = UserDetail::where('information_id',  $applicant_detail->information_id)->first();

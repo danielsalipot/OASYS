@@ -494,6 +494,11 @@ class PayrollJSONController extends Controller
             $detail->employer_contribution = round(($start * $er_rate + $er_add),1);
             $detail->employee_contribution = round($start * $ee_rate,1);
             $detail->total_sss = $detail->employer_contribution + $detail->employee_contribution;
+            if(!$detail->sss_included){
+                $detail->employer_contribution = 0;
+                $detail->employee_contribution = 0;
+                $detail->total_sss = 0;
+            }
         }
 
         return datatables()->of($employee_details)->make(true);
