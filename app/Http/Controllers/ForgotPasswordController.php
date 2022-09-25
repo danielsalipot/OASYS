@@ -12,7 +12,7 @@ use Illuminate\Validation\Rules\Password;
 class ForgotPasswordController extends Controller
 {
     public function sendForgotPassword(Request $request){
-        $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', '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');
+        $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'myApiKey');
         $apiInstance = new \SendinBlue\Client\Api\TransactionalEmailsApi(
             // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
             // This is optional, `GuzzleHttp\Client` will be used as default.
