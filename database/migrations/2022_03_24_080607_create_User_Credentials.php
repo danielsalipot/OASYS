@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('User_Credentials', function (Blueprint $table) {
+        Schema::create('user_credentials', function (Blueprint $table) {
             $table->id('login_id');
             $table->string('username');
             $table->string('password');
