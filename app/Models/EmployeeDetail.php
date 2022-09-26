@@ -16,8 +16,8 @@ use App\Models\Payslips;
 class EmployeeDetail extends Model
 {
     use HasFactory;
-    public $keyType = 'bigint';
-public $primaryKey = 'employee_id';
+    public $keyType = 'integer';
+public $primaryKey  = 'employee_id';
 
     protected $fillable = ['login_id','information_id','educ','position','department','employment_status','resume','rate','start_date','schedule_days','schedule_Timein','schedule_Timeout',
         'sss_included', 'philhealth_included', 'pagibig_included'
