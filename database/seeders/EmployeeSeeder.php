@@ -39,7 +39,7 @@ class EmployeeSeeder extends Seeder
 
 
         $info_id = UserDetail::create([
-            'login_id' => $login_id->id,
+            'login_id' => $login_id->login_id,
             'fname' => $faker->FirstName,
             'mname' => $faker->LastName,
             'lname' => $faker->LastName,
@@ -67,8 +67,8 @@ class EmployeeSeeder extends Seeder
         $month = date('m');
 
         $emp_id = EmployeeDetail::create([
-            'login_id' => $login_id->id,
-            'information_id' =>$info_id->id,
+            'login_id' => $login_id->login_id,
+            'information_id' =>$info_id->information_id,
             'educ' => 'College',
             'position' => $positions[(rand(0,count($positions) - 1))]->position_title,
             'department' => $departments[(rand(0,count($departments)-1  ))]->department_name,
@@ -85,18 +85,18 @@ class EmployeeSeeder extends Seeder
         ]);
 
         if($rand_num == 2){
-            Onboardee::create(['employee_id'=>$emp_id->id]);
+            Onboardee::create(['employee_id'=>$emp_id->employee_id]);
         }elseif($rand_num == 1){
-            Offboardee::create(['employee_id'=>$emp_id->id]);
+            Offboardee::create(['employee_id'=>$emp_id->employee_id]);
 
             $rand = rand(0,1);
             if($rand){
-                Retired::create(['employee_id'=>$emp_id->id]);
+                Retired::create(['employee_id'=>$emp_id->employee_id]);
             }else{
-                Terminated::create(['employee_id'=>$emp_id->id]);
+                Terminated::create(['employee_id'=>$emp_id->employee_id]);
             }
         }else{
-            Regular::create(['employee_id'=>$emp_id->id]);
+            Regular::create(['employee_id'=>$emp_id->employee_id]);
         }
     }
 }

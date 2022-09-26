@@ -27,7 +27,7 @@ class StaffSeeder extends Seeder
         ]);
 
         UserDetail::create([
-            'login_id' => $login_id->id,
+            'login_id' => $login_id->login_id,
             'fname' => $faker->FirstName,
             'mname' => $faker->LastName,
             'lname' => $faker->LastName,

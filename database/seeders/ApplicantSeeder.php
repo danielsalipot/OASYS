@@ -29,7 +29,7 @@ class ApplicantSeeder extends Seeder
         ]);
 
         $info_id = UserDetail::create([
-            'login_id' => $login_id->id,
+            'login_id' => $login_id->login_id,
             'fname' => $faker->FirstName,
             'mname' => $faker->LastName,
             'lname' => $faker->LastName,
@@ -43,8 +43,8 @@ class ApplicantSeeder extends Seeder
 
 
         ApplicantDetail::create([
-            'login_id' => $login_id->id,
-            'information_id' =>$info_id->id,
+            'login_id' => $login_id->login_id,
+            'information_id' =>$info_id->information_id,
             'Applyingfor' => 'Teacher',
             'educ' => 'College',
             'resume' => 'resumes/resume'.rand(1,3).'.pdf'
