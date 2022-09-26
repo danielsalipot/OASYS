@@ -20,7 +20,7 @@ class ManagerSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $login_id = UserCredential::create([
+        UserCredential::create([
             'username' => 'HRAdmin',
             'password' => md5(md5('password123')),
             'user_type' => 'admin'
