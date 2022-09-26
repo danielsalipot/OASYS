@@ -10,7 +10,7 @@
             <tr>
                 <th class="col">Picture</th>
                 <th class="col">Employee Name</th>
-                <th class="col">Sex</th>
+                <th class="col">Gender</th>
                 <th class="col">Age</th>
                 <th class="col">Applying For</th>
                 <th class="col">Education</th>

@@ -27,7 +27,7 @@
                 </div>
 
             <div class="col-2">
-                <label for="inputState">Sex</label>
+                <label for="inputState">Gender</label>
                 <select id="inputState" name="sex" class="form-control">
                 @if(old('sex') == "Male" || !old('sex') == "Female")
                     <option selected>Male</option>

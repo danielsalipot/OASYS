@@ -19,7 +19,7 @@
                 <div class="row mb-5 text-center p-5 pb-0">
                     <hr>
                     <div class="col">
-                        <h6 class="text-secondary p-0 m-0">Sex</h6>
+                        <h6 class="text-secondary p-0 m-0">Gender</h6>
                         <h3 class=" p-0 m-0 text-secondary">{{ $details->sex }}</h3>
                     </div>
                     <div class="col">
@@ -84,7 +84,7 @@
                             <div class="row mb-5">
                                 <div class="alert-light w-100 p-3 h3">Personal Details</div>
                                 <div class="col">
-                                    <div class="alert-light w-100 p-1 h6">Sex</div>
+                                    <div class="alert-light w-100 p-1 h6">Gender</div>
                                     <select name="sex" id="" class='form-select p-3'>
                                         <option value="{{$details->sex}}" selected class="form-option">{{ucfirst($details->sex)}}</option>
                                         @if ($details->sex == 'Male')

@@ -70,8 +70,11 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card w-100 text-center" style="overflow-y: scroll; height:562px;">
-                    <h5 class="w-100 alert alert-primary mb-0">Interviews Today</h5>
+                <h5 class="w-100 alert alert-primary mb-0 rounded-0 rounded-top">Interviews Today</h5>
+                <div class="card w-100 text-center rounded-0 rounded-bottom" style="overflow-y: scroll; height:562px;">
+                    @if(!count($interviews))
+                        <h6 class="p-3 alert-secondary m-1 py-5 shadow-sm rounded">No interview Pending</h6>
+                    @endif
                     @foreach ($interviews as $data)
                         <a href="/staff/interview" class="card alert alert-success m-0 shadow-sm p-3 text-decoration-none">
                             <div class="row w-100 h-100">

@@ -91,9 +91,9 @@
                 </div>
             </div>
             <div class="col">
-                <div class="container">
+                <div class="container card">
                     <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
-                    <table class="table table-striped text-center">
+                    <table class="table table-striped text-center" style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>
@@ -107,14 +107,13 @@
                     </table>
                 </div>
 
-                <div class="container">
-                    <h1 class="display-5 mb-3 text-center w-100">Department Details</h1>
-                    <div class="m-5 ps-5 pe-5">
-
+                <div class="container card mt-5 p-5 shadow-sm">
+                    <h1 class="display-5 mb-3 text-center w-100">Position Details</h1>
+                    <div class="">
                             {!! Form::open(['action'=>'App\Http\Controllers\Staff\StaffUpdateController@EmployeePositionUpdate','method'=>'GET']) !!}
                             {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
                             {!! Form::label('position_title', 'Position Update') !!}
-                            <select name='position_title' onchange="select_onchange()" id='position_title' class='h4 py-3 mb-4 w-100 btn btn-primary'>
+                            <select name='position_title' onchange="select_onchange()" id='position_title' class='h4 py-3 mb-4 w-100 form-select'>
                                 @foreach ($positions as $position)
                                     <option value='{{$position->position_title}}'>{{$position->position_title}}</option>
                                 @endforeach

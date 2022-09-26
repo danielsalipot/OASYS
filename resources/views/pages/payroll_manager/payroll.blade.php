@@ -222,17 +222,17 @@
                                 return `<b class="h5 text-success">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
-                        { data: 'total_sss',
+                        { data: 'employee_contribution',
                             render : (data,type,row)=>{
                                 return `<b class="text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
-                        { data: 'total_pagibig_contribution',
+                        { data: 'employee_pagibig_contribution',
                             render : (data,type,row)=>{
                                 return `<b class="h5 text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }
                         },
-                        { data: 'total_philhealth_contribution',
+                        { data: 'employee_philhealth_contribution',
                             render : (data,type,row)=>{
                                 return `<b class="h5 text-danger">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
                             }

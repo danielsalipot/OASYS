@@ -97,21 +97,21 @@
 @if ($category == 'orientation')
 <style>
     body{
-        background-color: rgb(213, 255, 150);
+        background-color: rgb(244, 255, 230);
     }
 </style>
 @endif
 @if ($category == 'training')
 <style>
     body{
-        background-color: rgb(150, 243, 255);
+        background-color: rgb(224, 251, 255);
     }
 </style>
 @endif
 @if ($category == 'correction')
 <style>
     body{
-        background-color: rgb(255, 155, 150);
+        background-color: rgb(255, 230, 228);
     }
 </style>
 @endif

@@ -88,9 +88,9 @@
                 </div>
             </div>
             <div class="col">
-                <div class="container">
+                <div class="container card">
                     <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
-                    <table class="table table-striped text-center">
+                    <table class="table table-striped text-center "  style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>
@@ -104,14 +104,13 @@
                     </table>
                 </div>
 
-                <div class="container">
+                <div class="container p-5 card mt-5 shadow-sm">
                     <h1 class="display-5 mb-3 text-center w-100">Department Details</h1>
-                    <div class="m-5 ps-5 pe-5">
-
+                    <div class="">
                             {!! Form::open(['action'=>'App\Http\Controllers\Staff\StaffUpdateController@EmployeeDepartmentUpdate','method'=>'GET']) !!}
                             {!! Form::hidden('hidden_emp_id','',['id'=>'hidden_emp_id']) !!}
                             {!! Form::label('department_name', 'Department Name') !!}
-                            <select name='department_name' id='department_name' class='h4 py-3 w-100 btn btn-primary'>
+                            <select name='department_name' id='department_name' class='h4 py-3 w-100 form-select'>
                                 @foreach ($all_dept as $department)
                                     <option value='{{$department->department_name}}'>{{$department->department_name}}</option>
                                 @endforeach

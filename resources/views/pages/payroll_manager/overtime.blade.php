@@ -74,7 +74,7 @@
                     <th class="col">Time out</th>
                     <th class="col">Total Overtime<br>Hours</th>
                     <th class="col">Payroll Manager</th>
-                    <th class="col">Transaction ID</th>
+                    <th class="col">Overtime Application</th>
                     <th class="col">Added on (UTC)</th>
                     <th class="col">Attendance Date</th>
                 </tr>

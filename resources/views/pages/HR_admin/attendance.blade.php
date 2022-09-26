@@ -320,13 +320,19 @@
                         </div>
 
                         <div class="card alert-light text-center h3 p-5 shadow-sm w-100">
-                            {{ round(($totals[1]/$totals[0]) * 100,2) }}% On time percentage
+                            @if($totals[0])
+                                {{ round(($totals[1]/$totals[0]) * 100,2) }}% On time percentage
+                            @endif
                         </div>
                         <div class="card alert-light text-center h3 p-5 shadow-sm w-100">
-                            {{ round(($totals[3]/$totals[0]) * 100,2) }}% Late percentage
+                            @if($totals[0])
+                                {{ round(($totals[3]/$totals[0]) * 100,2) }}% Late percentage
+                            @endif
                         </div>
                         <div class="card alert-light text-center h3 p-5 shadow-sm w-100">
-                            {{ round(($totals[2]/$totals[0]) * 100,2) }}% Absent percentage
+                            @if($totals[0])
+                                {{ round(($totals[2]/$totals[0]) * 100,2) }}% Absent percentage
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -97,7 +97,7 @@ class StaffController extends Controller
                                     </div>
                                     <div class='row m-2'>
                                         <div class='col'>
-                                            <h6 class='text-secondary'>Sex</h6>
+                                            <h6 class='text-secondary'>Gender</h6>
                                             <h2>".$applicant->sex."</h2>
                                         </div>
                                         <div class='col'>

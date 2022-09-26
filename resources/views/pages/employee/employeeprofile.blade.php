@@ -116,7 +116,7 @@
                 </div>
                 <div class="row mb-5 text-center">
                     <div class="col">
-                        <h6 class="text-secondary p-0 m-0">Sex</h6>
+                        <h6 class="text-secondary p-0 m-0">Gender</h6>
                         <h3 class=" p-0 m-0 text-secondary">{{ $profile->userDetail->sex }}</h3>
                     </div>
                     <div class="col">

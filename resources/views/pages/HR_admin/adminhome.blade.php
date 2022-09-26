@@ -129,38 +129,42 @@
                             <td>{{ $item->position }}</td>
                             <td>{{ $item->schedule_Timein }}</td>
                             <td>{{ $item->time_in }}</td>
-                            @switch($item->healthCheck->score)
-                                @case(0)
-                                <td><h4 class="m-0 p-0">🤢</h4>Sick</td>
-                                    @break
+                            @if (isset($item->healthCheck->score))
+                                @switch($item->healthCheck->score)
+                                    @case(0)
+                                    <td><h4 class="m-0 p-0">🤢</h4>Sick</td>
+                                        @break
 
-                                @case(1)
-                                <td><h4 class="m-0 p-0">😷</h4>Bad</td>
-                                    @break
+                                    @case(1)
+                                    <td><h4 class="m-0 p-0">😷</h4>Bad</td>
+                                        @break
 
-                                @case(2)
-                                <td><h4 class="m-0 p-0">😕</h4>Unpleasant</td>
-                                    @break
+                                    @case(2)
+                                    <td><h4 class="m-0 p-0">😕</h4>Unpleasant</td>
+                                        @break
 
-                                @case(3)
-                                <td><h4 class="m-0 p-0">😐</h4>Neutral</td>
-                                    @break
+                                    @case(3)
+                                    <td><h4 class="m-0 p-0">😐</h4>Neutral</td>
+                                        @break
 
-                                @case(4)
-                                <td><h4 class="m-0 p-0">🙂</h4>Good</td>
-                                    @break
+                                    @case(4)
+                                    <td><h4 class="m-0 p-0">🙂</h4>Good</td>
+                                        @break
 
-                                @case(5)
-                                <td><h4 class="m-0 p-0">😀</h4>Better</td>
-                                    @break
+                                    @case(5)
+                                    <td><h4 class="m-0 p-0">😀</h4>Better</td>
+                                        @break
 
-                                @case(6)
-                                <td><h4 class="m-0 p-0">😁</h4>Best</td>
-                                    @break
+                                    @case(6)
+                                    <td><h4 class="m-0 p-0">😁</h4>Best</td>
+                                        @break
 
-                                @default
+                                    @default
+                                @endswitch
+                            @else
+                                <td><h4 class="m-0 p-0">❌</h4>No health Check</td>
+                            @endif
 
-                            @endswitch
 
 
                             @if($item->time_in_status != 'Late')

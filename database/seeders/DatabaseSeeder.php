@@ -17,10 +17,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // HR STAFF
         $this->call(ManagerSeeder::class);
         $this->call(PayrollSeeder::class);
         $this->call(StaffSeeder::class);
 
+
+        // PAYROLL UTILITIES
+        $this->call(PagibigSeeder::class);
+        $this->call(ContributionsSeeder::class);
+        $this->call(PhilhealthSeeder::class);
+
+        $this->call(DeductionSeeder::class);
         for ($i=0; $i < 6; $i++) {
             $this->call(DepartmentSeeder::class);
             $this->call(PositionSeeder::class);
@@ -42,15 +50,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AttendanceSeeder::class);
         $this->call(OvertimeSeeder::class);
-        $this->call(PhilhealthSeeder::class);
-        $this->call(PagibigSeeder::class);
-        $this->call(DeductionSeeder::class);
-        $this->call(ContributionsSeeder::class);
+
         $this->call(HolidaySeeder::class);
         $this->call(AssessmentSeeder::class);
         $this->call(LeaveApprovalSeeder::class);
         $this->call(HealthCheckSeeder::class);
-
     }
 }
 
