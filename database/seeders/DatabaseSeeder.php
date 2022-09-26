@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         //}
 
         //for ($i=0; $i < 15; $i++) {
-            $this->call(CashadvanceSeeder::class);
+            $this->call(CashAdvanceSeeder::class);
         //    $this->call(BonusSeeder::class);
         //}
 
