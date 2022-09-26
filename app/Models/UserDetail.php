@@ -12,7 +12,8 @@ class UserDetail extends Model
     use HasFactory;
 
     protected $fillable = ['login_id','fname', 'mname','lname','sex','age','bday','cnum','email','picture'];
-    public $primaryKey = 'information_id';
+    public $keyType = 'bigint';
+public $primaryKey = 'information_id';
 
     // User Details With their respective login Credential
     public function UserCredential()

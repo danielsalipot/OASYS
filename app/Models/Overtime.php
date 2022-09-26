@@ -9,7 +9,8 @@ class Overtime extends Model
 {
     use HasFactory;
 
-    public $primaryKey = 'overtime_id';
+    public $keyType = 'bigint';
+public $primaryKey = 'overtime_id';
 
     protected $fillable = ['employee_id','attendance_id','payrollManager_id'];
 

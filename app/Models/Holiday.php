@@ -10,7 +10,8 @@ use App\Models\holiday_attendance;
 class Holiday extends Model
 {
     use HasFactory;
-    public $primaryKey = 'holiday_id';
+    public $keyType = 'bigint';
+public $primaryKey = 'holiday_id';
 
     protected $fillable = ['holiday_name','holiday_start_date','holiday_end_date'];
 
