@@ -9,6 +9,7 @@ class ApplicantDetail extends Model
 {
     use HasFactory;
     protected $fillable = ['login_id','information_id','educ','Applyingfor','resume'];
+    public $primaryKey = 'applicant_id';
 
     public function UserDetail(){
         return $this->hasOne(UserDetail::class,'information_id', 'information_id');
