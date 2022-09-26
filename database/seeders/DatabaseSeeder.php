@@ -30,22 +30,22 @@ class DatabaseSeeder extends Seeder
 
         $this->call(DeductionSeeder::class);
         for ($i=0; $i < 6; $i++) {
-           $this->call(DepartmentSeeder::class);
-           $this->call(PositionSeeder::class);
+            $this->call(DepartmentSeeder::class);
+            $this->call(PositionSeeder::class);
         }
 
         for ($i=0; $i < 20; $i++) {
-           $this->call(ApplicantSeeder::class);
-           $this->call(EmployeeSeeder::class);
+            $this->call(ApplicantSeeder::class);
+            $this->call(EmployeeSeeder::class);
         }
 
         for ($i=0; $i < 10; $i++) {
-           $this->call(MessageSeeder::class);
+            $this->call(MessageSeeder::class);
         }
 
         for ($i=0; $i < 15; $i++) {
             $this->call(CashAdvanceSeeder::class);
-           $this->call(BonusSeeder::class);
+            $this->call(BonusSeeder::class);
         }
 
         $this->call(AttendanceSeeder::class);
