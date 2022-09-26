@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StaffSeeder::class);
 
 
-         PAYROLL UTILITIES
+        //PAYROLL UTILITIES
         $this->call(PagibigSeeder::class);
         $this->call(ContributionsSeeder::class);
         $this->call(PhilhealthSeeder::class);
