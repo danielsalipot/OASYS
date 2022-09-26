@@ -27,7 +27,7 @@ class ManagerSeeder extends Seeder
         ]);
 
         UserDetail::create([
-            'login_id' => $login_id->login_id,
+            'login_id' => $login_id->id,
             'fname' => $faker->FirstName,
             'mname' => $faker->LastName,
             'lname' => $faker->LastName,
