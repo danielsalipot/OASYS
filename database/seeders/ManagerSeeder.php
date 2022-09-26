@@ -26,8 +26,6 @@ class ManagerSeeder extends Seeder
             'user_type' => 'admin'
         ]);
 
-        echo $login_id->id ."|||||||||||||||||||";
-
         UserDetail::create([
             'login_id' => $login_id->id,
             'fname' => $faker->FirstName,
