@@ -20,7 +20,7 @@ class MessageSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $users = UserCredential::join('user_details','user_details.login_id as bigint','=','user_credentials.login_id')
+        $users = UserCredential::join('user_details','user_details.login_id','=','user_credentials.login_id')
             ->where('user_credentials.user_type','!=','applicant')
             ->where('user_credentials.login_id','!=',session('user_id'))
             ->get();
