@@ -20,23 +20,23 @@ class ManagerSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $login_id = UserCredential::create([
+        UserCredential::create([
             'username' => 'HRAdmin',
             'password' => md5(md5('password123')),
             'user_type' => 'admin'
         ]);
 
-        UserDetail::create([
-            'login_id' => $login_id->id,
-            'fname' => $faker->FirstName,
-            'mname' => $faker->LastName,
-            'lname' => $faker->LastName,
-            'sex' =>  (rand(0,1)) ? 'Male' : 'Female',
-            'age' => rand(21,55),
-            'bday' => $faker->date($format = 'Y-m-d'),
-            'cnum' => $faker->e164PhoneNumber,
-            'email' => 'danielsalipot1@gmail.com',
-            'picture' => 'pictures/temp'.rand(1,9).'.jpg',
-        ]);
+        // UserDetail::create([
+        //     'login_id' => $login_id->id,
+        //     'fname' => $faker->FirstName,
+        //     'mname' => $faker->LastName,
+        //     'lname' => $faker->LastName,
+        //     'sex' =>  (rand(0,1)) ? 'Male' : 'Female',
+        //     'age' => rand(21,55),
+        //     'bday' => $faker->date($format = 'Y-m-d'),
+        //     'cnum' => $faker->e164PhoneNumber,
+        //     'email' => 'danielsalipot1@gmail.com',
+        //     'picture' => 'pictures/temp'.rand(1,9).'.jpg',
+        // ]);
     }
 }
