@@ -6,7 +6,7 @@
             <ul>
                 <li><a href="/admin/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill"></i></a></li>
                 <li><a href="/admin/attendance" class="nav-link py-3" title="Attendance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar-check"></i></a></li>
-                <li><a href="/admin/regulazation" class="nav-link py-3" title="Regularization" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-caret-up-square-fill"></i></a></li>
+                <li><a href="/admin/regularization" class="nav-link py-3" title="Regularization" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-caret-up-square-fill"></i></a></li>
                 <li><a href="/admin/performance" class="nav-link py-3" title="Performance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bar-chart-line-fill"></i></a></li>
                 <li><a href="/admin/orientation/module" class="nav-link py-3" title="Performance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-journal-bookmark"></i></a></li>
                 <li><a href="/admin/training/module" class="nav-link py-3" title="Performance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-briefcase-fill"></i></a></li>

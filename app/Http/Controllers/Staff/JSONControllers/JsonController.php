@@ -42,7 +42,7 @@ class JsonController extends Controller
         })
         ->addColumn('delete',function($data){
             $onboard ="
-            <form action='/staffDeleteApplicant' method='GET'>
+            <form action='/staffDeleteApplicant' onsubmit='return confirm(\"Do you really want to delete application #". $data->applicant_id ."?\");' method='GET'>
                 <input type='hidden' name='login_id' value='".$data->login_id."'>
                 <button type='submit' class='btn btn-outline-danger px-3 py-3'>
                 <i class='h4 bi bi-trash-fill'></i><br>
