@@ -47,7 +47,7 @@ class PayrollInsertController extends Controller
             'employee' => $employee->information_id,
             'activity' => 'Paid Overtime Attendance (ID:'.$request->attendance_id.')',
             'amount' => '-',
-            'tid' => $id->id,
+            'tid' => $id->overtime_id,
         ]);
 
         if(isset($request->chk)){
@@ -96,7 +96,7 @@ class PayrollInsertController extends Controller
                 'employee' => $employee_ids[$i],
                 'activity' => 'Added Deduction Name: '.$request->hidden_deduction_name,
                 'amount' => $request->hidden_deduction_amount,
-                'tid' => $id->id,
+                'tid' => $id->deduction_id,
             ]);
 
             if(isset($request->chk)){
@@ -190,7 +190,7 @@ class PayrollInsertController extends Controller
                 'employee' => $employee_ids[$i],
                 'activity' => 'Added Bonus',
                 'amount' => $request->hidden_bonus_amount,
-                'tid' => $id->id,
+                'tid' => $id->bonus_id,
             ]);
 
             if(isset($request->chk)){
@@ -234,7 +234,7 @@ class PayrollInsertController extends Controller
             'employee' => $request->hidden_emp_id,
             'activity' => $request->hidden_status.'X pay attendance (Attendance Id:'.$request->hidden_attendance_id.')',
             'amount' => '-',
-            'tid' => $id->id,
+            'tid' => $id->multi_pay_id,
         ]);
 
         if(isset($request->chk)){
@@ -291,7 +291,7 @@ class PayrollInsertController extends Controller
             'employee' => '',
             'activity' => $request->holiday_name . ' (' . $request->insert_start_date . ' - '. $request->insert_end_date.')',
             'amount' => '-',
-            'tid' => $id->id,
+            'tid' => $id->holiday_id,
         ]);
 
         return redirect('/payroll/holidays');
