@@ -9,7 +9,7 @@ class CashAdvance extends Model
 {
     use HasFactory;
     public $keyType = 'integer';
-public $primaryKey  = 'cashAdvance_id';
+    public $primaryKey  = 'cashAdvance_id';
 
     protected $fillable = ['payrollManager_id','employee_id','cash_advance_date','cashAdvance_amount'];
 }

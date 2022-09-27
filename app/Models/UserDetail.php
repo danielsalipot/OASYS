@@ -13,7 +13,7 @@ class UserDetail extends Model
 
     protected $fillable = ['login_id','fname', 'mname','lname','sex','age','bday','cnum','email','picture'];
     public $keyType = 'integer';
-public $primaryKey  = 'information_id';
+    public $primaryKey  = 'information_id';
 
     // User Details With their respective login Credential
     public function UserCredential()

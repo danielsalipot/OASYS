@@ -11,7 +11,7 @@ class Holiday extends Model
 {
     use HasFactory;
     public $keyType = 'integer';
-public $primaryKey  = 'holiday_id';
+    public $primaryKey  = 'holiday_id';
 
     protected $fillable = ['holiday_name','holiday_start_date','holiday_end_date'];
 

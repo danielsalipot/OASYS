@@ -9,6 +9,6 @@ class UserCredential extends Model
 {
     use HasFactory;
     public $keyType = 'integer';
-public $primaryKey  = 'login_id';
+    public $primaryKey  = 'login_id';
     protected $fillable = ['username','password','user_type'];
 }

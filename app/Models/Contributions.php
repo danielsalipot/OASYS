@@ -9,7 +9,7 @@ class Contributions extends Model
 {
     use HasFactory;
     public $keyType = 'integer';
-public $primaryKey  = 'contribution_id';
+    public $primaryKey  = 'contribution_id';
 
     protected $fillable = ['employee_contribution','employer_contribution','add_high','add_low','low_limit','high_limit'];
 }
