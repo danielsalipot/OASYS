@@ -45,6 +45,9 @@ class PayrollController extends Controller
             $file_arr_pr =[];
 
             foreach ($payroll_files as $key => $value) {
+                if($value == '.gitkeep'){
+                    continue;
+                }
                 array_push($btn_arr_pr,"<button id=\"".$key."\" class='w-100 p-4 btn btn-light m-2 text-wrap' onclick=\"display(this,'".$key."','".$value."')\">" . $value . "</button>");
                 array_push($file_arr_pr,"<iframe id=\""."file".$key ."\" src=\"/" . $payroll_dir . "/" . $value ."\" width=\"100%\" style=\"display:none;height:100%\"></iframe>");
             }
@@ -55,6 +58,9 @@ class PayrollController extends Controller
 
             $sub_btn_arr_ps =[];
             foreach ($payslip_folders as $key => $value) {
+                if($value == '.gitkeep'){
+                    continue;
+                }
                 $key -= 2;
                 $btn = '<button id="ps_folder" onclick="folder(this,'. $key .')" class="btn btn-light w-100 p-3">'.$value.'</button>';
                 array_push($sub_btn_arr_ps,$btn);
@@ -68,6 +74,7 @@ class PayrollController extends Controller
                     continue;
                 }
             }
+
 
             $options = [];
             foreach ($payslip_files as $key1 => $files_arr) {

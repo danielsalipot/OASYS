@@ -30,14 +30,12 @@
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Payslip History</h1>
     <div class="d-flex flex-row flex-wrap">
 
-        @if(count($sub_btn_arr_ps))
-            @for ($i=0;$i < count($sub_btn_arr_ps);$i++)
-                <div class="col-4 bg-dark p-0 shadow-lg" id="payslip_history" style="overflow-y:scroll; overflow-x:hidden; height:300px;">
-                    {!! $sub_btn_arr_ps[$i] !!}
-                    {!! $options[$i] !!}
-                </div>
-            @endfor
-        @endif
+        @for ($i=0;$i < count($sub_btn_arr_ps);$i++)
+            <div class="col-4 bg-dark p-0 shadow-lg" id="payslip_history" style="overflow-y:scroll; overflow-x:hidden; height:300px;">
+                {!! $sub_btn_arr_ps[$i] !!}
+                {!! $options[$i] !!}
+            </div>
+        @endfor
     </div>
 @endsection
 
