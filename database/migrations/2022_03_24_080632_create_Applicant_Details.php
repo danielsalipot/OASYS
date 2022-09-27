@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('applicant_details', function (Blueprint $table) {
             $table->id('applicant_id');
-            $table->string('login_id');
-            $table->string('information_id');
+            $table->bigInteger('login_id');
+            $table->bigInteger('information_id');
             $table->string('educ');
             $table->string('Applyingfor');
             $table->string('resume');

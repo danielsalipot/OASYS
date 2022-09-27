@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('interviews', function (Blueprint $table) {
             $table->id();
-            $table->string('applicant_id');
+            $table->bigInteger('applicant_id');
             $table->string('interview_detail');
             $table->dateTime('interview_schedule');
             $table->string('response_status')->nullable();

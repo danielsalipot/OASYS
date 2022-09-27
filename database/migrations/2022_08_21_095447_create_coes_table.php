@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('coes', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
+            $table->bigInteger('employee_id');
             $table->string('fname');
             $table->string('mname');
             $table->string('lname');

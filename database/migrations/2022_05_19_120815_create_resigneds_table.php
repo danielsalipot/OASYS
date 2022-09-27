@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('resigneds', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
+            $table->bigInteger('employee_id');
             $table->string('resignation_path');
             $table->integer('status')->nullable();
             $table->date('update_date')->nullable();
-            $table->string('manager_id')->nullable();
+            $table->bigInteger('manager_id')->nullable();
             $table->timestamps();
         });
     }

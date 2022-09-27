@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('overtime_approvals', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
-            $table->string('attendance_id');
+            $table->bigInteger('employee_id');
+            $table->bigInteger('attendance_id');
             $table->date('overtime_date');
             $table->longText('message');
             $table->date('approval_date')->nullable();
-            $table->string('approver_id')->nullable();
+            $table->bigInteger('approver_id')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
         });

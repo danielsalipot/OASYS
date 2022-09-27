@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('terminateds', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
+            $table->bigInteger('employee_id');
             $table->timestamps();
         });
     }

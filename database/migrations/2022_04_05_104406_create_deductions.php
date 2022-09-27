@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('deductions', function (Blueprint $table) {
             $table->id('deduction_id');
-            $table->string('payrollManager_id');
-            $table->string('employee_id');
+            $table->bigInteger('payrollManager_id');
+            $table->bigInteger('employee_id');
             $table->string('deduction_name');
             $table->date('deduction_start_date');
             $table->date('deduction_end_date');

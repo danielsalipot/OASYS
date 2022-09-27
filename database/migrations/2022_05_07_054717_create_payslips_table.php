@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('payslips', function (Blueprint $table) {
             $table->id();
-            $table->string('payroll_id');
-            $table->string('employee_id');
+            $table->bigInteger('payroll_id');
+            $table->bigInteger('employee_id');
             $table->string('net_pay');
             $table->date('payroll_date');
             $table->string('file_name');

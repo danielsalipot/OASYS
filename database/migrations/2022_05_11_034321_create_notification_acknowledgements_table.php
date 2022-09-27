@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('notification_acknowledgements', function (Blueprint $table) {
             $table->id();
-            $table->string('notification_receiver_id');
+            $table->bigInteger('notification_receiver_id');
             $table->timestamps();
         });
     }

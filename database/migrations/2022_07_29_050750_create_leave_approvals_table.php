@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('leave_approvals', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
-            $table->string('approver_id')->nullable();
+            $table->bigInteger('employee_id');
+            $table->bigInteger('approver_id')->nullable();
             $table->date('approval_date')->nullable();
             $table->date('start_date');
             $table->date('end_date');

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
-            $table->string('attendance_id');
-            $table->string('payrollManager_id');
+            $table->bigInteger('employee_id');
+            $table->bigInteger('attendance_id');
+            $table->bigInteger('payrollManager_id');
             $table->timestamps();
         });
     }

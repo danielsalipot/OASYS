@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('employee_details', function (Blueprint $table) {
             $table->id('employee_id');
-            $table->string('login_id');
-            $table->string('information_id');
+            $table->bigInteger('login_id');
+            $table->bigInteger('information_id');
             $table->string('educ');
             $table->string('position');
             $table->string('department');

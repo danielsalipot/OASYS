@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('health_checks', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
+            $table->bigInteger('employee_id');
             $table->integer('score');
-            $table->string('attendance_id');
+            $table->bigInteger('attendance_id');
             $table->timestamps();
         });
     }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('bonuses', function (Blueprint $table) {
             $table->id('bonus_id');
-            $table->string('payrollManager_id');
-            $table->string('employee_id');
+            $table->bigInteger('payrollManager_id');
+            $table->bigInteger('employee_id');
             $table->date('bonus_date');
             $table->decimal('bonus_amount',9,2);
             $table->timestamps();

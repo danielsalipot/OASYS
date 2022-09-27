@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id('message_id');
-            $table->string('sender_id');
-            $table->string('receiver_id');
+            $table->bigInteger('sender_id');
+            $table->bigInteger('receiver_id');
             $table->LONGTEXT('message');
             $table->integer('read_status')->nullable();
             $table->dateTime('read_date')->nullable();

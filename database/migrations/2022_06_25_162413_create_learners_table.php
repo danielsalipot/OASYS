@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('learners', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id');
-            $table->string('video_id');
+            $table->bigInteger('employee_id');
+            $table->bigInteger('video_id');
             $table->string('module');
             $table->string('progress');
             $table->date('start_date');

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('cash_advances', function (Blueprint $table) {
             $table->id('cashAdvances_id');
-            $table->string('payrollManager_id');
-            $table->string('employee_id');
+            $table->bigInteger('payrollManager_id');
+            $table->bigInteger('employee_id');
             $table->date('cash_advance_date');
             $table->decimal('cashAdvance_amount',9,2);
             $table->timestamps();
