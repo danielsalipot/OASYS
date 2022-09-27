@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CashAdvance extends Model
 {
     use HasFactory;
-    public $primaryKey  = 'cashAdvance_id';
+    public $primaryKey  = 'cashAdvances_id';
     protected $keyType = 'string';
 
 
