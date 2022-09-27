@@ -128,6 +128,7 @@ class PayrollInsertController extends Controller
 
     function InsertCashAdvance(Request $request)
     {
+        return $request->session()->get('user_id');
         $employee_ids = explode(';',$request->hidden_emp_id);
         for ($i=0; $i < count($employee_ids) - 1 ; $i++) {
             $id = CashAdvance::create([

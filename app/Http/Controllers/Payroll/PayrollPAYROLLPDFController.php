@@ -224,7 +224,7 @@ class PayrollPAYROLLPDFController extends Controller
             //delete all approval
             payroll_approval::where('payroll_id',$check->id)->delete();
             //delete payroll record
-            Payroll::where('filename',"/payrolls/payroll(" . $request->pr_col2 .").pdf")->delete();
+            Payroll::where('filename',"payrolls/payroll(" . $request->pr_col2 .").pdf")->delete();
         }
 
         //insert new
