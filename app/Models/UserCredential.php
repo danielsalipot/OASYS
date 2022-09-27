@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserCredential extends Model
 {
     use HasFactory;
-    public $keyType = 'integer';
+    public $keyType = 'string';
     public $primaryKey  = 'login_id';
     protected $fillable = ['username','password','user_type'];
 }

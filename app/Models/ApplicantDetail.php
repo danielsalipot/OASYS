@@ -9,7 +9,7 @@ class ApplicantDetail extends Model
 {
     use HasFactory;
     protected $fillable = ['login_id','information_id','educ','Applyingfor','resume'];
-    public $keyType = 'integer';
+    public $keyType = 'string';
     public $primaryKey  = 'applicant_id';
 
     public function UserDetail(){
