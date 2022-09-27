@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class holiday_attendance extends Model
 {
     use HasFactory;
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
     protected $fillable = ['holiday_id','attendance_id','payrollManager_id'];
 }

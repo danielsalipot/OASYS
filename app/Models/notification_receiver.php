@@ -10,7 +10,7 @@ use App\Models\notification_message;
 class notification_receiver extends Model
 {
     use HasFactory;
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
     protected $fillable = ['receiver_id','notification_messages_id'];
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
     protected $fillable = ['department_name'];
 }

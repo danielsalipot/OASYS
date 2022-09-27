@@ -17,7 +17,7 @@ class EmployeeDetail extends Model
 {
     use HasFactory;
     public $primaryKey  = 'employee_id';
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
 
     protected $fillable = ['login_id','information_id','educ','position','department','employment_status','resume','rate','start_date','schedule_days','schedule_Timein','schedule_Timeout',

@@ -9,7 +9,7 @@ class Attendance extends Model
 {
     use HasFactory;
     public $primaryKey  = 'attendance_id';
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
 
     protected $fillable = ['employee_id','time_in','time_out','attendance_day','attendance_date'];

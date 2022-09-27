@@ -9,7 +9,7 @@ class Deduction extends Model
 {
     use HasFactory;
     public $primaryKey  = 'deduction_id';
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
 
     protected $fillable = ['payrollManager_id','employee_id','deduction_name','deduction_start_date','deduction_end_date','deduction_amount'];

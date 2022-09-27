@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class HealthCheck extends Model
 {
     use HasFactory;
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
     protected $fillable = ['employee_id','score','attendance_id'];
 }

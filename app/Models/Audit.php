@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Audit extends Model
 {
     use HasFactory;
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
     protected $fillable = ['payroll_manager_id','activity_type','type','activity','amount','tid','employee'];
 

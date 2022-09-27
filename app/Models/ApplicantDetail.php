@@ -10,7 +10,7 @@ class ApplicantDetail extends Model
     use HasFactory;
     protected $fillable = ['login_id','information_id','educ','Applyingfor','resume'];
     public $primaryKey  = 'applicant_id';
-    public $keyType = 'string';
+    protected $keyType = 'string';
 
 
     public function UserDetail(){
