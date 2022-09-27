@@ -9,4 +9,7 @@ class Login extends Model
 {
     protected $table = 'login_tbl';
     use HasFactory;
+
+    public $keyType = 'string';
+
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class notification_acknowledgements extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
 
     protected $fillable = ['notification_receiver_id'];
 }

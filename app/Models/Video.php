@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Video extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
 
     protected $fillable = ['title','category','order','description','path'];
 }

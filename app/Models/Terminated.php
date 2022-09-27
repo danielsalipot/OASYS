@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Terminated extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
+
     protected $fillable = ['employee_id'];
 }

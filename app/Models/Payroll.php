@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payroll extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
+
     protected $fillable = ['filename','payroll_manager_id','from_date','to_date','height_reference'];
 }

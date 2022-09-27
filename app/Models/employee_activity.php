@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class employee_activity extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
 
     protected $fillable = ['employee_id','description','activity_date'];
 

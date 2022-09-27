@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Pagibig extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
+
 }

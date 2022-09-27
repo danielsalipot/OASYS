@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Regular extends Model
 {
+
     use HasFactory;
+    public $keyType = 'string';
+
     protected $fillable = ['employee_id'];
 }

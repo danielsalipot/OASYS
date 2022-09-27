@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class leave_approval extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
 
     protected $fillable = ['employee_id', 'approver_id','approval_date','start_date','end_date','status','title','detail'];
 }

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class philhealth extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
+
 }

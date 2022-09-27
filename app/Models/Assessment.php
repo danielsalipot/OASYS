@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Assessment extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
     protected $fillable = ['employee_id','assessment_type','score','feedback','year','quarter','start_date','end_date'];
 }

@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class payroll_approval extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
+
     protected $fillable = ['payroll_id','payroll_sign','status'];
 }

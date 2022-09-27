@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Offboardee extends Model
 {
     use HasFactory;
+    public $keyType = 'string';
+
     protected $fillable = ['employee_id'];
 }
