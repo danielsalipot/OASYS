@@ -62,7 +62,11 @@ class PayrollController extends Controller
 
             $payslip_files = []; //Lahat ng files
             foreach ($payslip_folders as $key => $value) {
-                array_push($payslip_files, array_diff(scandir($payslip_dir."/".$value), array('.', '..')));
+                try {
+                    array_push($payslip_files, array_diff(scandir($payslip_dir."/".$value), array('.', '..')));
+                } catch (\Throwable $th) {
+                    continue;
+                }
             }
 
             $options = [];
