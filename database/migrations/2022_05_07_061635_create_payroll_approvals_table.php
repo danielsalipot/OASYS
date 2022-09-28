@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('payroll_approvals', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('payroll_id');
-            $table->string('payroll_sign');
+            $table->bigInteger('payroll_sign');
             $table->integer('status');
             $table->timestamps();
         });
