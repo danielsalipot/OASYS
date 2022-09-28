@@ -10,7 +10,7 @@
                 </div>
                 <div class="col p-2">
 
-                    <form id="fileUploadForm" method="POST" action="{{ url('/insertLesson') }}" enctype="multipart/form-data">
+                    <form id="fileUploadForm" method="get" action="{{ url('/insertLesson') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-2">
                         <label for="video" class="form-label h6 pt-3">Upload Video</label>
