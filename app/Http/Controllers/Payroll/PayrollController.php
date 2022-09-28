@@ -235,6 +235,8 @@ class PayrollController extends Controller
             // PAYROLL HTML
             $payroll_dir = 'payrolls';
             $payroll_files = array_diff(scandir($payroll_dir), array('.', '..'));
+            array_splice($payroll_files, 0, 1);
+
             usort($payroll_files, function($x, $y) {
                 return filectime("payrolls/".$x) > filectime("payrolls/".$y);
             });
