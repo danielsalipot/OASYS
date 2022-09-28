@@ -47,7 +47,7 @@ class AdminJSONController extends Controller
     }
 
     public function regularizationEmployeeList(){
-        $employeeDetails = EmployeeDetail::with('UserDetail')->where('employment_status','onboardee')->get();
+        $employeeDetails = EmployeeDetail::with('UserDetail')->where('employee_details.employment_status','onboardee')->get();
         $assessment_category = ['attendance','performance','character','cooperation'];
 
         foreach ($employeeDetails as $key => $employee) {
