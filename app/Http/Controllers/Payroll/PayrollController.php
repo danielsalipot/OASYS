@@ -41,6 +41,8 @@ class PayrollController extends Controller
             // PAYROLL HTML
             $payroll_dir = 'payrolls';
             $payroll_files = array_diff(scandir($payroll_dir), array('.', '..'));
+            array_splice($payroll_files,0,1);
+
             $btn_arr_pr =[];
             $file_arr_pr =[];
 
@@ -61,7 +63,7 @@ class PayrollController extends Controller
                 if($value == '.gitkeep'){
                     continue;
                 }
-                $key -= 2;
+                $key -= 3;
                 $btn = '<button id="ps_folder" onclick="folder(this,'. $key .')" class="btn btn-light w-100 p-3">'.$value.'</button>';
                 array_push($sub_btn_arr_ps,$btn);
             }
@@ -82,13 +84,15 @@ class PayrollController extends Controller
                     foreach ($files_arr as $key2 => $file_name) {
                         $str .= '
                             <form action="/payroll/history/payslip" target="_blank" method="GET">
-                            <input type="hidden" id="path" name="path" value="/'.$payslip_dir.'/'.$payslip_folders[$key1 + 2].'/'.  $file_name .'">
+                            <input type="hidden" id="path" name="path" value="/'.$payslip_dir.'/'.$payslip_folders[$key1 + 3].'/'.  $file_name .'">
                             <button type="submit" class="btn btn-outline-light w-100 m-0">'.$file_name.'</button>
                             </form>';
                     }
                 $str .= '</div>';
                 array_push($options,$str);
             }
+
+
 
             return view('pages.payroll_manager.pr_history')->with(['profile'=>$profile, 'btn_arr_pr' => $btn_arr_pr, 'file_arr_pr' => $file_arr_pr, 'sub_btn_arr_ps'=>$sub_btn_arr_ps,'options'=>$options]);
         }

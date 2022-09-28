@@ -43,6 +43,7 @@
 <script>
 
     function folder(btn,key){
+        console.log(key)
         $(`#folder${key}`).toggleClass('d-none')
     }
 
