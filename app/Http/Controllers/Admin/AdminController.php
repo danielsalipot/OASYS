@@ -683,7 +683,7 @@ class AdminController extends Controller
         foreach ($files_arr as $key => $value) {
             if ($handle = opendir("LegalForms/$key/")) {
                 while (false !== ($entry = readdir($handle))) {
-                    if ($entry != "." && $entry != ".." && $entry != 'upload') {
+                    if ($entry != "." && $entry != ".." && $entry != 'upload' && $entry != '.gitkeep') {
                         array_push($files_arr[$key]['files'],["name" => "$entry","path"=>"LegalForms/$key/".$entry]);
                     }
                 }
@@ -695,7 +695,7 @@ class AdminController extends Controller
         foreach ($accomplished_files_arr as $key => $value) {
             if ($handle = opendir("LegalForms/$key/upload/")) {
                 while (false !== ($entry = readdir($handle))) {
-                    if ($entry != "." && $entry != ".." && $entry != 'upload') {
+                    if ($entry != "." && $entry != ".." && $entry != 'upload' && $entry != '.gitkeep') {
                         array_push($accomplished_files_arr[$key]['files'],["name" => "$entry","path"=>"LegalForms/$key/upload/".$entry]);
                     }
                 }
