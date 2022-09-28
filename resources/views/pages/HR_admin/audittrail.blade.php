@@ -148,7 +148,10 @@
                         },
                         { data: 'tid',
                             render : (data,type,row)=>{
-                                return `<b>${data}</b>`
+                                if(data){
+                                    return `<b>${data}</b>`
+                                }
+                                return `-`
                             }
                         },
                     ]
