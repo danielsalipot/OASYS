@@ -37,7 +37,7 @@ class StaffController extends Controller
             ->where('interviews.interview_schedule','like', date("Y-m-d", strtotime($date. ' + 8 hours'))."%")
             ->get();
 
-        return view('pages.hr_staff.staffhome')
+        return view('pages.HR_staff.staffhome')
             ->with(['applicants'=>$applicants,
                 'app_count'=>$app_count,
                 'off_count'=>$off_count,
@@ -248,7 +248,7 @@ class StaffController extends Controller
             </div>";
             array_push($modals,$modal);
         }
-        return view('pages.hr_staff.onboarding')->with(['profile'=>$profile,'modals'=>$modals]);
+        return view('pages.HR_staff.onboarding')->with(['profile'=>$profile,'modals'=>$modals]);
     }
 
     function termination(){
@@ -259,7 +259,7 @@ class StaffController extends Controller
             $value->employee = EmployeeDetail::with('UserDetail')->where('employee_id',$value->employee_id)->first();
         }
 
-        return view('pages.hr_staff.termination')->with([
+        return view('pages.HR_staff.termination')->with([
             'profile' => $profile,
             'resigneds' => $resigneds
         ]);
@@ -267,17 +267,17 @@ class StaffController extends Controller
 
     function offboarding(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_staff.offboarding')->with(['profile'=>$profile]);
+        return view('pages.HR_staff.offboarding')->with(['profile'=>$profile]);
     }
 
     function schedules(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_staff.schedules')->with(['profile'=>$profile]);
+        return view('pages.HR_staff.schedules')->with(['profile'=>$profile]);
     }
 
     function interview(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_staff.interview')->with(['profile'=>$profile]);
+        return view('pages.HR_staff.interview')->with(['profile'=>$profile]);
     }
 
     function department(){
@@ -297,7 +297,7 @@ class StaffController extends Controller
             Delete
             </button>";
         }
-        return view('pages.hr_staff.department')->with(['profile'=>$profile,'departments'=>$departments,'all_dept'=>$all_dept]);
+        return view('pages.HR_staff.department')->with(['profile'=>$profile,'departments'=>$departments,'all_dept'=>$all_dept]);
     }
 
 
@@ -312,7 +312,7 @@ class StaffController extends Controller
             Delete
             </button>";
         }
-        return view('pages.hr_staff.position')->with(['profile'=>$profile, 'positions'=>$positions]);
+        return view('pages.HR_staff.position')->with(['profile'=>$profile, 'positions'=>$positions]);
     }
 
     function audittrail(){

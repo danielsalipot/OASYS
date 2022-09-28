@@ -68,7 +68,7 @@ class AdminController extends Controller
             $value->duration = date_diff($start_date,$end_date);
         }
 
-        return view('pages.hr_admin.adminhome')->with([
+        return view('pages.HR_admin.adminhome')->with([
             'attendance_today' => $attendance_today,
             'employee_scheduled_count' => $employee_scheduled_count,
             'videos' => $category,
@@ -145,7 +145,7 @@ class AdminController extends Controller
 
         $all_time_attendance = $this->getAttendance();
 
-        return view('pages.hr_admin.attendance')->with([
+        return view('pages.HR_admin.attendance')->with([
             'profile' => $profile,
             'employee' => $employee,
             'time_in' => $time_in,
@@ -281,14 +281,14 @@ class AdminController extends Controller
 
     public function regularization(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_admin.regularization')->with([
+        return view('pages.HR_admin.regularization')->with([
             'profile' => $profile,
         ]);
     }
 
     public function regularization_main($name){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_admin.regularization')->with([
+        return view('pages.HR_admin.regularization')->with([
             'profile' => $profile,
             'name' => $name
         ]);
@@ -296,7 +296,7 @@ class AdminController extends Controller
 
     public function performance(){
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_admin.performance')->with([
+        return view('pages.HR_admin.performance')->with([
             'profile' => $profile
         ]);
     }
@@ -348,7 +348,7 @@ class AdminController extends Controller
             ->orderBy('order','ASC')
             ->get();
 
-        return view('pages.hr_admin.module')->with([
+        return view('pages.HR_admin.module')->with([
             'videos'=>$videos,
             'category' => $category,
             'inprogress'=>$inprogress,
@@ -360,7 +360,7 @@ class AdminController extends Controller
     public function addorientation(){
         $category = 'orientation';
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_admin.addlesson')->with([
+        return view('pages.HR_admin.addlesson')->with([
             'category'=>$category,
             'profile' => $profile
         ]);
@@ -370,7 +370,7 @@ class AdminController extends Controller
         $category = 'orientation';
         $profile = UserDetail::where('login_id',session('user_id'))->first();
         $video = Video::find($id);
-        return view('pages.hr_admin.edit_lesson')->with([
+        return view('pages.HR_admin.edit_lesson')->with([
             'category'=>$category,
             'video'=>$video,
             'profile' => $profile
@@ -426,7 +426,7 @@ class AdminController extends Controller
         }
 
         $videos = Video::where('category',$category)->get();
-        return view('pages.hr_admin.module')->with([
+        return view('pages.HR_admin.module')->with([
             'videos'=>$videos,
             'category' => $category,
             'inprogress'=>$inprogress,
@@ -438,7 +438,7 @@ class AdminController extends Controller
     public function editlessoncorrection($id){
         $category = 'correction';
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_admin.edit_lesson')->with([
+        return view('pages.HR_admin.edit_lesson')->with([
             'category'=>$category,
             'profile' => $profile
         ]);
@@ -496,7 +496,7 @@ class AdminController extends Controller
         }
 
         $videos = Video::where('category',$category)->get();
-        return view('pages.hr_admin.module')->with([
+        return view('pages.HR_admin.module')->with([
             'videos'=>$videos,
             'category' => $category,
             'inprogress'=>$inprogress,
@@ -508,7 +508,7 @@ class AdminController extends Controller
     public function addtraining(){
         $category = 'training';
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_admin.addlesson')->with([
+        return view('pages.HR_admin.addlesson')->with([
             'category'=>$category,
             'profile' => $profile
         ]);
@@ -517,7 +517,7 @@ class AdminController extends Controller
     public function editlessontraining($id){
         $category = 'training';
         $profile = UserDetail::where('login_id',session('user_id'))->first();
-        return view('pages.hr_admin.edit_lesson')->with([
+        return view('pages.HR_admin.edit_lesson')->with([
             'category'=>$category,
             'profile' => $profile
         ]);
