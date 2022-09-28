@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class AdminInsertController extends Controller
 {
     public function insertLesson(Request $request){
-        return $request->file('video_file')->getClientOriginalExtension();
+        return $request->video_file;
         try {
             //FILE NAMES user id + file extension
             $videoFileName =  $request->title.".".$request->file('video_file')->getClientOriginalExtension();
