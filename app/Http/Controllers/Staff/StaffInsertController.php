@@ -32,7 +32,6 @@ class StaffInsertController extends Controller
         Audit::create(['activity_type' => 'staff',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Department',
-            'employee' =>  ' - ',
             'activity' => 'Added new department',
             'amount' => $request->dept_name,
 
@@ -55,7 +54,6 @@ class StaffInsertController extends Controller
         Audit::create(['activity_type' => 'staff',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Position',
-            'employee' =>  ' - ',
             'activity' => 'Added new position',
             'amount' => $request->pos_title,
 

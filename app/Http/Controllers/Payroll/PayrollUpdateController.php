@@ -310,7 +310,7 @@ class PayrollUpdateController extends Controller
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'SSS',
-            'employee' => ' - ',
+
             'activity' => $str,
             'amount' => '-',
 
@@ -356,7 +356,7 @@ class PayrollUpdateController extends Controller
             Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Philhealth',
-                'employee' => ' - ',
+
                 'activity' => $str,
                 'amount' => ' - ',
 
@@ -395,7 +395,7 @@ class PayrollUpdateController extends Controller
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Pagibig',
-            'employee' => ' - ',
+
             'activity' => $str,
             'amount' => ' - ',
 

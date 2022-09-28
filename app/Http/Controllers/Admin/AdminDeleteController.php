@@ -22,7 +22,6 @@ class AdminDeleteController extends Controller
         Audit::create(['activity_type' => 'admin',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Video',
-            'employee' =>  '',
             'activity' => 'Remove a lesson on ' . $video->category,
             'amount' => $video->title,
             'tid' => $video->id,

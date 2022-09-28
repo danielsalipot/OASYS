@@ -37,7 +37,7 @@ class AdminInsertController extends Controller
             Audit::create(['activity_type' => 'admin',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => $request->category,
-                'employee' => '',
+
                 'activity' => 'Added a new lesson on '. $request->category,
                 'amount' => '',
 

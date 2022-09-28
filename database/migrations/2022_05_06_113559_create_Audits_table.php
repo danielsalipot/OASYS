@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('payroll_manager_id');
             $table->string('activity_type');
             $table->string('type');
-            $table->string('employee');
+            $table->bigInteger('employee')->nullable();
             $table->string('activity');
             $table->string('amount');
             $table->bigInteger('tid')->nullable();

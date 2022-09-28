@@ -288,7 +288,7 @@ class PayrollInsertController extends Controller
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Listed Holiday',
-            'employee' => '',
+
             'activity' => $request->holiday_name . ' (' . $request->insert_start_date . ' - '. $request->insert_end_date.')',
             'amount' => '-',
             'tid' => $id->holiday_id,

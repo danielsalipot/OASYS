@@ -29,7 +29,6 @@ class AdminEditController extends Controller
         Audit::create(['activity_type' => 'admin',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Lesson',
-            'employee' =>  ' - ',
             'activity' => 'Updated a lesson on ' . Video::find($request->id)->category,
             'amount' => Video::find($request->id)->title,
 

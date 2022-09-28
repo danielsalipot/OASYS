@@ -207,7 +207,7 @@ class PayrollPAYROLLPDFController extends Controller
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Payroll',
-            'employee' => ' - ',
+
             'activity' => 'Generated Payroll Summary',
             'amount' => '-',
 

@@ -237,7 +237,7 @@ class PayrollDeleteController extends Controller
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Holiday',
-            'employee' => ' - ',
+
             'activity' => 'Unlisted Holiday ('.$holiday->holiday_name.')',
             'amount' => '-',
             'tid' => $holiday->holiday_id,

@@ -143,7 +143,7 @@ class ApprovalPDFController extends Controller
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Approval',
-            'employee' => ' - ',
+
             'activity' => $str.': '.$filename[2],
             'amount' => '-',
 
