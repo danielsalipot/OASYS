@@ -10,7 +10,7 @@
                 </div>
                 <div class="col p-2">
 
-                    <form id="fileUploadForm" method="get" action="{{ url('/insertLesson') }}" enctype="multipart/form-data">
+                    <form id="fileUploadForm" method="POST" action="{{ url('/insertLesson') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-2">
                         <label for="video" class="form-label h6 pt-3">Upload Video</label>
@@ -57,30 +57,30 @@
                     </video>`)
             }
 
-            $(function () {
-                $(document).ready(function () {
-                    $('#fileUploadForm').ajaxForm({
-                        beforeSend: function () {
-                            var percentage = '0';
-                        },
-                        uploadProgress: function (event, position, total, percentComplete) {
-                            var percentage = percentComplete;
-                            $('.progress .progress-bar').css("width", percentage+'%', function() {
-                                return $(this).attr("aria-valuenow", percentage) + "%";
-                            })
-                        },
-                        success: function(data){
-                            if(data == 'upload success'){
-                                alert(data)
-                                window.location.href = "/admin/{{$category}}/module";
-                            }else{
-                                console.log(data)
-                                alert('Some Fields Are Missing')
-                            }
-                        }
-                    });
-                });
-            });
+            // $(function () {
+            //     $(document).ready(function () {
+            //         $('#fileUploadForm').ajaxForm({
+            //             beforeSend: function () {
+            //                 var percentage = '0';
+            //             },
+            //             uploadProgress: function (event, position, total, percentComplete) {
+            //                 var percentage = percentComplete;
+            //                 $('.progress .progress-bar').css("width", percentage+'%', function() {
+            //                     return $(this).attr("aria-valuenow", percentage) + "%";
+            //                 })
+            //             },
+            //             success: function(data){
+            //                 if(data == 'upload success'){
+            //                     alert(data)
+            //                     window.location.href = "/admin/{{$category}}/module";
+            //                 }else{
+            //                     console.log(data)
+            //                     alert('Some Fields Are Missing')
+            //                 }
+            //             }
+            //         });
+            //     });
+            // });
         </script>
 
 @if ($category == 'orientation')
