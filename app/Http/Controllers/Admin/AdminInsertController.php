@@ -44,7 +44,7 @@ class AdminInsertController extends Controller
             ]);
 
         } catch (\Throwable $th) {
-            return 'error';
+            return $th;
         }
     }
 

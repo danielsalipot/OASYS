@@ -76,7 +76,6 @@
                             }else{
                                 console.log(data)
                                 alert('Some Fields Are Missing')
-                                location.reload()
                             }
                         }
                     });
