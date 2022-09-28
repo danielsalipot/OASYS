@@ -8,7 +8,7 @@
     <title>OASYS</title>
 
     @include('inc.datatables')
-    @include('inc.navincludes')
+    @include('inc.navIncludes')
 </head>
 <body>
     @if (!session('user_id') || session('user_type') != 'admin')

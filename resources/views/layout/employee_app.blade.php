@@ -12,7 +12,7 @@
     @endif
 
     @include('inc.datatables')
-    @include('inc.navincludes')
+    @include('inc.navIncludes')
     @include('inc.employee_navbar')
     <div class="row mt-4">
         <div class="col w-100">

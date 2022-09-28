@@ -8,7 +8,7 @@
 </head>
 <body>
     @include('inc.datatables')
-    @include('inc.navincludes')
+    @include('inc.navIncludes')
 
     @if (!session('user_id') || session('user_type') == 'applicant')
         {!! '<script>window.location.replace("/logout");</script>' !!}
