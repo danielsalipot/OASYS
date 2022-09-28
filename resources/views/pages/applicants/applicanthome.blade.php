@@ -11,7 +11,7 @@
     @endif
 
     <div class="row w-100 p-4"></div>
-    <div class='row m-3 card shadow-sm' style="z-index: 9999">
+    <div class='row m-3 card shadow-sm' style="z-index: 9998">
         <div class='row m-auto'>
             <h1 class='section-title W-100 py-3 text-center'>Applicant Dasboard</h1>
         </div>
@@ -152,7 +152,7 @@
     <!-- Button trigger modal -->
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" style="z-index: 9999" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
