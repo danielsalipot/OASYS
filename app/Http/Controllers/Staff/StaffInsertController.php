@@ -35,7 +35,7 @@ class StaffInsertController extends Controller
             'employee' =>  ' - ',
             'activity' => 'Added new department',
             'amount' => $request->dept_name,
-            'tid' => '',
+
         ]);
 
         return back()->with('success','The action was recorded successfully');
@@ -58,7 +58,7 @@ class StaffInsertController extends Controller
             'employee' =>  ' - ',
             'activity' => 'Added new position',
             'amount' => $request->pos_title,
-            'tid' => '',
+
         ]);
 
         return back()->with('success','The action was recorded successfully');
@@ -85,7 +85,7 @@ class StaffInsertController extends Controller
             'employee' =>  $applicant_detail->fname ." ". $applicant_detail->mname ." ". $applicant_detail->lname,
             'activity' => 'Added interview schedule',
             'amount' => 'Date: ' . $request->sched,
-            'tid' => '',
+
         ]);
 
 
@@ -208,7 +208,7 @@ class StaffInsertController extends Controller
                 'employee' =>  $detail->fname ." ". $detail->mname ." ". $detail->lname,
                 'activity' => 'Onboarded new employee',
                 'amount' => '-',
-                'tid' => '',
+
             ]);
 
             UserCredential::where('login_id',$applicant_detail->login_id)->update(['user_type'=>'employee']);
@@ -233,7 +233,7 @@ class StaffInsertController extends Controller
             'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
             'activity' => 'Cleared offboardee for clearance',
             'amount' => ' - ',
-            'tid' => '',
+
         ]);
 
         $head = 'Cleared for clearance';
@@ -281,7 +281,7 @@ class StaffInsertController extends Controller
             'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
             'activity' => 'Offboarding an employee',
             'amount' => $request->term_type,
-            'tid' => '',
+
         ]);
 
         $head = 'Employment status change to offboardee';

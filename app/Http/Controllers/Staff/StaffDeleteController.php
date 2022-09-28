@@ -51,7 +51,7 @@ class StaffDeleteController extends Controller
             'employee' =>  $employee->fname . ' ' . $employee->mname . ' ' . $employee->lname,
             'activity' => 'Deletion of Application',
             'amount' => ' - ',
-            'tid' => '',
+
         ]);
 
         $head = 'Your account has been deleted';
@@ -83,7 +83,7 @@ class StaffDeleteController extends Controller
             'employee' =>  $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->lname,
             'activity' => 'Deletion of Employee Account',
             'amount' => ' - ',
-            'tid' => '',
+
         ]);
 
         app('App\Http\Controllers\EmailSendingController')->sendCOE( 'localhost:8000/certificate/employment/'.$link, $employee->userDetail->email, $employee->userDetail->fname,$employee->userDetail->lname);

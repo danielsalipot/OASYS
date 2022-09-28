@@ -30,7 +30,7 @@ class StaffUpdateController extends Controller
                 'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
                 'activity' => 'Move employee into ' . $request->department_name . ' department',
                 'amount' => ' - ',
-                'tid' => '',
+
             ]);
 
             $head = 'Department Change';
@@ -71,7 +71,7 @@ class StaffUpdateController extends Controller
                 'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
                 'activity' => 'Change employee position title into '. $request->position_title,
                 'amount' => ' - ',
-                'tid' => '',
+
             ]);
 
             $head = 'Position Change';
@@ -111,7 +111,7 @@ class StaffUpdateController extends Controller
             'employee' =>  $employee->fname ." ". $employee->mname ." ". $employee->lname,
             'activity' => 'Record scores and feedback of applicant',
             'amount' => 'Applicant #'.$interview->applicant_id,
-            'tid' => '',
+
         ]);
 
 
@@ -149,7 +149,7 @@ class StaffUpdateController extends Controller
             'employee' =>  $employee->fname ." ". $employee->mname ." ". $employee->lname,
             'activity' => 'Recorded a no response on interview',
             'amount' => ' - ',
-            'tid' => '',
+
         ]);
 
         $head = 'Interview Response';
@@ -184,7 +184,7 @@ class StaffUpdateController extends Controller
                 'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
                 'activity' => 'Updated employee scheduled time in',
                 'amount' => 'Change into: '. $request->sched.':00',
-                'tid' => '',
+
             ]);
 
             $head = 'Time in schedule changes';
@@ -216,7 +216,7 @@ class StaffUpdateController extends Controller
                 'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
                 'activity' => 'Updated employee scheduled time out',
                 'amount' => 'Change into: '. $request->sched.':00',
-                'tid' => '',
+
             ]);
 
             $head = 'Time out schedule changes';
@@ -284,7 +284,7 @@ class StaffUpdateController extends Controller
             'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
             'activity' => 'Updated employee scheduled days',
             'amount' => 'Change into: ' . substr_replace($str_days ,"", -1),
-            'tid' => '',
+
         ]);
 
 

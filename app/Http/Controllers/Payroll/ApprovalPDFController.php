@@ -146,7 +146,7 @@ class ApprovalPDFController extends Controller
             'employee' => ' - ',
             'activity' => $str.': '.$filename[2],
             'amount' => '-',
-            'tid' => ' - ',
+
         ]);
 
 

@@ -43,7 +43,7 @@ class AdminDeleteController extends Controller
                 'employee' =>  $employee->userDetail->fname. ' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->flname,
                 'activity' => 'Remove ' . $assessment->assessment_type .' assessment' ,
                 'amount' => $assessment->start_date . ' - ' . $assessment->end_date,
-                'tid' => '',
+
             ]);
             Assessment::find($value)->delete();
         }

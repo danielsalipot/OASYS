@@ -40,7 +40,7 @@ class AdminInsertController extends Controller
                 'employee' => '',
                 'activity' => 'Added a new lesson on '. $request->category,
                 'amount' => '',
-                'tid' => '',
+
             ]);
 
         } catch (\Throwable $th) {
@@ -72,7 +72,7 @@ class AdminInsertController extends Controller
                 'employee' =>  $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->fname,
                 'activity' => 'Enrolled'. $request->category,
                 'amount' => 'Employee enrolled on ' . $request->module,
-                'tid' => '',
+
             ]);
 
             $head = 'You have been enrolled on '.$request->module;
@@ -140,7 +140,7 @@ class AdminInsertController extends Controller
             'employee' =>  $employee->UserDetail->fname . ' ' . $employee->UserDetail->mname . ' ' . $employee->UserDetail->lname,
             'activity' => 'Created Assessment on employee',
             'amount' => $request->start_date . ' - ' . $request->end_date,
-            'tid' => '',
+
         ]);
 
         $head = 'Quarterly assessment created';

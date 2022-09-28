@@ -210,7 +210,7 @@ class PayrollPAYROLLPDFController extends Controller
             'employee' => ' - ',
             'activity' => 'Generated Payroll Summary',
             'amount' => '-',
-            'tid' => ' - ',
+
         ]);
 
         $dates = explode(' - ',  $request->pr_col2);

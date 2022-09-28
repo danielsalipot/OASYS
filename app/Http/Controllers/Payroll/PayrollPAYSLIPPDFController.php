@@ -281,7 +281,7 @@ Audit::create(['activity_type' => 'payroll',
     'employee' => $employee->employee_id,
     'activity' => 'Generated Payslip',
     'amount' => '-',
-    'tid' => ' - ',
+
 ]);
 
 $notif = notification_message::create([

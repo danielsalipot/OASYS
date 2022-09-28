@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('employee');
             $table->string('activity');
             $table->string('amount');
-            $table->bigInteger('tid');
+            $table->bigInteger('tid')->nullable();
             $table->timestamps();
         });
     }

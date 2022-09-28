@@ -73,7 +73,7 @@ class PayrollUpdateController extends Controller
             'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
             'activity' => 'Recover Leave Application',
             'amount' => ' - ',
-            'tid' => ' - ',
+
         ]);
 
         return back()->with(['update'=>'Leave application has been recovered']);
@@ -135,7 +135,7 @@ class PayrollUpdateController extends Controller
                 'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
                 'activity' => $str,
                 'amount' => ' - ',
-                'tid' => ' - ',
+
             ]);
         }
         else{
@@ -179,7 +179,7 @@ class PayrollUpdateController extends Controller
             'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
             'activity' => 'Deny of Overtime',
             'amount' => ' - ',
-            'tid' => ' - ',
+
         ]);
 
         $head = 'Overtime Application Denied';
@@ -220,7 +220,7 @@ class PayrollUpdateController extends Controller
             'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
             'activity' => 'Deny of Overtime',
             'amount' => ' - ',
-            'tid' => ' - ',
+
         ]);
 
         $head = 'Overtime Application has been Recovered';
@@ -313,7 +313,7 @@ class PayrollUpdateController extends Controller
             'employee' => ' - ',
             'activity' => $str,
             'amount' => '-',
-            'tid' => ' - ',
+
         ]);
 
         Contributions::where('contribution_id','1')
@@ -359,7 +359,7 @@ class PayrollUpdateController extends Controller
                 'employee' => ' - ',
                 'activity' => $str,
                 'amount' => ' - ',
-                'tid' => ' - ',
+
             ]);
 
             philhealth::where('id','1')
@@ -398,7 +398,7 @@ class PayrollUpdateController extends Controller
             'employee' => ' - ',
             'activity' => $str,
             'amount' => ' - ',
-            'tid' => ' - ',
+
         ]);
 
         Pagibig::where('id','1')

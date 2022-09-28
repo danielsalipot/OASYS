@@ -32,7 +32,7 @@ class AdminEditController extends Controller
             'employee' =>  ' - ',
             'activity' => 'Updated a lesson on ' . Video::find($request->id)->category,
             'amount' => Video::find($request->id)->title,
-            'tid' => '',
+
         ]);
 
         Video::find($request->id)->update([
@@ -137,7 +137,7 @@ class AdminEditController extends Controller
             'employee' =>  $employee->userDetail->fname . ' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname,
             'activity' => 'Regularized employee '.  $id,
             'amount' => Carbon::now(),
-            'tid' => ' - ',
+
         ]);
 
         $head = 'Employment status update';
