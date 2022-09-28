@@ -92,7 +92,7 @@ class AdminController extends Controller
                 if($this->timeCalculator($value->schedule_Timein) > $this->timeCalculator($value->attendance_today->time_in))
                 {
                     $value->time_in_status = 'On Time';
-                    if($value->employment_status == 'Onboardee'){
+                    if($value->employment_status == 'onboardee'){
                         $time_in[1][0] += 1;
                     }
                     if($value->employment_status == 'Regular'){
@@ -106,7 +106,7 @@ class AdminController extends Controller
                 {
                     $value->time_in_status = 'Late';
 
-                    if($value->employment_status == 'Onboardee'){
+                    if($value->employment_status == 'onboardee'){
                         $time_in[3][0] += 1;
                     }
                     if($value->employment_status == 'Regular'){
@@ -120,7 +120,7 @@ class AdminController extends Controller
                 }
             }else{
                 if(in_array(date('w',strtotime(Carbon::now())),json_decode($value->schedule_days))){
-                    if($value->employment_status == 'Onboardee'){
+                    if($value->employment_status == 'onboardee'){
                         $time_in[4][0] += 1;
                     }
                     if($value->employment_status == 'Regular'){

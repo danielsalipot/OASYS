@@ -159,7 +159,7 @@ class StaffInsertController extends Controller
                 'position' => $request->position,
                 'department' => $request->department,
                 'rate' => $request->rate,
-                'employment_status' => 'Onboardee',
+                'employment_status' => 'onboardee',
                 'resume' => $applicant_detail->resume,
                 'start_date' => date('Y-m-d'),
                 'schedule_days' => json_encode($days),

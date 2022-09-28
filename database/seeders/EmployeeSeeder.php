@@ -57,7 +57,7 @@ class EmployeeSeeder extends Seeder
         $rand_num = rand(0,2);
 
         if($rand_num == 2){
-            $status = 'Onboardee';
+            $status = 'onboardee';
         }elseif($rand_num == 1){
             $status = 'Offboardee';
         }else{
