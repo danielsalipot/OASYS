@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
             $table->string('filename');
-            $table->string('payroll_manager_id');
+            $table->bigInteger('payroll_manager_id');
             $table->date('from_date');
             $table->date('to_date');
             $table->string('height_reference');
