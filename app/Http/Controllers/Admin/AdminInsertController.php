@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class AdminInsertController extends Controller
 {
     public function insertLesson(Request $request){
-        return $request;
+        return $request->file('video_file')->getClientOriginalExtension();
         try {
             //FILE NAMES user id + file extension
             $videoFileName =  $request->title.".".$request->file('video_file')->getClientOriginalExtension();
@@ -38,10 +38,8 @@ class AdminInsertController extends Controller
             Audit::create(['activity_type' => 'admin',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => $request->category,
-
                 'activity' => 'Added a new lesson on '. $request->category,
                 'amount' => '',
-
             ]);
 
         } catch (\Throwable $th) {
