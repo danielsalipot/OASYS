@@ -929,8 +929,8 @@ function Audit(Request $request){
         return $payroll;
     })
     ->addColumn('employee_detail',function($data){
-        if(isset($data->employee_detail)){
-            $payroll = '<h5>'. $data->employee_detail->fname . ' ' . $data->employee_detail->mname . ' '. $data->employee_detail->lname .'</h5>';
+        if(isset($data->employee)){
+            $payroll = '<h5>'. $data->employee .'</h5>';
 
             return $payroll;
         }

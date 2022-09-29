@@ -13,6 +13,7 @@ use App\Models\UserCredential;
 use App\Models\notification_message;
 use App\Models\Payslips;
 use App\Models\Audit;
+use App\Models\EmployeeDetail;
 use App\Models\payroll_approval;
 use Carbon\Carbon;
 
@@ -275,10 +276,11 @@ Payslips::create([
     'file_path' => "payslips/".$request->ps_col2."/payslip(".$employee->employee_id.$employee->user_detail->lname.").pdf"
 ]);
 
+$employee = EmployeeDetail::with('UserDetail')->where('employee_id', $employee->employee_id)->first();
 Audit::create(['activity_type' => 'payroll',
     'payroll_manager_id' => session()->get('user_id'),
     'type' => 'Payslip',
-    'employee' => $employee->employee_id,
+    'employee' => $employee->userDetail->fname. ' '. $employee->userDetail->mname . ' '. $employee->userDetail->lname,
     'activity' => 'Generated Payslip',
     'amount' => '-',
 

@@ -246,11 +246,12 @@ class PayrollUpdateController extends Controller
 
     function editrate(Request $request){
         $rate = EmployeeDetail::where('employee_id',$request->emp_id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id', $rate->employee_id)->first();
 
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Employee Rate',
-            'employee' => $rate->employee_id,
+            'employee' => $employee->userDetail->fname. ' '. $employee->userDetail->mname . ' '. $employee->userDetail->lname,
             'activity' => 'Update Rate Per Hour',
             'amount' => $rate->rate.' -> '. $request->rate,
             'tid' => $rate->employee_id,

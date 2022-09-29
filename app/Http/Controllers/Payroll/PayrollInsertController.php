@@ -39,12 +39,12 @@ class PayrollInsertController extends Controller
             'payrollManager_id' => session()->get('user_id')
         ]);
 
-        $employee = EmployeeDetail::where('employee_id',$request->emp_id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$request->emp_id)->first();
 
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Overtime',
-            'employee' => $employee->information_id,
+            'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
             'activity' => 'Paid Overtime Attendance (ID:'.$request->attendance_id.')',
             'amount' => '-',
             'tid' => $id->overtime_id,
@@ -90,10 +90,13 @@ class PayrollInsertController extends Controller
                 'deduction_amount' => $request->hidden_deduction_amount
             ]);
 
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee_ids[$i])->first();
+
+
             Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Deduction',
-                'employee' => $employee_ids[$i],
+                'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
                 'activity' => 'Added Deduction Name: '.$request->hidden_deduction_name,
                 'amount' => $request->hidden_deduction_amount,
                 'tid' => $id->deduction_id,
@@ -137,10 +140,12 @@ class PayrollInsertController extends Controller
                 'cashAdvance_amount' => $request->hidden_cash_advance_amount
             ]);
 
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee_ids[$i])->first();
+
             Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Cash Advance',
-                'employee' => $employee_ids[$i],
+                'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
                 'activity' => 'Added Cash Advance',
                 'amount' => $request->hidden_cash_advance_amount,
                 'tid' => $id->cashAdvances_id,
@@ -184,10 +189,12 @@ class PayrollInsertController extends Controller
                 'bonus_amount' => $request->hidden_bonus_amount
             ]);
 
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee_ids[$i])->first();
+
             Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Bonus',
-                'employee' => $employee_ids[$i],
+                'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
                 'activity' => 'Added Bonus',
                 'amount' => $request->hidden_bonus_amount,
                 'tid' => $id->bonus_id,
@@ -228,10 +235,13 @@ class PayrollInsertController extends Controller
             'status' => $request->hidden_status
         ]);
 
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$request->hidden_emp_id)->first();
+
+
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Multi Salary',
-            'employee' => $request->hidden_emp_id,
+            'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
             'activity' => $request->hidden_status.'X pay attendance (Attendance Id:'.$request->hidden_attendance_id.')',
             'amount' => '-',
             'tid' => $id->multi_pay_id,
@@ -379,10 +389,12 @@ class PayrollInsertController extends Controller
                         'payrollManager_id' =>session()->get('user_id')
                     ]);
 
+                    $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee->employee_id)->first();
+
                     Audit::create(['activity_type' => 'payroll',
                         'payroll_manager_id' => session()->get('user_id'),
                         'type' => 'Holiday',
-                        'employee' => $employee->employee_id,
+                        'employee' => $employee->userDetail->fname. ' '. $employee->userDetail->mname . ' '. $employee->userDetail->lname,
                         'activity' => 'Paid Holiday',
                         'amount' => '-',
                         'tid' => $id->id,
@@ -435,10 +447,12 @@ class PayrollInsertController extends Controller
                         'payrollManager_id' =>session()->get('user_id')
                     ]);
 
+                    $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$employee->employee_id)->first();
+
                     Audit::create(['activity_type' => 'payroll',
                         'payroll_manager_id' => session()->get('user_id'),
                         'type' => 'Holiday',
-                        'employee' => $employee->employee_id,
+                        'employee' => $employee->userDetail->fname. ' '. $employee->userDetail->mname . ' '. $employee->userDetail->lname,
                         'activity' => 'Paid Holiday',
                         'amount' => '-',
                         'tid' => $id->id,

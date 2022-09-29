@@ -27,6 +27,7 @@ class PayrollDeleteController extends Controller
 
         for ($i=0; $i < count($ids) - 1; $i++) {
             $att_id = Overtime::where('overtime_id',$ids[$i])->first();
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$att_id->employee_id)->first();
 
             overtime_approval::where('attendance_id',$att_id->attendance_id)->update([
                 'status' => null,
@@ -37,7 +38,7 @@ class PayrollDeleteController extends Controller
             Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Overtime',
-                'employee' => $att_id->employee_id,
+                'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
                 'activity' => 'Remove Overtime',
                 'amount' => '-',
                 'tid' => $ids[$i],
@@ -73,10 +74,12 @@ class PayrollDeleteController extends Controller
 
     public function DeleteDeduction($id){
         $deduction = Deduction::where('deduction_id',$id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$deduction->employee_id)->first();
+
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Deduction',
-            'employee' => $deduction->employee_id,
+            'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
             'activity' => 'Remove Deduction ('.$deduction->deduction_name.')',
             'amount' => $deduction->deduction_amount,
             'tid' => $deduction->deduction_id,
@@ -111,10 +114,12 @@ class PayrollDeleteController extends Controller
 
     public function DeleteCashAdvance($id){
         $ca = CashAdvance::where('cashAdvances_id',$id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$ca->employee_id)->first();
+
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Cash Advance',
-            'employee' => $ca->employee_id,
+            'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
             'activity' => 'Remove Cash Advance',
             'amount' => $ca->cashAdvance_amount,
             'tid' => $ca->cashAdvances_id,
@@ -149,10 +154,12 @@ class PayrollDeleteController extends Controller
 
     public function DeleteBonus($id){
         $bonus = Bonus::where('bonus_id',$id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$bonus->employee_id)->first();
+
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Bonus',
-            'employee' => $bonus->employee_id,
+            'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
             'activity' => 'Remove Bonus',
             'amount' => $bonus->bonus_amount,
             'tid' => $bonus->bonus_id,
@@ -187,11 +194,13 @@ class PayrollDeleteController extends Controller
 
     public function DeleteMultiPay($id){
         $multipay = MultiPay::where('multi_pay_id',$id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$multipay->employee_id)->first();
+
 
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Multi Salary',
-            'employee' => $multipay->employee_id,
+            'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
             'activity' => 'Remove Multi Salary',
             'amount' => '-',
             'tid' => $multipay->multi_pay_id,
@@ -251,6 +260,8 @@ class PayrollDeleteController extends Controller
         $attendance = holiday_attendance::where('holiday_id',$id)->get();
         foreach ($attendance as $key => $value) {
             $att = Attendance::where('attendance_id',$value->attendance_id)->first();
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$att->employee_id)->first();
+
             $ha_att = holiday_attendance::join('holidays','holidays.holiday_id','=','holiday_attendances.holiday_id')
                 ->where('attendance_id',$value->attendance_id)
                 ->first();
@@ -258,7 +269,7 @@ class PayrollDeleteController extends Controller
             Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => 'Holiday Attendance',
-                'employee' => $att->employee_id,
+                'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
                 'activity' => 'Unpaid holiday ('.$ha_att->holiday_name.')',
                 'amount' => '-',
                 'tid' => $ha_att->id,
@@ -298,11 +309,12 @@ class PayrollDeleteController extends Controller
             ->join('attendances','attendances.attendance_id','=','holiday_attendances.attendance_id')
             ->where('id',$hid)
             ->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$ha_att->employee_id)->first();
 
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Holiday Attendance',
-            'employee' => $ha_att->employee_id,
+            'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
             'activity' => 'Unpaid holiday ('.$ha_att->holiday_name.')',
             'amount' => '-',
             'tid' => $ha_att->id,
@@ -338,11 +350,13 @@ class PayrollDeleteController extends Controller
 
     public function DeleteLeave($lid,$aid){
         $leave = Leave::where('id',$lid)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$leave->employee_id)->first();
+
 
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'Leave',
-            'employee' => $leave->employee_id,
+            'employee' => $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname,
             'activity' => 'Remove Leave',
             'amount' => '-',
             'tid' => $leave->id,
