@@ -21,7 +21,7 @@
                             </div>
                         </div>
 
-                        {!! Form::hidden('category', 'orientation') !!}
+                        {!! Form::hidden('category', '{{$category}}') !!}
 
                         {!! Form::label('title','Lesson Title', ['class'=>'form-label h6 pt-3']) !!}
                         {!! Form::text('title','', ['class'=>'form-control form-control-lg','placeholder'=>'Lesson Title']) !!}
@@ -57,30 +57,30 @@
                     </video>`)
             }
 
-            // $(function () {
-            //     $(document).ready(function () {
-            //         $('#fileUploadForm').ajaxForm({
-            //             beforeSend: function () {
-            //                 var percentage = '0';
-            //             },
-            //             uploadProgress: function (event, position, total, percentComplete) {
-            //                 var percentage = percentComplete;
-            //                 $('.progress .progress-bar').css("width", percentage+'%', function() {
-            //                     return $(this).attr("aria-valuenow", percentage) + "%";
-            //                 })
-            //             },
-            //             success: function(data){
-            //                 if(data == 'upload success'){
-            //                     alert(data)
-            //                     window.location.href = "/admin/{{$category}}/module";
-            //                 }else{
-            //                     console.log(data)
-            //                     alert('Some Fields Are Missing')
-            //                 }
-            //             }
-            //         });
-            //     });
-            // });
+            $(function () {
+                $(document).ready(function () {
+                    $('#fileUploadForm').ajaxForm({
+                        beforeSend: function () {
+                            var percentage = '0';
+                        },
+                        uploadProgress: function (event, position, total, percentComplete) {
+                            var percentage = percentComplete;
+                            $('.progress .progress-bar').css("width", percentage+'%', function() {
+                                return $(this).attr("aria-valuenow", percentage) + "%";
+                            })
+                        },
+                        success: function(data){
+                            if(data == 'upload success'){
+                                alert(data)
+                                window.location.href = "/admin/{{$category}}/module";
+                            }else{
+                                console.log(data)
+                                alert('Some Fields Are Missing')
+                            }
+                        }
+                    });
+                });
+            });
         </script>
 
 @if ($category == 'orientation')

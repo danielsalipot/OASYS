@@ -435,6 +435,15 @@ class AdminController extends Controller
         ]);
     }
 
+    public function addcorrection(){
+        $category = 'correction';
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.HR_admin.addlesson')->with([
+            'category'=>$category,
+            'profile' => $profile
+        ]);
+    }
+
     public function editlessoncorrection($id){
         $category = 'correction';
         $profile = UserDetail::where('login_id',session('user_id'))->first();

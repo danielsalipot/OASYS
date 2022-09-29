@@ -17,7 +17,6 @@ class AdminInsertController extends Controller
         try {
             //FILE NAMES user id + file extension
             $videoFileName =  $request->title.".".$request->file('video_file')->getClientOriginalExtension();
-
             // saves the picture into storage/public
             $request->file('video_file')->storeAs('videos/'.$request->category, $videoFileName,'public_uploads');
 
@@ -32,15 +31,13 @@ class AdminInsertController extends Controller
             ]);
 
             session()->flash('insert', 'The lesson has been successfully added to this module');
-            return "upload success";
-
             Audit::create(['activity_type' => 'admin',
                 'payroll_manager_id' => session()->get('user_id'),
                 'type' => $request->category,
                 'activity' => 'Added a new lesson on '. $request->category,
                 'amount' => '',
             ]);
-
+            return "upload success";
         } catch (\Throwable $th) {
             return $th;
         }
