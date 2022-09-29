@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class AuditController extends Controller
 {
     function audit(Request $request){
-        $audit = Audit::with('payroll_manager','employee_detail')
+        $audit = Audit::with('payroll_manager')
             ->whereBetween('created_at',[$request->from,$request->to])
             ->where('activity_type',$request->type)
             ->get();

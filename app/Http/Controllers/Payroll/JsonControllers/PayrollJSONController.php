@@ -912,7 +912,7 @@ public function thirteenthMonthJSON(Request $request){
 }
 
 function Audit(Request $request){
-    $audit = Audit::with('payroll_manager','employee_detail')
+    $audit = Audit::with('payroll_manager')
     ->whereBetween('created_at',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
     ->where('activity_type','payroll')
         ->get();
