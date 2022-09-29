@@ -21,7 +21,7 @@
                             </div>
                         </div>
 
-                        {!! Form::hidden('category', '{{$category}}') !!}
+                        {!! Form::hidden('category', $category) !!}
 
                         {!! Form::label('title','Lesson Title', ['class'=>'form-label h6 pt-3']) !!}
                         {!! Form::text('title','', ['class'=>'form-control form-control-lg','placeholder'=>'Lesson Title']) !!}
