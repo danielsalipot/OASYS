@@ -74,8 +74,7 @@
                                 alert(data)
                                 window.location.href = "/admin/{{$category}}/module";
                             }else{
-                                console.log(data)
-                                alert('Some Fields Are Missing')
+                                alert('Error in form submission')
                             }
                         }
                     });
