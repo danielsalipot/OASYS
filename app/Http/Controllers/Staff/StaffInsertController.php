@@ -265,11 +265,6 @@ class StaffInsertController extends Controller
                 'employee_id'=>$request->emp_id
             ]);
         }
-        if($request->term_type == 'Resignation'){
-            Resigned::create([
-                'employee_id'=>$request->emp_id
-            ]);
-        }
 
         $employee = EmployeeDetail::with('UserDetail')->where('employee_id', $request->emp_id)->first();
         Audit::create(['activity_type' => 'staff',
