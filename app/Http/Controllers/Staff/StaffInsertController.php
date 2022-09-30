@@ -221,7 +221,7 @@ class StaffInsertController extends Controller
     public function InsertOffboardee(Request $request){
         if(isset($request->resignedId)){
             $employee = EmployeeDetail::with('UserDetail')->where('employee_id',Resigned::find($request->resignedId)->employee_id)->first();
-            Resigned::find($request->resignedId)->update([
+            Resigned::where('id',$request->resignedId)->update([
                 'status' => 1,
                 'update_date' => date('Y-m-d'),
                 'manager_id' => session('user_id')
