@@ -70,10 +70,13 @@
                         'Absent Onboardee',
                         'Absent Regualar',
                         'Absent Offboardee',
+                        'Under Time Onboardee',
+                        'Under Time Regualar',
+                        'Under Time Offboardee'
                     ],
                     datasets: [{
                         label: 'My First Dataset',
-                        data: ['{{ $time_in[1][0]}}','{{ $time_in[1][1]}}','{{ $time_in[1][2]}}','{{ $time_in[3][0]}}','{{ $time_in[3][1]}}','{{ $time_in[3][2]}}','{{ $time_in[4][0]}}','{{ $time_in[4][1]}}','{{ $time_in[4][2]}}'],
+                        data: ['{{ $time_in[1][0]}}','{{ $time_in[1][1]}}','{{ $time_in[1][2]}}','{{ $time_in[3][0]}}','{{ $time_in[3][1]}}','{{ $time_in[3][2]}}','{{ $time_in[4][0]}}','{{ $time_in[4][1]}}','{{ $time_in[4][2]}}','{{ $time_in[7][0]}}','{{ $time_in[7][1]}}','{{ $time_in[7][2]}}'],
                         backgroundColor: [
                             'rgb(85, 183, 70)',
                             'rgb(55, 153, 40)',
@@ -84,6 +87,9 @@
                             'rgb(183, 70, 70)',
                             'rgb(153, 40, 40)',
                             'rgb(123, 10, 10)',
+                            'rgb(255, 163, 73)',
+                            'rgb(225, 133, 43)',
+                            'rgb(225, 103, 13)',
                         ],
                         hoverOffset: 4
                     }]

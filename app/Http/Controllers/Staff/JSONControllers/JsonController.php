@@ -282,6 +282,15 @@ class JsonController extends Controller
     public function offboardingjson(){
         $offboardee = EmployeeDetail::with('UserDetail')->where('employment_status','Offboardee')->get();
 
+        foreach ($offboardee as $key => $value) {
+            $value->clearance = Clearance::where('employee_id',$value->employee_id)->get();
+            $value->clearance_overall_status = count($value->clearance);
+
+            foreach ($value->clearance as $key => $clearance_item) {
+                $value->clearance_overall_status -= $clearance_item->clearance_status;
+            }
+        }
+
         return datatables()->of($offboardee)
         ->addColumn('full_name',function($data){
             $full_name = $data->userDetail->fname .' '. $data->userDetail->mname . ' '. $data->userDetail->lname;
@@ -305,29 +314,51 @@ class JsonController extends Controller
             return $img;
         })
         ->addColumn('clear',function($data){
-            if(Clearance::where('employee_id',$data->employee_id)->count()){
-                $clear_btn = "<button type='submit' disabled class='btn btn-danger mb-4 p-3 w-50 m-0'>Cleared</button>";
-            }
-            else{
-                $clear_btn = "
-                <form action='/InsertClearance' method='GET'>
-                    <input type='hidden' name='employee_id' value='".$data->employee_id."'>
-                    <button type='submit' class='btn btn-outline-danger p-3 w-50 m-0'>Clear for Clearance</button>
-                </form>";
-            }
+            if($data->clearance_overall_status ){
+                $clearance_list = "<div class='card shadow-sm p-4 bg-white'>
+                <h5 class='alert-light p-2 text-center w-100'>Clearance List</h5>";
+                    foreach ($data->clearance as $key => $value) {
+                        $clearance_list .= "
+                            <div class='row p-2 border-bottom text-start'>
+                                <div class='col p-2'>
+                                    <h5>". ($key + 1) .". ".$value->clearance_name."</h5>
+                                </div>
+                                <div class='col-3'>";
 
-            return $clear_btn;
+                        if(!$value->clearance_status){
+                            $clearance_list .= '
+                                <form action="/updateClearanceItem" onsubmit="return confirm(\'Do you really want to clear employee #'. $data->employee_id . ' on '.$value->clearance_name.'?\');" method="POST">
+                                    <input type="hidden" name="employee_id" value="'. $data->employee_id .'">
+                                    <input type="hidden" name="clearance_id" value="'. $value->id .'">
+                                    <button type="submit" class="btn btn-outline-primary p-2 w-100">Mark as Accomplished</button>
+                                </form>';
+                        }else{
+                            $clearance_list .= '<button class="btn btn-primary p-2 w-100" disabled>Accomplished<br>
+                            '. $value->date_cleared .'</button>';
+                        }
+
+
+                        $clearance_list .= "
+                                    </div>
+                                </div>";
+                    }
+                    $clearance_list .= "</div>";
+
+                return $clearance_list;
+            }else{
+                return '<h6 class="alert-success rounded shadow-sm w-50 mx-auto p-3 my-0">Cleared for Clearance</h6>';
+            }
         })
         ->addColumn('delete',function($data){
-            if(Clearance::where('employee_id',$data->employee_id)->count()){
+            if(!$data->clearance_overall_status ){
                 $clear_btn = "
-                    <form action='/deleteEmployee' method='POST'>
+                    <form action='/deleteEmployee' method='POST' class='p-0 m-0'>
                         <input type='hidden' name='id' value='". $data->employee_id ."'>
-                        <button class='btn btn-danger p-3 w-50'>Delete</button>
+                        <button class='btn btn-danger p-3 w-50 m-0'>Delete</button>
                     </form>";
             }
             else{
-                $clear_btn = "<button disabled class='btn btn-danger p-3 w-50'>Delete</button>";
+                $clear_btn = "";
             }
 
             return $clear_btn;

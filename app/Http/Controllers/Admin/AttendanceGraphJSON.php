@@ -36,6 +36,7 @@ class AttendanceGraphJSON extends Controller
         $health_check_all = [[],[],[],[],[],[],[],[]];
         $all_time_attendance = Attendance::groupBy('attendance_date')
             ->whereBetween('attendance_date',[$from_date,$to_date])
+            ->orderBy('attendance_date',"ASC")
             ->get('attendance_date');
 
         $employees = EmployeeDetail::all();

@@ -18,7 +18,10 @@ class CertificateController extends Controller
         $employee->username = UserCredential::where('login_id',$employee->login_id)->first(['username'])->username;
 
         $manager = UserDetail::where('login_id',session('user_id'))->first();
-        $clearance = Clearance::where('employee_id',$employee->employee_id)->first();
+        $clearance = date("Y-m-d");
+        if(Clearance::where('employee_id',$employee->employee_id)->orderBy('created_at','DESC')->first()){
+            $clearance = Clearance::where('employee_id',$employee->employee_id)->orderBy('created_at','ASC')->first('created_at');
+        }
 
         $pdf = new FPDF();
         $pdf->AddPage();
@@ -50,7 +53,7 @@ class CertificateController extends Controller
         $manager_full_name = $manager->fname . ' ' . $manager->mname . ' ' . $manager->lname;
 
         $pdf->SetFont('Arial', '', 13);
-        $pdf->MultiCell( 190, 10, 'This is to certify that '. $sex .' '. $full_name .' was employed with Beulah Land Christian College Inc from ' .date('l, jS \of F Y', strtotime($employee->start_date)). ' to '.date('l, jS \of F Y', strtotime($clearance->created_at)).' as '. $employee->position .' of '.$employee->department.' department.', 0);
+        $pdf->MultiCell( 190, 10, 'This is to certify that '. $sex .' '. $full_name .' was employed with Beulah Land Christian College Inc from ' .date('l, jS \of F Y', strtotime($employee->start_date)). ' to '.date('l, jS \of F Y', strtotime($clearance)).' as '. $employee->position .' of '.$employee->department.' department.', 0);
         $pdf->Ln(5);
         $pdf->MultiCell( 190, 10, 'This certification is issued upon the request of '.$sex.' '.$employee->userDetail->lname.' for employment purposes and is not valid for any other purpose.', 0);
         $pdf->Ln(5);

@@ -299,49 +299,79 @@
                 @endif
             </div>
 
-            <div class="row p-0 ">
-                <div class="col-7 m-3 p-0 border shadow-sm">
+            <div class="row p-0 my-3" style="height: 730px">
+                <div class="col-7 m-3 p-0 border shadow-sm h-100">
                     <h1 class="w-100 bg-primary text-white rounded-top p-3">This Week Schedule</h1>
                     <div class="container p-5">
                         <div id="calendar"></div>
                     </div>
                 </div>
-                <div class="col m-3 border rounded shadow-sm">
-                    <h4 class="text-primary text-center pt-2 mb-3"> Attendance History</h4>
-
-                    {{ $attendance_history->links() }}
-                    @foreach ($attendance_history as $key => $item)
-                    @if ($item->attendance_status == 1)
-                    <div class="col m-3 border border-secondary alert-success m-auto mb-2 shadow-sm pb-2">
-                    @elseif($item->attendance_status == 2)
-                    <div class="col m-3 border border-secondary alert-primary m-auto mb-2 shadow-sm pb-2">
-                    @else
-                    <div class="col m-3 border border-secondary alert-danger m-auto mb-2 shadow-sm pb-2">
-                    @endif
-                        <div class ="col border-secondary bg-light text-center border-bottom">
-                            <h6>{{ $item->attendance_date}} </h6>
-                        </div>
-                        <div class="row m-auto text-center">
-                            <div class ="col">
-                                <p> Schedule Time In</p>
-                                <h6> {{ $item->schedule_Timein }} </h6>
-                            </div>
-                            <div class ="col">
-                                <p> Time in </p>
-                                <h6>{{ $item->time_in }}</h6>
-                            </div>
-                            <div class ="col">
-                                <p> Schedule Time Out</p>
-                                <h6> {{ $item->schedule_Timeout }} </h6>
-                            </div>
-                            <div class ="col">
-                                <p> Time out </p>
-                                <h6>{{ $item->time_out }}</h6>
-                            </div>
+                <div class="col h-100" style="overflow-y: scroll">
+                    @if (isset($employee->clearance))
+                    <div class="border rounded m-3 shadow-sm alert-danger">
+                        <h4 class="text-center bg-danger text-white rounded-top p-2 mb-3"> Offboarding Clearance List</h4>
+                        <div class="card p-3 m-2 shadow-sm bg-white">
+                            @foreach($employee->clearance as $key => $value)
+                                @if ($value->clearance_status)
+                                    <div class="h5 m-2 border-bottom alert-success p-4 rounded">
+                                @else
+                                    <div class="h5 m-2 border-bottom p-4 rounded">
+                                @endif
+                                    <div class="row">
+                                        <div class="col">
+                                            {{$key + 1}}. {{$value->clearance_name}}
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            @if ($value->clearance_status)
+                                                <h5>Accomplished On:</h5>
+                                                <h6>{{$value->date_cleared}}</h6>
+                                            @else
+                                                <h5>To be Accomplished</h5>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                    @endforeach
-                    {{ $attendance_history->links() }}
+                    @endif
+                    <div class="border rounded m-3 shadow-sm p-3">
+                        <h4 class="text-primary text-center pt-2 mb-3"> Attendance History</h4>
+
+                        {{ $attendance_history->links() }}
+                        @foreach ($attendance_history as $key => $item)
+                        @if ($item->attendance_status == 1)
+                        <div class="col m-3 border border-secondary alert-success m-auto mb-2 shadow-sm pb-2">
+                        @elseif($item->attendance_status == 2)
+                        <div class="col m-3 border border-secondary alert-primary m-auto mb-2 shadow-sm pb-2">
+                        @else
+                        <div class="col m-3 border border-secondary alert-danger m-auto mb-2 shadow-sm pb-2">
+                        @endif
+                            <div class ="col border-secondary bg-light text-center border-bottom">
+                                <h6>{{ $item->attendance_date}} </h6>
+                            </div>
+                            <div class="row m-auto text-center">
+                                <div class ="col">
+                                    <p> Schedule Time In</p>
+                                    <h6> {{ $item->schedule_Timein }} </h6>
+                                </div>
+                                <div class ="col">
+                                    <p> Time in </p>
+                                    <h6>{{ $item->time_in }}</h6>
+                                </div>
+                                <div class ="col">
+                                    <p> Schedule Time Out</p>
+                                    <h6> {{ $item->schedule_Timeout }} </h6>
+                                </div>
+                                <div class ="col">
+                                    <p> Time out </p>
+                                    <h6>{{ $item->time_out }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        {{ $attendance_history->links() }}
+                    </div>
                 </div>
             </div>
             <script>

@@ -148,17 +148,12 @@
                     <a href="/change_picture" class='btn btn-success p-3 rounded-0 btn-lg w-100 shadow-sm'>Change Picture <i class="bi bi-camera-fill"></i></a>
                 </div>
                 <div class="col-4 ps-0">
-                    @if ($profile->employment_status == 'Offboardee')
-                        <button class='btn btn-outline-danger p-3 rounded-0 btn-lg w-100 shadow-sm' data-toggle="modal"
-                        data-target="#resign_modal" disabled>Resign <i class="bi bi-file-earmark-text-fill"></i></button>
+                    @if(isset($profile->resign))
+                        <button class='btn btn-danger p-3 rounded-0 btn-lg w-100 shadow-sm' data-toggle="modal"
+                        data-target="#resign_modal">Application Submitted</button>
                     @else
-                        @if(isset($profile->resign))
-                            <button class='btn btn-danger p-3 rounded-0 btn-lg w-100 shadow-sm' data-toggle="modal"
-                            data-target="#resign_modal">Application Submitted</button>
-                        @else
-                            <button class='btn btn-outline-danger p-3 rounded-0 btn-lg w-100 shadow-sm' data-toggle="modal"
-                            data-target="#resign_modal">Resign <i class="bi bi-file-earmark-text-fill"></i></button>
-                        @endif
+                        <button class='btn btn-outline-danger p-3 rounded-0 btn-lg w-100 shadow-sm' data-toggle="modal"
+                        data-target="#resign_modal">Resign <i class="bi bi-file-earmark-text-fill"></i></button>
                     @endif
                 </div>
             </div>
@@ -528,12 +523,14 @@
                 <div class="modal-body" >
                     <div class="row mx-3" style="height: 540px">
                         <div class="col-3 text-center">
+                            @if (!isset($profile->resign))
                             <div class="card p-3 mb-5">
                             <form action="/insertEmployeeResignation" method='POST' enctype="multipart/form-data">
                                 @csrf
                                 <h6>Submit Letter in PDF Format</h6>
                                 <input class="form-control p-3 m-0" type="file" accept="application/pdf" name='resign' id="formFile">
                             </div>
+                            @endif
 
                             @if(isset($profile->resign))
                             <div class="card p-0">
@@ -575,7 +572,9 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                         <div class="col">
-                            <button class="btn btn-success w-100 p-3">Submit</button>
+                            @if (!isset($profile->resign))
+                                <button class="btn btn-success w-100 p-3">Submit</button>
+                            @endif
                         </div>
                     </form>
                         <div class="col">

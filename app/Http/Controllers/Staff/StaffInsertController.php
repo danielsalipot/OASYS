@@ -218,44 +218,43 @@ class StaffInsertController extends Controller
         }
     }
 
-    public function InsertClearance(Request $request){
-        Clearance::create([
-            'employee_id'=> $request->employee_id,
-        ]);
-
-        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$request->employee_id)->first();
-
-        Audit::create(['activity_type' => 'staff',
-            'payroll_manager_id' => session()->get('user_id'),
-            'type' => 'Clearance',
-            'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
-            'activity' => 'Cleared offboardee for clearance',
-            'amount' => ' - ',
-
-        ]);
-
-        $head = 'Cleared for clearance';
-        $text = $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .
-            " You have been cleared on offboardee clearance on " . date('Y-m-d');
-
-        $notif = notification_message::create([
-            'sender_id' => session('user_id'),
-            'title' => $head,
-            'message' => $text
-        ]);
-
-        $notif->receivers()->createMany([
-            ['receiver_id' => $employee->information_id]
-        ]);
-
-        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
-            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
-        );
-
-        return back()->with(['insert'=>'The action was recorded successfully']);
-    }
-
     public function InsertOffboardee(Request $request){
+        if(isset($request->resignedId)){
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',Resigned::find($request->resignedId)->employee_id)->first();
+            Resigned::find($request->resignedId)->update([
+                'status' => 1,
+                'update_date' => date('Y-m-d'),
+                'manager_id' => session('user_id')
+            ]);
+
+            $head = 'Resignation Update';
+            $text =$employee->fname . " " . $employee->mname . " " . $employee->lname .
+            "Your resignation has been approved on " . date('Y-m-d');
+
+            $notif = notification_message::create([
+                'sender_id' => session('user_id'),
+                'title' => $head,
+                'message' => $text
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $employee->login_id]
+            ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
+        }
+
+        $clearance_arr = json_decode($request->clearanceHidden);
+        foreach ($clearance_arr as $key => $value) {
+            Clearance::create([
+                'employee_id' => $request->emp_id,
+                'clearance_name' => $value,
+                'clearance_status' => 0
+            ]);
+        }
+
         if($request->term_type == 'Retirement'){
             Retired::create([
                 'employee_id'=>$request->emp_id
@@ -284,7 +283,9 @@ class StaffInsertController extends Controller
 
         $head = 'Employment status change to offboardee';
         $text = $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .
-        "Your employment status has been change to offboardee on " . date('Y-m-d');
+        "Your employment status has been change to offboardee on " . date('Y-m-d') .
+        "<br>" .
+        "Please view your clearance list and comply";
 
         $notif = notification_message::create([
             'sender_id' => session('user_id'),

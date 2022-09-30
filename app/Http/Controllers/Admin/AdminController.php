@@ -82,14 +82,14 @@ class AdminController extends Controller
         $employee = EmployeeDetail::join('user_details','user_details.information_id','=','employee_details.information_id')
             ->get();
 
-        $time_in = [0,[0,0,0],0,[0,0,0],[0,0,0],0];
+        $time_in = [0,[0,0,0],0,[0,0,0],[0,0,0],0,0,[0,0,0]];
         foreach ($employee as $key => $value) {
             $value->attendance_today = Attendance::where('employee_id',$value->employee_id)
                 ->where('attendance_date',date('Y-m-d'))
                 ->first();
 
             if(isset($value->attendance_today->time_in)){
-                if($this->timeCalculator($value->schedule_Timein) > $this->timeCalculator($value->attendance_today->time_in))
+                if($this->timeCalculator($value->schedule_Timein) >= $this->timeCalculator($value->attendance_today->time_in) && $this->timeCalculator($value->schedule_Timeout) <= $this->timeCalculator($value->attendance_today->time_out))
                 {
                     $value->time_in_status = 'On Time';
                     if($value->employment_status == 'onboardee'){
@@ -102,9 +102,23 @@ class AdminController extends Controller
                         $time_in[1][2] += 1;
                     }
                     $time_in[0] += 1;
-                }else
-                {
-                    $value->time_in_status = 'Late';
+                }elseif($this->timeCalculator($value->schedule_Timein) >= $this->timeCalculator($value->attendance_today->time_in) && $this->timeCalculator($value->schedule_Timeout) > $this->timeCalculator($value->attendance_today->time_out)){
+                    $value->time_in_status = 'Under time';
+
+                    if($value->employment_status == 'onboardee'){
+                        $time_in[7][0] += 1;
+                    }
+                    if($value->employment_status == 'Regular'){
+                        $time_in[7][1] += 1;
+                    }
+                    if($value->employment_status == 'Offboardee'){
+                        $time_in[7][2] += 1;
+                    }
+
+                    $time_in[6] += 1;
+                }
+                else{
+                    $value->time_in_status = 'Late Time';
 
                     if($value->employment_status == 'onboardee'){
                         $time_in[3][0] += 1;

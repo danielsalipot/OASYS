@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Assessment;
 use App\Models\Attendance;
+use App\Models\Clearance;
 use App\Models\EmployeeDetail;
 use App\Models\HealthCheck;
 use App\Models\Holiday;
@@ -27,6 +28,9 @@ class EmployeeController extends Controller
     //Employee Functions
     function employeehome(){
         $employee = EmployeeDetail::with("UserDetail")->where('login_id',session('user_id'))->first();
+        if($employee->employment_status == 'Offboardee'){
+            $employee->clearance = Clearance::where('employee_id',$employee->employee_id)->get();
+        }
         $employee->today = !in_array(date("w",strtotime(Carbon::now())), json_decode($employee->schedule_days));
 
         $attendance = Attendance::join('employee_details','employee_details.employee_id','=','attendances.employee_id')

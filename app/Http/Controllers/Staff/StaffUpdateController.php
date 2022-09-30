@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\ApplicantDetail;
 use App\Models\Audit;
+use App\Models\Clearance;
 use App\Models\EmployeeDetail;
 use App\Models\Interview;
 use App\Models\notification_message;
@@ -318,10 +319,6 @@ class StaffUpdateController extends Controller
                 'manager_id' => session('user_id')
             ]);
 
-            EmployeeDetail::where('employee_id',Resigned::find($request->id)->employee_id)->update([
-                'employment_status' => 'Offboardee'
-            ]);
-
             $head = 'Resignation Update';
             $text =$employee->fname . " " . $employee->mname . " " . $employee->lname .
             "Your resignation has been approved on " . date('Y-m-d');
@@ -371,4 +368,43 @@ class StaffUpdateController extends Controller
         }
 
     }
+
+
+    public function updateClearanceItem(Request $request){
+        Clearance::find($request->clearance_id)->update([
+            'clearance_status' => 1,
+            'date_cleared' => date('Y-m-d')
+        ]);
+
+        $clearance = Clearance::find($request->clearance_id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$request->employee_id)->first();
+        Audit::create(['activity_type' => 'staff',
+            'payroll_manager_id' => session()->get('user_id'),
+            'type' => 'Clearance',
+            'employee' =>  $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname,
+            'activity' => 'Cleared '.$clearance->clearance_name.' clearance for employee #' . $request->employee_id,
+            'amount' => ' - '
+        ]);
+
+        $head = 'Cleared for a clearance';
+        $text = $employee->userDetail->fname ." ". $employee->userDetail->mname ." ". $employee->userDetail->lname .
+            " You have been cleared in " .$clearance->clearance_name . "clearance on " . date('Y-m-d');
+
+        $notif = notification_message::create([
+            'sender_id' => session('user_id'),
+            'title' => $head,
+            'message' => $text
+        ]);
+
+        $notif->receivers()->createMany([
+            ['receiver_id' => $employee->information_id]
+        ]);
+
+        app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+        );
+
+        return back()->with(['insert'=>'Employee #'. $request->employee_id . ' has been cleared on ' .$clearance->clearance_name]);
+    }
+
 }
