@@ -86,7 +86,7 @@ class StaffDeleteController extends Controller
 
         ]);
 
-        app('App\Http\Controllers\EmailSendingController')->sendCOE( './certificate/employment/'.$link, $employee->userDetail->email, $employee->userDetail->fname,$employee->userDetail->lname);
+        app('App\Http\Controllers\EmailSendingController')->sendCOE( env('APP_URL').'/certificate/employment/'.$link, $employee->userDetail->email, $employee->userDetail->fname,$employee->userDetail->lname);
 
         EmployeeDetail::with('UserDetail')->where('employee_id',$request->id)->delete();
         UserCredential::where('login_id',$employee->login_id)->delete();
