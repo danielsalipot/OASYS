@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('sender_id');
             $table->string('title');
-            $table->string('message');
+            $table->TEXT('message');
             $table->timestamps();
         });
     }
