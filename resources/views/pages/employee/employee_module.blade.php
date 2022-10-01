@@ -23,7 +23,7 @@
                 <div class="card mb-4">
                     <div class="row p-0 w-100 m-0">
                         <div class="col p-0 m-0">
-                            <h4 class="alert-success rounded-0 rounded-top-start p-2">Orientation Progress</h4>
+                            <h4 class="alert-success rounded-0 rounded-top-start p-2">{{ucfirst($category)}} Progress</h4>
                             <div class="progress p-0 m-3">
                                 <div class="progress-bar" role="progressbar" style="width: {{($progress / count($learner)) * 100}}%;" aria-valuenow="{{($progress / count($learner)) * 100}}" aria-valuemin="0" aria-valuemax="100">{{($progress / count($learner)) * 100}}%</div>
                             </div>

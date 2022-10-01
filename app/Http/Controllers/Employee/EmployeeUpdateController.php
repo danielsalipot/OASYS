@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 class EmployeeUpdateController extends Controller
 {
     public function updateModule(Request $request){
+        return $request;
         $module = Learners::find($request->learner_id)->first();
 
         $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
@@ -22,7 +23,8 @@ class EmployeeUpdateController extends Controller
         ]);
 
         Learners::find($request->learner_id)->update([
-            'progress' => 1
+            'progress' => 1,
+
         ]);
 
         return back();
