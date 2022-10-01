@@ -119,7 +119,6 @@ class StaffInsertController extends Controller
     }
 
     public function InsertOnboardee(Request $request){
-        try {
             $days = [];
             $str_days = '';
             if(isset($request->sunday)){
@@ -213,9 +212,9 @@ class StaffInsertController extends Controller
             ApplicantDetail::where('applicant_id',$request->app_id)->delete();
 
             return back()->with(['insert'=>'The action was recorded successfully']);
-        } catch (\Throwable $th) {
-            return back()->with(['delete'=>'Invalid submition of onboarding form, please retry']);
-        }
+        // } catch (\Throwable $th) {
+        //     return back()->with(['delete'=>'Invalid submition of onboarding form, please retry']);
+        // }
     }
 
     public function InsertOffboardee(Request $request){
