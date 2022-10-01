@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 class EmployeeUpdateController extends Controller
 {
     public function updateModule(Request $request){
-        return $request;
         $module = Learners::find($request->learner_id)->first();
 
         $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
@@ -32,6 +31,7 @@ class EmployeeUpdateController extends Controller
 
     public function updateCompleteModule(Request $request){
         $learner_ids = explode(';',$request->learner_ids);
+        return $learner_ids;
         for ($i=0; $i < count($learner_ids) - 1; $i++) {
             Learners::find($learner_ids[$i])
             ->update([
