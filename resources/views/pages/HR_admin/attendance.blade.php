@@ -474,10 +474,14 @@
                     },
                     { data: 'null',
                         render : (data,type,row)=>{
-                            if(row.attendance_today){
-                                return `${row.attendance_today.time_in}`
+                            if(row.attendance_today == 'Absent'){
+                                return `<b class="text-danger">Absent</b>`
+                            }else{
+                                if(row.attendance_today){
+                                    return `${row.attendance_today.time_in}`
+                                }
                             }
-                            return `<b class="text-danger">No record</b>`
+                            return `<b class="text-warning">No record</b>`
                         }
                     },
                     { data: 'schedule_Timeout',
@@ -487,10 +491,14 @@
                     },
                     { data: 'null',
                         render : (data,type,row)=>{
-                            if(row.attendance_today && row.attendance_today.time_out){
-                                return `${row.attendance_today.time_out}`
+                            if(row.attendance_today == 'Absent'){
+                                return `<b class="text-danger">Absent</b>`
+                            }else{
+                                if(row.attendance_today && row.attendance_today.time_out){
+                                    return `${row.attendance_today.time_out}`
+                                }
                             }
-                            return `<b class="text-danger">No record</b>`
+                            return `<b class="text-warning">No record</b>`
                         }
                     },
                     { data: 'healthCheck.score',
@@ -525,7 +533,7 @@
                                     break;
 
                                 default:
-                                    return `-`
+                                    return `<b class="text-warning">No record</b>`
                                     break;
                             }
 

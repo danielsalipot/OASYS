@@ -95,8 +95,14 @@ class AdminJSONController extends Controller
                 {
                     $value->time_in_status = 'Late';
                 }
+
                 $value->healthCheck = null;
                 $value->healthCheck = HealthCheck::where('attendance_id',$value->attendance_today->attendance_id)->first('score');
+            }else{
+                $sched = json_decode($value->schedule_days);
+                if(in_array((int) date('w',strtotime(date('Y-m-d'))),$sched)){
+                    $value->attendance_today  = 'Absent';
+                }
             }
         }
 
