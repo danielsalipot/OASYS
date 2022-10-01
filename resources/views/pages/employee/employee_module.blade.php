@@ -112,7 +112,7 @@
                                                 @php ($ids = '')
 
                                                 @foreach ($learner as $item)
-                                                    @php ($ids .= $item->id .';')
+                                                    @php ($ids .= $item->learner->id .';')
                                                 @endforeach
 
                                                 {!! Form::hidden('learner_ids', $ids)!!}
