@@ -92,7 +92,6 @@ class JsonController extends Controller
             $days = json_decode($data->schedule_days);
             $sched_days = "
             <form action='/updateScheduleDays' method='POST' id='schedule_form_". $data->employee_id."'>
-            <input type='hidden' value='". $data->employee_id ."' name='emp_id'>
             <div class='row m-2'>";
 
             if(in_array(1,$days)){
@@ -200,6 +199,7 @@ class JsonController extends Controller
                 <button type='button' class='btn btn-lg btn-outline-primary w-100 mx-auto' onclick='editScheduleDays(\"". $data->employee_id."\",this)'>Edit Schedule Days</button>
                 <div class='row d-none p-0 mx-auto w-100 mt-2' id='days_submit_". $data->employee_id."'>
                     <div class='col'>
+                        <input type='hidden' value='1' name='emp_id' disabled>
                         <button type='submit' class='btn btn-lg btn-success w-100 mx-auto' disabled>Submit new Schedule</button>
                     </div>
                     <div class='col'>
