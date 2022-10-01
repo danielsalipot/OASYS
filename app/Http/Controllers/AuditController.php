@@ -48,9 +48,12 @@ class AuditController extends Controller
 
         foreach ($audit as $key => $value) {
             $employee = ' - ';
-            if(isset($value->employee_detail->fname[0])){
-                $employee = $value->employee_detail->fname[0]. ". " .$value->employee_detail->lname;
+            $employee_name = explode(' ',$value->employee);
+
+            if(isset($employee_name)){
+                $employee = $employee_name[0][0]. ". " . $employee_name[count($employee_name) -1];
             }
+
             $pr_name = $value->payroll_manager->fname[0].". " .$value->payroll_manager->lname;
 
             $pdf->Row(array(date($value->created_at),$pr_name,$value->type,$employee,$value->activity,$value->amount,$value->tid));
