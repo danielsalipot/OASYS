@@ -461,8 +461,10 @@ class AdminController extends Controller
     public function editlessoncorrection($id){
         $category = 'correction';
         $profile = UserDetail::where('login_id',session('user_id'))->first();
+        $video = Video::find($id);
         return view('pages.HR_admin.edit_lesson')->with([
             'category'=>$category,
+            'video'=>$video,
             'profile' => $profile
         ]);
     }
@@ -540,8 +542,10 @@ class AdminController extends Controller
     public function editlessontraining($id){
         $category = 'training';
         $profile = UserDetail::where('login_id',session('user_id'))->first();
+        $video = Video::find($id);
         return view('pages.HR_admin.edit_lesson')->with([
             'category'=>$category,
+            'video'=>$video,
             'profile' => $profile
         ]);
     }
