@@ -286,6 +286,7 @@ class PayrollUpdateController extends Controller
     }
 
     function edit_sss(Request $request){
+        return $request;
         $sss = Contributions::where('contribution_id','1')->first();
 
         $str = '';
@@ -311,16 +312,16 @@ class PayrollUpdateController extends Controller
         Audit::create(['activity_type' => 'payroll',
             'payroll_manager_id' => session()->get('user_id'),
             'type' => 'SSS',
-
             'activity' => $str,
             'amount' => '-',
-
         ]);
 
-        Contributions::where('contribution_id','1')
+        Contributions::where('contribution_id',1)
         ->update([
             'employee_contribution' => $request->sss_ee_rate,
             'employer_contribution' => $request->sss_er_rate,
+            'low_limit' => $request->sss_low_limit,
+            'high_limit' => $request->sss_high_limit,
             'add_low' => $request->sss_add_low,
             'add_high' => $request->sss_add_high
         ]);

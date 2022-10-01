@@ -18,7 +18,7 @@ class AdminInsertController extends Controller
             //FILE NAMES user id + file extension
             $videoFileName =  $request->title.".".$request->file('video_file')->getClientOriginalExtension();
             // saves the picture into storage/public
-            $request->file('video_file')->storeAs('videos/'.$request->category, $videoFileName,'public_uploads');
+            $request->file('video_file')->storeAs('videos/'.$request->category, str_replace(' ','_',$videoFileName),'public_uploads');
 
             $count = Video::where('category',$request->category)->count();
 
@@ -27,7 +27,7 @@ class AdminInsertController extends Controller
                 'category' => $request->category,
                 'order' => $count + 1,
                 'description' => $request->description,
-                'path' => 'videos/'.$request->category.'/'.$videoFileName
+                'path' => 'videos/'.$request->category.'/'.str_replace(' ','_',$videoFileName)
             ]);
 
             session()->flash('insert', 'The lesson has been successfully added to this module');

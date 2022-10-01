@@ -155,7 +155,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title w-100">Continue to Add Deduction</h4>
+                    <h4 class="modal-title w-100">Continue to Add Bonus</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -180,7 +180,7 @@
                             <p class="h5 text-center w-100">Bonus Details</p>
 
                             <hr>
-                            <h6>Deduction Date</h6>
+                            <h6>Bonus Date</h6>
                             <div class="row">
                                 {!! Form::text('modal_bonus_date', 'from date', ['disabled','id'=>'modal_bonus_date','class'=>'p-2 w-100 text-center']) !!}
                             </div>
