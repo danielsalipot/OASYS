@@ -352,7 +352,7 @@ class JsonController extends Controller
         ->addColumn('delete',function($data){
             if(!$data->clearance_overall_status ){
                 $clear_btn = "
-                    <form action='/deleteEmployee' method='POST' class='p-0 m-0'>
+                    <form action='/deleteEmployee' method='POST' onsubmit='return confirm(\"Do you really want to delete employee #".$data->employee_id."?\");' class='p-0 m-0'>
                         <input type='hidden' name='id' value='". $data->employee_id ."'>
                         <button class='btn btn-danger p-3 w-50 m-0'>Delete</button>
                     </form>";
