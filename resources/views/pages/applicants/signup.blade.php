@@ -27,6 +27,10 @@
                         @if(Session::get('pass'))
                             <div class="alert alert-danger w-100 m-auto">{{Session::get('pass')}}</div>
                         @endif
+                            @if(Session::get('chk_req'))
+                            <div class="alert alert-danger w-100 m-auto">{{Session::get('chk_req')}}</div>
+                        @endif
+
 
                         <form class="p-1 mt-4" action="/applicant/crudsignup" method="post">
                             @csrf
@@ -59,10 +63,10 @@
 
                             <div class="row w-75 mx-auto mt-3">
                                 <div class="col-1 text-end p-0 pt-1 pe-2">
-                                    <input type="checkbox"id="data_privacy_chk" name="data_privacy_chk" value="1">
+                                    <input type="checkbox"id="terms_condition_chk" name="terms_condition_chk" value="1">
                                 </div>
                                 <div class="col-5 text-start p-0 pt-2">
-                                    <p for="data_privacy_chk" class=" text-dark text-decoration-none p-0 m-0"> I agree to the terms and condition</p>
+                                    <p for="terms_condition_chk" class=" text-dark text-decoration-none p-0 m-0"> I agree to the terms and condition</p>
                                 </div>
                                 <div class="col"></div>
                                 <div class="col-4">
@@ -161,7 +165,7 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                    Modal body..
+                        asdasd
                     </div>
 
                     <!-- Modal footer -->

@@ -15,7 +15,7 @@
     @foreach ($notif as $data)
         <div class="row shadow-lg p-3 my-5">
             <div class="col-5 d-flex flex-row flex-wrap align-items-center card me-3 p-4">
-                <h3 class="display-4 w-100 text-center">Recepients</h3>
+                <h3 class="display-4 w-100 text-center">Recipients</h3>
                 @foreach ($data->receivers as $item)
                     @if ($item->acknowledgement > 0)
                         <div class="col-4 card alert-success">

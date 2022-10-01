@@ -27,32 +27,36 @@ class ApplicantSignUpController extends Controller
             'repass'=>'required',
         ]);
 
-        // if the query fails then username is unique so insert new record
-        $usernames = UserCredential::where('username',$request->user)->count();
-        if(!$usernames){
-            if($request->input('pass') == $request->input('repass')){
-                UserCredential::create([
-                    'username'=>$request->input('user'),
-                    'password'=>md5(md5($request->input('pass'))),
-                    'user_type'=>'applicant',
-                ]);
+        if(isset($request->data_privacy_chk) && isset($request->data_privacy_chk)){
+            // if the query fails then username is unique so insert new record
+            $usernames = UserCredential::where('username',$request->user)->count();
+            if(!$usernames){
+                if($request->input('pass') == $request->input('repass')){
+                    UserCredential::create([
+                        'username'=>$request->input('user'),
+                        'password'=>md5(md5($request->input('pass'))),
+                        'user_type'=>'applicant',
+                    ]);
 
 
-                //get user id of newly created user account
-                $user_id = UserCredential::where('username',$request->input('user'))
-                            ->first();
-                // make session using data
-                $request->session()->put('user_id',$user_id->login_id);
-                $request->session()->put('user_type',$user_id->user_type);
+                    //get user id of newly created user account
+                    $user_id = UserCredential::where('username',$request->input('user'))
+                                ->first();
+                    // make session using data
+                    $request->session()->put('user_id',$user_id->login_id);
+                    $request->session()->put('user_type',$user_id->user_type);
 
-                // before redirecting, create session to login the newly created user
-                return redirect('/applicant/introduce')->with('success', 'Data has been inserted successfuly');
-            }else{
-                return back()->with('taken','The password does not match');
+                    // before redirecting, create session to login the newly created user
+                    return redirect('/applicant/introduce')->with('success', 'Data has been inserted successfuly');
+                }else{
+                    return back()->with('taken','The password does not match');
+                }
             }
-        }
-        else{
-            return back()->with('taken','Username is already taken');
+            else{
+                return back()->with(['taken'=>'Username is already taken']);
+            }
+        }else{
+            return back()->with(['chk_req'=>'Data Privacy Terms and Terms and Condition are Required']);
         }
     }
 
