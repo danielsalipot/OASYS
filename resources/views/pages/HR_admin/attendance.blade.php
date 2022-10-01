@@ -173,7 +173,7 @@
                         arrayColumn(result,'attendance_date') ,
                         arrayColumn(result,'on_time_count') ,
                         arrayColumn(result,'late_count') ,
-                        arrayColumn(result,'absent_count')
+                        arrayColumn(result,'absent')
                     )
                 }
             });
@@ -306,7 +306,8 @@
                 <h1 class="bg-primary text-white w-100 text-center rounded-top m-0 mb-4 p-3">Overall Attendance Overview</h1>
                 <div class="row w-100">
                     <div class="col">
-                        <div class="container w-75">
+                        <div class="container">
+                            <h6 class="w-100 text-center alert-light p-2">Time in Records Graph</h6>
                             <canvas id="line_chart" width="1" height="1"></canvas>
                             <script type="module">
                                 var OverallAttendanceOverviewCTX = document.getElementById('line_chart').getContext('2d');
@@ -320,25 +321,16 @@
                             </script>
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="card alert-primary text-center h3 p-3 w-100">
+                    <div class="col-4">
+                        <div class="card alert-primary text-center h4 p-3 w-100">
                             Reports
                         </div>
 
-                        <div class="card alert-light text-center h3 p-5 shadow-sm w-100">
-                            @if($totals[0])
-                                {{ round(($totals[1]/$totals[0]) * 100,2) }}% On time percentage
-                            @endif
+                        <div class="card alert-light text-center h5 p-5 text-primary border border-primary shadow-sm w-100" id="overall_complete">
                         </div>
-                        <div class="card alert-light text-center h3 p-5 shadow-sm w-100">
-                            @if($totals[0])
-                                {{ round(($totals[3]/$totals[0]) * 100,2) }}% Late percentage
-                            @endif
+                        <div class="card alert-light text-center h5 p-5 text-warning shadow-sm w-100 border border-warning" id="under_complete">
                         </div>
-                        <div class="card alert-light text-center h3 p-5 shadow-sm w-100">
-                            @if($totals[0])
-                                {{ round(($totals[2]/$totals[0]) * 100,2) }}% Absent percentage
-                            @endif
+                        <div class="card alert-light text-center h5 p-5 text-danger shadow-sm w-100 border border-danger" id="absent_complete">
                         </div>
                     </div>
                 </div>
@@ -363,6 +355,26 @@
                                     {!! json_encode($health_check_all[7], JSON_HEX_TAG) !!}
                                 ))
                             </script>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card alert-primary text-center h4 p-3 w-100">
+                            Reports
+                        </div>
+
+                        <div class="card alert-light text-center h5 p-5 shadow-sm w-100" style="color:rgb(158, 28, 28);  border: 1px solid rgb(158, 28, 28);" id="health_check_report_1">
+                        </div>
+                        <div class="card alert-light text-center h5 p-5 shadow-sm w-100" style="color:rgb(158, 56, 28);  border: 1px solid rgb(158, 56, 28);" id="health_check_report_2">
+                        </div>
+                        <div class="card alert-light text-center h5 p-5 shadow-sm w-100" style="color:rgb(158, 93, 28);  border: 1px solid rgb(158, 93, 28);"  id="health_check_report_3">
+                        </div>
+                        <div class="card alert-light text-center h5 p-5 shadow-sm w-100" style="color:rgb(234, 255, 3);  border: 1px solid rgb(234, 255, 3);" id="health_check_report_4">
+                        </div>
+                        <div class="card alert-light text-center h5 p-5 shadow-sm w-100" style="color:rgb(123, 158, 28);  border: 1px solid rgb(123, 158, 28);" id="health_check_report_5">
+                        </div>
+                        <div class="card alert-light text-center h5 p-5 shadow-sm w-100" style="color:rgb(95, 158, 28);  border: 1px solid rgb(95, 158, 28);" id="health_check_report_6">
+                        </div>
+                        <div class="card alert-light text-center h5 p-5 shadow-sm w-100" style="color:rgb(41, 158, 28);  border: 1px solid rgb(41, 158, 28);" id="health_check_report_7">
                         </div>
                     </div>
                 </div>
@@ -547,20 +559,46 @@
     {{-- GRAPH FUNCTIONS --}}
     <script>
         function OverallAttendanceOverview(ctx,labels,ontime,late,absent){
+            var total = 0
+            var ontime_total = 0;
+            console.log(ontime)
+            ontime.forEach(element => {
+                ontime_total += element
+                total += element
+            });
+
+            console.log(late)
+            var late_total = 0;
+            late.forEach(element => {
+                late_total += element
+                total += element
+            });
+
+            console.log(absent)
+            var absent_total = 0;
+            absent.forEach(element => {
+                absent_total += element
+                total += element
+            });
+
+            $('#overall_complete').html(`${((ontime_total / total) * 100).toFixed(2)}% Complete Time Percentage`)
+            $('#under_complete').html(`${((late_total / total) * 100).toFixed(2)}% Under Time Percentage`)
+            $('#absent_complete').html(`${((absent_total / total) * 100).toFixed(2)}% Absent Percentage`)
+
             var myChart = new Chart(ctx,{
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [
                     {
-                        label: 'On time Attendance',
+                        label: 'Complete Time',
                         data: ontime,
                         fill: false,
                         borderColor: 'rgb(75, 192, 192)',
                         tension: 0.1
                     },
                     {
-                        label: 'Late Attendance',
+                        label: 'Under Time',
                         data: late,
                         fill: false,
                         borderColor: 'rgb(179, 142, 43)',
@@ -581,6 +619,61 @@
         }
 
         function OverallHealthOverview(ctx,labels,sick,bad,unpleasant,neutral,good,better,best){
+            var total = 0
+            var sick_total = 0;
+            sick.forEach(element => {
+                sick_total += element
+                total += element
+            });
+
+            var bad_total = 0;
+            bad.forEach(element => {
+                bad_total += element
+                total += element
+            });
+
+            var unpleasant_total = 0;
+            unpleasant.forEach(element => {
+                unpleasant_total += element
+                total += element
+            });
+
+            var neutral_total = 0;
+            neutral.forEach(element => {
+                neutral_total += element
+                total += element
+            });
+
+            var good_total = 0;
+            good.forEach(element => {
+                good_total += element
+                total += element
+            });
+
+            var better_total = 0;
+            better.forEach(element => {
+                better_total += element
+                total += element
+            });
+
+            var best_total = 0;
+            best.forEach(element => {
+                best_total += element
+                total += element
+            });
+
+
+            $('#health_check_report_1').html(`${((sick_total / total) * 100).toFixed(2)}% Complete Time Percentage`)
+            $('#health_check_report_2').html(`${((bad_total / total) * 100).toFixed(2)}% Under Time Percentage`)
+            $('#health_check_report_3').html(`${((unpleasant_total / total) * 100).toFixed(2)}% Absent Percentage`)
+            $('#health_check_report_4').html(`${((neutral_total / total) * 100).toFixed(2)}% Complete Time Percentage`)
+            $('#health_check_report_5').html(`${((good_total / total) * 100).toFixed(2)}% Under Time Percentage`)
+            $('#health_check_report_6').html(`${((better_total / total) * 100).toFixed(2)}% Absent Percentage`)
+            $('#health_check_report_7').html(`${((best_total / total) * 100).toFixed(2)}% Absent Percentage`)
+
+
+
+
             var myChart = new Chart(ctx,{
                 type: 'line',
                 data: {
@@ -646,9 +739,9 @@
             var myChart = new Chart(ctx,{
                 type: 'doughnut',
                 data: {labels:[
-                    'On time',
+                    'Complete Time',
                     'Absent',
-                    'Late'
+                    'Under Time'
                 ],
                     datasets: [{
                         label: 'Department Attendance',
@@ -670,9 +763,9 @@
             var myChart = new Chart(ctx,{
                     type: 'doughnut',
                     data: {labels:[
-                        'On time',
-                        'Absent',
-                        'Late'
+                        'Complete Time',
+                    'Absent',
+                    'Under Time'
                     ],
                     datasets: [{
                         label: 'Position Title',
@@ -710,17 +803,26 @@
                     },
                     { data: 'ontime',
                         render : (data,type,row)=>{
-                            return `<h5 class="border border-success p-4 text-success h5">${data} Records <b class="text-dark">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
+                            if(data){
+                                return `<h5 class="border border-success p-4 text-success h5">${data} Records <b class="text-dark">(${((data / (row.ontime + row.late + row.absent)) * 100).toFixed(2)}%)</b></h5>`
+                            }
+                            return `<h5 class="border border-success p-4 text-success h5">${data} Records <b class="text-dark">(0%)</b></h5>`
                         }
                     },
                     { data: 'late',
                         render : (data,type,row)=>{
-                            return `<h5 class="border border-warning p-4 text-warning h5">${data} Records <b class="text-dark">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
+                            if(data){
+                                return `<h5 class="border border-warning p-4 text-warning h5">${data} Records <b class="text-dark">(${((data / (row.ontime + row.late + row.absent)) * 100).toFixed(2)}%)</b></h5>`
+                            }
+                            return `<h5 class="border border-warning p-4 text-warning h5">${data} Records <b class="text-dark">(0%)</b></h5>`
                         }
                     },
                     { data: 'absent',
                         render : (data,type,row)=>{
-                            return `<h5 class="border border-danger p-4 text-danger h5">${data} Records <b class="text-secondary">(${Math.round((data / row.total) * 100 * 100) / 100}%)</b></h5>`
+                            if(data){
+                                return `<h5 class="border border-danger p-4 text-danger h5">${data} Records <b class="text-secondary">(${((data / (row.ontime + row.late + row.absent)) * 100).toFixed(2)}%)</b></h5>`
+                            }
+                            return `<h5 class="border border-danger p-4 text-danger h5">${data} Records <b class="text-secondary">(0%)</b></h5>`
                         }
                     },
                 ]

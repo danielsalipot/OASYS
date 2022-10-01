@@ -226,7 +226,7 @@ class AdminController extends Controller
                     $health_check_all[$health_score + 1][count($health_check_all[$health_score + 1]) -1 ] += 1;
 
                     $total_attendance += 1;
-                    if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in)){
+                    if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in) && $this->timeCalculator($employee->schedule_Timeout) <= $this->timeCalculator($attendance->time_out)){
                         $total_ontime += 1;
                         $date->on_time_count += 1;
 

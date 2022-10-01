@@ -114,6 +114,7 @@ class AdminJSONController extends Controller
     public function getEmployeeOverallAttendance(){
         $employees = EmployeeDetail::with('UserDetail')->get();
         foreach ($employees as $key => $employee) {
+
             $sched = json_decode($employee->schedule_days);
             $employee->absent = 0;
             $employee->ontime = 0;
@@ -132,17 +133,18 @@ class AdminJSONController extends Controller
                     ->first();
 
                 if(isset($attendance)){
-                    if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in)){
+                    if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in) && $this->timeCalculator($employee->schedule_Timeout) <= $this->timeCalculator($attendance->time_out)){
                         $employee->ontime += 1;
+                        $employee->total += 1;
                     }else{
                         $employee->late += 1;
+                        $employee->total += 1;
                     }
-
-                    $employee->total += 1;
                 }
                 else{
                     if(in_array($date[1],$sched)){
                         $employee->absent += 1;
+                        $employee->total += 1;
                     }
                 }
             }
@@ -186,7 +188,7 @@ class AdminJSONController extends Controller
                     ->first();
 
                 if(isset($attendance)){
-                    if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in)){
+                    if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in) && $this->timeCalculator($employee->schedule_Timeout) <= $this->timeCalculator($attendance->time_out)){
                         $employee->ontime += 1;
                     }else{
                         $employee->late += 1;
