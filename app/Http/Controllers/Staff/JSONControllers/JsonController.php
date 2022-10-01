@@ -397,12 +397,12 @@ class JsonController extends Controller
         })
         ->addColumn('terminate',function($data){
             $full_name = $data->userDetail->fname .' '. $data->userDetail->mname . ' '. $data->userDetail->lname ;
-            $terminate = '<button onclick="offboarding(\'Termination\',\''.$data->employee_id.'\',\'/'.$data->userDetail->picture.'\',\"'.$full_name.'\",\''.$data->department.'\',\''.$data->position.'\',\''.$data->userDetail->cnum.'\',\''.$data->userDetail->email.'\')" class="btn btn-outline-danger w-25 py-4" data-toggle="modal" data-target="#edit_modal">Terminate</button>';
+            $terminate = '<button onclick="offboarding(\'Termination\',\''.$data->employee_id.'\',\'/'.$data->userDetail->picture.'\',\''. str_replace("'","\'",$full_name).'\',\''.$data->department.'\',\''.$data->position.'\',\''.$data->userDetail->cnum.'\',\''.$data->userDetail->email.'\')" class="btn btn-outline-danger w-25 py-4" data-toggle="modal" data-target="#edit_modal">Terminate</button>';
             return $terminate;
         })
         ->addColumn('retire',function($data){
             $full_name = $data->userDetail->fname .' '. $data->userDetail->mname . ' '. $data->userDetail->lname ;
-            $retire = '<button onclick="offboarding(\'Retirement\',\''.$data->employee_id.'\',\'/'.$data->userDetail->picture.'\',\"'.$full_name.'\",\''.$data->department.'\',\''.$data->position.'\',\''.$data->userDetail->cnum.'\',\''.$data->userDetail->email.'\')"  class="btn btn-outline-info w-25 py-4" data-toggle="modal" data-target="#edit_modal">Retire</button>';
+            $retire = '<button onclick="offboarding(\'Retirement\',\''.$data->employee_id.'\',\'/'.$data->userDetail->picture.'\',\''.str_replace("'","\'",$full_name).'\',\''.$data->department.'\',\''.$data->position.'\',\''.$data->userDetail->cnum.'\',\''.$data->userDetail->email.'\')"  class="btn btn-outline-info w-25 py-4" data-toggle="modal" data-target="#edit_modal">Retire</button>';
             return $retire;
         })
         ->rawColumns(['full_name','img','employed_for','terminate','retire'])
