@@ -210,6 +210,7 @@
                     </div>
                 </div>
                 <div id="menu1" class="tab-pane">
+                    @if(count($types))
                     <div class="container p-5 border shadow-sm">
                         <div class="row p-3">
                             <h1 class="alert-light">Assessment Overview</h1>
@@ -344,8 +345,10 @@
                             });
                         </script>
                     </div>
+                    @endif
                 </div>
                 <div id="menu2" class="tab-pane">
+                    @if ($years)
                     <div class="container p-4 border shadow-sm">
                         <div class="row">
                             <div class="col-2 card p-0">
@@ -481,6 +484,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

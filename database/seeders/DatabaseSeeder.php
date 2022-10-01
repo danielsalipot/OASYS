@@ -48,11 +48,11 @@ class DatabaseSeeder extends Seeder
             $this->call(BonusSeeder::class);
         }
 
-        $this->call(AttendanceSeeder::class);
+        // $this->call(AttendanceSeeder::class);
         $this->call(OvertimeSeeder::class);
 
         $this->call(HolidaySeeder::class);
-        $this->call(AssessmentSeeder::class);
+        // $this->call(AssessmentSeeder::class);
         $this->call(LeaveApprovalSeeder::class);
         $this->call(HealthCheckSeeder::class);
     }

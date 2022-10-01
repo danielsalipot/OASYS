@@ -321,7 +321,7 @@ class StaffController extends Controller
         foreach ($files_arr as $key => $value) {
             if ($handle = opendir("audits/".session('user_type')."/")) {
                 while (false !== ($entry = readdir($handle))) {
-                    if ($entry != "." && $entry != ".." && $entry != 'upload') {
+                    if ($entry != "." && $entry != ".." && $entry != 'upload' && $entry != '.gitkeep') {
                         array_push($files_arr["files"],["name" => "$entry","path"=> "audits/".session('user_type')."/" . $entry]);
                     }
                 }

@@ -312,6 +312,7 @@ class EmployeeController extends Controller
         }
 
         $types = Assessment::groupBy('assessment_type')->get('assessment_type');
+
         foreach ($types as $key => $type) {
             $assessment = Assessment::where('assessment_type',$type->assessment_type)->where('employee_id',$profile->employee_id)->get();
 
