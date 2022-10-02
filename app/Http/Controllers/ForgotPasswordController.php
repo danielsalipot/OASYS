@@ -89,7 +89,7 @@ class ForgotPasswordController extends Controller
 
     function generateChangePasswordLink($id){
         $date = Carbon::Now();
-        return 'http://localhost:8000/Password/Forget/'.md5(md5($id)).'/'.md5($date);
+        return env('APP_URL')'/Password/Forget/'.md5(md5($id)).'/'.md5($date);
     }
 
     function forgotPassword(Request $request){
