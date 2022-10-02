@@ -25,7 +25,7 @@ class RequestCertificate extends Controller
                 return back()->with(['user_err'=>'Incorrect credentials was submitted']);
             }
 
-            app('App\Http\Controllers\EmailSendingController')->sendCOE( 'localhost:8000/certificate/employment/'.$coe->employee_id, $coe->email, $coe->fname,$coe->lname);
+            app('App\Http\Controllers\EmailSendingController')->sendCOE( env('APP_URL').'/certificate/employment/'.$coe->employee_id, $coe->email, $coe->fname,$coe->lname);
             return back()->with(['success'=>'Email has been sent to the email address of the employee account']);
         }
         elseif(isset($request->email)){
@@ -38,7 +38,7 @@ class RequestCertificate extends Controller
                 return back()->with(['email_err'=>'Incorrect credentials was submitted']);
             }
 
-            app('App\Http\Controllers\EmailSendingController')->sendCOE( 'localhost:8000/certificate/employment/'.$coe->employee_id, $coe->email, $coe->fname,$coe->lname);
+            app('App\Http\Controllers\EmailSendingController')->sendCOE( env('APP_URL').'/certificate/employment/'.$coe->employee_id, $coe->email, $coe->fname,$coe->lname);
             return back()->with(['success'=>'Email has been sent to the email address of the employee account']);
         }
         else{
