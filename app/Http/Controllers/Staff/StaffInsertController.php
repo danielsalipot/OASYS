@@ -119,6 +119,7 @@ class StaffInsertController extends Controller
     }
 
     public function InsertOnboardee(Request $request){
+        try{
             $days = [];
             $str_days = '';
             if(isset($request->sunday)){
@@ -162,8 +163,8 @@ class StaffInsertController extends Controller
                 'resume' => $applicant_detail->resume,
                 'start_date' => date('Y-m-d'),
                 'schedule_days' => json_encode($days),
-                'schedule_Timein' => $request->timein,
-                'schedule_Timeout' => $request->timeout,
+                'schedule_Timein' => $request->timein . ":00",
+                'schedule_Timeout' => $request->timeout . ":00",
                 'sss_included'=>1,
                 'philhealth_included'=>1,
                 'pagibig_included'=>1,
@@ -180,8 +181,8 @@ class StaffInsertController extends Controller
                         <li><b>Department: </b> ". $request->department ."</li>
                         <li><b>Hourly Rate: </b> ". $request->rate ."</li>
                         <li><b>Scheduled Days: </b> ".  $str_days ."</li>
-                        <li><b>Scheduled Time in: </b> ". $request->timein ."</li>
-                        <li><b>Scheduled Time out: </b> ". $request->timeout ."</li>
+                        <li><b>Scheduled Time in: </b> ". $request->timein . ":00" ."</li>
+                        <li><b>Scheduled Time out: </b> ". $request->timeout . ":00" ."</li>
                     </ul><p>
                 ";
 
@@ -212,9 +213,9 @@ class StaffInsertController extends Controller
             ApplicantDetail::where('applicant_id',$request->app_id)->delete();
 
             return back()->with(['insert'=>'The action was recorded successfully']);
-        // } catch (\Throwable $th) {
-        //     return back()->with(['delete'=>'Invalid submition of onboarding form, please retry']);
-        // }
+        } catch (\Throwable $th) {
+            return back()->with(['delete'=>'Invalid submition of onboarding form, please retry']);
+        }
     }
 
     public function InsertOffboardee(Request $request){

@@ -25,6 +25,8 @@ use App\Models\philhealth;
 use App\Models\Audit;
 use App\Models\overtime_approval;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
+use Throwable;
 
 class PayrollJSONController extends Controller
 {
@@ -151,16 +153,17 @@ class PayrollJSONController extends Controller
         $employee_overtime_arr =[];
 
         foreach ($employee_schedules as $key => $employee) {
-
                 $stimeout = $this->timeCalculator($employee->schedule_Timeout);
                 // Add 30 mins for minimum overtime
                 $stimeout += $request->time_filter;
 
+
             $temp = Attendance::where('employee_id',$employee->employee_id)
-                ->whereBetween('attendance_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59")])
+                ->whereBetween('attendance_date',[$request->from_date,new DateTime($request->to_date ." ". "23:59:59")])
                 ->whereBetween('time_in',['00:00:00',$employee->schedule_Timein])
                 ->whereBetween('time_out',[date('H:i:s',$stimeout),'24:00:00'])
                 ->get();
+
 
             foreach ($temp as $key => $value) {
                 $value->approval = overtime_approval::where('attendance_id',$value->attendance_id)->first();
@@ -175,8 +178,13 @@ class PayrollJSONController extends Controller
                 ->join('user_details','user_details.information_id','=','employee_details.information_id')
                 ->first();
 
-                $timeout = $this->timeCalculator($employee->time_out);
-                $stimeout = $this->timeCalculator($employee->user_details->schedule_Timeout);
+                try{
+                    $timeout = $this->timeCalculator($employee->time_out);
+                    $stimeout = $this->timeCalculator($employee->user_details->schedule_Timeout);
+
+                }catch(Throwable $t){
+                    return $employee;
+                }
 
                 $employee->total_overtime_hours = round(($timeout - $stimeout) / 3600,2);
         }
@@ -594,6 +602,10 @@ class PayrollJSONController extends Controller
         $employee_details = EmployeeDetail::join('user_details','user_details.information_id','=','employee_details.information_id')
         ->get();
 
+        $date = Carbon::parse($request->from_date);
+        $diff = $date->diffInDays($request->to_date) + 1;
+
+
     foreach ($employee_details as $key => $employee) {
         $employee->attendance = $employee->FilteredAttendance($employee->employee_id, $request->from_date,$request->to_date);
     }
@@ -642,27 +654,31 @@ class PayrollJSONController extends Controller
         $detail->employer_philhealth_contribution = 0;
         $detail->employee_philhealth_contribution = 0;
 
-        $date = Carbon::parse($request->from_date);
-        $diff = $date->diffInDays($request->to_date) + 1;
-
         if($detail->gross_pay < $philhealth->minimum){
-            $detail->employer_philhealth_contribution += 0;
-            $detail->employee_philhealth_contribution += 137.50;
+            $total_philhealth_payment = $philhealth->minimum_contribution;
+            $detail->employer_philhealth_contribution +=  ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 30);
+            $detail->employee_philhealth_contribution +=  ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 30);
         }
         elseif($detail->gross_pay > $philhealth->maximum){
             $total_philhealth_payment = $philhealth->ph_cap;
-            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 365.25) ;
-            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 365.25) ;
+            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 30);
+            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 30);
         }else{
             $total_philhealth_payment = $detail->gross_pay * ($philhealth->ph_rate/100);
-            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 365.25);
-            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 365.25);
+            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100) * ($diff / 30));
+            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100) * ($diff / 30));
         }
 
-        $detail->employer_philhealth_contribution = $detail->employer_philhealth_contribution;
+        $detail->employer_philhealth_contribution = round($detail->employer_philhealth_contribution,2);
         $detail->employee_philhealth_contribution = round($detail->employee_philhealth_contribution,2);
 
         $detail->total_philhealth_contribution = round($detail->employer_philhealth_contribution + $detail->employee_philhealth_contribution,2);
+
+        if(!$detail->philhealth_included){
+            $detail->employer_philhealth_contribution = 0;
+            $detail->employee_philhealth_contribution = 0;
+            $detail->total_philhealth_contribution = 0;
+        }
     }
 
     return datatables()->of($employee_details)->make(true);
@@ -941,14 +957,15 @@ function Audit(Request $request){
     ->rawColumns(['payroll','employee_detail','date'])
     ->make(true);
 }
-
 /*=============================================================================
 |                                   END
 *==============================================================================*/
 
+
+
     public function timeCalculator($time){
         list($hours, $minutes, $seconds) = explode(':',$time);
-        return $hours * 3600 + $minutes * 60 + $seconds;
+        return (($hours * 3600) + ($minutes * 60) + $seconds) - 3600 * 8;
     }
 
     function dateDiff($d1, $d2) {

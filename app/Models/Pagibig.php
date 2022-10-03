@@ -9,5 +9,5 @@ class Pagibig extends Model
 {
     use HasFactory;
     protected $keyType = 'string';
-
+    protected $fillable = ['ee_rate','er_rate','ph_cap','ph_rate','minimum_contribution','minimum','maximum'];
 }

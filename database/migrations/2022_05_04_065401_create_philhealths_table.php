@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('er_rate');
             $table->string('ph_rate');
             $table->string('ph_cap');
+            $table->string('minimum_contribution');
             $table->string('minimum');
             $table->string('maximum');
             $table->timestamps();

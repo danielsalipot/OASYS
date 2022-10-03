@@ -21,6 +21,7 @@ class PhilhealthSeeder extends Seeder
             'er_rate' => '50',
             'ph_rate' => '4',
             'ph_cap' => '3200',
+            'minimum_contribution' => '400',
             'minimum' => '10000',
             'maximum' => '80000',
         ]);

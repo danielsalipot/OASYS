@@ -10,4 +10,5 @@ class philhealth extends Model
     use HasFactory;
     protected $keyType = 'string';
 
+    protected $fillable = ['ee_max_rate','ee_min_rate','er_rate','maximum','divider'];
 }

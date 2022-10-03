@@ -272,6 +272,10 @@
                             {!! Form::text('philhealth_rate',"$philhealth->ph_rate",['disabled','id'=>'philhealth_rate','class'=>'form-control text-center p-3']) !!}
                         </div>
                         <div class="col text-center">
+                            {!! Form::label('philhealth_min_share', "Philhealth Minimum Share", []) !!}
+                            {!! Form::text('philhealth_min_share',"$philhealth->minimun_contribution",['disabled','id'=>'philhealth_min_share','class'=>'form-control text-center p-3']) !!}
+                        </div>
+                        <div class="col text-center">
                             {!! Form::label('philhealth_max_share', "Philhealth Maximum Share", []) !!}
                             {!! Form::text('philhealth_max_share',"$philhealth->ph_cap",['disabled','id'=>'philhealth_max_share','class'=>'form-control text-center p-3']) !!}
                         </div>

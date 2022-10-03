@@ -345,6 +345,9 @@ class PayrollUpdateController extends Controller
         if($ph->ph_cap != $request->philhealth_max_share){
             $str .= 'Update Philhealth Maximum Share | ';
         }
+        if($ph->minimum_contribution != $request->philhealth_min_share){
+            $str .= 'Update Philhealth Minimum Contribution | ';
+        }
         if($ph->minimum != $request->philhealth_min){
             $str .= 'Update Philhealth Minimum Range | ';
         }
@@ -370,6 +373,7 @@ class PayrollUpdateController extends Controller
                 'er_rate' => $request->philhealth_er_rate,
                 'ph_rate' => $request->philhealth_rate,
                 'ph_cap' => $request->philhealth_max_share,
+                'minimum' => $request->philhealth_min_share,
                 'minimum' => $request->philhealth_min,
                 'maximum' => $request->philhealth_max,
                 'ee_personal' => $request->philhealth_share

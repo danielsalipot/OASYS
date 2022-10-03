@@ -191,23 +191,22 @@ class ComputationController extends Controller
 
         $philhealth = philhealth::first();
 
-
-
         $detail->employer_philhealth_contribution = 0;
         $detail->employee_philhealth_contribution = 0;
 
         if($detail->gross_pay < $philhealth->minimum){
-            $detail->employer_philhealth_contribution +=  ($philhealth->minimum * ($philhealth->er_rate / 100)) * ($diff / 365.25);
-            $detail->employee_philhealth_contribution +=  ($philhealth->minimum * ($philhealth->ee_rate / 100)) * ($diff / 365.25);
+            $total_philhealth_payment = $philhealth->minimum_contribution;
+            $detail->employer_philhealth_contribution +=  ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 30);
+            $detail->employee_philhealth_contribution +=  ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 30);
         }
         elseif($detail->gross_pay > $philhealth->maximum){
             $total_philhealth_payment = $philhealth->ph_cap;
-            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 365.25);
-            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 365.25);
+            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 30);
+            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 30);
         }else{
             $total_philhealth_payment = $detail->gross_pay * ($philhealth->ph_rate/100);
-            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100) * ($diff / 365.25));
-            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100) * ($diff / 365.25));
+            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100) * ($diff / 30));
+            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100) * ($diff / 30));
         }
 
         $detail->employer_philhealth_contribution = round($detail->employer_philhealth_contribution,2);
