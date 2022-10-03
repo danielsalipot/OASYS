@@ -15,6 +15,8 @@
 </head>
 
 <body style="overflow-x: hidden">
+    @include('inc.loader')
+
     @if (!session('user_id') || session('user_type') != 'payroll')
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @else

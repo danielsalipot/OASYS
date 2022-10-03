@@ -10,7 +10,7 @@
 
 </head>
 <body style="overflow-x: hidden">
-
+    @include('inc.loader')
     @include('inc.navbar')
 
     @yield('content')

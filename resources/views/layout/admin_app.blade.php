@@ -11,6 +11,8 @@
     @include('inc.navIncludes')
 </head>
 <body>
+    @include('inc.loader')
+
     @if (!session('user_id') || session('user_type') != 'admin')
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @else

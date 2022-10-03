@@ -7,6 +7,8 @@
     <title>OASYS</title>
 </head>
 <body>
+    @include('inc.loader')
+
     @if (!session('user_id') || session('user_type') != 'employee')
         {!! '<script>window.location.replace("/logout");</script>' !!}
     @endif

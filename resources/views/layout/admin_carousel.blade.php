@@ -10,9 +10,10 @@
     @include('inc.datatables')
     @include('inc.navIncludes')
 </head>
+
 <body>
     @if (!session('user_id') || session('user_type') != 'admin')
-        {!! '<script>window.location.replace("/logout");</script>' !!}
+    {!! '<script>window.location.replace("/logout");</script>' !!}
     @else
         @include('inc.profile')
     @endif
@@ -21,6 +22,7 @@
     <div class="row mt-2">
         <div class="col-1" style="width:6vw"></div>
         <div class="col">
+            @include('inc.loader')
             <div class="container p-0 mx-auto w-100">
             @yield('title')
 
@@ -45,8 +47,9 @@
             </div>
         </div>
     </div>
-
 @yield('script')
 <script src="{{ URL::asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')}}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+
+
 </html>

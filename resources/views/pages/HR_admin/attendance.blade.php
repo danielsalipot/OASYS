@@ -4,6 +4,7 @@
     <h1 class="section-title mt-2 pb-1">Attendance</h1>
 @endsection
 
+
 @section('controls')
     <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Today Attendance Overview</a></li>
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">All time Attendance Overview</a></li>
@@ -458,6 +459,7 @@
 
 @section('script')
     <script>
+
         $(document).ready(function(){
             $('#attendance_today_table').DataTable({
                 processing: true,
@@ -561,7 +563,6 @@
         function OverallAttendanceOverview(ctx,labels,ontime,late,absent){
             var total = 0
             var ontime_total = 0;
-            console.log(ontime)
             ontime.forEach(element => {
                 ontime_total += element
                 total += element

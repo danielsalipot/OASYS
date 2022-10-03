@@ -7,6 +7,8 @@
     <title>OASYS</title>
 </head>
 <body>
+    @include('inc.loader')
+
     @include('inc.datatables')
     @include('inc.navIncludes')
 
