@@ -1,14 +1,16 @@
 @extends('layout.common_layout')
 
 @section('title')
-    <h1 class="section-title w-100  mt-5 pb-5">Employee List</h1>
+    <h1 class="section-title w-100 text-center mt-5 pb-5">Employee List</h1>
+    <hr>
+    <br><br>
 @endsection
 
 @section('content')
 <div class="d-flex row justify-content-center">
     @foreach ($employees as $employee)
-    <div class="col-3 mb-5 card shadow-sm p-0">
-        <img src="/{{$employee->userDetail->picture}}" class="rounded-top" height="325px" width="325px">
+    <div class="col-2 mb-5 card shadow-sm p-0 mx-3">
+        <img src="/{{$employee->userDetail->picture}}" class="rounded-top w-100 h-100" >
         <h4 class="alert-primary w-100 text-center p-3">{{ $employee->userDetail->fname }} {{ $employee->userDetail->mname }} {{ $employee->userDetail->lname }}</h4>
         <div class="row w-100 mx-auto h-100">
             <div class="col alert-light text-center p-3">
