@@ -238,17 +238,11 @@ class PayrollController extends Controller
 
             // PAYROLL HTML
             $payroll_dir = 'payrolls';
-            $payroll_files = array_diff(scandir($payroll_dir), array('.', '..'));
-            array_splice($payroll_files, 0, 1);
-
-            usort($payroll_files, function($x, $y) {
-                return filectime("payrolls/".$x) > filectime("payrolls/".$y);
-            });
 
             $btn_arr_pr =[];
             $file_arr_pr =[];
 
-            $payrolls = Payroll::join('user_details','user_details.login_id','=','payrolls.payroll_manager_id')->get();
+            $payrolls = Payroll::join('user_details','user_details.login_id','=','payrolls.payroll_manager_id')->orderBy('from_date')->get();
             $count = UserCredential::where('user_type','payroll')
                 ->count();
             $count -= 1;
@@ -293,6 +287,7 @@ class PayrollController extends Controller
 
                 $payroll->done = 0;
                 foreach ($payroll->approvals as $key2 => $approval) {
+
                     if($approval->login_id == session('user_id')){
                         $payroll->done = 1;
                         if($approval->status == 1){
@@ -356,21 +351,23 @@ class PayrollController extends Controller
                 array_push($progress_bar, $str);
             }
 
-            foreach ($payroll_files as $key => $value) {
+
+            foreach ($payrolls as $key => $value) {
+                $filename = str_replace('payrolls/','',$value->filename);
                 if(isset($payrolls[$key])){
                     array_push($btn_arr_pr,
                     "<button id=\"".($key)."\" class='w-100 p-3 btn btn-light m-2 text-wrap' onclick=\"display(
                         this,
                         '".($key)."',
-                        '".$value. "<progress class=\'w-100\' id=\'progress_".$key."\' value=\'". $payrolls[$key]->progress."\' max=\'100\'> ".$payrolls[$key]->progress ."% </progress>" . "',
+                        '".$filename . "<progress class=\'w-100\' id=\'progress_".$key."\' value=\'". $payrolls[$key]->progress."\' max=\'100\'> ".$payrolls[$key]->progress ."% </progress>" . "',
                         '".$payrolls[$key]->from_date."',
                         '".$payrolls[$key]->to_date."',
                         '". $payrolls[$key]->progress ."',
                         ". $payslip_generated[$key] . ",
                         ".$payrolls[$key]->done.",
-                        ".$payrolls[$key]->payroll_manager_id.")\">" . $value . "
+                        ".$payrolls[$key]->payroll_manager_id.")\">" . $filename  . "
                         <progress class=' w-100' id='progress_".$key."' value='". $payrolls[$key]->progress."' max='100'> ".$payrolls[$key]->progress ."% </progress></button>");
-                    array_push($file_arr_pr,"<iframe id=\""."file".($key)."\" src=\"/" . $payroll_dir . "/" . $value ."\" width=\"100%\" style=\"display:none;height:100%\"></iframe>");
+                    array_push($file_arr_pr,"<iframe id=\""."file".($key)."\" src=\"/" . $payroll_dir . "/" . $filename  ."\" width=\"100%\" style=\"display:none;height:100%\"></iframe>");
                 }
             }
 
