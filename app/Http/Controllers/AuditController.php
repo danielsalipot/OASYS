@@ -44,13 +44,13 @@ class AuditController extends Controller
 
         //Table with 20 rows and 4 columns
         $pdf->SetWidths(array(40,20,40,40,60,40,40));
-        $pdf->Row(array('Date of Activity (UTC)',ucfirst(session('user_type')).' Manager','Type','Employee','Activity','Detail','Activity'));
+        $pdf->Row(array('Date of Activity (UTC)',ucfirst(session('user_type')).' Manager','Type','Employee','Activity','Detail','Activity ID'));
 
         foreach ($audit as $key => $value) {
             $employee = ' - ';
-            $employee_name = explode(' ',$value->employee);
 
-            if(isset($employee_name)){
+            if(isset($value->employee)){
+                $employee_name = explode(' ',$value->employee);
                 $employee = $employee_name[0][0]. ". " . $employee_name[count($employee_name) -1];
             }
 
