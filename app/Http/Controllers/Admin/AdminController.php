@@ -223,9 +223,9 @@ class AdminController extends Controller
                     ->first();
 
                 if(isset($attendance)){
-                    if(HealthCheck::where('attendance_id',$attendance->attendance_id)->first('score')){
-                        $health_score = HealthCheck::where('attendance_id',$attendance->attendance_id)->first('score')->score;
-                        $health_check_all[$health_score + 1][count($health_check_all[$health_score + 1]) -1 ] += 1;
+                    $health_score = HealthCheck::where('attendance_id',$attendance->attendance_id)->first('score');
+                    if($health_score){
+                        $health_check_all[$health_score->score + 1][count($health_check_all[$health_score->score + 1]) -1 ] += 1;
                     }
 
 
