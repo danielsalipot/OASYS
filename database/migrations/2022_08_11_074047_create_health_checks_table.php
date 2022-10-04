@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('health_checks', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->bigInteger('employee_id');
             $table->integer('score');

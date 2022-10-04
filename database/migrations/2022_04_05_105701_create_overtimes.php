@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('overtimes', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id('overtime_id');
             $table->bigInteger('employee_id');
             $table->bigInteger('attendance_id');

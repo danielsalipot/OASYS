@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('onboardees', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->bigInteger('employee_id');
             $table->timestamps();

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('deductions', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id('deduction_id');
             $table->bigInteger('payrollManager_id');
             $table->bigInteger('employee_id');

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contributions', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id('contribution_id');
             $table->string('employer_contribution');
             $table->string('employee_contribution');

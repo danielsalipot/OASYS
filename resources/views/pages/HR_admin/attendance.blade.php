@@ -568,14 +568,12 @@
                 total += element
             });
 
-            console.log(late)
             var late_total = 0;
             late.forEach(element => {
                 late_total += element
                 total += element
             });
 
-            console.log(absent)
             var absent_total = 0;
             absent.forEach(element => {
                 absent_total += element
@@ -664,13 +662,13 @@
             });
 
 
-            $('#health_check_report_1').html(`${((sick_total / total) * 100).toFixed(2)}% Complete Time Percentage`)
-            $('#health_check_report_2').html(`${((bad_total / total) * 100).toFixed(2)}% Under Time Percentage`)
-            $('#health_check_report_3').html(`${((unpleasant_total / total) * 100).toFixed(2)}% Absent Percentage`)
-            $('#health_check_report_4').html(`${((neutral_total / total) * 100).toFixed(2)}% Complete Time Percentage`)
-            $('#health_check_report_5').html(`${((good_total / total) * 100).toFixed(2)}% Under Time Percentage`)
-            $('#health_check_report_6').html(`${((better_total / total) * 100).toFixed(2)}% Absent Percentage`)
-            $('#health_check_report_7').html(`${((best_total / total) * 100).toFixed(2)}% Absent Percentage`)
+            $('#health_check_report_1').html(`${(sick_total / total) ? ((sick_total / total) * 100).toFixed(2) : 0}% Sick Record Percentage`)
+            $('#health_check_report_2').html(`${(bad_total / total) ? ((bad_total / total) * 100).toFixed(2) : 0}% Bad Record Percentage`)
+            $('#health_check_report_3').html(`${(unpleasant_total / total) ? ((unpleasant_total / total) * 100).toFixed(2) : 0}% Unpleasant Percentage`)
+            $('#health_check_report_4').html(`${(neutral_total / total) ? ((neutral_total / total) * 100).toFixed(2) : 0}% Neutral Record Percentage`)
+            $('#health_check_report_5').html(`${(good_total / total) ? ((good_total / total) * 100).toFixed(2) : 0}% Good Record Percentage`)
+            $('#health_check_report_6').html(`${(better_total / total) ? ((better_total / total) * 100).toFixed(2) : 0}% Better Record Percentage`)
+            $('#health_check_report_7').html(`${(best_total / total) ? ((best_total / total) * 100).toFixed(2) : 0}% Best Record Percentage`)
 
 
 

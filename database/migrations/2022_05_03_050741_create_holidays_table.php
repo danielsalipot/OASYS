@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('holidays', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id('holiday_id');
             $table->string('holiday_name');
             $table->date('holiday_start_date');

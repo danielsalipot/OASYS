@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\holiday_attendance;
 
 class Holiday extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     public $primaryKey  = 'holiday_id';
     protected $keyType = 'string';

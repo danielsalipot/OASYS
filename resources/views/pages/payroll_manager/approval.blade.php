@@ -85,7 +85,6 @@
     })
 
     function display(btn,key,value,from_date1,to_date1,progress,payslip_generate,vote,generator){
-        console.log(value)
         if(btn.innerHTML == "Close"){
             $("iframe").each(function() {
                 $(this).css('display','none');

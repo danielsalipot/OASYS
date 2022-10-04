@@ -199,8 +199,6 @@
                 btn.innerHTML = 'Selected'
                 btn.className = 'btn btn-success';
 
-                console.log(emp_name)
-
                 $('#hidden_emp_id').val(`${$('#hidden_emp_id').val()}${emp_id};`)
 
                 $('#selected_employee_table').html(

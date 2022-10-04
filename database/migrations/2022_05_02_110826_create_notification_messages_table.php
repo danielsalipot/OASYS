@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('notification_messages', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->bigInteger('sender_id');
             $table->string('title');

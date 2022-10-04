@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('multi_pays', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id('multi_pay_id');
             $table->bigInteger('payrollManager_id');
             $table->bigInteger('employee_id');

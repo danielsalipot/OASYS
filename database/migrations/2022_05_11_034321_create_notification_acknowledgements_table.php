@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('notification_acknowledgements', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->bigInteger('notification_receiver_id');
             $table->timestamps();

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pagibigs', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->string('ee_max_rate');
             $table->string('ee_min_rate');

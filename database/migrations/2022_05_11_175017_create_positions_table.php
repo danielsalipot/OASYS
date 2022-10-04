@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('positions', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->string('position_title');
             $table->LONGTEXT('position_description');

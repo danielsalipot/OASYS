@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('user_credentials', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id('login_id');
             $table->string('username');
             $table->string('password');

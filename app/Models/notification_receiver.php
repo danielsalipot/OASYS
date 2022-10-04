@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\notification_message;
 
 class notification_receiver extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     protected $keyType = 'string';
 

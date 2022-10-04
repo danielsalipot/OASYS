@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('philhealths', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->string('ee_rate');
             $table->string('er_rate');

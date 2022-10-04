@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('assessments', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->bigInteger('employee_id');
             $table->string('assessment_type');

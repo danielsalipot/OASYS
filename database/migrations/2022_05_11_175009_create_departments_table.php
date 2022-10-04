@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->string('department_name');
             $table->timestamps();

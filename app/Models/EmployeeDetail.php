@@ -5,6 +5,7 @@ namespace App\Models;
 use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\UserDetail;
 use App\Models\Attendance;
 use App\Models\Deduction;
@@ -15,6 +16,7 @@ use App\Models\Payslips;
 
 class EmployeeDetail extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     public $primaryKey  = 'employee_id';
     protected $keyType = 'string';
