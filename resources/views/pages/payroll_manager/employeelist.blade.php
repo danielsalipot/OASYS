@@ -1,6 +1,7 @@
 @extends('layout.payroll_app')
 
 @section('title')
+    @error('rate')<div class="alert-danger p-3 rounded">{{$message}}</div>@enderror
     <h1 class="section-title mt-5 pb-5">Salary Management</h1>
 @endsection
 
