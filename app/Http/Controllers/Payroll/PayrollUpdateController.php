@@ -245,6 +245,9 @@ class PayrollUpdateController extends Controller
     }
 
     function editrate(Request $request){
+        $request->validate([
+            'rate' => 'required'
+        ]);
         $rate = EmployeeDetail::where('employee_id',$request->emp_id)->first();
         $employee = EmployeeDetail::with('UserDetail')->where('employee_id', $rate->employee_id)->first();
 
