@@ -343,7 +343,7 @@ class PayrollInsertController extends Controller
             if(isset($request->chk)){
                 // AUTOMATIC SENDING OF NOTIFICATION
                 $employee = EmployeeDetail::where('employee_id',$employee->employee_id)->first();
-                $emp_attendance = Attendance::where('attendance_id',$attendance_id->id)->first();
+                $emp_attendance = Attendance::where('attendance_id',$attendance_id->attendance_id)->first();
 
                 $head = 'Paid Leave Recorded';
                 $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
