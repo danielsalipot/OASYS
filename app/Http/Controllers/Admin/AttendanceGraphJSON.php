@@ -62,8 +62,10 @@ class AttendanceGraphJSON extends Controller
                     ->first();
 
                 if(isset($attendance)){
+                    if(HealthCheck::where('attendance_id',$attendance->attendance_id)->first('score')){
                         $health_score = HealthCheck::where('attendance_id',$attendance->attendance_id)->first('score')->score;
                         $health_check_all[$health_score + 1][count($health_check_all[$health_score + 1]) -1 ] += 1;
+                    }
 
                     $total_attendance += 1;
                     if($this->timeCalculator($employee->schedule_Timein) >= $this->timeCalculator($attendance->time_in) && $this->timeCalculator($employee->schedule_Timeout) <= $this->timeCalculator($attendance->time_out)){
