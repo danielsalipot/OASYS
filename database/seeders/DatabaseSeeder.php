@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HolidaySeeder::class);
         $this->call(AssessmentSeeder::class);
         $this->call(LeaveApprovalSeeder::class);
+        $this->call(HealthCheckSeeder::class);
     }
 }
 
