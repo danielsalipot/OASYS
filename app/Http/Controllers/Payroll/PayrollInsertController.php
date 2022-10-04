@@ -26,7 +26,8 @@ use Carbon\CarbonPeriod;
 
 class PayrollInsertController extends Controller
 {
-    public function InsertOvertime(Request $request){
+    public function InsertOvertime(Request $request)
+    {
         overtime_approval::where('attendance_id',$request->attendance_id)->update([
             'status' => 1,
             'approval_date' => date('Y-m-d'),
@@ -325,7 +326,7 @@ class PayrollInsertController extends Controller
 
                 $id = Leave::create([
                     'employee_id' => $employee->employee_id,
-                    'attendance_id' => $attendance_id->id,
+                    'attendance_id' => $attendance_id->attendance_id,
                     'payrollManager_id' =>session()->get('user_id')
                 ]);
             }
