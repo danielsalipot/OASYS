@@ -105,7 +105,7 @@ class PayrollUpdateController extends Controller
 
                 $id = Leave::create([
                     'employee_id' => $employee->employee_id,
-                    'attendance_id' => $attendance->id,
+                    'attendance_id' => $attendance->attendance_id,
                     'payrollManager_id' =>session('user_id')
                 ]);
             }
