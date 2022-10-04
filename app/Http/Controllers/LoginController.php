@@ -22,7 +22,7 @@ class LoginController extends Controller
                 ->where('password',md5(md5($request->input('pass'))))
                 ->first();
 
-        if($check){
+        if($check || session('remember_me')){
             // if login credentials is correct, create session
             $request->session()->put('user_id', $check->login_id);
             $request->session()->put('username',$check->username);

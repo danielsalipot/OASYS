@@ -31,7 +31,7 @@ class PagesController extends Controller
     }
 
     function login(){
-        if(session('remember_me')){
+        if(session('user_id')){
             //check user type then redirect
             if(session('user_type') == 'payroll'){
                 return redirect('/payroll/home');
