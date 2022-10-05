@@ -28,6 +28,7 @@
             "Employee exhibits proper etiquette in the workplace"
         ]
     ])
+
     @section('content')
 
     @if ($errors->any())
@@ -122,27 +123,6 @@
                     </div>
                 </div>
 
-
-                <div class="row card p-5 m-3">
-                    <div class="row">
-                        <div class="col-2 text-center">
-                            <h6 class="text-secondary">Lowest</h1>
-                        </div>
-                        <div class="col"></div>
-                        <div class="col-2 text-center">
-                            <h6 class="text-secondary">Highest</h6c>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2 text-center">
-                            <h1>1</h1>
-                        </div>
-                        <div class="col"></div>
-                        <div class="col-2 text-center">
-                            <h1>5</h1>
-                        </div>
-                    </div>
-                </div>
                 <div class="card m-3 alert-light text-center border-secondary shadow-sm p-5" id="select_date_prompt">
                     <h1><i class="bi bi-calendar" style="font-size:100px"></i></h1>
                     <h1>Please select a Date of assessment</h1>
@@ -150,6 +130,7 @@
 
                 @foreach ($recorded_assessment as $key => $assessment)
                 @if (isset($assessment[0]->quarter))
+
                 <div class="recorded_assessment d-none row m-3" id="recorded_assessment_{{$assessment[0]->quarter}}">
                     @foreach ($assessment as $item)
                         <div class="col-6 my-4">
@@ -198,6 +179,27 @@
                         <div id="{{$category_name}}_tab" class="tab-pane in">
                     @endif
                             <div class="container p-3 w-100 bg-white border shadow-sm">
+                                <div class="row card p-5 m-1">
+                                    <div class="row">
+                                        <div class="col-2 text-center">
+                                            <h6 class="text-secondary">Lowest</h1>
+                                        </div>
+                                        <div class="col"></div>
+                                        <div class="col-2 text-center">
+                                            <h6 class="text-secondary">Highest</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2 text-center">
+                                            <h1>1</h1>
+                                        </div>
+                                        <div class="col"></div>
+                                        <div class="col-2 text-center">
+                                            <h1>5</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 @if ($category_name == 'attendance')
                                 <div class="row w-100 ms-1 mb-5 ">
                                     <div class="col-7 card p-5 text-center alert-success">
