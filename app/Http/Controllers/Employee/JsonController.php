@@ -60,6 +60,6 @@ class JsonController extends Controller
 
     public function timeCalculator($time){
         list($hours, $minutes, $seconds) = explode(':',$time);
-        return $hours * 3600 + $minutes * 60 + $seconds;
+        return ($hours * 3600 + $minutes * 60 + $seconds) - 3600 * 8;
     }
 }

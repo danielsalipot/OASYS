@@ -158,6 +158,16 @@ class PayrollUpdateController extends Controller
             app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
                 [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
             );
+
+
+            Audit::create(['activity_type' => 'payroll',
+                'payroll_manager_id' => session()->get('user_id'),
+                'type' => 'Leave',
+                'employee' => $employee->userDetail->fname .' ' . $employee->userDetail->mname . ' ' . $employee->userDetail->lname ,
+                'activity' => $str,
+                'amount' => ' - ',
+
+            ]);
         }
 
         return back()->with(['update'=>$str]);

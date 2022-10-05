@@ -198,8 +198,8 @@
                     <h1 style="font-size:70px"><i class="bi bi-file-earmark-x-fill"></i></h1>
                     <h3>Disapproved</h3>
                     <div class="w-100 mt-3 p-2 alert-light">
-                        <p class="p-0 m-0">Approved by: {{ $data->manager->fname }} {{ $data->manager->mname }} {{ $data->manager->lname }}</p>
-                        <p class="p-0 m-0">Approved on: {{ $data->approval_date }}</p>
+                        <p class="p-0 m-0">Disapproved by: {{ $data->manager->fname }} {{ $data->manager->mname }} {{ $data->manager->lname }}</p>
+                        <p class="p-0 m-0">Disapproved on: {{ $data->approval_date }}</p>
                     </div>
                 </div>
                 @endif
