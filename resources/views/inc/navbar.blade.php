@@ -1,4 +1,4 @@
-<header style="z-index:999;" class="position-fixed p-2 w-100" style="background-color:rgba(255, 255, 255, 0.188)">
+<header style="z-index:999;" class="position-absolute p-2 w-100" style="background-color:rgba(255, 255, 255, 0.188)">
     <div class="row w-100">
         <div class="col"></div>
         <div class="col">

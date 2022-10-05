@@ -11,8 +11,15 @@
             <div class="row h-100" style="padding-top:4vh">
                 <div class="col bg-white h-100 shadow-lg p-5 ms-5 me-0 rounded-start shadow-sm">
                     <div class="h-25">
+                        <div class="row rounded p-0 mb-5">
+                            <div class="border border-primary col bg-primary p-3 shadow-sm m-0 rounded-start"></div>
+                            <div class="border border-primary col-1 p-1 bg-primary shadow-sm">Step 1</div>
+                            <div class="border-top border-bottom border-primary col bg-light p-3 shadow-sm"></div>
+                            <div class="border-top border-bottom border-primary col-1 p-1 bg-light text-secondary shadow-sm">Step 2</div>
+                            <div class="border-top border-bottom border-primary col bg-light p-3 shadow-sm"></div>
+                            <div class="border-top border-bottom border-end border-primary col-1 p-1 bg-light text-secondary rounded-end shadow-sm"> Step 3</div>
+                        </div>
                         <h1 class="section-title">Create your Account</h1>
-                        <h5 class="text-secondary pt-3">Step 1 out of 3</h5>
                     </div>
                     <div class="h-50">
                         @if(Session::get('taken'))
@@ -47,10 +54,10 @@
 
                             <div class="row w-75 mx-auto">
                                 <div class="col-1 text-end p-0 pt-1 pe-2">
-                                    <input type="checkbox"id="data_privacy_chk" name="data_privacy_chk" value="1">
+                                    <input type="checkbox" id="data_privacy_chk" onclick="consent_checkbox_click()" name="data_privacy_chk" value="1">
                                 </div>
                                 <div class="col-5 text-start p-0 pt-2">
-                                    <p for="data_privacy_chk" class=" text-dark text-decoration-none p-0 m-0"> I voluntarily consent to the use of my data.</p>
+                                    <p for="data_privacy_chk" class="text-dark text-decoration-none p-0 m-0"> I voluntarily consent to the use of my data.</p>
                                 </div>
                                 <div class="col"></div>
                                 <div class="col-4">
@@ -63,7 +70,7 @@
 
                             <div class="row w-75 mx-auto mt-3">
                                 <div class="col-1 text-end p-0 pt-1 pe-2">
-                                    <input type="checkbox"id="terms_condition_chk" name="terms_condition_chk" value="1">
+                                    <input type="checkbox" onclick="consent_checkbox_click()" id="terms_condition_chk" name="terms_condition_chk" value="1">
                                 </div>
                                 <div class="col-5 text-start p-0 pt-2">
                                     <p for="terms_condition_chk" class=" text-dark text-decoration-none p-0 m-0"> I agree to the terms and condition</p>
@@ -79,7 +86,7 @@
 
                     <div class="h-25">
                         <div class="row">
-                            <button type="submit" class="btn btn-primary w-50 mx-auto mt-3 p-4 shadow-sm">Sign up</button>
+                            <button type="submit" disabled id="form_submit" class="btn btn-primary w-50 mx-auto mt-3 p-4 shadow-sm">Sign up</button>
                         </div>
                         <div class="row">
                             <a href="/" class="btn btn-outline-primary w-50 mt-1 mx-auto">Cancel</a>
@@ -260,4 +267,19 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function consent_checkbox_click(){
+                var data_priv = document.getElementById('data_privacy_chk')
+                var terms = document.getElementById('terms_condition_chk')
+                var submit = document.getElementById('form_submit')
+
+
+                if(data_priv.checked && terms.checked){
+                    submit.disabled = false
+                }else{
+                    submit.disabled = true
+                }
+            }
+        </script>
     @endsection

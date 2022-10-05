@@ -12,6 +12,7 @@ use App\Models\UserDetail;
 use App\Models\ApplicantDetail;
 use App\Models\coe;
 use App\Models\EmployeeDetail;
+use App\Models\LoginLogs;
 use App\Models\notification_message;
 use App\Models\notification_acknowledgements;
 use Carbon\Carbon;
@@ -32,6 +33,11 @@ class PagesController extends Controller
 
     function login(){
         if(session('user_id')){
+            LoginLogs::create([
+                'user_id' => session('user_id'),
+                'user_type' => session('user_type')
+            ]);
+
             //check user type then redirect
             if(session('user_type') == 'payroll'){
                 return redirect('/payroll/home');

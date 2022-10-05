@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApplicantDetail;
+use App\Models\LoginLogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,6 +29,11 @@ class LoginController extends Controller
             $request->session()->put('username',$check->username);
             $request->session()->put('password',$check->password);
             $request->session()->put('user_type',$check->user_type);
+
+            LoginLogs::create([
+                'user_id' => $check->login_id,
+                'user_type' => $check->user_type
+            ]);
 
             if(isset($request->remem)){
                 $request->session()->put('remember_me',1);
