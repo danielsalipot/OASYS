@@ -76,7 +76,7 @@
             <div class="col">
                 <h1 class="display-5 text-center w-100">Employee Selection</h1>
                 <div class="container w-100">
-                    <table class="table w-100 table-striped text-center table-dark" id="employee_table">
+                    <table class="table w-100 table-striped text-center " id="employee_table">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>

@@ -47,7 +47,7 @@
                         <button type="button" name="paid_refresh" id="paid_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
                     </div>
                 </div>
-                <table class="table table-striped text-center w-100 table-dark" id="paid_table">
+                <table class="table table-striped text-center w-100 " id="paid_table">
                     <thead>
                         <tr>
                             <th class="col">Transaction ID</th>

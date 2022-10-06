@@ -192,7 +192,7 @@
             </div>
         </div>
 
-        <table class="table table-striped text-center table-dark w-100" id="delete_all_attendance">
+        <table class="table table-striped text-center  w-100" id="delete_all_attendance">
             <thead>
                 <tr>
                     <th class="col">Holiday Name</th>
@@ -213,7 +213,7 @@
         <h4>Delete Selected Attendance</h3>
         <hr>
         @include('inc.date_filter')
-        <table class="table table-striped text-center table-dark w-100" id="holiday_attendance">
+        <table class="table table-striped text-center  w-100" id="holiday_attendance">
             <thead>
                 <tr>
                     <th class="col">Transacetion ID</th>
