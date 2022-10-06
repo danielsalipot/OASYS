@@ -636,6 +636,8 @@ class AdminController extends Controller
             }
         }
 
+        $files_arr['files'] = array_reverse($files_arr['files']);
+
         return view('pages.HR_admin.audittrail')->with([
             'profile' => $profile,
             'files_arr' => $files_arr

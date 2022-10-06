@@ -13,7 +13,7 @@
 <div class="container w-100 p-2">
     <div class="w-100 card shadow-sm p-3 mb-4">
         <button onclick="audit_click()" class="btn btn-outline-success w-25 py-4" id="btn_audit">Generate Audit Summary</button>
-        {!! Form::open(['action'=>'App\Http\Controllers\AuditController@audit','method'=>'GET',  'target'=>"_blank", 'id'=>'payslip_form']) !!}
+        {!! Form::open(['action'=>'App\Http\Controllers\AuditController@audit','method'=>'GET',  'target'=>"_blank", 'id'=>'payslip_form', 'onsubmit'=> "setTimeout(function(){window.location.reload();},10);"]) !!}
                 <div id="audit_pdf_actions" class="row d-flex w-25 d-none">
                     <div class="col ps-3 h-100 w-100">
                         {!! Form::hidden('from', '', ['id'=>'from']) !!}

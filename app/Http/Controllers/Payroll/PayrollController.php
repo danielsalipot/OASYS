@@ -226,6 +226,8 @@ class PayrollController extends Controller
                 }
             }
 
+            $files_arr['files'] = array_reverse($files_arr['files']);
+
             return view('pages.payroll_manager.audittrail')->with([
                 'profile' => $profile,
                 'files_arr' => $files_arr

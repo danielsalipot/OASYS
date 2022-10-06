@@ -329,6 +329,8 @@ class StaffController extends Controller
             }
         }
 
+        $files_arr['files'] = array_reverse($files_arr['files']);
+
         return view('pages.HR_Staff.audittrail')->with([
             'profile' => $profile,
             'files_arr' => $files_arr
