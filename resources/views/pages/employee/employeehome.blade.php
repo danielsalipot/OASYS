@@ -15,11 +15,11 @@
 
         <div class="container w-100 p-2">
             <div class="row">
-                <div class="col">
-                    <h1 class="section-title mt-2 pb-1">Employee Dashboard</h1>
+                <div class="col d-none d-md-block">
+                    <h1 class="section-title mt-2 pb-1 ">Employee Dashboard</h1>
                 </div>
                 @if($health_check_count)
-                <div class="col-3 card me-4 shadow-sm p-0">
+                <div class="col card me-4 shadow-sm p-0">
                     <h4 class="w-100 m-0 rounded-top alert-warning p-2 text-center">Health Condition Today</h4>
                     @if($health_check->score <= 3)
                         <div class="row alert-danger w-100 mx-auto">

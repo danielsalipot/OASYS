@@ -12,7 +12,7 @@
     <div class="row p-4" style="margin: 1vh"></div>
     <div class="mx-auto w-75 " style="height: 80vh">
         <div class="row h-100">
-            <div class="col p-0 m-0">
+            <div class="col p-0 m-0 d-none d-md-block">
                 <img src="https://wallpaperaccess.com/full/155741.jpg"  class=" w-100 h-100 " style="clip-path: circle(64.3% at 73% 42%)" alt="">
             </div>
             <div class="col card h-100 rounded-0 rounded-end shadow-lg">
@@ -36,7 +36,7 @@
                             <div class="w-100 text-end"><a href="/Password/Forget" class="text-decoration-none text-secondary" style="font-size:13px;">Forgot Password</a></div>
 
 
-                            <div class="text-left  ms-5 ps-3 m-0 w-75 mt-3 p-0">
+                            <div class="text-left  mx-auto w-75 mt-3 p-0">
                             <input type="checkbox" name="remem" class="form-check-input my-2" id="remem">
                             <label class="form-check-label text-secondary my-1" for="remem">Remember me</label>
                                 <br>{!! Form::submit('Login', ['class' => 'btn btn-outline-primary w-100 mx-auto']) !!}
