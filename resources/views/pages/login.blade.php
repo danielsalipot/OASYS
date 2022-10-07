@@ -10,7 +10,7 @@
     </style>
 
     <div class="row p-4" style="margin: 1vh"></div>
-    <div class="mx-auto w-75 " style="height: 80vh">
+    <div class="mx-auto w-75" style="height: 35em">
         <div class="row h-100">
             <div class="col p-0 m-0 d-none d-md-block">
                 <img src="https://wallpaperaccess.com/full/155741.jpg"  class=" w-100 h-100 " style="clip-path: circle(64.3% at 73% 42%)" alt="">
