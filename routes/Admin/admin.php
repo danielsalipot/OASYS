@@ -8,6 +8,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/attendance', [AdminController::class, 'attendance']);
     Route::get('/audittrail', [AdminController::class, 'audittrail']);
     Route::get('/forms', [AdminController::class, 'LegalForms']);
+    Route::get('/manual', [AdminController::class, 'adminManual']);
 
     Route::get('/employees/activities', [AdminController::class, 'employee_activities']);
 
@@ -34,6 +35,4 @@ Route::prefix('admin')->group(function () {
     Route::get('/correction/people', [AdminController::class, 'peoplecorrection']);
     Route::get('/correction/module', [AdminController::class, 'modulecorrection']);
 
-    Route::get('/message', [AdminController::class, 'adminmessage']);
-    Route::get('/notification', [AdminController::class, 'adminnotification']);
 });

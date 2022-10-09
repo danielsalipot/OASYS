@@ -85,6 +85,7 @@
     })
 
     function display(btn,key,value,from_date1,to_date1,progress,payslip_generate,vote,generator){
+        console.log(payslip_generate)
         if(btn.innerHTML == "Close"){
             $("iframe").each(function() {
                 $(this).css('display','none');
@@ -116,6 +117,9 @@
                     $('#ps_col2').val(`${from_date1} - ${to_date1}`)
                 }
             });
+
+            $('#payslip').prop('disabled',false)
+            $('#payslip').html('Payslip')
 
             if(progress >= 100){
                 $('#approval_btn').prop('disabled',true)
@@ -155,8 +159,11 @@
         $(`#${key}`).toggleClass("btn-light");
         $(`#progress_bar${key}`).toggleClass("d-none");
         $(`#${key}`).toggleClass("btn-danger");
+
         if(generator == {{session('user_id')}}){
-            $(`#payslip_controls`).addClass('d-none')
+            $('#approval_btn').prop('disabled',true)
+            $('#note_btn').prop('disabled',true)
+            $('#disapproval_btn').prop('disabled',true)
         }
     }
 

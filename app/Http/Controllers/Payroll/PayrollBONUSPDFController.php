@@ -27,18 +27,19 @@ class PayrollBONUSPDFController extends Controller
         //Add a new page
         $pdf->AddPage('L');
 
+        $logo = "school_assets/blcc_header.jpg";
+        $pdf->Image($logo, $pdf->GetX() + 65, $pdf->GetY() -7,150);
+
+        $pdf->Ln(35);
+
+        $pdf->SetFont('Arial', 'I', 9);
+        $pdf->Cell(277,5,'Thirteenth month pay summary for the period covered from ' . $dates[0] . ' to ' . $dates[1] ,0,1,'L');
+
         $pdf->SetFont('Arial', 'B', 12);
-
-        // Prints a cell with given text
-        $pdf->Cell(280,7,'Beulah Land Christian College Inc.',0,1,'C');
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(280,7,'13th Month bonus Summary',0,1,'C');
-        $pdf->Cell(280,7,'Date duration:',0,1,'C');
-        $pdf->Cell(280,7,$dates[0] . " - " . $dates[1],0,1,'C');
-
         $pdf->SetWidths(array(46,46,46,46,46,46,46));
         $pdf->Row(array('Employee Name','Employee Department','Employee Position','Employee Rate','Employee Total Salary','Estimated Bonus'));
 
+        $pdf->SetFont('Arial', '', 12);
         foreach ($employees as $key => $employee) {
             $pdf->Row(array($employee->fname[0]. ". ". $employee->lname,
                 $employee->department,

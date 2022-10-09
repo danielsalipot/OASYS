@@ -16,6 +16,7 @@
             <li><a onclick="show_loader()" href="/profile" class="nav-link py-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-circle"></i></span></a></li>
             <li><a onclick="show_loader()" href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i> <span id='badge' style="font-size: 9px"></span></a></li>
             <li><a onclick="show_loader()" href="/notification" class="nav-link py-3"   title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
+            <li><a onclick="show_loader()" href="/staff/manual" class="nav-link py-3"   title="User Manual" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle"></i></a></li>
         </ul>
         </nav><!-- .nav-menu -->
     </div>
@@ -39,6 +40,7 @@
             <li><a onclick="show_loader()" href="/profile" class="nav-link py-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-circle pe-4"></i>Profile</a></li>
             <li><a onclick="show_loader()" href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text  pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></li>
             <li><a onclick="show_loader()" href="/notification" class="nav-link py-3" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell  pe-4"></i>Notification</a></li>
+            <li><a onclick="show_loader()" href="/staff/manual" class="nav-link py-3" title="User Manual" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle  pe-4"></i>User Manual</a></li>
         </ul>
         </nav><!-- .nav-menu -->
     </div>
@@ -62,6 +64,7 @@
     <li><a onclick="show_loader()" href="/profile" class="btn btn-outline-light w-100 btn-lg p-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-circle pe-4"></i>Profile</a></li>
     <li><a onclick="show_loader()" href="/message" class="btn btn-outline-light w-100 btn-lg p-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text  pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></li>
     <li><a onclick="show_loader()" href="/notification" class="btn btn-outline-light w-100 btn-lg p-3" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell  pe-4"></i>Notification</a></li>
+    <li><a onclick="show_loader()" href="/staff/manual" class="btn btn-outline-light w-100 btn-lg p-3" title="User Manual" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle pe-4"></i>User Manual</a></li>
 </div>
 
 <script>

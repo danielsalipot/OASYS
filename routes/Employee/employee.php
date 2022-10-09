@@ -10,6 +10,7 @@ Route::prefix('employee')->group(function () {
     Route::get('/profile', [EmployeeController::class, 'profile']);
     Route::get('/overtime', [EmployeeController::class, 'overtime']);
     Route::get('/leave', [EmployeeController::class, 'leave']);
+    Route::get('/manual', [EmployeeController::class, 'employeeManual']);
     Route::get('/profile/update', [EmployeeController::class, 'updateProfile']);
 });
 

@@ -273,7 +273,7 @@
                         </div>
                         <div class="col text-center">
                             {!! Form::label('philhealth_min_share', "Philhealth Minimum Share", []) !!}
-                            {!! Form::text('philhealth_min_share',"$philhealth->minimun_contribution",['disabled','id'=>'philhealth_min_share','class'=>'form-control text-center p-3']) !!}
+                            {!! Form::text('philhealth_min_share',"$philhealth->minimum_contribution",['disabled','id'=>'philhealth_min_share','class'=>'form-control text-center p-3']) !!}
                         </div>
                         <div class="col text-center">
                             {!! Form::label('philhealth_max_share', "Philhealth Maximum Share", []) !!}

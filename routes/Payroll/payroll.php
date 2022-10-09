@@ -23,6 +23,8 @@ Route::prefix('payroll')->group(function () {
     Route::get('/audittrail', [PayrollController::class, 'audittrail']);
     Route::get('/approval', [PayrollController::class, 'approval']);
 
+    Route::get('/manual', [PayrollController::class, 'payrollManual']);
+
     Route::get('/progress/{btn}', [PayrollController::class, 'progress']);
     Route::get('/employee/profile/{id}', [EmployeeController::class, 'profile']);
 });

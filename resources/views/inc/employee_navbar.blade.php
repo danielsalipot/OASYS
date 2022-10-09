@@ -10,6 +10,7 @@
                 <li><a onclick="show_loader()" href="/employee/leave" class="nav-link py-3" title="Leave" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar2-minus"></i></a></li>
                 <li><a onclick="show_loader()" href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i> <span id='badge' style="font-size: 9px"></span></a></li>
                 <li><a onclick="show_loader()" href="/employee/profile" class="nav-link py-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-fill"></i></a></li>
+                <li><a onclick="show_loader()" href="/employee/manual" class="nav-link py-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle"></i></a></li>
             </ul>
             <ul>
                 <li><a href="/logout" class="nav-link pt-5 mt-5" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left"></i></a></li>
@@ -30,6 +31,8 @@
                 <li><a onclick="show_loader()" href="/employee/leave" class="nav-link py-3" title="Leave" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar2-minus pe-4"></i>Leave</a></li>
                 <li><a onclick="show_loader()" href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></li>
                 <li><a onclick="show_loader()" href="/employee/profile" class="nav-link py-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-fill pe-4"></i>Profile</a></li>
+                <li><a onclick="show_loader()" href="/employee/manual" class="nav-link py-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle pe-4"></i>User Manual</a></li>
+
             </ul>
             <ul>
                 <li><a href="/logout" class="nav-link pt-5 mt-5" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left pe-4"></i>Logout</a></li>
@@ -49,6 +52,8 @@
         <a onclick="show_loader()" href="/employee/leave" class="btn btn-lg btn-outline-light w-100 p-3" title="Leave" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar2-minus pe-4"></i>Leave</a></li>
         <a onclick="show_loader()" href="/message" class="btn btn-lg btn-outline-light w-100 p-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></li>
         <a onclick="show_loader()" href="/employee/profile" class="btn btn-lg btn-outline-light w-100 p-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-fill pe-4"></i>Profile</a></li>
+        <a onclick="show_loader()" href="/employee/manual" class="btn btn-lg btn-outline-light w-100 p-3 pb-5 mb-5" title="User Manual" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle pe-4"></i>User Manual</a></li>
+
         <a onclick="show_loader()" href="/logout" class="btn btn-lg btn-outline-light w-100 p-3 mt-5" title="Logout" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-box-arrow-left pe-4"></i>Logout</a></li>
 </div>
 

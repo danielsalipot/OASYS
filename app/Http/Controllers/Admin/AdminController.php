@@ -747,6 +747,10 @@ class AdminController extends Controller
         ]);
     }
 
+    public function adminManual(){
+        return view('pages.Admin.manual');
+    }
+
     function ordinal($number) {
         $ends = array('th','st','nd','rd','th','th','th','th','th','th');
         if ((($number % 100) >= 11) && (($number%100) <= 13))

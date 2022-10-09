@@ -387,4 +387,8 @@ class StaffController extends Controller
                 </div>
             </div>";
     }
+
+    public function staffManual(){
+        return view('pages.HR_Staff.manual');
+    }
 }

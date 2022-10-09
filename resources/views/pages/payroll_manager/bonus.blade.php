@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="col">
-        <div class="container">
+        <div class="container border-bottom" style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
             <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
             <table class="table table-striped text-center">
                 <thead>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="container">
-            <h1 class="display-5 mb-3 text-center w-100">Bonus Details</h1>
+            <h3 class=" mb-3 text-center alert-success mt-5 p-3 rounded-top w-100">Bonus Details</h3>
             <div class="m-5 ps-5 pe-5">
                 {!! Form::label('bonus_date_input', 'Date of Bonus', ['class'=>'w-100 text-center']) !!}
                 <div class="row mb-3 w-100">
@@ -83,9 +83,9 @@
 
                 <div class="row">
                     <div class="col">
-                        <button type="button" onclick="addBonus()" class="btn btn-success p-3 px-5" data-toggle="modal" data-target="#edit_modal">Add Bonus</button>
+                        <button type="button" onclick="addBonus()" class="btn btn-outline-success p-3 px-5 w-100" data-toggle="modal" data-target="#edit_modal">Add Bonus</button>
                     </div>
-                    <div class="col-2">
+                    <div class="col-4">
                         <button onclick="location.reload()" class="btn btn-danger w-100 p-3">Cancel</button>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                 <button onclick="unlock()" class="btn btn-outline-primary w-100 h-100" id="lock"><i class="bi bi-lock"></i></button>
             </div>
             <div class="col-2 border border-warning p-2">
-                {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollBONUSPDFController@bonusPdf', 'method'=>'GET']) !!}
+                {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollBONUSPDFController@bonusPdf', 'method'=>'GET' , 'target' => '_blank' , 'onsubmit'=> "setTimeout(function(){window.location.reload();},10);"]) !!}
                 {!! Form::hidden('json','', ['id'=>'json']) !!}
                 {!! Form::submit('Issue 13th Month Bonus', ['disabled','class'=>"btn btn-warning h-100 w-100 p-3", 'id'=>'issue_bonus']) !!}
                 {!! Form::close() !!}

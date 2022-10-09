@@ -477,4 +477,8 @@ class EmployeeController extends Controller
             return $number. $ends[$number % 10];
     }
 
+    public function employeeManual(){
+        return view('pages.Employee.manual');
+    }
+
 }

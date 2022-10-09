@@ -3,7 +3,7 @@
     <div class="d-flex flex-column p-0">
         <nav id="navbar" class="nav-menu navbar p-0">
             <ul>
-                <li><a onclick="show_loader()" href="/payroll/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
+                <li><a onclick="show_loader()" href="/payroll/home"  class="nav-link py-3 w-100" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
                 <li><a onclick="show_loader()" href="/payroll/salary"  class="nav-link py-3" title="Salary Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-lines-fill"></i></a></li>
                 <li><a onclick="show_loader()" href="/payroll/deduction" class="nav-link py-3" title="Employee Deduction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calculator"></i></a></li>
                 <li><a onclick="show_loader()" href="/payroll/overtime" class="nav-link py-3" title="Overtime Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock"></i></a></li>
@@ -19,6 +19,7 @@
                 <li><a onclick="show_loader()" href="/profile" class="nav-link py-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-circle"></i></span></a></li>
                 <li><a onclick="show_loader()" href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i> <span id='badge' style="font-size: 9px"></span></a></li>
                 <li><a onclick="show_loader()" href="/notification" class="nav-link" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell"></i></a></li>
+                <li><a onclick="show_loader()" href="/payroll/manual" class="nav-link" title="User Manual" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle"></i></a></li>
             </ul>
         </nav><!-- .nav-menu -->
     </div>
@@ -45,6 +46,8 @@
             <li><a onclick="show_loader()" href="/profile" class="nav-link py-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-circle pe-4"></i>Profile</a></li>
             <li><a onclick="show_loader()" href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></li>
             <li><a onclick="show_loader()" href="/notification" class="nav-link" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell pe-4"></i>Notification</a></li>
+            <li><a onclick="show_loader()" href="/payroll/manual" class="nav-link" title="User Manual" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle pe-4"></i>User Manual</a></li>
+
         </ul>
         </nav><!-- .nav-menu -->
     </div>
@@ -70,6 +73,7 @@
         <a onclick="show_loader()" href="/profile" class="btn btn-outline-light w-100 btn-lg p-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-circle pe-4"></i>Profile</a></button>
         <a onclick="show_loader()" href="/message" class="btn btn-outline-light w-100 btn-lg p-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></button>
         <a onclick="show_loader()" href="/notification" class="btn btn-outline-light w-100 btn-lg p-3" title="Notifications" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bell pe-4"></i>Notification</a></button>
+        <a onclick="show_loader()" href="/payroll/manual" class="btn btn-outline-light w-100 btn-lg p-3" title="User Manual" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle pe-4"></i>User Manual</a></button>
 </div>
 
 <script>
@@ -86,7 +90,6 @@
     $(document).ready(function(){
         $("[name='hidden_name']").hover(
             function (){
-
                 $("[name='hidden_name']").toggleClass('d-none')
                 $("[name='show_name']").toggleClass('d-none')
             },
@@ -98,7 +101,6 @@
 
         $("[name='show_name']").hover(
             function (){
-
                 $("[name='hidden_name']").toggleClass('d-none')
                 $("[name='show_name']").toggleClass('d-none')
             },

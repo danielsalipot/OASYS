@@ -353,7 +353,6 @@ class PayrollController extends Controller
                 array_push($progress_bar, $str);
             }
 
-
             foreach ($payrolls as $key => $value) {
                 $filename = str_replace('payrolls/','',$value->filename);
                 if(isset($payrolls[$key])){
@@ -379,6 +378,13 @@ class PayrollController extends Controller
                 'btn_arr_pr' => $btn_arr_pr,
                 'file_arr_pr' => $file_arr_pr,
                 'progress_bar' =>$progress_bar,
+            ]);
+        }
+
+        public function payrollManual(){
+            $profile = UserDetail::where('login_id',session('user_id'))->first();
+            return view('pages.payroll_manager.manual')->with([
+                'profile' => $profile
             ]);
         }
 

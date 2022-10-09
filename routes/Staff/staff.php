@@ -12,6 +12,6 @@ Route::prefix('staff')->group(function () {
     Route::get('/department', [StaffController::class, 'department']);
     Route::get('/audittrail', [StaffController::class, 'audittrail']);
     Route::get('/position', [StaffController::class, 'position']);
-    Route::get('/message', [StaffController::class, 'staffmessage']);
-    Route::get('/notification', [StaffController::class, 'staffnotification']);
+    Route::get('/manual', [StaffController::class, 'staffManual']);
+
 });
