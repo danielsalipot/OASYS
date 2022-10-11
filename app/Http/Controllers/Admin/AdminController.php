@@ -161,6 +161,7 @@ class AdminController extends Controller
         $all_time_attendance = $this->getAttendance();
 
         return view('pages.HR_admin.attendance')->with([
+            'date_filter' => $all_time_attendance->date_filter,
             'profile' => $profile,
             'employee' => $employee,
             'time_in' => $time_in,
@@ -196,10 +197,21 @@ class AdminController extends Controller
             $pos->late = 0;
         }
 
+        if(date('d') > 15){
+            $all_time_attendance = Attendance::groupBy('attendance_date')
+            ->whereBetween('attendance_date',[date('Y-m-').'16', date('Y-m-').'31'])
+            ->get('attendance_date');
+            $all_time_attendance->date_filter = [date('Y-m-').'16', date('Y-m-').'31'];
+
+        }else{
+            $all_time_attendance = Attendance::groupBy('attendance_date')
+            ->whereBetween('attendance_date',[date('Y-m-').'1', date('Y-m-').'15'])
+            ->get('attendance_date');
+
+            $all_time_attendance->date_filter = [date('Y-m-').'1', date('Y-m-').'15'];
+        }
 
         $health_check_all = [[],[],[],[],[],[],[],[]];
-        $all_time_attendance = Attendance::groupBy('attendance_date')
-            ->get('attendance_date');
 
         $employees = EmployeeDetail::all();
 
