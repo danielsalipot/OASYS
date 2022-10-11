@@ -32,33 +32,50 @@
                 </div>
         </div>
         <div class="col ms-3 p-0">
-            <div class="row w-100 mx-auto h-100 p-0">
-                <div class="col card rounded-0 rounded-start p-0">
-                    <h4 class="alert-primary w-100 text-center p-3 m-0 ">Step 1</h6>
-                    <ul class="text-justify m-4" style="font-size:13px">
-                        <li>Make sure you are generating the intended cutoff duration.</li>
-                        <li>The Cutoff duration are indicated above the create payroll button.</li>
-                        <li>To change the cutoff duration, use the date filters on the Current Cutoff Overview below.</li>
-                        <li>Make sure all the payroll details below are ready such as the overtime, deductions, and etc.</li>
-                    </ul>
-                </div>
-                <div class="col card rounded-0 p-0">
-                    <h4 class="alert-primary w-100 text-center p-3 m-0 ">Step 2</h6>
-                    <ul class="text-justify m-4" style="font-size:13px">
-                        <li>When the payroll is ready, click the button "Create Payroll" on the left side. Please refer to the example below:</li>
-                    </ul>
-                    <button class="btn p-2 w-50 mx-auto btn-primary rounded"><i class="h5 bi bi-cash-stack"></i><br>Create Payroll</button>
-                    <h6 class="w-100 text-center text-secondary">*Not the actual button*</h6>
-                </div>
-                <div class="col card rounded-0 rounded-end p-0">
-                    <h4 class="alert-primary w-100 text-center p-3 m-0 ">Step 3</h6>
-                    <ul class="text-justify m-4" style="font-size:13px">
-                        <li>After clicking the "Create Payroll" button, you will be prompted to upload your E-signiture.</li>
-                        <li>The E-signiture should be in <b>.png file format</b></li>
-                        <li>After uploading your E-signiture click the "PDF" Button to generate the Payroll PDF file</li>
-                    </ul>
-                    <button class="btn p-3 w-25 mx-auto btn-warning rounded">PDF</button>
-                    <h6 class="w-100 text-center text-secondary">*Not the actual button*</h6>
+            <button  onclick="collapseFunction(this)" class="btn btn-lg mt-1 text-warning" style="position: absolute; z-index:300;"><h4><i class="bi bi-question-diamond-fill"></i> Instructions</h4></button>
+
+            <script>
+                function collapseFunction(btn){
+                    var collapse = document.getElementById('collapseCard')
+                    collapse.classList.toggle('d-none')
+
+                    if (btn.innerHTML == '<h4><i class="bi bi-question-diamond-fill"></i> Instructions</h4>') {
+                        btn.innerHTML = '<h4><i class="bi bi-question-diamond-fill"></i> Hide</h4>'
+                    } else {
+                        btn.innerHTML = '<h4><i class="bi bi-question-diamond-fill"></i> Instructions</h4>'
+                    }
+                }
+            </script>
+
+            <div id="collapseCard" class="d-none">
+                <div class="row w-100 mx-auto h-100 p-0">
+                    <div class="col card rounded-0 rounded-start p-0">
+                        <h4 class="alert-primary w-100 text-center p-3 m-0 ">Step 1</h6>
+                        <ul class="text-justify m-4" style="font-size:13px">
+                            <li>Make sure you are generating the intended cutoff duration.</li>
+                            <li>The Cutoff duration are indicated above the create payroll button.</li>
+                            <li>To change the cutoff duration, use the date filters on the Current Cutoff Overview below.</li>
+                            <li>Make sure all the payroll details below are ready such as the overtime, deductions, and etc.</li>
+                        </ul>
+                    </div>
+                    <div class="col card rounded-0 p-0">
+                        <h4 class="alert-primary w-100 text-center p-3 m-0 ">Step 2</h6>
+                        <ul class="text-justify m-4" style="font-size:13px">
+                            <li>When the payroll is ready, click the button "Create Payroll" on the left side. Please refer to the example below:</li>
+                        </ul>
+                        <button class="btn p-2 w-50 mx-auto btn-primary rounded"><i class="h5 bi bi-cash-stack"></i><br>Create Payroll</button>
+                        <h6 class="w-100 text-center text-secondary">*Not the actual button*</h6>
+                    </div>
+                    <div class="col card rounded-0 rounded-end p-0">
+                        <h4 class="alert-primary w-100 text-center p-3 m-0 ">Step 3</h6>
+                        <ul class="text-justify m-4" style="font-size:13px">
+                            <li>After clicking the "Create Payroll" button, you will be prompted to upload your E-signiture.</li>
+                            <li>The E-signiture should be in <b>.png file format</b></li>
+                            <li>After uploading your E-signiture click the "PDF" Button to generate the Payroll PDF file</li>
+                        </ul>
+                        <button class="btn p-3 w-25 mx-auto btn-warning rounded">PDF</button>
+                        <h6 class="w-100 text-center text-secondary">*Not the actual button*</h6>
+                    </div>
                 </div>
             </div>
         </div>

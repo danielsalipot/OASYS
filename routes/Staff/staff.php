@@ -3,15 +3,15 @@
 use App\Http\Controllers\Staff\StaffController;
 
 Route::prefix('staff')->group(function () {
-    Route::get('/home', [StaffController::class, 'staffhome']);
-    Route::get('/onboarding', [StaffController::class, 'onboarding']);
-    Route::get('/termination', [StaffController::class, 'termination']);
-    Route::get('/offboarding', [StaffController::class, 'offboarding']);
-    Route::get('/schedules', [StaffController::class, 'schedules']);
-    Route::get('/interview', [StaffController::class, 'interview']);
-    Route::get('/department', [StaffController::class, 'department']);
-    Route::get('/audittrail', [StaffController::class, 'audittrail']);
-    Route::get('/position', [StaffController::class, 'position']);
-    Route::get('/manual', [StaffController::class, 'staffManual']);
+    Route::get('/home', [StaffController::class, 'staffhome'])->middleware('prevent-back-history');
+    Route::get('/onboarding', [StaffController::class, 'onboarding'])->middleware('prevent-back-history');
+    Route::get('/termination', [StaffController::class, 'termination'])->middleware('prevent-back-history');
+    Route::get('/offboarding', [StaffController::class, 'offboarding'])->middleware('prevent-back-history');
+    Route::get('/schedules', [StaffController::class, 'schedules'])->middleware('prevent-back-history');
+    Route::get('/interview', [StaffController::class, 'interview'])->middleware('prevent-back-history');
+    Route::get('/department', [StaffController::class, 'department'])->middleware('prevent-back-history');
+    Route::get('/audittrail', [StaffController::class, 'audittrail'])->middleware('prevent-back-history');
+    Route::get('/position', [StaffController::class, 'position'])->middleware('prevent-back-history');
+    Route::get('/manual', [StaffController::class, 'staffManual'])->middleware('prevent-back-history');
 
 });

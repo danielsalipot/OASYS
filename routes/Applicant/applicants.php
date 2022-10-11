@@ -7,5 +7,5 @@ Route::prefix('applicant')->group(function () {
     Route::get('/signup', [ApplicantController::class, 'signup']);
     Route::get('/application', [ApplicantController::class, 'application']);
     Route::get('/applying', [ApplicantController::class, 'applying']);
-    Route::get('/home', [ApplicantController::class, 'applicanthome']);
+    Route::get('/home', [ApplicantController::class, 'applicanthome'])->middleware('prevent-back-history');
 });

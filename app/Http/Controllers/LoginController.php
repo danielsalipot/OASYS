@@ -18,6 +18,34 @@ class LoginController extends Controller
             'pass'=>'required'
         ]);
 
+        if(session('user_id')){
+            LoginLogs::create([
+                'user_id' => session('user_id'),
+                'user_type' => session('user_type')
+            ]);
+
+            //check user type then redirect
+            if(session('user_type') == 'payroll'){
+                return redirect('/payroll/home');
+            }
+
+            if(session('user_type') == 'admin'){
+                return redirect('/admin/home');
+            }
+
+            if(session('user_type') == 'staff'){
+                return redirect('/staff/home');
+            }
+
+            if(session('user_type') == 'employee'){
+                return redirect('/employee/home');
+            }
+
+            if(session('user_type') == 'applicant'){
+                return redirect('/applicant/home');
+            }
+        }
+
         //search if the username and password exist and match up
         $check = UserCredential::where('username',$request->input('user'))
                 ->where('password',md5(md5($request->input('pass'))))

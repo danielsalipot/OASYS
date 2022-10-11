@@ -62,22 +62,25 @@
                 </div>
                 {!! Form::close() !!}
             </div>
-            <div class="col card p-0 shadow-sm">
-                <h3 class="w-100 text-center alert-primary p-3">Instructions</h3>
-                <div class="row p-4" style="font-size: 15px">
-                    <div class="col">
-                        <ul>
-                            <li class="p-2">Employees must contribute {{$sss->employee_contribution + $sss->employer_contribution}}% of their monthly wage credit (MSC).</li>
-                            <li class="p-2">Currently the employee pays {{$sss->employee_contribution}}% of the total contribution (<b>Employee SSS Rate</b>)</li>
-                            <li class="p-2">Currently the business contributes {{$sss->employer_contribution}}% of the total contribution of employee (<b>Employer SSS Rate</b>). </li>
-                        </ul>
-                    </div>
-                    <div class="col">
-                        <ul>
-                            <li class="p-2" >A little payment to the Employee Compensation Program is also included in the overall contribution.</li>
-                            <li class="p-2" >For MSCs up to ₱{{ $sss->low_limit }} (<b>Lower Range</b>) the total payment is ₱10.00  (<b>Lower Addition</b>)</li>
-                            <li class="p-2" >For an MSC of ₱{{ $sss->high_limit }} (<b>Higher Range</b>) or more, the total payment is ₱30.00  (<b>Higher Addition</b>)</li>
-                        </ul>
+            <div class="col p-0">
+                <button  onclick="collapseFunction(this, 'collapseCard1')" class="btn btn-lg mt-1 text-warning" style="position: absolute; z-index:300;"><h4><i class="bi bi-question-diamond-fill"></i> Instructions</h4></button>
+                <div id="collapseCard1" class="d-none">
+                    <h3 class="w-100 text-center alert-primary p-3">Instructions</h3>
+                    <div class="row p-4" style="font-size: 15px">
+                        <div class="col">
+                            <ul>
+                                <li class="p-2">Employees must contribute {{$sss->employee_contribution + $sss->employer_contribution}}% of their monthly wage credit (MSC).</li>
+                                <li class="p-2">Currently the employee pays {{$sss->employee_contribution}}% of the total contribution (<b>Employee SSS Rate</b>)</li>
+                                <li class="p-2">Currently the business contributes {{$sss->employer_contribution}}% of the total contribution of employee (<b>Employer SSS Rate</b>). </li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul>
+                                <li class="p-2" >A little payment to the Employee Compensation Program is also included in the overall contribution.</li>
+                                <li class="p-2" >For MSCs up to ₱{{ $sss->low_limit }} (<b>Lower Range</b>) the total payment is ₱10.00  (<b>Lower Addition</b>)</li>
+                                <li class="p-2" >For an MSC of ₱{{ $sss->high_limit }} (<b>Higher Range</b>) or more, the total payment is ₱30.00  (<b>Higher Addition</b>)</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -137,7 +140,7 @@
 
 @section('second')
     <div class="m-auto p-5">
-        <div class="row">
+        <div class="row h-100">
             <div class="col-4 card p-0 shadow-sm">
                 <h3 class="w-100 text-center alert-primary p-3">Pagibig Contribution Details</h3>
                 {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@edit_pagibig']) !!}
@@ -166,30 +169,34 @@
                             {!! Form::text('pagibig_divider',"$pagibig->divider",['disabled','id'=>'pagibig_divider','class'=>'form-control text-center p-3']) !!}
                         </div>
                     </div>
-                </div>
-                <div class="d-flex flex-row justify-content-center mt-3">
-                    <button type="button" id="pagibig_lock" class="btn btn-outline-primary h-100 px-4 p-3 rounded-0 rounded-start "><i class="bi bi-lock"></i></button>
-                    {!! Form::submit('Update Pagibig Rate', ['disabled','id' =>'pagibig_update','class'=>'btn btn-success px-5 p-3 w-100 rounded-0']) !!}
-                    <button disabled type="button" id="pagibig_cancel" class="btn btn-outline-danger h-100 px-4 p-3 rounded-0 rounded-end"><i class="bi bi-x-circle"></i></button>
+                    <div class="p-5"></div>
+                    <div class="d-flex flex-row justify-content-center mt-3">
+                        <button type="button" id="pagibig_lock" class="btn btn-outline-primary h-100 px-4 p-3 rounded-0 rounded-start "><i class="bi bi-lock"></i></button>
+                        {!! Form::submit('Update Pagibig Rate', ['disabled','id' =>'pagibig_update','class'=>'btn btn-success px-5 p-3 w-100 rounded-0']) !!}
+                        <button disabled type="button" id="pagibig_cancel" class="btn btn-outline-danger h-100 px-4 p-3 rounded-0 rounded-end"><i class="bi bi-x-circle"></i></button>
+                    </div>
                 </div>
                 {!! Form::close() !!}
             </div>
-            <div class="col card p-0 shadow-sm">
-                <h3 class="w-100 text-center alert-primary p-3">Instructions</h3>
-                <div class="row p-4" style="font-size: 15px">
-                    <div class="col">
-                        <ul>
-                            <li class="p-3"> The Employee share is based on their salary.</li>
-                            <li class="p-3">If the employee's salary is lower than ₱{{ $pagibig->divider }} (<b>Pagibig Salary Division</b>) then there share will be {{ $pagibig->ee_min_rate }}% of their salary (<b>Employee Pagibig Low Rate</b>)</li>
-                            <li class="p-3">If the employee's salary is Higher than ₱{{ $pagibig->divider }} (<b>Pagibig Salary Division</b>) then there share will be {{ $pagibig->ee_min_rate }}% of their salary (<b>Employee Pagibig Low Rate</b>)</li>
-                        </ul>
-                    </div>
-                    <div class="col">
-                        <ul>
-                            <li class="p-3">The current Maximum contribution of Pag ibig is ₱{{$pagibig->maximum}} (<b>Maximum Contribution</b>) </li>
-                            <li class="p-3">The current Pagibig Employer rate is {{ $pagibig->er_rate }}% (<b>Employer Pagibig Rate</b>)</li>
-                            <li class="p-3">The total contribution is the sum of the Employee and Employer shares</li>
-                        </ul>
+            <div class="col p-0">
+                <button  onclick="collapseFunction(this, 'collapseCard2')" class="btn btn-lg mt-1 text-warning" style="position: absolute; z-index:300;"><h4><i class="bi bi-question-diamond-fill"></i> Instructions</h4></button>
+                <div id="collapseCard2" class="d-none">
+                    <h3 class="w-100 text-center alert-primary p-3">Instructions</h3>
+                    <div class="row p-4" style="font-size: 15px">
+                        <div class="col">
+                            <ul>
+                                <li class="p-3"> The Employee share is based on their salary.</li>
+                                <li class="p-3">If the employee's salary is lower than ₱{{ $pagibig->divider }} (<b>Pagibig Salary Division</b>) then there share will be {{ $pagibig->ee_min_rate }}% of their salary (<b>Employee Pagibig Low Rate</b>)</li>
+                                <li class="p-3">If the employee's salary is Higher than ₱{{ $pagibig->divider }} (<b>Pagibig Salary Division</b>) then there share will be {{ $pagibig->ee_min_rate }}% of their salary (<b>Employee Pagibig Low Rate</b>)</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul>
+                                <li class="p-3">The current Maximum contribution of Pag ibig is ₱{{$pagibig->maximum}} (<b>Maximum Contribution</b>) </li>
+                                <li class="p-3">The current Pagibig Employer rate is {{ $pagibig->er_rate }}% (<b>Employer Pagibig Rate</b>)</li>
+                                <li class="p-3">The total contribution is the sum of the Employee and Employer shares</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -308,7 +315,23 @@
                 </div>
                 {!! Form::close() !!}
             </div>
-            <div class="col card p-0 shadow-sm">
+            <div class="col">
+                <button  onclick="collapseFunction(this, 'collapseCard3')" class="btn btn-lg mt-1 text-warning" style="position: absolute; z-index:300;"><h4><i class="bi bi-question-diamond-fill"></i> Instructions</h4></button>
+
+            <script>
+                function collapseFunction(btn, id){
+                    var collapse = document.getElementById(id)
+                    collapse.classList.toggle('d-none')
+
+                    if (btn.innerHTML == '<h4><i class="bi bi-question-diamond-fill"></i> Instructions</h4>') {
+                        btn.innerHTML = '<h4><i class="bi bi-question-diamond-fill"></i> Hide</h4>'
+                    } else {
+                        btn.innerHTML = '<h4><i class="bi bi-question-diamond-fill"></i> Instructions</h4>'
+                    }
+                }
+            </script>
+
+            <div id="collapseCard3" class="d-none">
                 <h3 class="w-100 text-center alert-primary p-3">Instructions</h3>
                 <div class="row p-4" style="font-size: 15px">
                     <div class="col">

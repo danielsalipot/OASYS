@@ -670,11 +670,300 @@
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="contributions" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <h3 class="alert-light p-4">Contribution</h3>
+                <div class="px-4 mx-5">
+                    <h6 class="text-primary">Description</h6>
+                    <p class="w-75">The Contribution Management is the module where in the payroll manager can manage the variables that are use to automatically calculate the employee legal contributions. This module also provides the estimations of the employee and employer contributions. Contributions module provides tool to exclude and include employees in the legal contributions</p>
+
+                    <br>
+                    <h6 class="text-primary">List of covered Legal Contributions</h6>
+                    <p class="w-75" >The functions of the Contribution Management page are listed below:</p>
+                    <ul class="ms-5">
+                        <li><a class="ps-3 m-3" href="#contributions/sss">SSS Contribution</a></li>
+                        <li><a class="ps-3 m-3" href="#contributions/pagibig">Pagibig Contribution</a></li>
+                        <li><a class="ps-3 m-3" href="#contributions/philhealth">Philhealth Contribution</a></li>
+                    </ul>
+
+                    <br><br>
+
+                    <div id="contributions/sss">
+                        <div class="row my-5">
+                            <h4 class="text-primary">SSS Contribution</h4>
+                            The SSS contribution is a legal contribution where in the employers and SSS member employees pays regularly in order to for the SSS can take advantage of maternity, sickness, disability, retirement, funeral and death benefits. SSS offers a variety of benefits to qualified members, including the ability to take up salary, housing, business, and educational loans.
+                            <br>
+                            <br>
+                            <b>This module Includes the following functions:</b>
+                            <ul>
+                                <li><h4 class="text-primary">Variable Management</h4></li>
+                                <div class="row ms-5">
+                                    <p>
+                                        This module provides tool for the payroll manager to change the SSS computation variables when changes occurs.
+                                        In the "SSS Contribution Details" you will see the controls to change the variable.
+                                        By default, the input are disabled to prevent mistakes. Beside the SSS Contribution details will be the instructions to easily understand what the variables are.
+                                        <ol class="ms-5">
+                                            <li>To enable the input in order to change the variables, the "<i class="bi bi-lock"></i>" needs to be clicked.</li>
+                                            <li>When the inputs are enabled, you can then change the values.</li>
+                                            <li>Once satisfied, click the "Update SSS Rate" button to save the changes.</li>
+                                        </ol>
+                                    </p>
+                                    <img src="/manual/payroll/contributions/1.jpg" class="w-100">
+                                </div>
+
+                                <br><br>
+
+                                <li><h4 class="text-primary">SSS Contributions Table</h4></li>
+                                <div class="row ms-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            The SSS Contributions Table provides a way to view all of the computed SSS contributions of all employees as well as the employers share of their contributions.
+                                            <br><br>Using the date filter, the payroll manager will be able to select different periods to view their contributions. The view of the table can also be change using the "Entries filter" and the Search bar.
+                                        </div>
+                                        <div class="col">
+                                            <img src="/manual/payroll/contributions/2.jpg" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <li><h4 class="text-primary">SSS Employee Management Table</h4></li>
+                                <div class="row ms-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            The SSS Employee Management Table provide the function to view whether the employee is Included or Excluded to the SSS contributions.
+                                            <br><br>
+                                            The table also provides the function to include or exclude an employee to the contribution.
+                                            By clicking the button on the "Edit" column, you will be able to change the contribution status of the employee.
+                                        </div>
+                                        <div class="col">
+                                            <img src="/manual/payroll/contributions/3.jpg" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div id="contributions/pagibig">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Pagibig Contribution</h4>
+                            The Pagibig contribution is a legal contribution where in the employers and Pagibig member employees pays regularly in order to for the Pagibig can take advantage of maternity, sickness, disability, retirement, funeral and death benefits. Pagibig offers a variety of benefits to qualified members, including the ability to take up salary, housing, business, and educational loans.
+                            <br>
+                            <br>
+                            <b>This module Includes the following functions:</b>
+                            <ul>
+                                <li><h4 class="text-primary">Variable Management</h4></li>
+                                <div class="row ms-5">
+                                    <p>
+                                        This module provides tool for the payroll manager to change the Pagibig computation variables when changes occurs.
+                                        In the "Pagibig Contribution Details" you will see the controls to change the variable.
+                                        By default, the input are disabled to prevent mistakes. Beside the Pagibig Contribution details will be the instructions to easily understand what the variables are.
+                                        <ol class="ms-5">
+                                            <li>To enable the input in order to change the variables, the "<i class="bi bi-lock"></i>" needs to be clicked.</li>
+                                            <li>When the inputs are enabled, you can then change the values.</li>
+                                            <li>Once satisfied, click the "Update Pagibig Rate" button to save the changes.</li>
+                                        </ol>
+                                    </p>
+                                    <img src="/manual/payroll/contributions/pagibig1.jpg" class="w-100">
+                                </div>
+
+                                <br><br>
+
+                                <li><h4 class="text-primary">Pagibig Contributions Table</h4></li>
+                                <div class="row ms-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            The Pagibig Contributions Table provides a way to view all of the computed Pagibig contributions of all employees as well as the employers share of their contributions.
+                                            <br><br>Using the date filter, the payroll manager will be able to select different periods to view their contributions. The view of the table can also be change using the "Entries filter" and the Search bar.
+                                        </div>
+                                        <div class="col">
+                                            <img src="/manual/payroll/contributions/pagibig2.jpg" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <li><h4 class="text-primary">Pagibig Employee Management Table</h4></li>
+                                <div class="row ms-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            The Pagibig Employee Management Table provide the function to view whether the employee is Included or Excluded to the Pagibig contributions.
+                                            <br><br>
+                                            The table also provides the function to include or exclude an employee to the contribution.
+                                            By clicking the button on the "Edit" column, you will be able to change the contribution status of the employee.
+                                        </div>
+                                        <div class="col">
+                                            <img src="/manual/payroll/contributions/pagibig3.jpg" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div id="contributions/philhealth">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Philhealth Contribution</h4>
+                            The Philhealth contribution is a legal contribution where in the employers and Philhealth member employees pays regularly in order to for the Philhealth can take advantage of maternity, sickness, disability, retirement, funeral and death benefits. Philhealth offers a variety of benefits to qualified members, including the ability to take up salary, housing, business, and educational loans.
+                            <br>
+                            <br>
+                            <b>This module Includes the following functions:</b>
+                            <ul>
+                                <li><h4 class="text-primary">Variable Management</h4></li>
+                                <div class="row ms-5">
+                                    <p>
+                                        This module provides tool for the payroll manager to change the Philhealth computation variables when changes occurs.
+                                        In the "Philhealth Contribution Details" you will see the controls to change the variable.
+                                        By default, the input are disabled to prevent mistakes. Beside the Philhealth Contribution details will be the instructions to easily understand what the variables are.
+                                        <ol class="ms-5">
+                                            <li>To enable the input in order to change the variables, the "<i class="bi bi-lock"></i>" needs to be clicked.</li>
+                                            <li>When the inputs are enabled, you can then change the values.</li>
+                                            <li>Once satisfied, click the "Update Philhealth Rate" button to save the changes.</li>
+                                        </ol>
+                                    </p>
+                                    <img src="/manual/payroll/contributions/ph1.jpg" class="w-100">
+                                </div>
+
+                                <br><br>
+
+                                <li><h4 class="text-primary">Philhealth Contributions Table</h4></li>
+                                <div class="row ms-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            The Philhealth Contributions Table provides a way to view all of the computed Philhealth contributions of all employees as well as the employers share of their contributions.
+                                            <br><br>Using the date filter, the payroll manager will be able to select different periods to view their contributions. The view of the table can also be change using the "Entries filter" and the Search bar.
+                                        </div>
+                                        <div class="col">
+                                            <img src="/manual/payroll/contributions/ph2.jpg" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <li><h4 class="text-primary">Philhealth Employee Management Table</h4></li>
+                                <div class="row ms-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            The Philhealth Employee Management Table provide the function to view whether the employee is Included or Excluded to the Philhealth contributions.
+                                            <br><br>
+                                            The table also provides the function to include or exclude an employee to the contribution.
+                                            By clicking the button on the "Edit" column, you will be able to change the contribution status of the employee.
+                                        </div>
+                                        <div class="col">
+                                            <img src="/manual/payroll/contributions/ph3.jpg" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="bonus" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <h3 class="alert-light p-4">Employee Bonus</h3>
+                <div class="px-4 mx-5">
+                    <h6 class="text-primary">Description</h6>
+                    <p class="w-75">
+                        The Employee Bonus Management is the module where in the payroll manager will be able to view, remove, and add employee bonus records.
+                        Also included in this module is the Thirteenth month bonus module where in the payroll manager will be able to see the current status of the Thirteenth month bonus of all employee and generate a thirteenth month bonus summary report.</p>
+                    <br>
+                    <h6 class="text-primary">Functions</h6>
+                    <p class="w-75" >The functions of the Employee Bonus Management page are listed below:</p>
+                    <ul class="ms-5">
+                        <li><a class="ps-3 m-3" href="#bonus/function1">Employee Bonus History</a></li>
+                        <li><a class="ps-3 m-3" href="#bonus/function2">Add Employee Bonus</a></li>
+                        <li><a class="ps-3 m-3" href="#bonus/function3">13th Month Payroll Summary</a></li>
+                    </ul>
+
+                    <br><br>
+
+                    <div id="bonus/function1">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Employee Bonus History</h4>
+                            In the "Employee Bonus History" section, the payroll manager will be able to view all of the employee bonus record in the table.
+                            Using the date filter, the payroll manager will be able view bonus records in different date periods.
+                            <br>
+                            <img src="/manual/payroll/bonus/1.jpg" class="w-100">
+                            <br><br><br>
+                            <div class="ms-5">
+                                <h4 class="text-primary">Delete Employee Bonus Record</h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <br><br><br><br>
+                                        The payroll manager will be able to delete bonus record in hte Employee Bonus History table using the "Remove" button in the delete column of each record.
+                                        <br><br><br>
+                                        <br><br><br>
+                                        <br>
+                                        By clicking the remove button of the chosen record. A dialog box will appear which will confirm your actions and when the "Ok" button is clicked the record will be remove
+                                    </div>
+                                    <div class="col">
+                                        <img src="/manual/payroll/bonus/2.jpg" class="w-100">
+                                        <img src="/manual/payroll/bonus/3.jpg" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div id="bonus/function2">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Add Employee Bonus</h4>
+                            <img src="/manual/payroll/bonus/4.jpg" class="w-100">
+                            This is the Add Bonus module. In this module you can select employees, add bonus details, and save the Bonus for the payroll.
+                            <br><br>
+                            Adding Bonus involves three steps:
+                            <ol>
+                                <li><b>Selecting Employees</b></li>
+                                <div class="row">
+                                    <div class="col">
+                                        In the Employee selection table, you will be able to search, filter employees, and select employees by clicking the "select" button beside the employee details.
+                                        The button will show green if the employee is selected.
+                                        <img src="/manual/payroll/bonus/5.jpg" class="w-100">
+                                    </div>
+                                    <div class="col">
+                                        You can confirm that the employee is selected if it is added in the "Selected Employees" Table
+                                        <img src="/manual/payroll/bonus/6.jpg" class="w-100">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <li><b>Adding Bonus Details</b></li>
+                                <div class="row">
+                                    <div class="col">
+                                        After Selecting employees for the Bonus, the payroll manager will need to add the Bonus period, Bonus name, and the Bonus amoumt. After adding the Bonus details, the payroll manager will click the "Add Bonus" button.
+                                    </div>
+                                    <div class="col">
+                                        <img src="/manual/payroll/bonus/7.jpg" class="w-100">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <li><b>Clicking "Confirm Bonus" button</b></li>
+                                <div class="row">
+                                    <div class="col">
+                                        After clicking the "Confirm Bonus" button, a prompt will appear which confirms the selected employees and the Bonus details. By clicking the "Confirm Bonus" button, the Bonus will be added.
+                                    </div>
+                                    <div class="col">
+                                        <img src="/manual/payroll/bonus/8.jpg" class="w-100">
+                                    </div>
+                                </div>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div id="bonus/function3">
+                        <h4 class="text-primary">13th Month Payroll Summary</h4>
+                    </div>
+                </div>
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="multipay" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">

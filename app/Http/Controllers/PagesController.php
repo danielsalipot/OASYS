@@ -58,7 +58,6 @@ class PagesController extends Controller
             if(session('user_type') == 'applicant'){
                 return redirect('/applicant/home');
             }
-
         }
         return view('pages.login');
     }
