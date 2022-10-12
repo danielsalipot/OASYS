@@ -200,7 +200,7 @@
                     </table>
                 </div>
                 <div class="container card shadow-sm p-4">
-                    <h1 class="display-5 m-3 text-center w-100">Enrollent Details Details</h1>
+                    <h1 class="display-5 m-3 text-center w-100">Enrollment Details</h1>
                     <form action="/enrollEmployee" method="POST">
                         {!! Form::hidden('emp_ids', '',['id'=>'emp_ids']) !!}
                         @csrf
