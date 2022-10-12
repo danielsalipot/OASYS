@@ -962,6 +962,28 @@
 
                     <div id="bonus/function3">
                         <h4 class="text-primary">13th Month Payroll Summary</h4>
+                            In the Bonus Management module is where the "13th month payroll summary" table, this is where the payroll manager will be able to view the status of the payroll for the year and view the automatically calculated 13th month bonus.
+                            <br>
+                            <img src="/manual/payroll/bonus/9.jpg" class="w-100">
+                            <br><br><br>
+                            <div class="ms-5">
+                                <h4 class="text-primary">Generating 13th Month Payroll Summary PDF</h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <br>
+                                        <br>
+                                        In order for the payroll manager to create the 13th Month Payroll Summary PDF, first they will have to click the "<i class="bi bi-lock"></i>" button to enable the "Issue 13th Month Bonus" button.
+                                        <br><br>
+                                        <br><br>
+                                        <br>
+                                        Once the "Issue 13th Month Bonus" is enabled, the payroll manager can then click that button and wait for a new tab to pop up which will generate the PDF of the 13th Month Bonus.
+                                    </div>
+                                    <div class="col">
+                                        <img src="/manual/payroll/bonus/11.jpg" class="w-100">
+                                        <img src="/manual/payroll/bonus/10.jpg" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
