@@ -26,12 +26,12 @@
     <hr>
     <div class="row mb-5">
         <div class="col-9 card shadow-sm pt-3 me-2">
-            <table class="table table-striped  w-100 text-center" id="applicant_table">
+            <table class="table table-striped responsive w-100 text-center" id="applicant_table">
                 <thead>
                 <tr>
                     <th class="col">Position ID</th>
-                    <th class="col">Position Name</th>
-                    <th class="col">Position Description</th>
+                    <th class="col" data-priority="1">Position Name</th>
+                    <th class="col" data-priority="1">Position Description</th>
                     <th class="col">Added On</th>
                 </tr>
                 </thead>
@@ -76,15 +76,15 @@
             <div class="col">
                 <h1 class="display-5 text-center w-100">Employee Selection</h1>
                 <div class="container w-100">
-                    <table class="table w-100 table-striped text-center " id="employee_table">
+                    <table class="table w-100 table-striped text-centerresponsive w-100" id="employee_table">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>
-                                <th class="col">Employee Picture</th>
-                                <th class="col">Employee Name</th>
+                                <th class="col" data-priority="1">Employee Picture</th>
+                                <th class="col" data-priority="1">Employee Name</th>
                                 <th class="col">Department</th>
                                 <th class="col">Position</th>
-                                <th class="col">Select</th>
+                                <th class="col" data-priority="2">Select</th>
                             </tr>
                         </thead>
                     </table>

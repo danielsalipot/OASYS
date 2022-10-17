@@ -229,7 +229,7 @@
                             <h4 class="text-primary">Displaying of Payroll Details</h4>
                             <div class="col-3">
                                 <br>
-                                Just below the page, you will locate the Payroll details Table. The table will display the details of the employee as well as the automatically computed Payroll Details.
+                                Just below the page, you will locate the Payroll details Table. The table willthe details of the employee as well as the automatically computed Payroll Details.
                                 <br>
                                 <br>
                                 The payroll details will include Total hours, Rate/hr, Bonus, Gross Pay, SSS, Pag-ibg, Philhealth, Deductions, Cash Advances, Taxable Net, Witholding Tax, and Total Salary.
@@ -245,7 +245,7 @@
                             </div>
                             <div class="col p-3">
                                 <h4 class="text-primary">2. Search Bar</h4>
-                                Select the Search bar located on the top right of the table and type your inteded information to be searched. The table will automatically display all rows with that information
+                                Select the Search bar located on the top right of the table and type your inteded information to be searched. The table will automaticallyall rows with that information
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                             <h4 class="text-primary">Payroll Summary Creation</h4>
                             <div class="col-3">
                                 <br>
-                                    The "Payroll Report Generation Buttons" container contains the <b>"current cut off duration"</b> display which display the currently selected cutoff dates.
+                                    The "Payroll Report Generation Buttons" container contains the <b>"current cut off duration"</b>whichthe currently selected cutoff dates.
                                 <br>
                                 <br>
                                     Below the "current cut off duration" is the <b>"Create Payroll" button</b> which is used to create the Payroll Summary PDF
@@ -307,7 +307,7 @@
                         <h4 class="text-primary">Filering of Payroll Details using date filter</h4>
                         <div class="row">
                             <div class="col">
-                                To filter the current cut off duration, you can you the "from date date picker" and the "to date date picker". Click a date picker then a calendar will display which you can use to select a date. Both date picker should have a date value. After selecting you can click the "filter" button to change the current cut off duration and the payroll details.
+                                To filter the current cut off duration, you can you the "from date date picker" and the "to date date picker". Click a date picker then a calendar willwhich you can use to select a date. Both date picker should have a date value. After selecting you can click the "filter" button to change the current cut off duration and the payroll details.
 
                                 <br>
                                 <br>
@@ -354,7 +354,7 @@
                         <div class="row my-5">
                             <h4 class="text-primary">View employees salary</h4>
                             <img src="/manual/payroll/salary/function2.jpg" class="w-100">
-                            Located just below the "Average Salary of Positions" section, will be the Employee Salary table. This table will display some basic information of employees as well as there Rate/hr. The payroll manager can use the search bar and entries filter to change the view of the table.
+                            Located just below the "Average Salary of Positions" section, will be the Employee Salary table. This table willsome basic information of employees as well as there Rate/hr. The payroll manager can use the search bar and entries filter to change the view of the table.
                         </div>
                     </div>
 
@@ -513,7 +513,7 @@
                             <div class="col-3">
                                 To pay overtime and to approve application, the payroll manager will have to click the "Pay overtime" button. after click a dialog box will show which will confirm the Overtime details. By clicking "Pay Overtime" button, the payment for the overtime will be recorded.                         </div>
                             <div class="col">
-                                <img src="/manual/payroll/overtim/3.jpg" class="w-100">
+                                <img src="/manual/payroll/overtime/3.jpg" class="w-100">
                             </div>
                         </div>
                     </div>
@@ -567,7 +567,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="cashAdvance" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
@@ -961,43 +960,279 @@
                     <br><br>
 
                     <div id="bonus/function3">
-                        <h4 class="text-primary">13th Month Payroll Summary</h4>
-                            In the Bonus Management module is where the "13th month payroll summary" table, this is where the payroll manager will be able to view the status of the payroll for the year and view the automatically calculated 13th month bonus.
-                            <br>
-                            <img src="/manual/payroll/bonus/9.jpg" class="w-100">
-                            <br><br><br>
-                            <div class="ms-5">
-                                <h4 class="text-primary">Generating 13th Month Payroll Summary PDF</h4>
-                                <div class="row">
-                                    <div class="col">
-                                        <br>
-                                        <br>
-                                        In order for the payroll manager to create the 13th Month Payroll Summary PDF, first they will have to click the "<i class="bi bi-lock"></i>" button to enable the "Issue 13th Month Bonus" button.
-                                        <br><br>
-                                        <br><br>
-                                        <br>
-                                        Once the "Issue 13th Month Bonus" is enabled, the payroll manager can then click that button and wait for a new tab to pop up which will generate the PDF of the 13th Month Bonus.
-                                    </div>
-                                    <div class="col">
-                                        <img src="/manual/payroll/bonus/11.jpg" class="w-100">
-                                        <img src="/manual/payroll/bonus/10.jpg" class="w-100">
-                                    </div>
+                    <h4 class="text-primary">13th Month Payroll Summary</h4>
+                        In the Bonus Management module is where the "13th month payroll summary" table, this is where the payroll manager will be able to view the status of the payroll for the year and view the automatically calculated 13th month bonus.
+                        <br>
+                        <img src="/manual/payroll/bonus/9.jpg" class="w-100">
+                        <br><br><br>
+                        <div class="ms-5">
+                            <h4 class="text-primary">Generating 13th Month Payroll Summary PDF</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <br>
+                                    <br>
+                                    In order for the payroll manager to create the 13th Month Payroll Summary PDF, first they will have to click the "<i class="bi bi-lock"></i>" button to enable the "Issue 13th Month Bonus" button.
+                                    <br><br>
+                                    <br><br>
+                                    <br>
+                                    Once the "Issue 13th Month Bonus" is enabled, the payroll manager can then click that button and wait for a new tab to pop up which will generate the PDF of the 13th Month Bonus.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/bonus/11.jpg" class="w-100">
+                                    <img src="/manual/payroll/bonus/10.jpg" class="w-100">
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="multipay" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <h3 class="alert-light p-4">Multi Pay</h3>
+                <div class="px-4 mx-5">
+                    <h6 class="text-primary">Description</h6>
+                    <p class="w-75">
+                        The Multi Pay Management is the module where the Double/Triple pay records and where the payroll manager will be able to record these additional payments in the attedances of employees.</p>
+                        <br>
+                    <h6 class="text-primary">Functions</h6>
+                    <p class="w-75" >The functions of the Multi Pay Management page are listed below:</p>
+                    <ul class="ms-5">
+                        <li><a class="ps-3 m-3" href="#multipay/function1">Multi Pay Management</a></li>
+                        <li><a class="ps-3 m-3" href="#multipay/function2">Multi Pay History</a></li>
+                    </ul>
+
+                    <br><br>
+
+                    <div id="multipay/function1">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Multi Pay Management</h4>
+                            In the "Multi Pay Management" table are all the attendance records that are in the date period filter. The payroll manager can use the date filter at the top of the table to filter the attendances.
+                            The payroll manager can also use the "Entries" Filter below the date filter to change the nubmer of records that are displayed.
+                            A search bar on the upper right of the table is also provided for the payroll manager to search through therecords.
+                            <br>
+
+                            <img src="/manual/payroll/multipay/1.jpg" class="w-100">
+
+                            <h5 class="alert-light p-4">Adding of Multi Pay records</h5>
+
+                            <div class="row">
+                                <div class="col">
+                                    In the "Actions" column of the table is where the two buttons for recording a double or triple payment for an attendance.
+                                    The payroll manager is given to options, which are to pay the attendance double or triple and this feature have their designated buttons
+                                    which are the "2X" and "3X" buttons.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/multipay/6.jpg" class="w-100">
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="row">
+                                <div class="col">
+                                    When "2X" or "3X" button is clicked, a confirmation message dialog box will appear which will confirm the selection and the action of the payroll manager.
+                                    The dialog box will show the details of the employee, their attendance, and whether if that attendance is to be paid double or triple.
+                                    Once satisfied with all the details, the payroll manager can then click the "Confirm Multi Pay" button to finish the transaction
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/multipay/2.jpg" class="w-100">
+                                </div>
+                            </div>
+
+                            <br><br>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div id="multipay/function2">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Multi Pay History</h4>
+
+                            In the "Multi Pay History" table is where the payroll manager can view all of the recorded multi pay within the selected date period.
+                            The payroll managaer can change the date period, using the date filter at the top left of the table. The payroll manager can chage the number of records in the table using the "Entries" filter and search through the table using the search bar.
+                            <br>
+
+                            <img src="/manual/payroll/multipay/3.jpg" class="w-100">
+                            <div class="row mt-3">
+                                <h4 class="text-primary">Deleting Multi Pay records</h4>
+                                <div class="col">
+                                    Each Record in the "Multi Pay History" table has its own "Remove" button. This button is for deleting the selected record.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/multipay/4.jpg" class="w-100">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    Once the "Remove" button is clicked, a dialog message will appear which will confirm the actions of the payroll manager.
+                                    Once the "OK" button is clicked, the deletion of the record will proceed.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/multipay/5.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="holidays" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <h3 class="alert-light p-4">Holidays</h3>
+                <div class="px-4 mx-5">
+                    <h6 class="text-primary">Description</h6>
+                    <p class="w-75">The Holiday Management is the module where the payroll manager will be able to list all of upcoming paid Holidays and record all of the employee that will be paid on that holiday.</p>
+                    <br>
+                    <img src="/manual/payroll/holidays/1.jpg" class="w-100">
+
+                    <h6 class="text-primary">Functions</h6>
+                    <p class="w-75" >The functions of the Holiday Management page are listed below:</p>
+                    <ul class="ms-5">
+                        <li><a class="ps-3 m-3" href="#holidays/function1">Listed Holidays</a></li>
+                        <li><a class="ps-3 m-3" href="#holidays/function2">Add Holiday Pay</a></li>
+                        <li><a class="ps-3 m-3" href="#holidays/function3">Holiday Attendance</a></li>
+                    </ul>
+
+                    <div id="holidays/function1">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Listed Holidays</h4>
+                            <div class="col-4">
+                                In this part of the module, the payroll manager will be able to view all of the recorded holidays using the calendar view that is provided.
+                                The Calendar view have different function such as searching throught different date period, monthly view, weekly view, and day view.
+                                The holiday will be displayed on the dates that it covers and it will be highlighted with blue color.
+                            </div>
+                            <div class="col">
+                                <img src="/manual/payroll/holidays/2.jpg" class="w-100">
+                            </div>
+
+                            <div class="row">
+                                <h5 class="text-primary">Listing a Holiday</h5>
+                                <div class="col">
+                                    In order to list a new holiday, the payroll manager will have to use the list section on the right side of the calendar view.
+                                    The payroll manager will have to enter the holiday name, the start date, and the end date.
+                                    Once the details are placed in the input boxes, the payroll manager can then click the "Add Holiday" button to list the holiday.
+                                    To confirm the new recorded holiday, the payroll manager can then view it in the calendar table.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/holidays/3.jpg" class="w-100">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <h5 class="text-primary">Listing a Holiday</h5>
+                                <div class="col">
+                                    To delete a holiday record, the payroll manager will have to use the "Delete Holiday" part of the feature.
+                                    The "Delete Holiday" is located below the "Listing a Holiday", use the scroll if the table is not completely visible.
+                                    The Delete Holiday have a date filter to change the date period of the holiday that will be displayed as well as the entries filter and a search bar.
+                                    <br>
+                                    <br>
+                                    To Delete Record, just click the "Remove" button beside the selected holiday record.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/holidays/4.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div id="holidays/function2">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Add Holiday Pay</h4>
+                            The Add Holiday Pay section of this module, you can select specific employees or select all employees and pay their holiday.
+                            <br><br>
+                            <img src="/manual/payroll/cashAdvance/5.jpg" class="w-100">
+                            Adding Holiday Pay involves three steps:
+                            <ol>
+                                <li><b>Selecting Employees</b></li>
+                                <div class="row">
+                                    <div class="col">
+                                        In order to select employees for the holiday pay, the payroll manager can use the employee list table to view and search all of the employees.
+                                        To select employee, the payroll manager can click the "Select" button on the record. The payroll manager can also user the "Select All Employee" button at the top of the employee list to select all of the employee easily.
+                                        <img src="/manual/payroll/cashAdvance/6.jpg" class="w-100">
+                                    </div>
+                                    <div class="col">
+                                        You can confirm that the employee is selected if it is added in the "Selected Employees" Table
+                                        <img src="/manual/payroll/cashAdvance/7.jpg" class="w-100">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <li><b>Selecting Holiday</b></li>
+                                <div class="row">
+                                    <div class="col">
+                                        After Selecting employees for the holiday pay, the payroll manager will have to select the holiday using the dropdown input.
+                                        After selecting holiday using the dropdown, the dates of the attendance will be also displayed.
+                                    </div>
+                                    <div class="col">
+                                        <img src="/manual/payroll/cashAdvance/8.jpg" class="w-100">
+                                    </div>
+                                </div>
+                                <br><br>
+                                <li><b>Clicking "Submit" button</b></li>
+                                <div class="row">
+                                    <div class="col">
+                                        After clicking the "Submit" button, a prompt will appear which confirms the selected employees and the seleted Holiday. By clicking the "Submit" button, the holiday pay will be added.
+                                    </div>
+                                    <div class="col">
+                                        <img src="/manual/payroll/cashAdvance/8.jpg" class="w-100">
+                                    </div>
+                                </div>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div id="holidays/function3">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Holiday Attendance</h4>
+                            In the Holiday Attendance part of the holiday module is where the payroll manager will be able to view all the recorded all the holiday pay or holiday attendance.
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Collective Attendance</h5>
+                                    In this table, the payroll manager will be able to view all of the attendance where in all of the employee was selected.
+                                    The payroll manager can then click the "Remove" button to remove all of the attendance in that collection of records.
+
+                                    <img src="/manual/payroll/holidays/9.jpg" class="w-100">
+                                </div>
+                                <div class="col">
+                                    <h5>Selected Attendance</h5>
+                                    In this table, the payroll manager can view each record individually.
+                                    The payroll manager can then used the "Remove" button to remove that record specifically.
+
+                                    <img src="/manual/payroll/holidays/10.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="leave" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <h3 class="alert-light p-4">Leave</h3>
+                <div class="px-4 mx-5">
+                    <h6 class="text-primary">Description</h6>
+                    <p class="w-75">In the Leave Management module is where all the Leave Application of employees will be displayed and this is where the payroll manager will be able to approve or deny leave applications.
+                        In this module, the payroll manager will be able to add attendances to their employees using the "Add Paid Leave" section.
+                        Also this is the module where in the payroll manager will be able to view all of the completed leave application as well as delete listed leave attendance.
+                    </p>
+                    <br>
+                    <img src="/manual/payroll/leave/1.jpg" class="w-100">
+
+                    <h6 class="text-primary">Functions</h6>
+                    <p class="w-75" >The functions of the Leave Management page are listed below:</p>
+                    <ul class="ms-5">
+                        <li><a class="ps-3 m-3" href="#leave/function1">Paid Leave Approvals</a></li>
+                        <li><a class="ps-3 m-3" href="#leave/function2">Add Paid Leave</a></li>
+                        <li><a class="ps-3 m-3" href="#leave/function3">Paid Application History</a></li>
+                        <li><a class="ps-3 m-3" href="#leave/function3">Paid Leave History</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="audit" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">

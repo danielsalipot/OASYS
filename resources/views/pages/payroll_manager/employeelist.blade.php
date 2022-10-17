@@ -38,18 +38,18 @@
 <div class="row p-3"></div>
 
 <div class="row card p-3">
-    <table class="table table-striped  text-center w-100" id="employee_table">
+    <table class="table table-striped  text-centerresponsive w-100" id="employee_table">
         <thead>
             <tr class="text-center">
                 <th class="col">Employee ID</th>
                 <th class="col">Picture</th>
-                <th class="col">Employee Details</th>
+                <th class="col" data-priority="1">Employee Details</th>
                 <th class="col">Department</th>
                 <th class="col-2">Position</th>
-                <th class="col">Rate/hr</th>
+                <th class="col" data-priority="1">Rate/hr</th>
                 <th class="col">Start Date</th>
                 <th class="col">Employement <br>Status</th>
-                <th class="col-2">Edit</th>
+                <th class="col-2" data-priority="2">Edit</th>
             </tr>
         </thead>
     </table>

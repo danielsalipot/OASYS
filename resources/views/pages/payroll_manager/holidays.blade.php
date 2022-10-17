@@ -18,11 +18,11 @@
             <div id="calendar"></div>
         </div>
         <div class="col card shadow-sm p-3" style="height:660px;overflow-y:scroll">
-            <h1 class="alert alert-primary p-3 text-center w-100">List a Holiday</h1>
-            <div class="card shadow-sm p-4 ">
+            <h5 class="alert alert-primary p-3 text-center w-100 mb-0 rounded-0 rounded-top">List a Holiday</h5>
+            <div class="card shadow-sm p-4 mt-0 rounded-0 rounded-bottom">
                 {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollInsertController@InsertHoliday']) !!}
                 <div class="row p-4">
-                    <h5 class="text-center">Start Date</h5>
+                    <h5 class="text-center">Holiday Name</h5>
                     {!! Form::text('holiday_name', '' , ['class' =>'form-control p-3 text-center w-100 m' ,'placeholder'=>'Holiday Name']) !!}
                 </div>
                 <div class="row input-daterange p-3">
@@ -99,14 +99,14 @@
 
             <h5 class="w-100 text-center">Pay Selected Employee Holiday</h5>
             <div class="container w-100 ">
-                <table class="table w-100 table-striped text-center" id="employee_table">
+                <table class="table w-100 table-striped text-center responsive w-100" id="employee_table">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">Employee Picture</th>
+                            <th class="col" data-priority="1">Employee Picture</th>
                             <th class="col">Employee Name</th>
                             <th class="col">Department</th>
                             <th class="col">Position</th>
-                            <th class="col">Select</th>
+                            <th class="col" data-priority="1">Select</th>
                         </tr>
                     </thead>
                 </table>
@@ -176,7 +176,7 @@
 <div class="container p-5 border shadow-lg">
         <div class="card p-5 shadow-sm">
         <hr>
-        <h4>Delete all Attendance</h4>
+        <h4>Collective Attendance</h4>
         <hr>
 
         <div class="row mb-3 mt-3 input-daterange" >
@@ -192,16 +192,16 @@
             </div>
         </div>
 
-        <table class="table table-striped text-center  w-100" id="delete_all_attendance">
+        <table class="table table-striped text-center responsive w-100" id="delete_all_attendance">
             <thead>
                 <tr>
-                    <th class="col">Holiday Name</th>
+                    <th class="col" data-priority="1">Holiday Name</th>
                     <th class="col">Holiday Start Date</th>
                     <th class="col">Holiday End Date</th>
-                    <th class="col">Number of Attendance</th>
+                    <th class="col" data-priority="1">Number of Attendance</th>
                     <th class="col">Payroll Manager</th>
                     <th class="col">Added on</th>
-                    <th class="col">Delete</th>
+                    <th class="col" data-priority="1">Delete</th>
                 </tr>
             </thead>
         </table>
@@ -210,21 +210,21 @@
 
     <div class="container mt-5 w-100 p-5 border shadow-sm">
         <hr>
-        <h4>Delete Selected Attendance</h3>
+        <h4>Selected Attendance</h3>
         <hr>
         @include('inc.date_filter')
-        <table class="table table-striped text-center  w-100" id="holiday_attendance">
+        <table class="table table-striped text-center responsive w-100" id="holiday_attendance">
             <thead>
                 <tr>
                     <th class="col">Transacetion ID</th>
-                    <th class="col">Employee Details</th>
+                    <th class="col" data-priority="1">Employee Details</th>
                     <th class="col">Holiday Name</th>
                     <th class="col">Date of Paid Holiday</th>
                     <th class="col">Holiday Start Date</th>
                     <th class="col">Holiday End Date</th>
                     <th class="col">Payroll Manager</th>
                     <th class="col">Added on</th>
-                    <th class="col">Delete</th>
+                    <th class="col" data-priority="1">Delete</th>
                 </tr>
             </thead>
         </table>

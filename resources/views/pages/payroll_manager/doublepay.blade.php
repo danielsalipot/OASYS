@@ -14,17 +14,17 @@
     <div class="container">
         <h1 class="display-4 pb-5 mt-5 text-center w-100">Multi Pay Management</h1>
         @include('inc.date_filter')
-        <table class="table table-striped text-center" id="multi_pay_table">
+        <table class="table table-striped text-center responsive w-100" id="multi_pay_table">
             <thead>
                 <tr>
-                    <th class="col-1">Employee ID</th>
-                    <th class="col-2">Employee Details</th>
+                    <th class="col-1" >Employee ID</th>
+                    <th class="col-2" data-priority="1">Employee Details</th>
                     <th class="col">Employee rate</th>
                     <th class="col">Time in Detials</th>
                     <th class="col">Time out Details</th>
-                    <th class="col">Total Hours</th>
+                    <th class="col" data-priority="1">Total Hours</th>
                     <th class="col">Attendance Date</th>
-                    <th class="col-2">Actions</th>
+                    <th class="col-2" data-priority="1">Actions</th>
                 </tr>
             </thead>
         </table>
@@ -47,21 +47,21 @@
                         <button type="button" name="paid_refresh" id="paid_refresh" class="btn h-100 w-25 btn-outline-success">Refresh</button>
                     </div>
                 </div>
-                <table class="table table-striped text-center w-100 " id="paid_table">
+                <table class="table table-striped text-center responsive w-100 " id="paid_table">
                     <thead>
                         <tr>
                             <th class="col">Transaction ID</th>
-                            <th class="col">Employee Details</th>
+                            <th class="col" data-priority="1">Employee Details</th>
                             <th class="col">Employee Rate</th>
-                            <th class="col">Time in Details</th>
-                            <th class="col">Time out Detials</th>
+                            <th class="col" data-priority="1">Time in Details</th>
+                            <th class="col" data-priority="1">Time out Detials</th>
                             <th class="col">Total hours</th>
-                            <th class="col">Multiplier</th>
+                            <th class="col" data-priority="1">Multiplier</th>
                             <th class="col">Total Compensation</th>
-                            <th class="col">Attendance Date</th>
+                            <th class="col" data-priority="1">Attendance Date</th>
                             <th class="col">Payroll Manager</th>
                             <th class="col">Added on (UTC)</th>
-                            <th class="col">Delete</th>
+                            <th class="col" data-priority="1">Delete</th>
                         </tr>
                     </thead>
                 </table>

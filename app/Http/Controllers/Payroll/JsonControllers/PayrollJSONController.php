@@ -167,7 +167,11 @@ class PayrollJSONController extends Controller
 
             foreach ($temp as $key => $value) {
                 $value->approval = overtime_approval::where('attendance_id',$value->attendance_id)->first();
-                if(!Overtime::where('attendance_id',$value->attendance_id)->first()){
+                if($value->approval){
+                    if(!isset($value->approval->status)){
+                        array_push($employee_overtime_arr,$value);
+                    }
+                }else{
                     array_push($employee_overtime_arr,$value);
                 }
             }

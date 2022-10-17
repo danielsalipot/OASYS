@@ -12,18 +12,18 @@
 @section('first')
     <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Deductions</h1>
     @include('inc.date_filter')
-    <table class="table table-striped text-center" id="deduction_table">
+    <table class="table table-striped text-centerresponsive w-100" id="deduction_table">
         <thead>
             <tr class="text-center">
                 <th class="col">Transaction ID</th>
-                <th class="col">Employee Details</th>
-                <th class="col">Deduction Name</th>
+                <th class="col" data-priority="1">Employee Details</th>
+                <th class="col" data-priority="1">Deduction Name</th>
                 <th class="col">Deduction Start Date</th>
                 <th class="col">Deduction End Date</th>
-                <th class="col">Deduction Amount</th>
+                <th class="col" data-priority="1">Deduction Amount</th>
                 <th class="col">Payroll Manager</th>
                 <th class="col">Added on (UTC)</th>
-                <th class="col">Delete</th>
+                <th class="col" data-priority="1">Delete</th>
             </tr>
         </thead>
     </table>
@@ -34,16 +34,16 @@
         <h1 class="display-4 pb-5 mt-5 text-center w-100">Create Employee Deductions</h1>
         <div class="col card p-2 shadow-sm">
             <h1 class="display-5 text-center w-100">Employee Selection</h1>
-            <div class="container w-100">
-                <table class="table w-100 table-striped text-center " id="employee_table">
+            <div class="container">
+                <table class="table w-100 table-striped text-centerresponsive w-100" id="employee_table">
                     <thead>
                         <tr class="text-center">
                             <th class="col">Employee ID</th>
-                            <th class="col">Employee Picture</th>
-                            <th class="col">Employee Name</th>
+                            <th class="col" data-priority="1">Employee Picture</th>
+                            <th class="col" data-priority="1">Employee Name</th>
                             <th class="col">Department</th>
                             <th class="col">Position</th>
-                            <th class="col">Select</th>
+                            <th class="col" data-priority="2">Select</th>
                         </tr>
                     </thead>
                 </table>

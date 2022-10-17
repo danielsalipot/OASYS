@@ -82,15 +82,15 @@
         <div class="col card shadow-sm p-4">
             <h1 class="display-5 text-center w-100">Employee Selection</h1>
             <div class="container w-100">
-                <table class="table w-100 table-striped text-center" id="employee_table">
+                <table class="table w-100 table-striped text-center responsive" id="employee_table">
                     <thead>
                         <tr class="text-center">
                             <th class="col">Employee ID</th>
                             <th class="col">Employee Picture</th>
-                            <th class="col">Employee Name</th>
+                            <th class="col" data-priority="1">Employee Name</th>
                             <th class="col">Department</th>
                             <th class="col">Position</th>
-                            <th class="col">Select</th>
+                            <th class="col" data-priority="1">Select</th>
                         </tr>
                     </thead>
                 </table>
@@ -220,15 +220,15 @@
     <div class="container p-5 border shadow-lg">
         <h1 class="display-4 pb-5 mt-5 text-center w-100">Paid Leave History</h1>
         @include('inc.date_filter')
-        <table class="table table-striped  w-100 text-center" id="leave_table">
+        <table class="table table-striped  w-100 responsive text-center" id="leave_table">
             <thead>
                 <tr>
                     <th class="col">Transaction ID</th>
-                    <th class="col">Employee Details</th>
-                    <th class="col">Paid Leave Date</th>
+                    <th class="col" data-priority="1">Employee Details</th>
+                    <th class="col" data-priority="1">Paid Leave Date</th>
                     <th class="col">Payroll Manager</th>
                     <th class="col">Added on (UTC)</th>
-                    <th class="col">Delete</th>
+                    <th class="col" data-priority="1">Delete</th>
                 </tr>
             </thead>
         </table>

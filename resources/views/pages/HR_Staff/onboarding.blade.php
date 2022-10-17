@@ -5,16 +5,16 @@
     @endsection
 
     @section('content')
-        <table class="table table-striped  w-100 text-center" id="applicant_table">
+        <table class="table table-striped responsive w-100 text-center" id="applicant_table">
             <thead>
             <tr>
                 <th class="col">Picture</th>
-                <th class="col">Employee Name</th>
+                <th class="col" data-priority="1">Employee Name</th>
                 <th class="col">Gender</th>
                 <th class="col">Age</th>
-                <th class="col">Applying For</th>
+                <th class="col" data-priority="1">Applying For</th>
                 <th class="col">Education</th>
-                <th class="col-3">Action</th>
+                <th class="col-3" data-priority="1">Action</th>
             </tr>
             </thead>
             <tbody></tbody>

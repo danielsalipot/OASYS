@@ -437,14 +437,14 @@
         </div>
         <div id="employee" class="tab-pane">
             <h1 class="bg-primary text-white w-100 text-center m-0 p-3">Employee Attendance Overview</h1>
-            <table class="table table-striped  w-100 text-center" id="emp_attendance_table">
+            <table class="table table-striped responsive w-100 text-center" id="emp_attendance_table">
                 <thead>
                     <tr>
                         <th class="col"></th>
-                        <th class="col">Employee Details</th>
-                        <th class="col">On Time</th>
-                        <th class="col">Late</th>
-                        <th class="col">Absent</th>
+                        <th class="col" data-priority ="1">Employee Details</th>
+                        <th class="col" data-priority ="1">On Time</th>
+                        <th class="col" data-priority ="1">Late</th>
+                        <th class="col" data-priority ="1">Absent</th>
                     </tr>
                 </thead>
             </table>

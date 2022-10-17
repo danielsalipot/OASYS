@@ -85,23 +85,23 @@
         <h4 class="alert-primary shadow-sm my-1 p-4 m-0 text-center rounded">Current Cutoff Overview</h4>
         <div class="p-4">
             @include('inc.date_filter')
-            <table class="table text-center table-bordered table-striped w-100" id="payroll_table">
+            <table class="table text-center table-bordered table-stripedresponsive w-100" id="payroll_table">
                 <thead>
                     <tr>
                         <th>Employee ID</th>
-                        <th>Employee Details</th>
+                        <th data-priority="1">Employee Details</th>
                         <th>Total Hours</th>
                         <th>Rate/hr</th>
                         <th>Bonus</th>
-                        <th>Gross Pay</th>
+                        <th  data-priority="1">Gross Pay</th>
                         <th>SSS</th>
                         <th>Pag-ibig</th>
                         <th>Philhealth</th>
                         <th>Deductions</th>
                         <th>Cash Advance</th>
                         <th>Taxable Net</th>
-                        <th>Witholding<br>Tax</th>
-                        <th>Total Salary</th>
+                        <th  data-priority="1">Witholding<br>Tax</th>
+                        <th data-priority="1">Total Salary</th>
                     </tr>
                 </thead>
             </table>

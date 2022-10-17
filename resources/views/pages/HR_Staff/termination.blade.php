@@ -9,16 +9,16 @@
     @endsection
 
     @section('first')
-        <table class="table table-striped  w-100 text-center" id="employee_table">
+        <table class="table table-striped responsive w-100 text-center" id="employee_table">
             <thead>
             <tr>
                 <th class="col-1">Picture</th>
-                <th class="col-2">Employee Detail</th>
+                <th class="col-2" data-priority="1">Employee Detail</th>
                 <th class="col-1">Department</th>
                 <th class="col-1">Position</th>
-                <th class="col-1">Employement Status</th>
-                <th class="col-2">Employed for</th>
-                <th class="col">Actions</th>
+                <th class="col-1" data-priority="1">Employement Status</th>
+                <th class="col-2" data-priority="1">Employed for</th>
+                <th class="col" data-priority="1">Actions</th>
             </tr>
             </thead>
             <tbody></tbody>

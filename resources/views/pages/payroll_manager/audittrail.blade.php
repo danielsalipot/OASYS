@@ -30,16 +30,16 @@
 
     @include('inc.date_filter')
     <div class="card p-3 bg-white shadow-sm">
-        <table class="table table-striped  text-center w-100" id="audit_table">
+        <table class="table table-striped  text-center responsive w-100" id="audit_table">
             <thead>
                 <tr class="text-center">
                     <th class="col">Date of Activity</th>
-                    <th class="col">Payroll Manager</th>
+                    <th class="col" data-priority="1">Payroll Manager</th>
                     {{-- insertion, deletion update --}}
                     <th class="col">Type</th>
-                    <th class="col">Affected Employee</th>
-                    <th class="col">Activtiy</th>
-                    <th class="col">Details</th>
+                    <th class="col" data-priority="1">Affected Employee</th>
+                    <th class="col" data-priority="1">Activtiy</th>
+                    <th class="col" data-priority="1">Details</th>
                     <th class="col">Activity ID</th>
                 </tr>
             </thead>

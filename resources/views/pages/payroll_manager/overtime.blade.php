@@ -38,16 +38,16 @@
                     class="btn h-100 w-25 btn-outline-success">Refresh</button>
             </div>
         </div>
-        <table class="table table-striped  text-center" id="overtime_table">
+        <table class="table table-striped  text-centerresponsive w-100" id="overtime_table">
             <thead>
                 <tr>
-                    <th class="col">Attendance Date</th>
-                    <th class="col">Employee Details</th>
+                    <th class="col" data-priority="1">Attendance Date</th>
+                    <th class="col" data-priority="1">Employee Details</th>
                     <th class="col">Time in</th>
                     <th class="col">Time out</th>
-                    <th class="col-1">Hours</th>
+                    <th class="col-1" data-priority="1">Hours</th>
                     <th class="col">Overtime Application</th>
-                    <th class="col">Pay Overtime</th>
+                    <th class="col" data-priority="2">Pay Overtime</th>
                 </tr>
             </thead>
         </table>
@@ -65,18 +65,18 @@
                 data-target="#paid_ot_modal">Remove Overtime</button>
         </div>
 
-        <table class="table table-striped  text-center w-100" id="paid_overtime_table">
+        <table class="table table-striped  text-center w-100responsive" id="paid_overtime_table">
             <thead>
                 <tr>
-                    <th class="col">Select</th>
-                    <th class="col">Employee Details</th>
+                    <th class="col" data-priority="2">Select</th>
+                    <th class="col" data-priority="1">Employee Details</th>
                     <th class="col">Time in</th>
                     <th class="col">Time out</th>
-                    <th class="col">Total Overtime<br>Hours</th>
+                    <th class="col" data-priority="1">Total Overtime<br>Hours</th>
                     <th class="col">Payroll Manager</th>
-                    <th class="col">Overtime Application</th>
+                    <th class="col" data-priority="1">Overtime Application</th>
                     <th class="col">Added on (UTC)</th>
-                    <th class="col">Attendance Date</th>
+                    <th class="col" data-priority="1">Attendance Date</th>
                 </tr>
             </thead>
         </table>
@@ -89,18 +89,18 @@
         <h1 class="display-4 pb-5 mt-5 text-center w-100">Denied Overtime Application</h1>
     </div>
 
-    <div class="m-auto">
-        <table class="table table-striped  text-center w-100" id="denied_overtime_table">
+    <div class="container m-auto">
+        <table class="table table-striped text-center responsive w-100" id="denied_overtime_table">
             <thead>
                 <tr>
-                    <th class="col">Employee Details</th>
-                    <th class="col">Attendance Date</th>
+                    <th class="col" data-priority="1">Employee Details</th>
+                    <th class="col" data-priority="1">Attendance Date</th>
                     <th class="col">Time in</th>
                     <th class="col">Time out</th>
                     <th class="col">Payroll Manager</th>
-                    <th class="col">Transaction ID</th>
+                    <th class="col" data-priority="1">Overtime Application</th>
                     <th class="col">Added on (UTC)</th>
-                    <th class="col"></th>
+                    <th class="col" data-priority="2"></th>
                 </tr>
             </thead>
         </table>
@@ -290,7 +290,7 @@
                             }
                         },
                         {
-                            data: 'approval.id',
+                            data: 'approval',
                             render: (data, type, row) => {
                                 if(data){
                                     return `
@@ -399,7 +399,7 @@
                             }
                         },
                         {
-                            data: 'approval.id',
+                            data: 'approval',
                             render: (data, type, row) => {
                                 if(data){
                                     return `

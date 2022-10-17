@@ -5,16 +5,16 @@
 
     @section('content')
     <div class="container">
-        <table class="table w-100 text-center" id="applicant_table">
+        <table class="table w-100 text-center responsive" id="applicant_table">
             <thead>
             <tr>
                 <th class="col">Picture</th>
-                <th class="col">Employee Name</th>
+                <th class="col" data-priority="1">Employee Name</th>
                 <th class="col">Applying for</th>
                 <th class="col">Education</th>
                 <th class="col">Application Date</th>
-                <th class="col">First Interview</th>
-                <th class="col">Second Interview</th>
+                <th class="col" data-priority="1">First Interview</th>
+                <th class="col" data-priority="1">Second Interview</th>
             </tr>
             </thead>
             <tbody></tbody>

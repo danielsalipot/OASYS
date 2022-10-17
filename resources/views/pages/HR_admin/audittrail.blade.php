@@ -27,20 +27,20 @@
     </div>
 
     @include('inc.date_filter')
-    <table class="table table-striped  text-center w-100" id="audit_table">
-        <thead>
-            <tr class="text-center">
-                <th class="col">Date of Activity</th>
-                <th class="col">Payroll Manager</th>
-                {{-- insertion, deletion update --}}
-                <th class="col">Type</th>
-                <th class="col">Affected Employee</th>
-                <th class="col">Activtiy</th>
-                <th class="col">Details</th>
-                <th class="col">Activity ID</th>
-            </tr>
-        </thead>
-    </table>
+   <table class="table table-striped  text-center responsive w-100" id="audit_table">
+            <thead>
+                <tr class="text-center">
+                    <th class="col">Date of Activity</th>
+                    <th class="col" data-priority="1">Payroll Manager</th>
+                    {{-- insertion, deletion update --}}
+                    <th class="col">Type</th>
+                    <th class="col" data-priority="1">Affected Employee</th>
+                    <th class="col" data-priority="1">Activtiy</th>
+                    <th class="col" data-priority="1">Details</th>
+                    <th class="col">Activity ID</th>
+                </tr>
+            </thead>
+        </table>
 @endsection
 
 @section('second')

@@ -4,17 +4,17 @@
 
         <h1 class="display-5 text-center w-100">Employee Selection</h1>
         <div class="container w-100">
-            <table class="table w-100  text-center" id="employee_table">
+            <table class="table w-100 responsive text-center" id="employee_table">
                 <thead>
                     <tr class="text-center">
                         <th class="col">Employee ID</th>
                         <th class="col">Employee Picture</th>
-                        <th class="col">Employee Name</th>
+                        <th class="col" data-priority="1">Employee Name</th>
                         <th class="col">Department</th>
                         <th class="col">Position</th>
                         <th class="col">Status</th>
-                        <th class="col">Assessment Progress</th>
-                        <th class="col">Select</th>
+                        <th class="col" data-priority="1">Assessment Progress</th>
+                        <th class="col" data-priority="1">Select</th>
                     </tr>
                 </thead>
             </table>

@@ -11,13 +11,13 @@
             <div class="container w-100">
                 <a href="/notification/views" class="btn btn-primary w-100 mt-3 p-3"> View Sent Notifications</a>
                 <hr>
-                <table class="table w-100 table-striped text-center " id="employee_table">
+                <table class="table w-100 table-striped text-centerresponsive w-100display responsive" id="employee_table">
                     <thead>
                         <tr class="text-center">
                             <th class="col">ID</th>
                             <th class="col">Picture</th>
-                            <th class="col">Name</th>
-                            <th class="col">Select</th>
+                            <th class="col" data-priority="1">Name</th>
+                            <th class="col" data-priority="2">Select</th>
                         </tr>
                     </thead>
                 </table>

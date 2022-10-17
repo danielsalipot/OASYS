@@ -102,15 +102,15 @@
                     <div class="row">
                         @include('inc.date_filter')
                     </div>
-                    <table class="table table-striped w-100 text-center" id="sss_table">
+                    <table class="table table-striped responsive w-100 text-center" id="sss_table">
                         <thead>
                             <tr class="text-center">
-                                <th class="col">Employee Details</th>
+                                <th class="col" data-priority="1">Employee Details</th>
                                 <th class="col">Employee Rate</th>
                                 <th class="col">Monthly Salary</th>
                                 <th class="col">Employee Contribution</th>
                                 <th class="col">Employer Contribution</th>
-                                <th class="col">Total SSS Contibution</th>
+                                <th class="col"data-priority="1">Total SSS Contibution</th>
                             </tr>
                         </thead>
                     </table>
@@ -118,17 +118,17 @@
             </div>
             <div id="sss_manage" class="tab-pane">
                 <div class="container p-5 border bg-white shadow-sm">
-                    <table class="table table-striped  text-center w-100" id="sss_employee_table">
+                    <table class="table table-striped responsive  text-center w-100" id="sss_employee_table">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>
                                 <th class="col">Picture</th>
-                                <th class="col">Employee Details</th>
+                                <th class="col" data-priority="1">Employee Details</th>
                                 <th class="col">Department</th>
                                 <th class="col-2">Position</th>
                                 <th class="col">Rate/hr</th>
                                 <th class="col">Employement <br>Status</th>
-                                <th class="col-2">Edit</th>
+                                <th class="col-2" data-priority="1">Edit</th>
                             </tr>
                         </thead>
                     </table>
@@ -229,15 +229,15 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-striped text-center w-100" id="pagibig_table">
+                    <table class="table table-striped responsive text-center w-100" id="pagibig_table">
                         <thead>
                             <tr class="text-center">
-                                <th class="col">Employee Details</th>
+                                <th class="col" data-priority="1">Employee Details</th>
                                 <th class="col">Employee Rate</th>
                                 <th class="col">Monthly Salary</th>
                                 <th class="col">Employee Contribution</th>
                                 <th class="col">Employer Contribution</th>
-                                <th class="col">Total Pagibig Contibution</th>
+                                <th class="col" data-priority="1">Total Pagibig Contibution</th>
                             </tr>
                         </thead>
                     </table>
@@ -245,17 +245,17 @@
             </div>
             <div id="pagibig_manage" class="tab-pane">
                 <div class="container p-5 border bg-white shadow-sm">
-                    <table class="table table-striped  text-center w-100" id="pagibig_employee_table">
+                    <table class="table table-striped responsive  text-center w-100" id="pagibig_employee_table">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>
                                 <th class="col">Picture</th>
-                                <th class="col">Employee Details</th>
+                                <th class="col" data-priority="1">Employee Details</th>
                                 <th class="col">Department</th>
                                 <th class="col-2">Position</th>
                                 <th class="col">Rate/hr</th>
                                 <th class="col">Employement <br>Status</th>
-                                <th class="col-2">Edit</th>
+                                <th class="col-2" data-priority="1">Edit</th>
                             </tr>
                         </thead>
                     </table>
@@ -378,15 +378,15 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-striped text-center w-100" id="philhealth_table">
+                    <table class="table table-striped responsive text-center w-100" id="philhealth_table">
                         <thead>
                             <tr class="text-center">
-                                <th class="col">Employee Details</th>
+                                <th class="col" data-priority="1">Employee Details</th>
                                 <th class="col">Employee Rate</th>
                                 <th class="col">Monthly Salary</th>
                                 <th class="col">Employee Contribution</th>
                                 <th class="col">Employer Contribution</th>
-                                <th class="col">Total Pagibig Contibution</th>
+                                <th class="col" data-priority="1">Total Pagibig Contibution</th>
                             </tr>
                         </thead>
                     </table>
@@ -394,17 +394,17 @@
             </div>
             <div id="philhealth_manage" class="tab-pane">
                 <div class="container p-5 border bg-white shadow-sm">
-                    <table class="table table-striped  text-center w-100" id="philhealth_employee_table">
+                    <table class="table table-striped responsive  text-center w-100" id="philhealth_employee_table">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>
                                 <th class="col">Picture</th>
-                                <th class="col">Employee Details</th>
+                                <th class="col" data-priority="1">Employee Details</th>
                                 <th class="col">Department</th>
                                 <th class="col-2">Position</th>
                                 <th class="col">Rate/hr</th>
                                 <th class="col">Employement <br>Status</th>
-                                <th class="col-2">Edit</th>
+                                <th class="col-2" data-priority="1">Edit</th>
                             </tr>
                         </thead>
                     </table>

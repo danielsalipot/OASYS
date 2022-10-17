@@ -5,16 +5,16 @@
 
     @section('content')
     <div class="container w-100 p-2">
-        <table class="table table-striped  text-center w-100" id="employee_table">
+        <table class="table table-striped responsive text-center w-100" id="employee_table">
             <thead>
                 <tr class="text-center">
                     <th class="col">Picture</th>
-                    <th class="col">Employee Details</th>
+                    <th class="col" data-priority="1">Employee Details</th>
                     <th class="col">Department</th>
                     <th class="col">Position</th>
-                    <th class="col-3">Schedule Days</th>
-                    <th class="col-2">Time in</th>
-                    <th class="col-2">Time out</th>
+                    <th class="col-3" data-priority="1">Schedule Days</th>
+                    <th class="col-2" data-priority="1">Time in</th>
+                    <th class="col-2" data-priority="1">Time out</th>
                 </tr>
             </thead>
         </table>
