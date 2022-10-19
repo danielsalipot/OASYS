@@ -5,7 +5,7 @@
         The employee list module is where HR users will be able to view the all current employees and see their details.
     </p>
     <br>
-    <img src="/manual/common/employeelist/1.jpg" class="w-100">
+    <img src="/manual/common/employeeList/1.jpg" class="w-100">
 
     <h6 class="text-primary">Functions</h6>
     <p class="w-75" >The functions of the Audit Logs page are listed below:</p>
@@ -22,7 +22,7 @@
                     Each employee, will have there own "View Profile" button, upon clicking you will be redirected to the employee's profile page/
                 </div>
                 <div class="col">
-                    <img src="/manual/common/employeelist/2.jpg" class="w-100">
+                    <img src="/manual/common/employeeList/2.jpg" class="w-100">
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     Beside the "View Profile" button is the "Message" button, upon clicking the user will be redirected to the messeging module where in the employee name is flitered and ready to be chatted.
                 </div>
                 <div class="col">
-                    <img src="/manual/common/employeelist/3.jpg" class="w-100">
+                    <img src="/manual/common/employeeList/3.jpg" class="w-100">
                 </div>
             </div>
         </div>
