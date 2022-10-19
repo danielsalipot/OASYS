@@ -42,6 +42,12 @@ class MessageController extends Controller
 
     public function InsertNotification(Request $request)
     {
+        $request->validate([
+            'ids' => 'required',
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
         $ids = explode(';',$request->ids);
 
         $notif = notification_message::create([

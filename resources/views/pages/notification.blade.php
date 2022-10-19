@@ -11,13 +11,13 @@
             <div class="container w-100">
                 <a href="/notification/views" class="btn btn-primary w-100 mt-3 p-3"> View Sent Notifications</a>
                 <hr>
-                <table class="table w-100 table-striped text-centerresponsive w-100display responsive" id="employee_table">
+                <table class="table w-100 table-striped text-center  w-100 display responsive" id="employee_table">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
                             <th class="col">Picture</th>
                             <th class="col" data-priority="1">Name</th>
-                            <th class="col" data-priority="2">Select</th>
+                            <th class="col" data-priority="2">status</th>
+                            <th class="col" data-priority="1">Select</th>
                         </tr>
                     </thead>
                 </table>
@@ -25,6 +25,7 @@
         </div>
     </div>
     <div class="col">
+        <span class="text-danger">@error('ids') {{'Recepient list cannot be empty'}} @enderror</span>
         <h2 class="text-secondary">Sending to:</h2>
         <div id="selected_employee" class="d-flex flex-row flex-wrap mb-4">
         </div>
@@ -33,9 +34,15 @@
             {!! Form::open(['action'=> 'App\Http\Controllers\MessageController@InsertNotification','method'=>'POST']) !!}
                 {!! Form::hidden('ids','',['id'=>'emp_ids']) !!}
                 {!! Form::label('title', 'Notification Title', ['class'=>'h2 text-secondary']) !!}
+                <br>
+                <span class="text-danger">@error('title') {{$message}} @enderror</span>
                 {!! Form::text('title', '', ['class'=>'form-control']) !!}
 
+
+
                 {{Form::label('body','Notification Message',['class'=>'h2 text-secondary pt-4'])}}
+                <br>
+                <span class="text-danger">@error('body') {{$message}} @enderror</span>
                 {{Form::textarea('body','',['id'=>'article-ckeditor','class'=>'form-control',
                     'placeholder'=>'Notification Message'])}}
                 <div class='row'>
@@ -67,17 +74,17 @@
                     columns: [
                         { data: 'information_id',
                             render : (data,type,row)=>{
-                                return `<b>${data}</b>`
-                            }
-                        },
-                        { data: 'information_id',
-                            render : (data,type,row)=>{
                                 return `<img src="{{ URL::asset('${row.user_detail.picture}')}}" class="rounded" width="50" height="50">`
                             }
                         },
                         { data: 'user_detail.fname',
                             render : (data,type,row)=>{
                                 return `<b>${data} ${row.user_detail.mname} ${row.user_detail.lname}</b>`
+                            }
+                        },
+                        { data: 'status',
+                            render : (data,type,row)=>{
+                                return `<b>${capitalizeFirstLetter(data)}</b>`
                             }
                         },
                         { data: 'information_id',
@@ -93,7 +100,12 @@
                         },
                     ]
                 })
+
     })
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     function selectEmployee(btn,info_id,emp_pic,emp_name){
         btn.classList.toggle('btn-outline-primary')

@@ -4,11 +4,11 @@
 @endsection
 
 @section('content')
-<div class="row" style="position:fixed; top:0; width:92.5vw;" >
+<div class="row" style="position:fixed; top:0; width:93vw;" >
     <div class="col-2 bg-white p-0" >
         <ul class="nav flex-column alert-light w-100 p-0">
             <li class="nav-item p-0 m-0" style="height: 43px">
-                <a class="nav-link h5 alert-primary" aria-current="page" href="#home">
+                <a class="manual_button nav-link h5 alert-primary" onclick="changeButtonColor(this)" aria-current="page" href="#home">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bx bx-home h4 p-0 m-0"></i>
@@ -20,7 +20,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#salary">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#salary">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-person-lines-fill h4 p-0 m-0"></i>
@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#deduction">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#deduction">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-calculator h4 p-0 m-0"></i>
@@ -44,7 +44,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#overtime">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#overtime">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-clock h4 p-0 m-0"></i>
@@ -56,7 +56,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#cashAdvance">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#cashAdvance">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-cash-stack h4 p-0 m-0"></i>
@@ -68,7 +68,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#contributions">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#contributions">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-wallet h4 p-0 m-0"></i>
@@ -80,7 +80,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#bonus">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#bonus">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-coin h4 p-0 m-0"></i>
@@ -92,7 +92,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#multipay">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#multipay">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-check-all h4 p-0 m-0"></i>
@@ -104,7 +104,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#holidays">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#holidays">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bbi bi-calendar-event h4 p-0 m-0"></i>
@@ -116,7 +116,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#leave">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#leave">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-person-dash h4 p-0 m-0"></i>
@@ -128,7 +128,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#audit">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#audit">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-list-check h4 p-0 m-0"></i>
@@ -140,7 +140,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#approvals">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#approvals">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-file-earmark-check h4 p-0 m-0"></i>
@@ -152,7 +152,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#employeelist">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#employeelist">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-people-fill h4 p-0 m-0"></i>
@@ -164,7 +164,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#profile">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#profile">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-person-circle h4 p-0 m-0"></i>
@@ -176,7 +176,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#messages">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#messages">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-chat-left-text h4 p-0 m-0"></i>
@@ -188,7 +188,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark h5" href="#notifications">
+                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#notifications">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-bell h4 p-0 m-0"></i>
@@ -201,8 +201,9 @@
             </li>
         </ul>
     </div>
+
     <div class="col">
-        <div class="card" style="overflow-y: scroll; height:700px">
+        <div class="card" style="overflow-x:hidden; overflow-y: scroll; height:700px">
             <div class="row p-5"></div><div class="row p-5"></div>
             <h1 class="section-title w-100 text-center mt-1">User Manual</h1>
             <div class="row p-5"></div><div class="row p-5"></div>
@@ -568,7 +569,8 @@
                     </div>
                 </div>
 
-            <div class="row p-5"></div><div class="row p-5"></div>
+
+                <div class="row p-5"></div><div class="row p-5"></div>
             <div id="cashAdvance" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <h3 class="alert-light p-4">Cash Advance</h3>
                 <div class="px-4 mx-5">
@@ -1230,36 +1232,268 @@
                         <li><a class="ps-3 m-3" href="#leave/function1">Paid Leave Approvals</a></li>
                         <li><a class="ps-3 m-3" href="#leave/function2">Add Paid Leave</a></li>
                         <li><a class="ps-3 m-3" href="#leave/function3">Paid Application History</a></li>
-                        <li><a class="ps-3 m-3" href="#leave/function3">Paid Leave History</a></li>
+                        <li><a class="ps-3 m-3" href="#leave/function4">Paid Leave History</a></li>
                     </ul>
+
+
+                    <div id="leave/function1">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Paid Leave Approvals</h4>
+                            <img src="/manual/payroll/leave/10.jpg" class="w-100">
+                            In this section of the Leave management module, the payroll manager will be able to see all of the pending leave application and their details such as the employee details, a brief letter application for leave, as well as the leave details. They will be able to approve or deny a selected leave applicate by clicking their respected "Approve" button and "Deny" Button.
+                        </div>
+                    </div>
+                    <div id="leave/function2">
+                        <h4 class="text-primary">Add Paid Leave</h4>
+                        <img src="/manual/payroll/leave/2.jpg" class="w-100">
+                        This is the Add deduction module. In this module you can select employees, add leave details, and save the leave for the payroll.
+                        <br><br>
+                        Adding Paid Leave involves three steps:
+                        <ol>
+                            <li><b>Selecting Employees</b></li>
+                            <div class="row">
+                                <div class="col">
+                                    In the Employee selection table, you will be able to search, filter employees, and select employees by clicking the "select" button beside the employee details.
+                                    The button will show green if the employee is selected.
+                                    <img src="/manual/payroll/leave/3.jpg" class="w-100">
+                                </div>
+                                <div class="col">
+                                    You can confirm that the employee is selected if it is added in the "Selected Employees" Table
+                                    <img src="/manual/payroll/leave/4.jpg" class="w-100">
+                                </div>
+                            </div>
+                            <br><br>
+                            <li><b>Adding Paid Leave Details</b></li>
+                            <div class="row">
+                                <div class="col">
+                                    After Selecting employees for the Paid Leave, the payroll manager will need to add the Paid Leave period by selecting an from date and to date using the date picker. After adding the Paid Leave details, the payroll manager will click the "Add Paid Leave" button.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/leave/5.jpg" class="w-100">
+                                </div>
+                            </div>
+                            <br><br>
+                            <li><b>Clicking "Add Paid Leave" button</b></li>
+                                <div class="row">
+                                    <div class="col">
+                                        After clicking the "Add Paid Leave" button, a prompt will appear which confirms the selected employees and the Paid Leave details. By clicking the "Confirm Paid Leave" button, the leave will be added.
+                                    </div>
+                                    <div class="col">
+                                        <img src="/manual/payroll/leave/6.jpg" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                        </ol>
+                    </div>
+                    <div id="leave/function3">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Paid Application History</h4>
+                            <div class="row">
+                                <div class="col">
+                                    The Paid Application History is where the payroll manager will be able to find all of the accomplished leave application or all of the application that has been either denied or approved. The payroll manager can all recover the accomplished application in order for them to reconsider or change their decision.
+                                    <br><br>
+                                    The payroll manager will have to click the "Recover Application" Button to recover the application. After clicking, the Leave application will be able on the "Paid Leave Approvals".
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/leave/7.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="leave/function4">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Paid Leave History</h4>
+                            In the Paid Leave Histoy part of the leave management module is where all of the Paid Leave records will be found. The payroll manager will be able to delete Paid Leave records in this section as well.
+                            <div class="row">
+                                <div class="col">
+                                    This is the "Paid Leave History" table. This is where all of the Paid Leave record is located.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/leave/8.jpg" class="w-100">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    The payroll manager can click the "Remove" button of their select Paid leave record to delete it from the payroll records.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/leave/9.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="audit" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <h3 class="alert-light p-4">Audit Logs</h3>
+                <div class="px-4 mx-5">
+                    <h6 class="text-primary">Description</h6>
+                    <p class="w-75">
+                        In the Audit Logs Module is where all of the payroll managers actions are listed. The payroll manager can search through the records using the search bar as well as change the number of records using the entries filter.
+                        The table displays all necessary informations such as the payroll manager name, a brief description of the activity, affected employee name, and activity details.
+                        The displayed records can also be generetad into a PDF report. All report is stored in the system a can be viewed in this module.
+                    </p>
+                    <br>
+                    <img src="/manual/payroll/audit/1.jpg" class="w-100">
+
+                    <h6 class="text-primary">Functions</h6>
+                    <p class="w-75" >The functions of the Audit Logs page are listed below:</p>
+                    <ul class="ms-5">
+                        <li><a class="ps-3 m-3" href="#audit/function1">Audit Logs</a></li>
+                        <li><a class="ps-3 m-3" href="#audit/function2">Audit History</a></li>
+                    </ul>
+
+                    <div id="audit/function1">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Audit Logs</h4>
+                            <img src="/manual/payroll/audit/1.jpg" class="w-100">
+                            In the Audit Logs section is where the "Audit Logs" table is located. This is where the payroll manager will be able to see all of the audit records.
+                            Above the "Audit Logs" table, the "Generate Audit Summary" button is located
+
+                            <br>
+                            <h5 class="text-primart">Generate Audit Summary</h5>
+                            <div class="row">
+                                <div class="col">
+                                    First, click the "Generate Audit Summary" button.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/audit/2.jpg" class="w-100">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    The "Generate Audit Summary" button will change into two buttons which is the "PDF" and cancel button. Once the "PDF" button is clicked, a new tab will show which will generate the audit summary into a PDF format
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/audit/3.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="leave/function2">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Audit History</h4>
+                            In the "Audit History" is where all of the generated audit summary can be viewed and download. The payroll manager will have to select a audit summary file using the buttons with their file name on it.
+                            <img src="/manual/payroll/audit/4.jpg" class="w-100">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="approvals" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <h3 class="alert-light p-4">Approvals</h3>
+                <div class="px-4 mx-5">
+                    <h6 class="text-primary">Description</h6>
+                    <p class="w-75">
+                        In the Approvals module, the payroll manager will find all of the generated payroll summary and view their approval progress and details.
+                        This module provide features that allows payroll manager to approve, note, or disapprove payroll summary.
+                        In this module, the payroll manager will be able to generate the individual payslip for all employees.
+                    </p>
+                    <br>
+                    <img src="/manual/payroll/approvals/1.jpg" class="w-100">
+
+                    <h6 class="text-primary">Functions</h6>
+                    <p class="w-75" >The functions of the Audit Logs page are listed below:</p>
+                    <ul class="ms-5">
+                        <li><a class="ps-3 m-3" href="#approvals/function1">Payroll Summary Progress</a></li>
+                        <li><a class="ps-3 m-3" href="#approvals/function2">Updating Payroll Summary</a></li>
+                        <li><a class="ps-3 m-3" href="#approvals/function3">Generating Employee Payslip</a></li>
+                    </ul>
+
+                    <div id="approvals/function1">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Payroll Summary Progress</h4>
+                            <div class="row">
+                                <div class="col">
+                                    The payroll manager will be able to view the Payroll Summary progress on their approvals by clicking their selected payroll summary.
+                                    <br><br>
+                                    <b>To select a payroll summary</b><br>
+                                    Beside the PDF View area is where all of the buttons for each payroll summary is located.<br>
+                                    The payroll manager can then click the button of their selected payroll summary to display the PDF file of that summery in the PDF view area.<br>
+                                    When a PDF is displayed, the payroll manager will first have to click the close button on the currently open PDF to view another one.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/approvals/summaryView.jpg" class="w-100">
+                                </div>
+                            </div>
+                            <div class="p-4"></div>
+                            <h5 class="text-primart">Summary Progress View</h5>
+                            <div class="row">
+                                <div class="col">
+                                    The progress of approval of the selected Payroll summary can bee seen above the PDF view.
+                                    It shows a progress bar to visualize the current progress of the payroll as well as the approval details and the payroll manager who generated that summary.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/approvals/approved.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="approvals/function2">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Updating Payroll Summary</h4>
+                            In this module is where the payroll manager can approve, disapprove, and note a payroll summary in order to ensure that it is ready for payslip generation.
+                            <div class="row">
+                                <div class="col">
+                                    For the payroll manager to update the progress of a payroll, they will have to select one from "Approve", "Note", and "Disapproved" buttons and click it.
+                                    <img src="/manual/payroll/approvals/approveControls.jpg" class="w-100">
+                                </div>
+                                <div class="col">
+                                    once they clicked it the a new control will shows which will ask the payroll manager to upload their e-signiture in order to sign the payroll summary.
+                                    Once they upload an e-signiture they will have to click the "Submit" button. Once clicked, a new tab will show which will display the updated Payroll Summary file with their sign and their selected status of approval.
+                                    <img src="/manual/payroll/approvals/esigniture.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="approvals/function3">
+                        <div class="row my-5">
+                            <h4 class="text-primary">Generating Employee Payslip</h4>
+                            <div class="row">
+                                <div class="col">
+                                    In the Payroll update controls is where the "Generate Payslip" is located. Once the progress of a payroll has reached 100%, the "Generate Payslip" button will become available to click.
+                                    Once clicked a new tab will show which will generate the individual payslip for employees along with the signitures of the payroll managers.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/approvals/forPayslip.jpg" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="employeelist" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
-                <h3 class="alert-light p-4">Employee List</h3>
+                @include('inc.common_manual.employee_list')
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="profile" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
-                <h3 class="alert-light p-4">Profile</h3>
+                @include('inc.common_manual.profile')
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="messages" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
-                <h3 class="alert-light p-4">Messages</h3>
+                @include('inc.common_manual.messages')
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="notifications" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
-                <h3 class="alert-light p-4">Notifications</h3>
+                @include('inc.common_manual.notifications')
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    function changeButtonColor(btn){
+        var manual_buttons = document.querySelectorAll('.manual_button')
+        manual_buttons.forEach(element => {
+            element.className = "manual_button nav-link text-dark h5"
+        });
+
+        btn.className = "manual_button nav-link h5 alert-primary"
+    }
+</script>
 @endsection

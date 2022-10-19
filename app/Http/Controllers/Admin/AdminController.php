@@ -760,7 +760,10 @@ class AdminController extends Controller
     }
 
     public function adminManual(){
-        return view('pages.Admin.manual');
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.HR_admin.manual')->with([
+            'profile' => $profile
+        ]);
     }
 
     function ordinal($number) {

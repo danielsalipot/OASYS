@@ -9,7 +9,7 @@
                 <li><a onclick="show_loader()" href="/employee/overtime" class="nav-link py-3" title="Overtime" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock-history"></i></a></li>
                 <li><a onclick="show_loader()" href="/employee/leave" class="nav-link py-3" title="Leave" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar2-minus"></i></a></li>
                 <li><a onclick="show_loader()" href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text"></i> <span id='badge' style="font-size: 9px"></span></a></li>
-                <li><a onclick="show_loader()" href="/employee/profile" class="nav-link py-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-fill"></i></a></li>
+                <li><a onclick="show_loader()" href="/employee/profile" class="nav-link py-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-fill"></i></a></li>
                 <li><a onclick="show_loader()" href="/employee/manual" class="nav-link py-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle"></i></a></li>
             </ul>
             <ul>
@@ -30,7 +30,7 @@
                 <li><a onclick="show_loader()" href="/employee/overtime" class="nav-link py-3" title="Overtime" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock-history pe-4"></i>Overtime</a></li>
                 <li><a onclick="show_loader()" href="/employee/leave" class="nav-link py-3" title="Leave" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar2-minus pe-4"></i>Leave</a></li>
                 <li><a onclick="show_loader()" href="/message" class="nav-link py-3" title="Messages" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-chat-left-text pe-4"></i>Messages <span id='extended_badge' style="font-size: 9px"></span></a></li>
-                <li><a onclick="show_loader()" href="/employee/profile" class="nav-link py-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-fill pe-4"></i>Profile</a></li>
+                <li><a onclick="show_loader()" href="/employee/profile" class="nav-link py-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-fill pe-4"></i>Profile</a></li>
                 <li><a onclick="show_loader()" href="/employee/manual" class="nav-link py-3 pb-5 mb-5" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-info-circle pe-4"></i>User Manual</a></li>
 
             </ul>

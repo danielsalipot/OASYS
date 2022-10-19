@@ -24,6 +24,7 @@ use App\Models\Pagibig;
 use App\Models\philhealth;
 use App\Models\Audit;
 use App\Models\overtime_approval;
+use App\Models\UserCredential;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Throwable;
@@ -708,10 +709,12 @@ class PayrollJSONController extends Controller
         $arr = [];
 
         foreach ($applicant as $key => $value) {
+            $value->status = UserCredential::where('login_id', $value->UserDetail->login_id)->first('user_type')->user_type;
             array_push($arr, $value);
         }
 
         foreach ($employee as $key => $value) {
+            $value->status = UserCredential::where('login_id', $value->UserDetail->login_id)->first('user_type')->user_type;
             array_push($arr, $value);
         }
 

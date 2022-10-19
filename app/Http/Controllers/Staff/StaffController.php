@@ -389,6 +389,9 @@ class StaffController extends Controller
     }
 
     public function staffManual(){
-        return view('pages.HR_Staff.manual');
+        $profile = UserDetail::where('login_id',session('user_id'))->first();
+        return view('pages.HR_Staff.manual')->with([
+            'profile' => $profile
+        ]);
     }
 }

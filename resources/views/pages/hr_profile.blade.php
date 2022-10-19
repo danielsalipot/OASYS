@@ -55,7 +55,7 @@
                 <form action="/managerUpdateAccount" method='POST'>
                     @csrf
                     <div class="col card shadow-sm p-0 ms-2 mt-4 text-start">
-                        <h1 class="alert-primary w-100 m-0 p-4">Update Account Details</h1>
+                        <h4 class="alert-primary w-100 m-0 p-4">Update Account Details</h3>
                         @if(Session::get('success'))
                             <div class="alert alert-success w-100 m-1">{{Session::get('success')}}</div>
                         @endif
