@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('category');
             $table->string('order');
-            $table->string('description');
+            $table->longtext('description');
             $table->string('path');
             $table->timestamps();
         });

@@ -16,7 +16,7 @@
             </ul>
 
             <div class="tab-content">
-                <div id="home" class="tab-pane in active">
+                <div id="home" class="tab-pane active ms-2">
                     <form action="/insertEmployeeLeave" method='POST'>
                     <div class="container p-5 border shadow-lg row">
                         <div class="col p-5 card m-2 shadow-sm">
