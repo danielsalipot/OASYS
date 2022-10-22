@@ -251,7 +251,7 @@
                                 <h4 class="text-primary">Create Payroll Button</h4>
                                 <div class="row">
                                     <div class="col">
-                                        When the Create Payroll button is click, the payroll manager will have to upload there e-signiture that is in png format.
+                                        When the Create Payroll button is click, the payroll manager will have to upload there e-signature that is in png format.
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/dashboard/function2-2.jpg" class="w-100">

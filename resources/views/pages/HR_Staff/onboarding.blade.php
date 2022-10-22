@@ -39,7 +39,7 @@ $(document).ready(function(){
             url: '/applicantjson',
         },
         columns: [
-            { data: 'employee_id',
+            { data: 'applicant_id',
                 render : (data,type,row)=>{
                     return row.img
                 }

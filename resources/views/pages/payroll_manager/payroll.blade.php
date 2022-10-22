@@ -69,9 +69,9 @@
                     <div class="col card rounded-0 rounded-end p-0">
                         <h4 class="alert-primary w-100 text-center p-3 m-0 ">Step 3</h6>
                         <ul class="text-justify m-4" style="font-size:13px">
-                            <li>After clicking the "Create Payroll" button, you will be prompted to upload your E-signiture.</li>
-                            <li>The E-signiture should be in <b>.png file format</b></li>
-                            <li>After uploading your E-signiture click the "PDF" Button to generate the Payroll PDF file</li>
+                            <li>After clicking the "Create Payroll" button, you will be prompted to upload your E-signature.</li>
+                            <li>The E-signature should be in <b>.png file format</b></li>
+                            <li>After uploading your E-signature click the "PDF" Button to generate the Payroll PDF file</li>
                         </ul>
                         <button class="btn p-3 w-25 mx-auto btn-warning rounded">PDF</button>
                         <h6 class="w-100 text-center text-secondary">*Not the actual button*</h6>

@@ -22,7 +22,8 @@ class StaffController extends Controller
         $applicants = UserCredential::where('user_type','applicant')
             ->join('user_details','user_details.login_id','=','user_credentials.login_id')
             ->join('applicant_details','applicant_details.login_id','=','user_credentials.login_id')
-            ->paginate(5);
+            ->orderBy('applicant_details.created_at',"ASC")
+            ->get();
 
         $app_count = UserCredential::where('user_type','applicant')->count();
         $off_count = Offboardee::all()->count();
@@ -34,7 +35,7 @@ class StaffController extends Controller
         $date = date("Y-m-d H:i:s");
         $interviews = Interview::join('applicant_details','applicant_details.applicant_id','=','interviews.applicant_id')
             ->join('user_details','user_details.information_id','=','applicant_details.information_id')
-            ->where('interviews.interview_schedule','like', date("Y-m-d", strtotime($date. ' + 8 hours'))."%")
+            ->where('interviews.interview_schedule','like', date("Y-m-d", strtotime($date))."%")
             ->get();
 
         return view('pages.HR_Staff.staffhome')

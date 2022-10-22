@@ -26,30 +26,42 @@
 
         <div class="row mx-2">
             <div class="col-9">
-                <div class="row card shadow-sm p-4">
-                    <h3>Applicants Overview</h3>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th class="col"></th>
-                            <th class="col">Employee Name</th>
-                            <th class="col">Applying for</th>
-                            <th class="col">Education</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($applicants as $applicant)
-                                <tr>
-                                    <td class="col"><img src="/{{$applicant->picture}}" height='40px' width='40px' class='rounded-circle'></td>
-                                    <td class="col">{{ $applicant->fname }} {{ $applicant->mname }} {{ $applicant->lname }}</td>
-                                    <td class="col">{{ $applicant->Applyingfor }}</td>
-                                    <td class="col">{{ $applicant->educ }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    {{ $applicants->links() }}
+                <div class="card p-3">
+                    <h3 class="p-3">Applicants Overview</h3>
+                    <div class="d-flex" style="overflow-x: scroll">
+                        @foreach ($applicants as $applicant)
+                            <div class="card col-5 mx-3">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <img src="/{{$applicant->picture}}" class='rounded h-100 w-100'>
+                                    </div>
+                                    <div class="col p-2">
+                                        <h3 class="mb-3">{{ $applicant->fname }} {{ $applicant->mname }} {{ $applicant->lname }}</h3>
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <h6 class="text-secondary">Applying For</h6>
+                                                <h4 class="mb-3">{{ $applicant->Applyingfor }}</h4>
+                                                <h6 class="text-secondary">Contact Number</h6>
+                                                {{ $applicant->cnum }}
+                                            </div>
+                                            <div class="col">
+                                                <h6 class="text-secondary">Education</h6>
+                                                <h4 class="mb-3">{{ $applicant->educ }}</h4>
+                                                <h6 class="text-secondary">Email</h6>
+                                                {{ $applicant->email }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h6 class="alert-primary w-100 m-0 p-3">Resume</h6>
+                                <div class="row p-0">
+                                    <embed src="/{{$applicant->resume}}" height="600px"/>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
+
                 <div class="row">
                     <a href='/staff/department' class="btn col card shadow-sm m-2 p-4 py-5 text-center">
                         <h3><i class="bi bi-building"></i></h3>
@@ -71,7 +83,7 @@
             </div>
             <div class="col">
                 <h5 class="w-100 alert alert-primary mb-0 rounded-0 rounded-top">Interviews Today</h5>
-                <div class="card w-100 text-center rounded-0 rounded-bottom" style="overflow-y: scroll; height:562px;">
+                <div class="card w-100 text-center rounded-0 rounded-bottom h-75" style="overflow-y: scroll;">
                     @if(!count($interviews))
                         <h6 class="p-3 alert-secondary m-1 py-5 shadow-sm rounded">No interview Pending</h6>
                     @endif

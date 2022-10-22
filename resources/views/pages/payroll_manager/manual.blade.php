@@ -275,7 +275,7 @@
                                 <h4 class="text-primary">Create Payroll Button</h4>
                                 <div class="row">
                                     <div class="col">
-                                        When the Create Payroll button is click, the payroll manager will have to upload there e-signiture that is in png format.
+                                        When the Create Payroll button is click, the payroll manager will have to upload there e-signature that is in png format.
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/dashboard/function2-2.jpg" class="w-100">
@@ -464,13 +464,12 @@
                             </div>
                             <br><br>
                             <li><b>Clicking "Add deduction" button</b></li>
-                                <div class="row">
-                                    <div class="col">
-                                        After clicking the "Add deduction" button, a prompt will appear which confirms the selected employees and the deduction details. By clicking the "Confirm Deduction" button, the deduction will be added.
-                                    </div>
-                                    <div class="col">
-                                        <img src="/manual/payroll/deductions/8.jpg" class="w-100">
-                                    </div>
+                            <div class="row">
+                                <div class="col">
+                                    After clicking the "Add deduction" button, a prompt will appear which confirms the selected employees and the deduction details. By clicking the "Confirm Deduction" button, the deduction will be added.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/payroll/deductions/8.jpg" class="w-100">
                                 </div>
                             </div>
                         </ol>
@@ -1442,8 +1441,8 @@
                                     <img src="/manual/payroll/approvals/approveControls.jpg" class="w-100">
                                 </div>
                                 <div class="col">
-                                    once they clicked it the a new control will shows which will ask the payroll manager to upload their e-signiture in order to sign the payroll summary.
-                                    Once they upload an e-signiture they will have to click the "Submit" button. Once clicked, a new tab will show which will display the updated Payroll Summary file with their sign and their selected status of approval.
+                                    once they clicked it the a new control will shows which will ask the payroll manager to upload their e-signature in order to sign the payroll summary.
+                                    Once they upload an e-signature they will have to click the "Submit" button. Once clicked, a new tab will show which will display the updated Payroll Summary file with their sign and their selected status of approval.
                                     <img src="/manual/payroll/approvals/esigniture.jpg" class="w-100">
                                 </div>
                             </div>

@@ -168,7 +168,7 @@ class StaffUpdateController extends Controller
         ]);
 
         app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
-            [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            [['email' => $employee->email, 'name' => $employee->fname . ' ' . $employee->lname]]
         );
 
         return back()->with(['update'=>'The applicant\'s no response has been recorded successfully']);
