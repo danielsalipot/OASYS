@@ -4,7 +4,7 @@
     <div class="d-flex flex-column p-0">
         <nav id="navbar" class="nav-menu navbar p-0">
             <ul>
-                <li><a onclick="show_loader()" href="/admin/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill"></i></a></li>
+                <li><a onclick="show_loader()" href="/admin/home"  class="nav-link mt-0 py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill"></i></a></li>
                 <li><a onclick="show_loader()" href="/admin/attendance" class="nav-link py-3" title="Attendance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar-check"></i></a></li>
                 <li><a onclick="show_loader()" href="/admin/regularization" class="nav-link py-3" title="Regularization" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-caret-up-square-fill"></i></a></li>
                 <li><a onclick="show_loader()" href="/admin/performance" class="nav-link py-3" title="Performance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bar-chart-line-fill"></i></a></li>
@@ -29,7 +29,7 @@
     <div class="d-flex flex-column p-0">
         <nav id="navbar" class="nav-menu navbar p-0">
             <ul>
-                <li><a onclick="show_loader()" href="/admin/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill pe-4"></i> Home</a></li>
+                <li><a onclick="show_loader()" href="/admin/home"  class="nav-link py-3 mt-0" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill pe-4"></i> Home</a></li>
                 <li><a onclick="show_loader()" href="/admin/attendance" class="nav-link py-3" title="Attendance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calendar-check pe-4"></i> Attendance Overview</a></li>
                 <li><a onclick="show_loader()" href="/admin/regularization" class="nav-link py-3" title="regularization" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-caret-up-square-fill pe-4"></i> Regularization</a></li>
                 <li><a onclick="show_loader()" href="/admin/performance" class="nav-link py-3" title="Performance" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-bar-chart-line-fill pe-4"></i> Performance Assessment</a></li>

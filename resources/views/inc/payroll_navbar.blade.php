@@ -3,7 +3,7 @@
     <div class="d-flex flex-column p-0">
         <nav id="navbar" class="nav-menu navbar p-0">
             <ul>
-                <li><a onclick="show_loader()" href="/payroll/home"  class="nav-link py-3 w-100" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
+                <li><a onclick="show_loader()" href="/payroll/home"  class="nav-link py-3 mt-0 w-100" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
                 <li><a onclick="show_loader()" href="/payroll/salary"  class="nav-link py-3" title="Salary Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-lines-fill"></i></a></li>
                 <li><a onclick="show_loader()" href="/payroll/deduction" class="nav-link py-3" title="Employee Deduction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calculator"></i></a></li>
                 <li><a onclick="show_loader()" href="/payroll/overtime" class="nav-link py-3" title="Overtime Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock"></i></a></li>
@@ -30,7 +30,7 @@
     <div class="d-flex flex-column p-0">
         <nav id="navbar" class="nav-menu navbar p-0">
         <ul class="w-100">
-            <li><a onclick="show_loader()" href="/payroll/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home pe-4"></i>Home</a></li>
+            <li><a onclick="show_loader()" href="/payroll/home"  class="nav-link mt-0 py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home pe-4"></i>Home</a></li>
             <li><a onclick="show_loader()" href="/payroll/salary"  class="nav-link py-3" title="Employee List" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-lines-fill pe-4"></i>Salary Management</a></li>
             <li><a onclick="show_loader()" href="/payroll/deduction" class="nav-link py-3" title="Employee Deduction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-calculator pe-4"></i>Deductions</a></li>
             <li><a onclick="show_loader()" href="/payroll/overtime" class="nav-link py-3" title="Overtime Management" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-clock pe-4"></i>Overtime</a></li>

@@ -2,13 +2,39 @@
 
 @section('title')
 @endsection
+<style>
+    .nav-link{
+        margin-top: 11px;
+    }
+</style>
+
+<script>
+    function changeButtonColor(btn){
+        var manual_buttons = document.querySelectorAll('.manual_button')
+        manual_buttons.forEach(element => {
+            element.className = "manual_button nav-link text-dark h5"
+        });
+
+        btn.className = "manual_button nav-link h5 alert-primary"
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+
+        entries.forEach((element)=>{
+            if(element.isIntersecting === true){
+                changeButtonColor(document.getElementById(`${element.target.id}_btn`))
+            }
+        })
+    }, { threshold: [0] });
+</script>
+
 
 @section('content')
 <div class="row" style="position:fixed; top:0; width:94vw;" >
     <div class="col-2 bg-white p-0" >
         <ul class="nav flex-column alert-light w-100 p-0">
             <li class="nav-item p-0 m-0" style="height: 43px">
-                <a class="manual_button nav-link h5 alert-primary" onclick="changeButtonColor(this)" aria-current="page" href="#home">
+                <a class="manual_button nav-link h5 alert-primary" id="home_btn" onclick="changeButtonColor(this)" aria-current="page" href="#home">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bx bx-home h4 p-0 m-0"></i>
@@ -20,7 +46,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#attendance">
+                <a class="manual_button nav-link text-dark h5" id="attendance_btn" onclick="changeButtonColor(this)" href="#attendance">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-calendar-check h4 p-0 m-0"></i>
@@ -32,7 +58,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#regularization">
+                <a class="manual_button nav-link text-dark h5" id="regularization_btn" onclick="changeButtonColor(this)" href="#regularization">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-caret-up-square-fill h4 p-0 m-0"></i>
@@ -44,7 +70,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#orientation">
+                <a class="manual_button nav-link text-dark h5" id="assessment_btn" onclick="changeButtonColor(this)" href="#assessment">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-bar-chart-line-fill h4 p-0 m-0"></i>
@@ -56,7 +82,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#orientation">
+                <a class="manual_button nav-link text-dark h5" id="orientation_btn" onclick="changeButtonColor(this)" href="#orientation">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-journal-bookmark h4 p-0 m-0"></i>
@@ -68,7 +94,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#training">
+                <a class="manual_button nav-link text-dark h5" id="training_btn" onclick="changeButtonColor(this)" href="#training">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-briefcase-fill h4 p-0 m-0"></i>
@@ -80,7 +106,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#correction">
+                <a class="manual_button nav-link text-dark h5" id="correction_btn" onclick="changeButtonColor(this)" href="#correction">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-wrench h4 p-0 m-0"></i>
@@ -92,7 +118,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#audit">
+                <a class="manual_button nav-link text-dark h5" id="audit_btn" onclick="changeButtonColor(this)" href="#audit">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-list-check h4 p-0 m-0"></i>
@@ -104,7 +130,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#activities">
+                <a class="manual_button nav-link text-dark h5" id="activities_btn" onclick="changeButtonColor(this)" href="#activities">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-person-lines-fill h4 p-0 m-0"></i>
@@ -116,7 +142,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#forms">
+                <a class="manual_button nav-link text-dark h5" id="forms_btn" onclick="changeButtonColor(this)" href="#forms">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-file-earmark-text-fill h4 p-0 m-0"></i>
@@ -128,7 +154,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#employeelist">
+                <a class="manual_button nav-link text-dark h5" id="employeelist_btn" onclick="changeButtonColor(this)" href="#employeelist">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-people-fill h4 p-0 m-0"></i>
@@ -140,7 +166,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#profile">
+                <a class="manual_button nav-link text-dark h5" id="profile_btn" onclick="changeButtonColor(this)" href="#profile">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-person-circle h4 p-0 m-0"></i>
@@ -152,7 +178,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#messages">
+                <a class="manual_button nav-link text-dark h5" id="messages_btn" onclick="changeButtonColor(this)" href="#messages">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-chat-left-text h4 p-0 m-0"></i>
@@ -164,7 +190,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#notifications">
+                <a class="manual_button nav-link text-dark h5" id="notifications_btn" onclick="changeButtonColor(this)" href="#notifications">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-bell h4 p-0 m-0"></i>
@@ -185,6 +211,9 @@
             <div class="row p-5"></div><div class="row p-5"></div>
 
             <div id="home" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#home'));
+                </script>
                 <h3 class="alert-light p-4">Payroll Dashboard / Home</h3>
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
@@ -301,74 +330,101 @@
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="attendance" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#home'));
+                </script>
                 <h3 class="alert-light p-4">Attendance Overview</h3>
             </div>
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="regularization" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#regularization'));
+                </script>
                 <h3 class="alert-light p-4">Regularization</h3>
             </div>
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="assessment" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#assessment'));
+                </script>
                 <h3 class="alert-light p-4">Performance Assessment</h3>
             </div>
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="orientation" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#orientation'));
+                </script>
                 <h3 class="alert-light p-4">Orientation Module</h3>
             </div>
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="training" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#training'));
+                </script>
                 <h3 class="alert-light p-4">Training Module</h3>
             </div>
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="correction" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#correction'));
+                </script>
                 <h3 class="alert-light p-4">Correction Module</h3>
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="audit" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#audit'));
+                </script>
                 <h3 class="alert-light p-4">Audit Logs</h3>
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="activities" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#activities'));
+                </script>
                 <h3 class="alert-light p-4">Employee Activities</h3>
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="forms" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#forms'));
+                </script>
                 <h3 class="alert-light p-4">Legal Forms</h3>
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="employeelist" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#employeelist'));
+                </script>
                 @include('inc.common_manual.employee_list')
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="profile" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#profile'));
+                </script>
                 @include('inc.common_manual.profile')
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="messages" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#messages'));
+                </script>
                 @include('inc.common_manual.messages')
             </div>
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="notifications" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#notifications'));
+                </script>
                 @include('inc.common_manual.notifications')
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    function changeButtonColor(btn){
-        console.log(btn)
-        var manual_buttons = document.querySelectorAll('.manual_button')
-        manual_buttons.forEach(element => {
-            element.className = "manual_button nav-link text-dark h5"
-        });
-
-        btn.className = "manual_button nav-link h5 alert-primary"
-    }
-</script>
 @endsection

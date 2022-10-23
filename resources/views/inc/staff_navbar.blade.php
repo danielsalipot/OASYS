@@ -3,7 +3,7 @@
     <div class="d-flex flex-column p-0">
         <nav id="navbar" class="nav-menu navbar p-0">
         <ul>
-            <li><a onclick="show_loader()" href="/staff/home" class="nav-link py-3 pt-0" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill"></i></a></li>
+            <li><a onclick="show_loader()" href="/staff/home" class="nav-link py-3 mt-0 pt-0" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill"></i></a></li>
             <li><a onclick="show_loader()" href="/staff/onboarding"  class="nav-link py-3" title="Onboarding" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-check-fill"></i></a></li>
             <li><a onclick="show_loader()" href="/staff/termination" class="nav-link py-3" title="Termination/Resignation" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-dash-circle-fill"></i></a></li>
             <li><a onclick="show_loader()" href="/staff/offboarding" class="nav-link py-3" title="Offboarding" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-x-fill"></i></a></li>
@@ -27,7 +27,7 @@
     <div class="d-flex flex-column p-0">
         <nav id="navbar" class="nav-menu navbar p-0">
         <ul>
-            <li><a onclick="show_loader()" href="/staff/home" class="nav-link py-3 pt-0" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill pe-4"></i>Home</a></li>
+            <li><a onclick="show_loader()" href="/staff/home" class="nav-link py-3 mt-0 pt-0" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-house-door-fill pe-4"></i>Home</a></li>
             <li><a onclick="show_loader()" href="/staff/onboarding"  class="nav-link py-3" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-check-fill  pe-4"></i> Onboarding Management</a></li>
             <li><a onclick="show_loader()" href="/staff/termination" class="nav-link py-3" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-dash-circle-fill  pe-4"></i> Offboarding Management</a></li>
             <li><a onclick="show_loader()" href="/staff/offboarding" class="nav-link py-3" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-person-x-fill  pe-4"></i>Offboardee Management</a></li>
