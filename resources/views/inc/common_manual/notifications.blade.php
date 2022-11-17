@@ -6,6 +6,7 @@
     </p>
     <br>
     <img src="/manual/common/notification/1.jpg" class="w-100">
+    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1 Notifications Landing Page</h6>
 
     <h6 class="text-primary">Functions</h6>
     <p class="w-75" >The functions of the Audit Logs page are listed below:</p>
@@ -27,10 +28,12 @@
                         In the Recepient table, you will be able to search, filter employees and applicants, and select employees and applicants by clicking the "select" button beside the user details.
                         The button will show green if the employee is selected.
                         <img src="/manual/common/notification/2.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.1 User Selection Table</h6>
                     </div>
                     <div class="col">
                         You can confirm that the employee is selected if it is added in the "Selected User" Table
                         <img src="/manual/common/notification/3.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.2 Selected User Table</h6>
                     </div>
                 </div>
                 <br><br>
@@ -41,6 +44,7 @@
                     </div>
                     <div class="col">
                         <img src="/manual/common/notification/5.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.3 Notification Details Controls</h6>
                     </div>
                 </div>
                 <br><br>
@@ -51,6 +55,7 @@
                     </div>
                     <div class="col">
                         <img src="/manual/common/notification/6.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.4 Send Notification Button</h6>
                     </div>
                 </div>
             </ol>
@@ -66,7 +71,8 @@
                     After clickin the user will be redirected to the notification history page.
                 </div>
                 <div class="col">
-                    <img src="/manual/common/notification/7.jpg" class="w-100">
+                    <img src="/manual/common/notification/7.jpg" class="w-100">\
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.1 View Sent Notificaions Button</h6>
                 </div>
             </div>
             <div class="row">
@@ -77,6 +83,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/notification/4.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.2 Sent Notificaions Record</h6>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <div class="d-flex flex-column">
         <nav id="navbar" class="nav-menu navbar">
             <ul>
-                <li><a onclick="show_loader()" href="/employee/home"  class="nav-link py-4" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
+                <li><a onclick="show_loader()" href="/employee/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home"></i></a></li>
                 <li><a onclick="show_loader()" href="/employee/orientation" class="nav-link py-3" title="Orientation" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-journal-bookmark"></i></a></li>
                 <li><a onclick="show_loader()" href="/employee/training" class="nav-link py-3" title="Training" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-briefcase-fill"></i></a></li>
                 <li><a onclick="show_loader()" href="/employee/correction" class="nav-link py-3" title="Correction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-wrench"></i></a></li>
@@ -23,7 +23,7 @@
 <header id="header" name="show_name" class="d-none " style="z-index: 9999;width:200px">
         <nav id="navbar" class="nav-menu navbar ">
             <ul class="w-100">
-                <li><a onclick="show_loader()" href="/employee/home"  class="nav-link py-4" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home pe-4"></i>Dashboard</a></li>
+                <li><a onclick="show_loader()" href="/employee/home"  class="nav-link py-3" title="Home" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bx bx-home pe-4"></i>Dashboard</a></li>
                 <li><a onclick="show_loader()" href="/employee/orientation" class="nav-link py-3" title="Orientation" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-journal-bookmark pe-4"></i>Orientation</a></li>
                 <li><a onclick="show_loader()" href="/employee/training" class="nav-link py-3" title="Training" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-briefcase-fill pe-4"></i>Training</a></li>
                 <li><a onclick="show_loader()" href="/employee/correction" class="nav-link py-3" title="Correction" data-bs-toggle="tooltip" data-bs-placement="right"><i class="bi bi-wrench pe-4"></i>Correction</a></li>

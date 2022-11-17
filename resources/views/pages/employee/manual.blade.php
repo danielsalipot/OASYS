@@ -2,13 +2,38 @@
 
 @section('title')
 @endsection
+<style>
+    .nav-link{
+        margin-top: 11px;
+    }
+</style>
+
+<script>
+    function changeButtonColor(btn){
+        var manual_buttons = document.querySelectorAll('.manual_button')
+        manual_buttons.forEach(element => {
+            element.className = "manual_button nav-link text-dark h5"
+        });
+
+        btn.className = "manual_button nav-link h5 alert-primary"
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+
+        entries.forEach((element)=>{
+            if(element.isIntersecting === true){
+                changeButtonColor(document.getElementById(`${element.target.id}_btn`))
+            }
+        })
+    }, { threshold: [0] });
+</script>
 
 @section('content')
 <div class="row" style="position:fixed; top:0; width:94vw;" >
     <div class="col-2 bg-white p-0" >
         <ul class="nav flex-column alert-light w-100 p-0">
             <li class="nav-item p-0 m-0" style="height: 43px">
-                <a class="manual_button nav-link h5 alert-primary" onclick="changeButtonColor(this)" aria-current="page" href="#home">
+                <a class="manual_button nav-link h5 alert-primary" id="home_btn" onclick="changeButtonColor(this)" aria-current="page" href="#home">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bx bx-home h4 p-0 m-0"></i>
@@ -20,7 +45,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#video">
+                <a class="manual_button nav-link text-dark h5" id="video_btn" onclick="changeButtonColor(this)" href="#video">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-journal-bookmark h4 p-0 m-0"></i>
@@ -32,7 +57,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#video">
+                <a class="manual_button nav-link text-dark h5" id="video_btn" onclick="changeButtonColor(this)" href="#video">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-briefcase-fill h4 p-0 m-0"></i>
@@ -44,7 +69,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#video">
+                <a class="manual_button nav-link text-dark h5" id="video_btn" onclick="changeButtonColor(this)" href="#video">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-wrench h4 p-0 m-0"></i>
@@ -56,7 +81,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#overtime">
+                <a class="manual_button nav-link text-dark h5" id="overtime_btn" onclick="changeButtonColor(this)" href="#overtime">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-clock-history h4 p-0 m-0"></i>
@@ -68,7 +93,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#leave">
+                <a class="manual_button nav-link text-dark h5" id="leave_btn" onclick="changeButtonColor(this)" href="#leave">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-file-earmark-person-fill h4 p-0 m-0"></i>
@@ -80,7 +105,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#messages">
+                <a class="manual_button nav-link text-dark h5" id="messages_btn" onclick="changeButtonColor(this)" href="#messages">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-chat-left-text h4 p-0 m-0"></i>
@@ -92,7 +117,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="manual_button nav-link text-dark h5" onclick="changeButtonColor(this)" href="#profile">
+                <a class="manual_button nav-link text-dark h5" id="profile_btn" onclick="changeButtonColor(this)" href="#profile">
                     <div class="row text-center">
                         <div class="col-2">
                             <i class="bi bi-person-circle h4 p-0 m-0"></i>
@@ -107,12 +132,15 @@
     </div>
 
     <div class="col">
-        <div class="card" style="overflow-x: hidden; overflow-y: scroll; height:700px">
+        <div class="card" style="overflow-x: hidden; overflow-y: scroll; height:100vh">
             <div class="row p-5"></div><div class="row p-5"></div>
             <h1 class="section-title w-100 text-center mt-1">User Manual</h1>
             <div class="row p-5"></div><div class="row p-5"></div>
 
             <div id="home" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#home'));
+                </script>
                 <h3 class="alert-light p-4">Home / Dashboard</h3>
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
@@ -121,6 +149,8 @@
                     </p>
                     <br>
                     <img src="/manual/employee/home/4.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">1.1 Employee Dashboard</h6>
+
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -143,6 +173,7 @@
                                     </div>
                                     <div class="col">
                                         <img src="/manual/employee/home/1.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">1.1.1 Attendance Recording Controls</h6>
                                     </div>
                                 </div>
                             </li>
@@ -155,6 +186,7 @@
                                     </div>
                                     <div class="col text-center">
                                         <img src="/manual/employee/home/7.jpg" class="w-75">
+                                        <h6 class="text-center w-100 p-3">1.1.2 Time in / Time out Controls</h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -163,6 +195,7 @@
                                     </div>
                                     <div class="col text-center">
                                         <img src="/manual/employee/home/5.jpg" class="w-75">
+                                        <h6 class="text-center w-100 p-3">1.1.3 Health Check List</h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -171,6 +204,7 @@
                                     </div>
                                     <div class="col text-center">
                                         <img src="/manual/employee/home/8.jpg" class="w-75">
+                                        <h6 class="text-center w-100 p-3">1.1.4 Health Check Status</h6>
                                     </div>
                                 </div>
                             </li>
@@ -179,6 +213,7 @@
                                 Below the attendance controls is where the schedule and Attendance history are located. The employee can use the calendar view to check their schedule for the week.
                                 The employee can also see their attendance history and they will be able to see that green attendance are complete attendance while the red once are under time attendance.
                                 <img src="/manual/employee/home/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">1.1.5 Schedule and Attendance History View</h6>
                             </li>
                         </ul>
                     </div>
@@ -190,6 +225,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/home/9.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">1.2.1 Payslip History</h6>
                             </div>
                         </div>
                     </div>
@@ -203,6 +239,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/home/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">1.3.1 Notification Panel</h6>
                             </div>
                         </div>
                     </div>
@@ -211,6 +248,9 @@
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="video" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#video'));
+                </script>
                 <h3 class="alert-light p-4">Lesson Modules</h3>
                 <div class="px-4 mx-5">
                     <div class="row text-center w-100">
@@ -230,6 +270,7 @@
                         In the different video modules, the employee will find all of the instructional videos that they are required to watch. In this module, the employee can also track their progress on the module.
                     </p>
                     <img src="/manual/employee/videos/2.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">2.1 Lesson Modules</h6>
 
                     <div class="row mt-5">
                         <h6 class="text-primary">Tracking Progress</h6>
@@ -241,23 +282,28 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/videos/6.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">2.2 Progress Tracker View</h6>
                             </div>
                         </div>
                     </div>
+                    <div class="p-3"></div>
                     <div class="row">
                         <h6 class="text-primary">Video</h6>
                         <div class="row">
                             <div class="col">
                                 In each video display, the employee will be able to play the video as well as see the video details such as the title of that lesson and some lesson notes that the HR admin have placed.
                                 <img src="/manual/employee/videos/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">2.3 Video Lesson</h6>
                             </div>
                             <div class="col">
                                 Once the employee have finished the video, they will be able to mark that lesson as completed which will add to the progress on the module.
                                 <img src="/manual/employee/videos/5.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">2.4 Video Lesson Mark as Complete Button</h6>
                             </div>
                             <div class="col">
                                 Once the lesson is finished, it will be displayed like this which is marked with complete and they still be able to watch the video.
                                 <img src="/manual/employee/videos/7.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">2.5 Completed Video Lesson</h6>
                             </div>
                         </div>
                     </div>
@@ -266,6 +312,9 @@
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="overtime" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#overtime'));
+                </script>
                 <h3 class="alert-light p-4">Overtime</h3>
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
@@ -287,6 +336,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/overtime/1.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">3.1 Overtime Application Cotrols</h6>
                             </div>
 
                             <div class="p-3"></div>
@@ -303,6 +353,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/employee/overtime/5.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">3.1.1 Overtime Table</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -318,6 +369,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/employee/overtime/6.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">3.1.2 Overtime Application Controls</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -330,6 +382,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/employee/overtime/7.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">3.1.1 Submit Application Button</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -343,6 +396,7 @@
                     In the overtime records, they can see the overtime details, their message to the payroll manager, the attendance details, and the approval status of the overtime application.
                     If the application is still pending, the employee can remove the overtime application by clicking the "Cancel Application" button on the record.
                     <img src="/manual/employee/overtime/8.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">3.2.1 Overtime Application History</h6>
                     </div>
                 </div>
             </div>
@@ -350,6 +404,9 @@
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="leave" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#leave'));
+                </script>
                 <h3 class="alert-light p-4">Leave</h3>
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
@@ -371,6 +428,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/leave/1.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.1.1 Leave Application Controls</h6>
                             </div>
 
                             <div class="p-3"></div>
@@ -385,6 +443,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/employee/leave/3.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">4.1.1 Leave Application Details Control</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -399,6 +458,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/employee/leave/4.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">4.1.2 Leave Duration Control</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -411,6 +471,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/employee/leave/5.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">4.1.3 Submit Application Button</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -422,6 +483,7 @@
                         <h4 class="text-primary">Leave Application History</h4>
                         In the Leave Application History is where the employee user can find all of the previously sent leave application and see their approval status.
                         <img src="/manual/employee/leave/2.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">4.2.1 Leave Application History</h6>
 
                         <div class="p-4"></div>
                         <h6 class="text-primary">Leave Applications Overview</h6>
@@ -429,6 +491,7 @@
                             The employee is able to see how much application they have sent and how much of them are approved or denied.
                             The application are also seperated on whether they are sent on the current year or in other years.
                             <img src="/manual/employee/leave/6.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">4.2.2 Leave Applications Overview</h6>
                         </div>
 
                         <h6 class="text-primary">Leave Applications View</h6>
@@ -437,18 +500,26 @@
                             The view has three parts and the most left will be the leave application letter. In the middle is where the Leave Details are displayed.
                             In the right most side of the view is where the approval status of the leave application is displayed.
                             <img src="/manual/employee/leave/7.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">4.2.3 Leave Applications View</h6>
                         </div>
                     </div>
                 </div>
             </div>
 
+            @php ($manual_variable_number = 5)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="messages" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#messages'));
+                </script>
                 @include('inc.common_manual.messages')
             </div>
 
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="profile" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+                <script>
+                    observer.observe(document.querySelector('#profile'));
+                </script>
                 <h3 class="alert-light p-4">Employee Profile</h3>
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
@@ -457,6 +528,8 @@
                         This module also offers functions to update their employee profile.
                     </p>
                     <img src="/manual/employee/profile/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">6.1 Employee Profile</h6>
+
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -481,6 +554,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/11.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.1.1 Attendance Calendar View</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -492,6 +566,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.1.2 Overall Attendance Summary</h6>
                             </div>
                         </div>
                     </div>
@@ -504,6 +579,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.2.1 Assessment Overview</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -512,6 +588,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/4.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.2.2 Employee Characterstics Chart</h6>
                             </div>
                         </div>
                     </div>
@@ -526,6 +603,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/5.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.3.1 Assessment History</h6>
                             </div>
                         </div>
                         <div class="row text-center">
@@ -534,6 +612,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/7.jpg" class="w-50">
+                                <h6 class="text-center w-100 p-3">6.3.2 Assessment History Year Filter</h6>
                             </div>
                         </div>
                     </div>
@@ -543,7 +622,9 @@
                     <div class="row">
                         Below the Employee Profile details is where they will find this three buttons which will enable them to access the different feature such as update profile, change picture, and resign.
                         <img src="/manual/employee/profile/12.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">6.3.3 Update Profile, Change Picture, and Resign buttons</h6>
                     </div>
+
                     <div id="profile/function4">
                         <h4 class="text-primary">Update Profile</h4>
                         <div class="row">
@@ -552,23 +633,27 @@
                                 When the "Update Profile" is clicked, they will be redirected to this page.
                                 To update the account details, the employee will have to replace the details in the text boxes and controls that are provided for each account details.
                                 Once satisfied, they will have to click the "Save Changes" button below the page.
-                                <img src="/manual/employee/profile/udpate/1.jpg" class="w-100">
+                                <img src="/manual/employee/profile/update/1.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.4.1 Update Employee Profile</h6>
                             </div>
                             <div class="col">
                                 Below the profile detail controls the employee can find their submitted resume. They can also update their submitted resume just by uploading it using the provided controls and then clicking the "Save Changes" button below the page.
-                                <img src="/manual/employee/profile/udpate/2.jpg" class="w-100">
+                                <img src="/manual/employee/profile/update/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.4.2 Submitted Resume</h6>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 Below the employee profile display is where the "Change Password" button can be found. The employee can click the button if they want to change their password.
                                 <img src="/manual/employee/profile/update/4.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.4.3 Change Password Button</h6>
                             </div>
                             <div class="col">
                                 Once clicked, the employee will be redirected to this page where in they will find the controls to change their account password.
                                 They will have to input their current password, their new password, and re-enter the new password to confirm it.
                                 Once satisfied, they will have to click "Confirm Changes" button to change their account password.
                                 <img src="/manual/employee/profile/update/5.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.4.4 Change Password Controls</h6>
                             </div>
                         </div>
                     </div>
@@ -581,6 +666,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/9.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.5.1 Submittion of Resignation Letter</h6>
                             </div>
                         </div>
 
@@ -590,6 +676,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/13.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.5.2 Application Submitted Button</h6>
                             </div>
                         </div>
 
@@ -601,6 +688,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/10.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.5.3 Application Submitted Overview</h6>
                             </div>
                         </div>
 
@@ -615,6 +703,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/common/profile/6.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">6.6.1 Change Picture Button</h6>
                                 </div>
                             </div>
                             <div class="p-3"></div>
@@ -625,6 +714,7 @@
                                 </div>
                                 <div class="col text-center">
                                     <img src="/manual/common/profile/8.jpg" class="w-50">
+                                    <h6 class="text-center w-100 p-3">6.6.2 Choose File button</h6>
                                 </div>
                             </div>
                             <div class="p-3"></div>
@@ -635,6 +725,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/common/profile/3.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">6.6.3 Save Changes button</h6>
                                 </div>
                             </div>
                         </div>

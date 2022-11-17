@@ -3,6 +3,7 @@
     <h6 class="text-primary">Description</h6>
     <p class="w-75 text-center">The Messages module is where the user can view and send messages to other users.
         <img src="/manual/common/message/1.jpg" class="w-50">
+        <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1 Messages Module</h6>
     </p>
 
     <div class="row py-5">
@@ -11,6 +12,7 @@
         </div>
         <div class="col text-center">
             <img src="/manual/common/message/6.jpg" class="w-25">
+            <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2 Messages Menu Notification Badge</h6>
         </div>
     </div>
 
@@ -30,6 +32,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/message/3.jpg" class="w-50">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.1 Selecting a recipient on the users table</h6>
                 </div>
             </div>
             <div class="row">
@@ -38,6 +41,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/message/4.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.2 Send Message Button</h6>
                 </div>
             </div>
         </div>
@@ -54,6 +58,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/message/2.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.1 Viewing of Conversation</h6>
                 </div>
             </div>
         </div>

@@ -6,6 +6,8 @@
     </p>
     <br>
     <img src="/manual/common/employeeList/1.jpg" class="w-100">
+    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1 Employee List Module</h6>
+
 
     <h6 class="text-primary">Functions</h6>
     <p class="w-75" >The functions of the Audit Logs page are listed below:</p>
@@ -23,6 +25,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/employeeList/2.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.1 View Profile Button</h6>
                 </div>
             </div>
         </div>
@@ -37,6 +40,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/employeeList/3.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.2 Message Employee button</h6>
                 </div>
             </div>
         </div>

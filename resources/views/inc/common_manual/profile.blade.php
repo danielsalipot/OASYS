@@ -7,6 +7,8 @@
     </p>
     <div class="p-3"></div>
     <img src="/manual/common/profile/1.jpg" class="w-100">
+    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1 Profile and Update Profile Controls</h6>
+
 
     <h6 class="text-primary">Functions</h6>
     <p class="w-75" >The functions of the User Profile page are listed below:</p>
@@ -27,6 +29,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/profile/2.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.1 Update Account Details Controls</h6>
                 </div>
             </div>
             <div class="p-4"></div>
@@ -36,6 +39,7 @@
                 </div>
                 <div class="col text-center">
                     <img src="/manual/common/profile/5.jpg" class="w-50">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.2 Save Changes Button</h6>
                 </div>
             </div>
         </div>
@@ -50,6 +54,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/profile/6.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.1 Change Picture Button</h6>
                 </div>
             </div>
             <div class="p-3"></div>
@@ -60,6 +65,7 @@
                 </div>
                 <div class="col text-center">
                     <img src="/manual/common/profile/8.jpg" class="w-50">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.2 Choose File button</h6>
                 </div>
             </div>
             <div class="p-3"></div>
@@ -70,6 +76,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/profile/3.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.3 Save Changes button</h6>
                 </div>
             </div>
         </div>
@@ -84,6 +91,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/profile/7.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.3.1 Change Password button</h6>
                 </div>
             </div>
             <div class="p-3"></div>
@@ -96,6 +104,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/profile/4.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.3.2 Change Password Controls</h6>
                 </div>
             </div>
         </div>

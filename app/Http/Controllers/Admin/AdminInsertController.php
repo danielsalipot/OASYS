@@ -118,7 +118,7 @@ class AdminInsertController extends Controller
                 'employee_id' => $request->employee_id,
                 'assessment_type' => $types[$i],
                 'score' => ($scores[$i][0] / (5 * $scores[$i][1])) * 100,
-                'feedback' => isset($feedbacks[$i]) ? true : '' ,
+                'feedback' => isset($feedbacks[$i]) ? $feedbacks[$i]  : '' ,
                 'year' => date('Y'),
                 'quarter'=> $request->quarter,
                 'start_date' => $request->start_date,

@@ -193,7 +193,7 @@
     </div>
 
     <div class="col">
-        <div class="card" style="overflow-x: hidden; overflow-y: scroll; height:700px">
+        <div class="card" style="overflow-x: hidden; overflow-y: scroll; height:100vh">
             <div class="row p-5"></div><div class="row p-5"></div>
             <h1 class="section-title w-100 text-center mt-1">User Manual</h1>
             <div class="row p-5"></div><div class="row p-5"></div>
@@ -209,6 +209,7 @@
                         The Dashboard contains essential information and controls to easily guide the HR staff in doing their work.
                     </p>
                     <img src="/manual/staff/home/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">1.1 HR Staff Dashboard</h6>
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -223,11 +224,12 @@
 
                     <div id="home/function1">
                         <div class="row my-5">
-                            <h4 class="text-primary">Overview</h4>
+                            <h4 class="text-primary">Employee and Applicants Overview</h4>
                             <div class="w-75">
                                 In the Overview, the HR staff will be able to see the live count of their Applicants, Onboardees, Regular Employees, and Offboardees.
                             </div>
                             <img src="/manual/staff/home/2.jpg" class="w-75">
+                            <h6 class="text-center w-100 p-3">1.1.1 Employee and Applicants Overview</h6>
                         </div>
                     </div>
 
@@ -235,12 +237,13 @@
 
                     <div id="home/function2">
                         <div class="row my-5">
-                            <h4 class="text-primary">Applicants Overview</h4>
+                            <h4 class="text-primary">Applicants Details Overview</h4>
                             <div class="col">
                                 In the Applicants Overview table, the HR staff will be able to see all of the applicants and their application details immediately in order
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/home/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">1.2.1 Applicant Details Overview</h6>
                             </div>
                         </div>
                     </div>
@@ -255,6 +258,7 @@
                             </div>
                             <div class="col text-center">
                                 <img src="/manual/staff/home/4.jpg" class="w-50">
+                                <h6 class="text-center w-100 p-3">1.3.1 Interviews Today Panel</h6>
                             </div>
                         </div>
                     </div>
@@ -272,6 +276,7 @@
                     <p class="w-75">
                         The HR personnel will be able to choose applicants and onboard them via the Onboarding Management module, which is where they will be able to do so in order to hire them for the organization.                    </p>
                     <img src="/manual/staff/onboarding/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">2.1 Onboarding Management Module</h6>
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -295,6 +300,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/onboarding/5.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">2.1.1 Onboarding Management Table</h6>
                             </div>
                         </div>
 
@@ -312,6 +318,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/onboarding/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">2.1.2 Onboarding of Employee Controls</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -343,6 +350,7 @@
                         </div>
                         <br>
                         <img src="/manual/staff/onboarding/4.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">2.1.3 Onboarding Details Controls</h6>
                     </div>
                 </div>
             </div>
@@ -359,6 +367,7 @@
                         In the Offboarding Management Module is where the HR staff will be able to offboard employees or approve or deny their resignation. In this module the HR staff will also be able to set all of the clearance that the offboardee employee will have to accomplish to be fully offboarded in the company.
                     </p>
                     <img src="/manual/staff/offboarding/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">3.1 Offboarding Management Module</h6>
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -378,6 +387,7 @@
                                 The offboarding controls will show once the button is selected, at which point the HR staff will be required to provide all of the offboarding clearance for the employee.                            </div>
                             <div class="col">
                                 <img src="/manual/staff/offboarding/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">3.1.1 Termination Management Controls</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -394,6 +404,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/offboarding/7.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">3.1.2 Clearance Details Controls</h6>
                             </div>
                         </div>
                     </div>
@@ -415,6 +426,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/offboarding/4.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">3.2.1 Resination Management Controls</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -431,6 +443,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/offboarding/7.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">3.2.2 Clearance Details Controls</h6>
                             </div>
                         </div>
                     </div>
@@ -450,6 +463,7 @@
                         The HR staff will have measures in place to mark whether or not an offboardee has completed the Clearance assignment.
                     </p>
                     <img src="/manual/staff/offboardee/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">4.1 Offboardee Management Module</h6>
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -466,6 +480,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/offboardee/1.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.1.1 Offboardee Management Table</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -477,6 +492,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/offboardee/4.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.1.2 Marking Clearance as Complete</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -489,6 +505,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/offboardee/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.1.3 Delete Employee Account button</h6>
                             </div>
                         </div>
                     </div>
@@ -508,6 +525,8 @@
                         The HR staff will also have the controls in order to change the Schedule days of the employee and their time in/ time out.
                     </p>
                     <img src="/manual/staff/schedule/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">5.1 Schedule Management Module</h6>
+
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -527,6 +546,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/schedule/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">5.1.1 Schedule Days Controls</h6>
                             </div>
                         </div>
                     </div>
@@ -539,6 +559,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/schedule/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">5.1.2 Time In / Time Out Controls</h6>
                             </div>
                         </div>
                     </div>
@@ -558,6 +579,8 @@
                         In here, they HR staff will also be able to record the score and the feedback on the applicant's interview.
                     </p>
                     <img src="/manual/staff/schedule/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">6.1 Interview Management Module</h6>
+
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -576,6 +599,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/interview/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.1.1 Date and Time picker for Interview Scheduling</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -585,6 +609,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/interview/4.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.1.2 Updating Scheduled Interview controls</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -597,6 +622,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/interview/5.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.1.3 Interview Feedback Controls</h6>
                             </div>
                         </div>
                         <div class="p-3"></div>
@@ -605,16 +631,19 @@
                                 <h6>Passed</h6>
                                 When an interview is marked as passed this will show which can be clicked to show the feedback and the score
                                 <img src="/manual/staff/interview/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.1.4 Interview Marked as Passed</h6>
                             </div>
                             <div class="col">
                                 <h6>No response</h6>
                                 This is what it looks like when an interview is marked as no response.
                                 <img src="/manual/staff/interview/7.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.1.5 Interview Marked as No Response</h6>
                             </div>
                             <div class="col">
                                 <h6>Failed</h6>
                                 This is when the interview is failed which can be clicked to reveal the feedback.
                                 <img src="/manual/staff/interview/6.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">6.1.6 Interview Marked as Failed</h6>
                             </div>
                         </div>
                     </div>
@@ -635,6 +664,7 @@
                         In this module the HR staff will also be able to change the department of employees.
                     </p>
                     <img src="/manual/staff/department/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">7.1 Department Management Module</h6>
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -650,6 +680,7 @@
                             <div class="col">
                                 In the department overview, the HR staff will be able to see how many employees their is in the department.
                                 <img src="/manual/staff/department/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">7.1.1 Department Overview</h6>
                             </div>
                         </div>
 
@@ -661,12 +692,14 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/department/4.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">7.1.2 Adding of Department Control</h6>
                             </div>
                         </div>
                     </div>
                     <div id="department/function2">
                         <h4 class="text-primary">Update Employee Department</h4>
-                        <img src="/manual/staff/department/5.jpg" class="w-75">
+                        <img src="/manual/staff/department/5.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">7.2.1 Updating Employees' Department</h6>
                         This is the section where in the hr staff will be able to change the department of an employee
                         <br><br>
                         Updating Employee Department involves three steps:
@@ -677,10 +710,12 @@
                                     In the Employee selection table, you will be able to search, filter employees, and select employees by clicking the "select" button beside the employee details.
                                     The button will show green if the employee is selected.
                                     <img src="/manual/staff/department/6.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">7.2.2 Employee Selection Table</h6>
                                 </div>
                                 <div class="col">
                                     You can confirm that the employee is selected if it is added in the "Selected Employees" Table
                                     <img src="/manual/staff/department/7.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">7.2.3 Selected Employee Table</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -691,6 +726,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/staff/department/8.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">7.2.4 Updating Employee Department Controls</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -701,6 +737,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/staff/department/9.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">7.2.5 Update Employee Department button</h6>
                                 </div>
                             </div>
                         </ol>
@@ -718,6 +755,7 @@
                     <p class="w-75">
                     </p>
                     <img src="/manual/staff/position/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">8.1 Position Management Module</h6>
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -740,6 +778,7 @@
                             <div class="col">
                                 In the Position overview, the HR staff will be able to see how many employees their is in a Position.
                                 <img src="/manual/staff/position/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">8.1.1 Position Overview</h6>
                             </div>
                         </div>
 
@@ -751,6 +790,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/position/4.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">8.1.2 Adding of new Position Controls</h6>
                             </div>
                         </div>
                     </div>
@@ -768,10 +808,12 @@
                                     In the Employee selection table, you will be able to search, filter employees, and select employees by clicking the "select" button beside the employee details.
                                     The button will show green if the employee is selected.
                                     <img src="/manual/staff/position/6.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">8.2.1 Employee Selection Table</h6>
                                 </div>
                                 <div class="col">
                                     You can confirm that the employee is selected if it is added in the "Selected Employees" Table
                                     <img src="/manual/staff/position/7.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">8.2.2 Selected Employees Table</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -782,6 +824,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/staff/position/8.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">8.2.3 Employee Position Details Controls</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -792,6 +835,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/staff/position/9.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">8.2.4 Update Employee Position Button</h6>
                                 </div>
                             </div>
                         </ol>
@@ -814,6 +858,8 @@
                     </p>
                     <br>
                     <img src="/manual/staff/audit/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">9.1 Audit Logs Landing Page</h6>
+
 
                     <h6 class="text-primary">Functions</h6>
                     <p class="w-75" >The functions of the Audit Logs page are listed below:</p>
@@ -826,6 +872,8 @@
                         <div class="row my-5">
                             <h4 class="text-primary">Audit Logs</h4>
                             <img src="/manual/staff/audit/1.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">9.1.1 Audit Logs Table</h6>
+
                             In the Audit Logs section is where the "Audit Logs" table is located. This is where the HR staff will be able to see all of the audit records.
                             Above the "Audit Logs" table, the "Generate Audit Summary" button is located
 
@@ -837,6 +885,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/staff/audit/2.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">9.1.2 Generate Audit Summary" button</h6>
                                 </div>
                             </div>
                             <div class="row">
@@ -845,6 +894,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/staff/audit/3.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">9.1.3 PDF Button</h6>
                                 </div>
                             </div>
                         </div>
@@ -854,11 +904,13 @@
                             <h4 class="text-primary">Audit History</h4>
                             In the "Audit History" is where all of the generated audit summary can be viewed and download. The HR staff will have to select a audit summary file using the buttons with their file name on it.
                             <img src="/manual/staff/audit/4.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">9.2.1 Audit History View</h6>
                         </div>
                     </div>
                 </div>
             </div>
 
+            @php ($manual_variable_number = 10)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="employeelist" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>
@@ -866,6 +918,8 @@
                 </script>
                 @include('inc.common_manual.employee_list')
             </div>
+
+            @php ($manual_variable_number += 1)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="profile" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>
@@ -881,9 +935,12 @@
                     </div>
                     <div class="col">
                         <img src="/manual/staff/1.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.4.1 HR Staff Signature Control</h6>
                     </div>
                 </div>
             </div>
+
+            @php ($manual_variable_number += 1)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="messages" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>
@@ -891,6 +948,8 @@
                 </script>
                 @include('inc.common_manual.messages')
             </div>
+
+            @php ($manual_variable_number += 1)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="notifications" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>

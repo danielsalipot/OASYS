@@ -9,6 +9,8 @@
     }
 </style>
 
+@php ($manual_variable_number = 0)
+
 <script>
     function changeButtonColor(btn){
         var manual_buttons = document.querySelectorAll('.manual_button')
@@ -229,7 +231,7 @@
     </div>
 
     <div class="col">
-        <div class="card" style="overflow-x:hidden; overflow-y: scroll; height:700px">
+        <div class="card" style="overflow-x:hidden; overflow-y: scroll; height:100vh">
             <div class="row p-5"></div><div class="row p-5"></div>
             <h1 class="section-title w-100 text-center mt-1">User Manual</h1>
             <div class="row p-5"></div><div class="row p-5"></div>
@@ -268,6 +270,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/dashboard/function1.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">1.1.1 Payroll Details Table</h6>
                             </div>
                         </div>
                         <div class="row mx-5">
@@ -299,6 +302,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/dashboard/function2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">1.2.1 Payroll Report Generation buttons</h6>
                             </div>
                         </div>
                         <div class="row w-100">
@@ -310,6 +314,7 @@
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/dashboard/function2-2.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">1.2.2 Uploading Signature for Payroll summary</h6>
                                     </div>
                                 </div>
 
@@ -329,6 +334,7 @@
                                 <h4 class="text-success">View Payroll History button</h4>
                                 By Clicking the View Payroll History button, it will redirect you the the Payroll/Payslip History Page where in you can view generated payrolls and payslips
                                 <img src="/manual/payroll/dashboard/function2-3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">1.2.3 View Payroll History button</h6>
                             </div>
                         </div>
                     </div>
@@ -348,6 +354,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/dashboard/function3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">1.3.1 Payroll Details Table Date Filter</h6>
                             </div>
                         </div>
                     </div>
@@ -379,6 +386,7 @@
                         <div class="row my-5">
                             <h4 class="text-primary">Average Salary of Positions</h4>
                             <img src="/manual/payroll/salary/function1.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">2.1.1 Salary Averages</h6>
                             Located at the top of the Salary Management Page is the summary of all the salary of each positions. In thi section, the payroll manager will be able to see the avarage salary of each position as well as the top earners of each position.
                         </div>
                     </div>
@@ -389,6 +397,7 @@
                         <div class="row my-5">
                             <h4 class="text-primary">View employees salary</h4>
                             <img src="/manual/payroll/salary/function2.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">2.2.1 Employees Salary View</h6>
                             Located just below the "Average Salary of Positions" section, will be the Employee Salary table. This table willsome basic information of employees as well as there Rate/hr. The payroll manager can use the search bar and entries filter to change the view of the table.
                         </div>
                     </div>
@@ -403,6 +412,7 @@
                             </div>
                             <div class="col-8">
                                 <img src="/manual/payroll/salary/4.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">2.3.1 Edit Rate Button</h6>
                             </div>
                         </div>
 
@@ -414,6 +424,7 @@
                             </div>
                             <div class="col-8">
                                 <img src="/manual/payroll/salary/function3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">2.3.2 Edit Rate Dialog Box</h6>
                             </div>
                         </div>
                     </div>
@@ -445,6 +456,7 @@
                         <div class="row my-5">
                             <h4 class="text-primary">View and filter Deductions</h4>
                             <img src="/manual/payroll/deductions/1.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">3.1.1 View and filter Deductions</h6>
                             Shown above is the Deductions Table. Using the date filter that is located above, you can filter that deductions that are within a specific period and view their details. In the table you will be able the deduction details as well as some basic information about the employee that was applied with the deduction.
                     </div>
 
@@ -463,7 +475,10 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/deductions/6.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">3.2.1 Remove deduction button</h6>
+
                                 <img src="/manual/payroll/deductions/7.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">3.2.2 Confirmation Dialog Box</h6>
                             </div>
                         </div>
                     </div>
@@ -483,10 +498,12 @@
                                     In the Employee selection table, you will be able to search, filter employees, and select employees by clicking the "select" button beside the employee details.
                                     The button will show green if the employee is selected.
                                     <img src="/manual/payroll/deductions/3.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">3.3.1 Selecting Employees using the Employee List</h6>
                                 </div>
                                 <div class="col">
                                     You can confirm that the employee is selected if it is added in the "Selected Employees" Table
                                     <img src="/manual/payroll/deductions/4.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">3.3.2 Selected Employees Table</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -497,6 +514,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/deductions/5.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">3.3.3 Deduction Details Controls</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -507,6 +525,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/deductions/8.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">3.3.4 Add Deduction button</h6>
                                 </div>
                             </div>
                         </ol>
@@ -542,6 +561,7 @@
                             <h4 class="text-primary">Display Overtime Records and Overtime Application</h4>
                                 The overtime table contains all of the attendance that exceeded their total hours of work. The table contains the basic information of the employee, the details of the attendance, the total exceeded hours, and the application details.
                                 <img src="/manual/payroll/overtime/1.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.1.1 Overtime Table</h6>
                         </div>
                     </div>
 
@@ -554,6 +574,7 @@
                                 To pay overtime and to approve application, the payroll manager will have to click the "Pay overtime" button. after click a dialog box will show which will confirm the Overtime details. By clicking "Pay Overtime" button, the payment for the overtime will be recorded.                         </div>
                             <div class="col">
                                 <img src="/manual/payroll/overtime/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.2.1 Pay Overtime Dialog Box</h6>
                             </div>
                         </div>
                     </div>
@@ -568,6 +589,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/overtime/6.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.3.1 Deny Overtime Application</h6>
                             </div>
                         </div>
                     </div>
@@ -578,6 +600,7 @@
                         <h4 class="text-primary">Remove Paid Overtime</h4>
                         <div class="row">
                             <img src="/manual/payroll/overtime/4.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">4.4.1 Paid Overtime Table and Remove Overtime button</h6>
                             In the Remove Paid Overtime tab, you will be able to see the "Paid overtime" table. In the Paid overtime table, you will be able to select paid overtime records. By clicking "Remove overtime" button, the record will be remove from paid overtime.
                         </div>
 
@@ -589,6 +612,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/overtime/7.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.4.2 Remove Overtime Confirmation Dialog Box</h6>
                             </div>
                         </div>
                     </div>
@@ -603,6 +627,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/overtime/5.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">4.5.1 Denied Overtime Application Table</h6>
                             </div>
                         </div>
                     </div>
@@ -610,7 +635,8 @@
 
 
                 <div class="row p-5"></div><div class="row p-5"></div>
-            <div id="cashAdvance" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
+
+                <div id="cashAdvance" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>
                     observer.observe(document.querySelector('#cashAdvance'));
                 </script>
@@ -640,6 +666,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/cashAdvance/1.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">5.1.1 Cash Advance Record</h6>
                             </div>
                         </div>
                     </div>
@@ -654,12 +681,14 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/cashAdvance/3.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">5.2.1 Cash Advance Record Remove Button</h6>
                             </div>
                         </div>
                         <div class="row w-100">
                             By clicking the remove button, a dialog box will show, which will confirm the removal of the record. If the "Ok" button was clicked, then the record will be remove
                             <br>
                             <img src="/manual/payroll/cashAdvance/2.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">5.2.2 Remove Deduction Confirmation Dialog Box</h6>
                         </div>
                     </div>
 
@@ -678,10 +707,12 @@
                                     In the Employee selection table, you will be able to search, filter employees, and select employees by clicking the "select" button beside the employee details.
                                     The button will show green if the employee is selected.
                                     <img src="/manual/payroll/cashAdvance/5.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">5.3.1 Employee Selection Table</h6>
                                 </div>
                                 <div class="col">
                                     You can confirm that the employee is selected if it is added in the "Selected Employees" Table
                                     <img src="/manual/payroll/cashAdvance/6.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">5.3.2 Selected Employees Table</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -692,6 +723,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/cashAdvance/7.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">5.3.2 Cash Advance Details Controls</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -702,6 +734,7 @@
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/cashAdvance/8.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">5.3.2 Add Cash Advance Button</h6>
                                     </div>
                                 </div>
                             </div>
@@ -752,6 +785,7 @@
                                         </ol>
                                     </p>
                                     <img src="/manual/payroll/contributions/1.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">6.1.1 SSS Variable Management Controls</h6>
                                 </div>
 
                                 <br><br>
@@ -765,6 +799,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/payroll/contributions/2.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">6.1.2 SSS Contributions Table</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -782,6 +817,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/payroll/contributions/3.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">6.1.3 SSS Employee Management Table</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -812,6 +848,7 @@
                                         </ol>
                                     </p>
                                     <img src="/manual/payroll/contributions/pagibig1.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">6.2.1 Pagibig Variable Management Controls</h6>
                                 </div>
 
                                 <br><br>
@@ -825,6 +862,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/payroll/contributions/pagibig2.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">6.2.2 Pagibig Contributions Table</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -842,6 +880,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/payroll/contributions/pagibig3.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">6.2.3 Pagibig Employee Management Table</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -872,6 +911,7 @@
                                         </ol>
                                     </p>
                                     <img src="/manual/payroll/contributions/ph1.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">6.3.1 Philhealth Variable Management Controls</h6>
                                 </div>
 
                                 <br><br>
@@ -885,6 +925,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/payroll/contributions/ph2.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">6.3.2 Philhealth Contributions Table</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -902,6 +943,7 @@
                                         </div>
                                         <div class="col">
                                             <img src="/manual/payroll/contributions/ph3.jpg" class="w-100">
+                                            <h6 class="text-center w-100 p-3">6.3.3 Philhealth Employee Management Table</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -940,6 +982,7 @@
                             Using the date filter, the payroll manager will be able view bonus records in different date periods.
                             <br>
                             <img src="/manual/payroll/bonus/1.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">7.1.1 Employee Bonus History</h6>
                             <br><br><br>
                             <div class="ms-5">
                                 <h4 class="text-primary">Delete Employee Bonus Record</h4>
@@ -954,7 +997,10 @@
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/bonus/2.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">7.1.2 Employee Bonus Remove button</h6>
+
                                         <img src="/manual/payroll/bonus/3.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">7.1.3 Employee Bonus Removal Confirmation Dialog Box</h6>
                                     </div>
                                 </div>
                             </div>
@@ -977,10 +1023,12 @@
                                         In the Employee selection table, you will be able to search, filter employees, and select employees by clicking the "select" button beside the employee details.
                                         The button will show green if the employee is selected.
                                         <img src="/manual/payroll/bonus/5.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">7.2.1 Employee Selection Table</h6>
                                     </div>
                                     <div class="col">
                                         You can confirm that the employee is selected if it is added in the "Selected Employees" Table
                                         <img src="/manual/payroll/bonus/6.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">7.2.2 Selected Employees Table</h6>
                                     </div>
                                 </div>
                                 <br><br>
@@ -991,6 +1039,7 @@
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/bonus/7.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">7.2.3 Bonus Details Controls</h6>
                                     </div>
                                 </div>
                                 <br><br>
@@ -1001,6 +1050,7 @@
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/bonus/8.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">7.2.4 Confirm Bonus Button</h6>
                                     </div>
                                 </div>
                             </ol>
@@ -1014,6 +1064,7 @@
                         In the Bonus Management module is where the "13th month payroll summary" table, this is where the payroll manager will be able to view the status of the payroll for the year and view the automatically calculated 13th month bonus.
                         <br>
                         <img src="/manual/payroll/bonus/9.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">7.3.1 13th Month Payroll Summary table</h6>
                         <br><br><br>
                         <div class="ms-5">
                             <h4 class="text-primary">Generating 13th Month Payroll Summary PDF</h4>
@@ -1029,7 +1080,10 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/bonus/11.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">7.3.2 Unlocking controls by clicking the "<i class="bi bi-lock"></i>" button</h6>
+
                                     <img src="/manual/payroll/bonus/10.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">7.3.3 Issue 13th Month Bonus button</h6>
                                 </div>
                             </div>
                         </div>
@@ -1066,6 +1120,7 @@
                             <br>
 
                             <img src="/manual/payroll/multipay/1.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">8.1.1 Multi Pay Table</h6>
 
                             <h5 class="alert-light p-4">Adding of Multi Pay records</h5>
 
@@ -1077,6 +1132,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/multipay/6.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">8.1.2 2X and 3X Buttons</h6>
                                 </div>
                             </div>
 
@@ -1090,6 +1146,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/multipay/2.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">8.1.3 Multi Pay Confirmation Dialog Box</h6>
                                 </div>
                             </div>
 
@@ -1108,6 +1165,8 @@
                             <br>
 
                             <img src="/manual/payroll/multipay/3.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">8.2.1 Multi Pay History Table</h6>
+
                             <div class="row mt-3">
                                 <h4 class="text-primary">Deleting Multi Pay records</h4>
                                 <div class="col">
@@ -1115,6 +1174,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/multipay/4.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">8.2.2 Multi Pay History Remove Button</h6>
                                 </div>
                             </div>
 
@@ -1125,6 +1185,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/multipay/5.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">8.2.3 Multi Pay History Removal Confirmation Dialog Box</h6>
                                 </div>
                             </div>
                         </div>
@@ -1143,6 +1204,7 @@
                     <p class="w-75">The Holiday Management is the module where the payroll manager will be able to list all of upcoming paid Holidays and record all of the employee that will be paid on that holiday.</p>
                     <br>
                     <img src="/manual/payroll/holidays/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">9.1 Holiday Management Landing Page</h6>
 
                     <h6 class="text-primary">Functions</h6>
                     <p class="w-75" >The functions of the Holiday Management page are listed below:</p>
@@ -1162,6 +1224,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/holidays/2.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">9.1.1 Listed Holidays Calendar View</h6>
                             </div>
 
                             <div class="row">
@@ -1174,11 +1237,12 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/holidays/3.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">9.1.2 Listing a Holiday Controls</h6>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <h5 class="text-primary">Listing a Holiday</h5>
+                                <h5 class="text-primary">Removing a Holiday</h5>
                                 <div class="col">
                                     To delete a holiday record, the payroll manager will have to use the "Delete Holiday" part of the feature.
                                     The "Delete Holiday" is located below the "Listing a Holiday", use the scroll if the table is not completely visible.
@@ -1189,6 +1253,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/holidays/4.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">9.1.3 Removing a Holiday Controls</h6>
                                 </div>
                             </div>
                         </div>
@@ -1200,8 +1265,7 @@
                         <div class="row my-5">
                             <h4 class="text-primary">Add Holiday Pay</h4>
                             The Add Holiday Pay section of this module, you can select specific employees or select all employees and pay their holiday.
-                            <br><br>
-                            <img src="/manual/payroll/cashAdvance/5.jpg" class="w-100">
+
                             Adding Holiday Pay involves three steps:
                             <ol>
                                 <li><b>Selecting Employees</b></li>
@@ -1209,11 +1273,14 @@
                                     <div class="col">
                                         In order to select employees for the holiday pay, the payroll manager can use the employee list table to view and search all of the employees.
                                         To select employee, the payroll manager can click the "Select" button on the record. The payroll manager can also user the "Select All Employee" button at the top of the employee list to select all of the employee easily.
-                                        <img src="/manual/payroll/cashAdvance/6.jpg" class="w-100">
+                                        <img src="/manual/payroll/cashAdvance/5.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">9.2.1 Employee Selection Table</h6>
+
                                     </div>
                                     <div class="col">
                                         You can confirm that the employee is selected if it is added in the "Selected Employees" Table
-                                        <img src="/manual/payroll/cashAdvance/7.jpg" class="w-100">
+                                        <img src="/manual/payroll/cashAdvance/6.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">9.2.2 Selected Employees Table</h6>
                                     </div>
                                 </div>
                                 <br><br>
@@ -1224,7 +1291,8 @@
                                         After selecting holiday using the dropdown, the dates of the attendance will be also displayed.
                                     </div>
                                     <div class="col">
-                                        <img src="/manual/payroll/cashAdvance/8.jpg" class="w-100">
+                                        <img src="/manual/payroll/cashAdvance/7.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">9.2.3 Selected of Holiday Controls</h6>
                                     </div>
                                 </div>
                                 <br><br>
@@ -1235,6 +1303,7 @@
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/cashAdvance/8.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">9.2.4 Submit Button</h6>
                                     </div>
                                 </div>
                             </ol>
@@ -1254,6 +1323,7 @@
                                     The payroll manager can then click the "Remove" button to remove all of the attendance in that collection of records.
 
                                     <img src="/manual/payroll/holidays/9.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">9.3.1 Holiday Attendance Records Table</h6>
                                 </div>
                                 <div class="col">
                                     <h5>Selected Attendance</h5>
@@ -1261,6 +1331,7 @@
                                     The payroll manager can then used the "Remove" button to remove that record specifically.
 
                                     <img src="/manual/payroll/holidays/10.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">9.3.2 Holiday Attendance Remove Button</h6>
                                 </div>
                             </div>
                         </div>
@@ -1282,6 +1353,8 @@
                     </p>
                     <br>
                     <img src="/manual/payroll/leave/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">10.1 Leave Management Landing Page</h6>
+
 
                     <h6 class="text-primary">Functions</h6>
                     <p class="w-75" >The functions of the Leave Management page are listed below:</p>
@@ -1297,12 +1370,15 @@
                         <div class="row my-5">
                             <h4 class="text-primary">Paid Leave Approvals</h4>
                             <img src="/manual/payroll/leave/10.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">10.1.1 Paid Leave Approvals</h6>
                             In this section of the Leave management module, the payroll manager will be able to see all of the pending leave application and their details such as the employee details, a brief letter application for leave, as well as the leave details. They will be able to approve or deny a selected leave applicate by clicking their respected "Approve" button and "Deny" Button.
                         </div>
                     </div>
                     <div id="leave/function2">
                         <h4 class="text-primary">Add Paid Leave</h4>
                         <img src="/manual/payroll/leave/2.jpg" class="w-100">
+                        <h6 class="text-center w-100 p-3">10.2.1 Add Paid Leave Controls</h6>
+
                         This is the Add deduction module. In this module you can select employees, add leave details, and save the leave for the payroll.
                         <br><br>
                         Adding Paid Leave involves three steps:
@@ -1313,10 +1389,13 @@
                                     In the Employee selection table, you will be able to search, filter employees, and select employees by clicking the "select" button beside the employee details.
                                     The button will show green if the employee is selected.
                                     <img src="/manual/payroll/leave/3.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">10.2.2 Employee Selection Table</h6>
                                 </div>
                                 <div class="col">
                                     You can confirm that the employee is selected if it is added in the "Selected Employees" Table
                                     <img src="/manual/payroll/leave/4.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">10.2.3 Selected Employees Table</h6>
+
                                 </div>
                             </div>
                             <br><br>
@@ -1327,6 +1406,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/leave/5.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">10.2.4 Paid Leave Details Controls</h6>
                                 </div>
                             </div>
                             <br><br>
@@ -1337,6 +1417,7 @@
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/leave/6.jpg" class="w-100">
+                                        <h6 class="text-center w-100 p-3">10.2.5 Add Paid Leave Button</h6>
                                     </div>
                                 </div>
                             </div>
@@ -1353,6 +1434,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/leave/7.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">10.3.1 Paid Application History</h6>
                                 </div>
                             </div>
                         </div>
@@ -1367,6 +1449,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/leave/8.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">10.4.1 Paid Leave History</h6>
                                 </div>
                             </div>
                             <div class="row">
@@ -1375,6 +1458,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/leave/9.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">10.4.1 Paid Leave Remove</h6>
                                 </div>
                             </div>
                         </div>
@@ -1397,6 +1481,7 @@
                     </p>
                     <br>
                     <img src="/manual/payroll/audit/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">11.1 Audit Logs Landing Page</h6>
 
                     <h6 class="text-primary">Functions</h6>
                     <p class="w-75" >The functions of the Audit Logs page are listed below:</p>
@@ -1409,6 +1494,9 @@
                         <div class="row my-5">
                             <h4 class="text-primary">Audit Logs</h4>
                             <img src="/manual/payroll/audit/1.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">11.1.1 Audit Logs Table</h6>
+
+
                             In the Audit Logs section is where the "Audit Logs" table is located. This is where the payroll manager will be able to see all of the audit records.
                             Above the "Audit Logs" table, the "Generate Audit Summary" button is located
 
@@ -1420,6 +1508,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/audit/2.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">11.1.2 Generate Audit Summary" button</h6>
                                 </div>
                             </div>
                             <div class="row">
@@ -1428,6 +1517,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/audit/3.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">11.1.3 PDF Button</h6>
                                 </div>
                             </div>
                         </div>
@@ -1437,6 +1527,7 @@
                             <h4 class="text-primary">Audit History</h4>
                             In the "Audit History" is where all of the generated audit summary can be viewed and download. The payroll manager will have to select a audit summary file using the buttons with their file name on it.
                             <img src="/manual/payroll/audit/4.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">11.2.1 Audit History View</h6>
                         </div>
                     </div>
                 </div>
@@ -1456,6 +1547,7 @@
                     </p>
                     <br>
                     <img src="/manual/payroll/approvals/1.jpg" class="w-100">
+                    <h6 class="text-center w-100 p-3">12.1 Approvals Landing Page</h6>
 
                     <h6 class="text-primary">Functions</h6>
                     <p class="w-75" >The functions of the Audit Logs page are listed below:</p>
@@ -1467,10 +1559,10 @@
 
                     <div id="approvals/function1">
                         <div class="row my-5">
-                            <h4 class="text-primary">Payroll Summary Progress</h4>
+                            <h4 class="text-primary">Payroll Summary </h4>
                             <div class="row">
                                 <div class="col">
-                                    The payroll manager will be able to view the Payroll Summary progress on their approvals by clicking their selected payroll summary.
+                                    The payroll manager will be able to view the Payroll Summary by clicking their selected payroll summary.
                                     <br><br>
                                     <b>To select a payroll summary</b><br>
                                     Beside the PDF View area is where all of the buttons for each payroll summary is located.<br>
@@ -1479,6 +1571,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/approvals/summaryView.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">12.1.1 Payroll Summary View</h6>
                                 </div>
                             </div>
                             <div class="p-4"></div>
@@ -1490,6 +1583,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/approvals/approved.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">12.1.2 Summary Progress View</h6>
                                 </div>
                             </div>
                         </div>
@@ -1503,11 +1597,13 @@
                                 <div class="col">
                                     For the payroll manager to update the progress of a payroll, they will have to select one from "Approve", "Note", and "Disapproved" buttons and click it.
                                     <img src="/manual/payroll/approvals/approveControls.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">12.2.1 Updating Payroll Summary Controls</h6>
                                 </div>
                                 <div class="col">
                                     once they clicked it the a new control will shows which will ask the payroll manager to upload their e-signature in order to sign the payroll summary.
                                     Once they upload an e-signature they will have to click the "Submit" button. Once clicked, a new tab will show which will display the updated Payroll Summary file with their sign and their selected status of approval.
                                     <img src="/manual/payroll/approvals/esigniture.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">12.2.2 Uploading Of E-signature</h6>
                                 </div>
                             </div>
                         </div>
@@ -1523,12 +1619,15 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/approvals/forPayslip.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">12.3.2 Generating Employee Payslip Controls</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            @php ($manual_variable_number = 13)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="employeelist" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>
@@ -1536,6 +1635,8 @@
                 </script>
                 @include('inc.common_manual.employee_list')
             </div>
+
+            @php ($manual_variable_number += 1)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="profile" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>
@@ -1543,6 +1644,8 @@
                 </script>
                 @include('inc.common_manual.profile')
             </div>
+
+            @php ($manual_variable_number += 1)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="messages" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>
@@ -1550,6 +1653,8 @@
                 </script>
                 @include('inc.common_manual.messages')
             </div>
+
+            @php ($manual_variable_number += 1)
             <div class="row p-5"></div><div class="row p-5"></div>
             <div id="notifications" class="p-0 m-0" style="font-size: 17px; word-spacing: 6px;">
                 <script>
