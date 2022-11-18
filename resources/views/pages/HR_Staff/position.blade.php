@@ -17,6 +17,13 @@
             <h1  class="section-title mt-0" >{{count($position->employee)}}</h1>
             <hr>
             <h3>{{$position->position_title}}</h3>
+
+            @if( !count($position->employee) )
+            {!! Form::open(['action'=>'App\Http\Controllers\Staff\StaffDeleteController@deletePosition','method'=>'POST']) !!}
+                {!! Form::hidden('position_id', $position->id) !!}
+                {!! Form::submit('Remove', [ 'class' => 'btn btn-outline-danger p-2 w-100 my-3']) !!}
+            {!! Form::close() !!}
+            @endif
         </div>
         @endforeach
     </div>
@@ -90,10 +97,11 @@
                     </table>
                 </div>
             </div>
+
             <div class="col">
-                <div class="container card">
+                <div class="container border-bottom" style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
                     <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
-                    <table class="table table-striped text-center" style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
+                    <table class="table table-striped text-center">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>

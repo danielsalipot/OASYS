@@ -18,9 +18,17 @@
                     <h1  class="section-title mt-0" >{{$department->emp_count}}</h1>
                     <hr>
                     <h3>{{$department->department_name}}</h3>
+
+                    @if( !$department->emp_count )
+                        {!! Form::open(['action'=>'App\Http\Controllers\Staff\StaffDeleteController@deleteDepartment','method'=>'POST']) !!}
+                            {!! Form::hidden('department_id', $department->id) !!}
+                            {!! Form::submit('Remove', [ 'class' => 'btn btn-outline-danger p-2 w-100 my-3']) !!}
+                        {!! Form::close() !!}
+                    @endif
                 </div>
             @endforeach
         </div>
+
         <h6 class="display-4 mt-5">Add New Department</h6>
         <hr>
         <div class="row mb-5">
@@ -88,9 +96,9 @@
                 </div>
             </div>
             <div class="col">
-                <div class="container card">
+                <div class="container border-bottom" style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
                     <h1 class="display-5 m-3 text-center w-100">Selected Employees</h1>
-                    <table class="table table-striped text-center "  style="height: 400px;overflow-y:scroll; overflow-x:hidden;">
+                    <table class="table table-striped text-center">
                         <thead>
                             <tr class="text-center">
                                 <th class="col">Employee ID</th>

@@ -677,10 +677,21 @@
                     <div id="department/function1">
                         <h4 class="text-primary">Department Overview</h4>
                         <div class="row">
-                            <div class="col">
-                                In the department overview, the HR staff will be able to see how many employees their is in the department.
-                                <img src="/manual/staff/department/2.jpg" class="w-100">
-                                <h6 class="text-center w-100 p-3">7.1.1 Department Overview</h6>
+                            In the department overview, the HR staff will be able to see how many employees their is in the department.
+                            <img src="/manual/staff/department/2.jpg" class="w-100">
+                            <h6 class="text-center w-100 p-3">7.1.1 Department Overview</h6>
+
+                            <h5 class="text-primary">Removing of Department</h5>
+                            <div class="row">
+                                <div class="col">
+                                    In order to remove a department, the HR staff will have to make sure that the department that is to be removed has no employee that is currently under that department.
+                                    Once the Employee count of the department is Zero, the remove button will show.
+                                    In order to remove the department, the HR staff will have to press the "Remove" button.
+                                </div>
+                                <div class="col">
+                                    <img src="/manual/staff/department/remove.jpg" class="w-100">
+                                    <h6 class="text-center w-100 p-3">7.1.2 Remove Department Button</h6>
+                                </div>
                             </div>
                         </div>
 
@@ -692,7 +703,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/department/4.jpg" class="w-100">
-                                <h6 class="text-center w-100 p-3">7.1.2 Adding of Department Control</h6>
+                                <h6 class="text-center w-100 p-3">7.1.3 Adding of Department Control</h6>
                             </div>
                         </div>
                     </div>
@@ -767,18 +778,24 @@
 
                     <div id="position/function1">
                         <h4 class="text-primary">Position Overview</h4>
-                    </div>
-                    <div id="position/function2">
-                        <h4 class="text-primary">Update Employee Position</h4>
-                    </div>
-
-                    <div id="position/function1">
-                        <h4 class="text-primary">Position Overview</h4>
                         <div class="row">
                             <div class="col">
                                 In the Position overview, the HR staff will be able to see how many employees their is in a Position.
                                 <img src="/manual/staff/position/2.jpg" class="w-100">
                                 <h6 class="text-center w-100 p-3">8.1.1 Position Overview</h6>
+                            </div>
+                        </div>
+
+                        <h5 class="text-primary">Removing of Position</h5>
+                        <div class="row">
+                            <div class="col">
+                                In order to remove a Position, the HR staff will have to make sure that the Position that is to be removed has no employee that is currently under that Position.
+                                Once the Employee count of the Position is Zero, the remove button will show.
+                                In order to remove the Position, the HR staff will have to press the "Remove" button.
+                            </div>
+                            <div class="col">
+                                <img src="/manual/staff/position/remove.jpg" class="w-100">
+                                <h6 class="text-center w-100 p-3">8.1.2 Remove Position Button</h6>
                             </div>
                         </div>
 
@@ -790,7 +807,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/position/4.jpg" class="w-100">
-                                <h6 class="text-center w-100 p-3">8.1.2 Adding of new Position Controls</h6>
+                                <h6 class="text-center w-100 p-3">8.1.3 Adding of new Position Controls</h6>
                             </div>
                         </div>
                     </div>

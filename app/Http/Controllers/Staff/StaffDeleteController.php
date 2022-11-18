@@ -5,16 +5,31 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\ApplicantDetail;
 use App\Models\Audit;
+use App\Models\Department;
 use App\Models\EmployeeDetail;
 use App\Models\Interview;
 use App\Models\notification_message;
 use App\Models\notification_receiver;
+use App\Models\Position;
 use App\Models\UserCredential;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
 
 class StaffDeleteController extends Controller
 {
+
+    public function deleteDepartment(Request $request){
+        $department = Department::find($request->department_id);
+        Department::find($request->department_id)->delete();
+        return back()->with(['delete'=>'The '. $department->department_name .' department was removed successfully']);
+    }
+
+    public function deletePosition(Request $request){
+        $position = Position::find($request->position_id);
+        Position::find($request->position_id)->delete();
+        return back()->with(['delete'=>'The '. $position->position_title .' Position was removed successfully']);
+    }
+
     public function deleteInterviewSchedule(Request $request){
         $applicant = ApplicantDetail::with('UserDetail')
             ->where('applicant_id',Interview::find($request->interview_id)->applicant_id)
