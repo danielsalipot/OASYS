@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class AdminEditController extends Controller
 {
     public function editLesson(Request $request){
-        if(isset($request->video)){
+        if(isset($request->video_file)){
             //FILE NAMES user id + file extension
             $videoFileName =  $request->title.".".$request->file('video_file')->getClientOriginalExtension();
             // saves the picture into storage/public

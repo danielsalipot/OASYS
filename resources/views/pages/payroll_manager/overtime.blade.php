@@ -65,7 +65,7 @@
                 data-target="#paid_ot_modal">Remove Overtime</button>
         </div>
 
-        <table class="table table-striped  text-center w-100responsive" id="paid_overtime_table">
+        <table class="table table-striped  text-center w-100 responsive" id="paid_overtime_table">
             <thead>
                 <tr>
                     <th class="col" data-priority="2">Select</th>

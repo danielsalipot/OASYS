@@ -478,7 +478,7 @@ class EmployeeController extends Controller
     }
 
     public function employeeManual(){
-        return view('pages.Employee.manual');
+        return view('pages.employee.manual');
     }
 
 }

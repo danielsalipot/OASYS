@@ -299,7 +299,6 @@ class PayrollUpdateController extends Controller
     }
 
     function edit_sss(Request $request){
-        return $request;
         $sss = Contributions::where('contribution_id','1')->first();
 
         $str = '';
@@ -367,9 +366,6 @@ class PayrollUpdateController extends Controller
         if($ph->maximum != $request->philhealth_max){
             $str .= 'Update Philhealth Maximum Range | ';
         }
-        if($ph->ee_personal != $request->philhealth_share){
-            $str .= 'Update High Additional | ';
-        }
 
             Audit::create(['activity_type' => 'payroll',
                 'payroll_manager_id' => session()->get('user_id'),
@@ -386,10 +382,9 @@ class PayrollUpdateController extends Controller
                 'er_rate' => $request->philhealth_er_rate,
                 'ph_rate' => $request->philhealth_rate,
                 'ph_cap' => $request->philhealth_max_share,
-                'minimum' => $request->philhealth_min_share,
+                'minimum_contribution' => $request->philhealth_min_share,
                 'minimum' => $request->philhealth_min,
                 'maximum' => $request->philhealth_max,
-                'ee_personal' => $request->philhealth_share
             ]);
         return redirect('/payroll/contributions')->with('success','Post Created');
     }
@@ -398,7 +393,10 @@ class PayrollUpdateController extends Controller
         $pagibig = Pagibig::where('id','1')->first();
 
         $str = '';
-        if($pagibig->ee_rate != $request->pagibig_ee_rate){
+        if($pagibig->ee_min_rate != $request->pagibig_ee_min_rate){
+            $str .= 'Update Employee Contribution | ';
+        }
+        if($pagibig->ee_max_rate != $request->pagibig_ee_max_rate){
             $str .= 'Update Employee Contribution | ';
         }
         if($pagibig->er_rate != $request->pagibig_er_rate){
@@ -422,7 +420,8 @@ class PayrollUpdateController extends Controller
 
         Pagibig::where('id','1')
         ->update([
-            'ee_rate' => $request->pagibig_ee_rate,
+            'ee_min_rate' => $request->pagibig_ee_min_rate,
+            'ee_max_rate' => $request->pagibig_ee_max_rate,
             'er_rate' => $request->pagibig_er_rate,
             'maximum' => $request->pagibig_max,
             'divider' => $request->pagibig_divider

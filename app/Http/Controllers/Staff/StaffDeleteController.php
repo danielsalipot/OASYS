@@ -4,13 +4,31 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\ApplicantDetail;
+use App\Models\Assessment;
+use App\Models\Attendance;
 use App\Models\Audit;
+use App\Models\Bonus;
+use App\Models\CashAdvance;
+use App\Models\Clearance;
+use App\Models\Deduction;
 use App\Models\Department;
+use App\Models\employee_activity;
 use App\Models\EmployeeDetail;
+use App\Models\HealthCheck;
 use App\Models\Interview;
+use App\Models\Learners;
+use App\Models\Leave;
+use App\Models\leave_approval;
+use App\Models\MultiPay;
 use App\Models\notification_message;
 use App\Models\notification_receiver;
+use App\Models\Overtime;
+use App\Models\overtime_approval;
 use App\Models\Position;
+use App\Models\Regular;
+use App\Models\Resigned;
+use App\Models\Retired;
+use App\Models\Terminated;
 use App\Models\UserCredential;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
@@ -105,6 +123,26 @@ class StaffDeleteController extends Controller
 
         EmployeeDetail::with('UserDetail')->where('employee_id',$request->id)->delete();
         UserCredential::where('login_id',$employee->login_id)->delete();
+        Attendance::where('employee_id',$request->id)->delete();
+        HealthCheck::where('employee_id',$request->id)->delete();
+        employee_activity::where('employee_id',$request->id)->delete();
+        CashAdvance::where('employee_id',$request->id)->delete();
+        Bonus::where('employee_id',$request->id)->delete();
+        Learners::where('employee_id',$request->id)->delete();
+        leave_approval::where('employee_id',$request->id)->delete();
+        Leave::where('employee_id',$request->id)->delete();
+        Assessment::where('employee_id',$request->id)->delete();
+        Clearance::where('employee_id',$request->id)->delete();
+        Deduction::where('employee_id',$request->id)->delete();
+        MultiPay::where('employee_id',$request->id)->delete();
+        overtime_approval::where('employee_id',$request->id)->delete();
+        Overtime::where('employee_id',$request->id)->delete();
+        Regular::where('employee_id',$request->id)->delete();
+        Resigned::where('employee_id',$request->id)->delete();
+        Retired::where('employee_id',$request->id)->delete();
+        Terminated::where('employee_id',$request->id)->delete();
+
+
         return back()->with(['delete'=>'The employee has been deleted successfully']);
     }
 }

@@ -899,6 +899,7 @@
         $('#pagibig_cancel').removeAttr("disabled")
         $('#pagibig_lock').prop("disabled",true)
 
+        $('#pagibig_ee_min_rate').removeAttr("disabled")
         $('#pagibig_ee_max_rate').removeAttr("disabled")
         $('#pagibig_er_rate').removeAttr("disabled")
         $('#pagibig_max').removeAttr("disabled")
@@ -919,7 +920,7 @@
         $('#philhealth_max').removeAttr("disabled")
         $('#philhealth_min').removeAttr("disabled")
 
-        $('#philhealth_share').removeAttr("disabled")
+        $('#philhealth_min_share').removeAttr("disabled")
         $('#philhealth_rate').removeAttr("disabled")
         $('#philhealth_max_share').removeAttr("disabled")
     })

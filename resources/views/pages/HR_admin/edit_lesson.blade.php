@@ -88,6 +88,9 @@
                                 alert(data)
                                 window.location.href = "/admin/{{$category}}/module";
                             }
+                            else{
+                                console.log(data)
+                            }
                         }
                     });
                 });

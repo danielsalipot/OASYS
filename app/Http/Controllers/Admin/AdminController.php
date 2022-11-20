@@ -199,9 +199,9 @@ class AdminController extends Controller
 
         if(date('d') > 15){
             $all_time_attendance = Attendance::groupBy('attendance_date')
-            ->whereBetween('attendance_date',[date('Y-m-').'16', date('Y-m-').'31'])
+            ->whereBetween('attendance_date',[date('Y-m-').'16', date('Y-m-t')])
             ->get('attendance_date');
-            $all_time_attendance->date_filter = [date('Y-m-').'16', date('Y-m-').'31'];
+            $all_time_attendance->date_filter = [date('Y-m-').'16', date('Y-m-t')];
 
         }else{
             $all_time_attendance = Attendance::groupBy('attendance_date')
