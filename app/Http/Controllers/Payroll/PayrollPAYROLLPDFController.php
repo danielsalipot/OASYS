@@ -90,7 +90,7 @@ class PayrollPAYROLLPDFController extends Controller
         foreach ($deductions as $key => $value) {
             $pdf->Cell($size,8,$value->deduction_name,1,0,'C');
         }
-        $pdf->Cell($size,8,'Witholding Tax',1,0,'C');
+        $pdf->Cell($size,8,'Withholding Tax',1,0,'C');
         $pdf->Cell($size,8,'Cash Advance',1,0,'C');
 
         $pdf->SetFont('Arial', 'B', 9);

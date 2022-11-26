@@ -35,7 +35,7 @@
             <div class="p-4"></div>
             <div class="row">
                 <div class="col">
-                    Once statisfied, the user can click the "Save Changes" button to update your user profile details.
+                    Once satisfied, the user can click the "Save Changes" button to update your user profile details.
                 </div>
                 <div class="col text-center">
                     <img src="/manual/common/profile/5.jpg" class="w-50">

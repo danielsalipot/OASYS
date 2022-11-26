@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="col">
-        <span class="text-danger">@error('ids') {{'Recepient list cannot be empty'}} @enderror</span>
+        <span class="text-danger">@error('ids') {{'recipient list cannot be empty'}} @enderror</span>
         <h2 class="text-secondary">Sending to:</h2>
         <div id="selected_employee" class="d-flex flex-row flex-wrap mb-4">
         </div>

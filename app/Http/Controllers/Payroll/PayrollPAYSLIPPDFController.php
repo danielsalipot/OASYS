@@ -153,7 +153,7 @@ if($employee->total_bonus){
 
 $total_deduction = 0;
 $pdf->Cell(20,7,'',1,0,'C');
-$pdf->Cell(108,7,'    '. '    '.'Witholding Tax',0,0,'L');
+$pdf->Cell(108,7,'    '. '    '.'Withholding Tax',0,0,'L');
 $pdf->Cell(30,7,'',0,0,'R');
 $pdf->Cell(30,7,number_format($employee->witholding_tax,2),0,0,'R');
 $pdf->Cell(2,7,'','R',1,'L');

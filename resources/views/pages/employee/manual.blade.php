@@ -145,7 +145,7 @@
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
                     <p class="w-75">
-                        This is the employee dashboard this is where the employee can time in and time out, answer health check list, view thier weekly schedule, view payslips, and see their notifications.
+                        This is the employee dashboard this is where the employee can time in and time out, answer health check list, view their weekly schedule, view payslips, and see their notifications.
                     </p>
                     <br>
                     <img src="/manual/employee/home/4.jpg" class="w-100">
@@ -181,7 +181,7 @@
                                 <h5 class="text-primary">Time in / Time out</h5>
                                 <div class="row">
                                     <div class="col">
-                                        When the employee is scheduled to work for the day, the time in and time ou controls will be display.
+                                        When the employee is scheduled to work for the day, the time in and time out controls will be display.
                                         The employee can then click the "Time in" or "Time out" button to perform the actions.
                                     </div>
                                     <div class="col text-center">
@@ -221,7 +221,7 @@
                         <h4 class="text-primary">Payslip History</h4>
                         <div class="row">
                             <div class="col">
-                                In the bottom part of the Employee Dashboard is where the Payslip history is located. The employee will be able to see all of the generetad payslips and they will be able to view and download it by clicking the "Open" button ono the selected payslip.
+                                In the bottom part of the Employee Dashboard is where the Payslip history is located. The employee will be able to see all of the generated payslips and they will be able to view and download it by clicking the "Open" button ono the selected payslip.
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/home/9.jpg" class="w-100">
@@ -234,7 +234,7 @@
                         <div class="row">
                             <div class="col">
                                 In the bottom part of the Employee Dashboard is where the Notifications is located.
-                                This is where all of the recieved notification will be displayed.
+                                This is where all of the received notification will be displayed.
                                 The employee can send their acknowledgement by clicking the "Send Acknowledgement" button to let the HR user know that they have read the notification.
                             </div>
                             <div class="col">
@@ -336,7 +336,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/overtime/1.jpg" class="w-100">
-                                <h6 class="text-center w-100 p-3">3.1 Overtime Application Cotrols</h6>
+                                <h6 class="text-center w-100 p-3">3.1 Overtime Application Controls</h6>
                             </div>
 
                             <div class="p-3"></div>
@@ -362,7 +362,7 @@
                                     <h6 class="text-primary">Adding Message</h6>
                                     <div class="row">
                                         <div class="col">
-                                            After selecting an eligible attedance, the employee can confirm the attendance if the attendance display is displayed on the overtime application details.
+                                            After selecting an eligible attendance, the employee can confirm the attendance if the attendance display is displayed on the overtime application details.
                                             <br>
                                             <div class="p-2"></div>
                                             The employee will then have to add a brief message that will describe their overtime application and the payroll manager will be able to view their message.
@@ -392,7 +392,7 @@
 
                 <div id="overtime/function2">
                     <h4 class="text-primary">Overtime Application History</h4>
-                    In the Overtime Applcation history is where that employee can find all of the previously sent overtime application.
+                    In the Overtime Application history is where that employee can find all of the previously sent overtime application.
                     In the overtime records, they can see the overtime details, their message to the payroll manager, the attendance details, and the approval status of the overtime application.
                     If the application is still pending, the employee can remove the overtime application by clicking the "Cancel Application" button on the record.
                     <img src="/manual/employee/overtime/8.jpg" class="w-100">
@@ -489,14 +489,14 @@
                         <h6 class="text-primary">Leave Applications Overview</h6>
                         <div class="text-center mx-auto w-75">
                             The employee is able to see how much application they have sent and how much of them are approved or denied.
-                            The application are also seperated on whether they are sent on the current year or in other years.
+                            The application are also separated on whether they are sent on the current year or in other years.
                             <img src="/manual/employee/leave/6.jpg" class="w-100">
                             <h6 class="text-center w-100 p-3">4.2.2 Leave Applications Overview</h6>
                         </div>
 
                         <h6 class="text-primary">Leave Applications View</h6>
                         <div class="text-center mx-auto w-75">
-                            Below the Leave Applcation Overview is where the employee can see all of the submitted leave application and see their details and approval status.
+                            Below the Leave Application Overview is where the employee can see all of the submitted leave application and see their details and approval status.
                             The view has three parts and the most left will be the leave application letter. In the middle is where the Leave Details are displayed.
                             In the right most side of the view is where the approval status of the leave application is displayed.
                             <img src="/manual/employee/leave/7.jpg" class="w-100">
@@ -523,7 +523,7 @@
                 <h3 class="alert-light p-4">Employee Profile</h3>
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
-                    <p class="w-75">The Employee Profile module is where the employee will find their account details, detailed attendance history, their assessment overview, and thier performance assessment records.
+                    <p class="w-75">The Employee Profile module is where the employee will find their account details, detailed attendance history, their assessment overview, and their performance assessment records.
                         The employee can use this module to submit their resignation and track the progress of their resignation.
                         This module also offers functions to update their employee profile.
                     </p>
@@ -549,7 +549,7 @@
                             <h5 class="text-primary">Attendance Calendar View</h4>
                             <div class="col">
                                 In the attendance overview is where the employee will see a calendar where in they will find their attendance history.
-                                The dates in the calendar view will be marked accourding to the attendance status on that date and if it is not marked, that date is not in the employee schedule.
+                                The dates in the calendar view will be marked according to the attendance status on that date and if it is not marked, that date is not in the employee schedule.
                                 Along with the mark is the employee time in record and the time out record.
                             </div>
                             <div class="col">
@@ -575,7 +575,7 @@
                         <h4 class="text-primary">Assessment Overview</h4>
                         <div class="row">
                             <div class="col">
-                                In the assessment overview the employee will find the Assessment summary where in they will be able to distiguish their assessment percentage on the four categories which are the performance, attenance, cooperation, and character.
+                                In the assessment overview the employee will find the Assessment summary where in they will be able to distinguish their assessment percentage on the four categories which are the performance, attendance, cooperation, and character.
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/3.jpg" class="w-100">
@@ -584,7 +584,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                Below the assessment overview is the Employee Characterstics which is the section where the employee wil find a spider web chart which accurately displays their assessment scores and be able to distingiush their strong points and weak points.
+                                Below the assessment overview is the Employee Characterstics which is the section where the employee willfind a spider web chart which accurately displays their assessment scores and be able to distinguish their strong points and weak points.
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/4.jpg" class="w-100">
@@ -608,7 +608,7 @@
                         </div>
                         <div class="row text-center">
                             <div class="col">
-                                The user can you the year selection on the side of the the assessment view to display assessment from different years.
+                                The user can you the year selection on the side of the assessment view to display assessment from different years.
                             </div>
                             <div class="col">
                                 <img src="/manual/employee/profile/7.jpg" class="w-50">

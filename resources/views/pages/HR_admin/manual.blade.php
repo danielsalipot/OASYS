@@ -264,7 +264,7 @@
                         <h4 class="text-primary">Regularization Overview</h4>
                         <div class="row">
                             <div class="col">
-                                In the right side of the Admin dashboard is the Regularization overview. The HR admin will be able to see all of the non regular employees and see how long they have been non regular employees. The HR admin will be able to see and select employees in order to go to the regularization feature of the system.
+                                In the right side of the Admin dashboard is the Regularization overview. The HR admin will be able to see all of the non-regular employees and see how long they have been non regular employees. The HR admin will be able to see and select employees in order to go to the regularization feature of the system.
                             </div>
                             <div class="col text-center">
                                 <img src="/manual/admin/dashboard/regularization overview.jpg" class="w-50">
@@ -459,27 +459,27 @@
                     <h6 class="text-primary">Description</h6>
                     <p class="w-75">
                         The Performance Assessment is the module that provides controls to create annual quarterly assessment for all employees.
-                        The HR admin will be able to view all of the previous quarterly assessment as well as see the graphical representation of the assesment of the employee.
-                        This module provides a comprehensive questionaire to assess the performance of the employee in four different categories which are the Attendance, Performance, Cooperation, and Character.
+                        The HR admin will be able to view all of the previous quarterly assessment as well as see the graphical representation of the Assessment of the employee.
+                        This module provides a comprehensive questionnaire to assess the performance of the employee in four different categories which are the Attendance, Performance, Cooperation, and Character.
                         <br>
-                        <img src="/manual/admin/performance assessment/performance assesment home page.jpg" class="w-100">
+                        <img src="/manual/admin/performance assessment/performance Assessment home page.jpg" class="w-100">
                         <h6 class="text-center w-100 p-3">4.1 Performance Assessment Landing Page</h6>
                     </p>
 
                     <h6 class="text-primary">Functions</h6>
-                    <p class="w-75" >The functions of the Performance Assessmen page are listed below:</p>
+                    <p class="w-75" >The functions of the Performance Assessmentpage are listed below:</p>
                     <ul class="ms-5">
-                        <li><a class="ps-3 m-3" href="#assessment/function1">Managing Performance Assesment</a></li>
+                        <li><a class="ps-3 m-3" href="#assessment/function1">Managing Performance Assessment</a></li>
                         <li><a class="ps-3 m-3" href="#assessment/function2">Viewing of Assessments</a></li>
                     </ul>
 
                     <div id="assessment/function1">
                         <div class="row my-5">
-                            <h4 class="text-primary">Managing Performance Assesment</h4>
+                            <h4 class="text-primary">Managing Performance Assessment</h4>
                             In this feature of the module, the HR admin will be able to create quarterly assessment. Controls in deleting quarterly assessment is also provided in this part of the feature.
 
                             <div class="p-3"></div>
-                            <h5 class="text-primary">A. Creating Perfomance Assessments</h5>
+                            <h5 class="text-primary">A. Creating Performance Assessments</h5>
 
                             <p>Creating a quarterly performance assessment involves three steps:</p>
                             <div class="p-2"></div>
@@ -488,7 +488,7 @@
                             <div class="row">
                                 <div class="col">
                                     In order to select an employee that will be assessed, the HR admin will have to use the employees table. Using the search bar, the HR admin will be able to search details of an employee. By clicking the Column names, the records will be ordered alphabetically.
-                                    The progress of the employee anual assessment is shown in the "Assessment Progress" column .
+                                    The progress of the employee annual  assessment is shown in the "Assessment Progress" column .
                                     If the HR admin have decided on who will be assessed, they will have to click the "Create Assessment" button.
                                 </div>
                                 <div class="col">
@@ -512,25 +512,25 @@
                                 </div>
                             </div>
 
-                            <h6>3. Answering the Questionaire</h6>
+                            <h6>3. Answering the questionnaire</h6>
                             <p class="w-75">
-                                After selecting the Quarter that will be assessed, the HR admin will have to answer all of the questions in the questionaire as well as provide feedback on each of the category.
+                                After selecting the Quarter that will be assessed, the HR admin will have to answer all of the questions in the questionnaire as well as provide feedback on each of the category.
                                 <br><br>
                                 To answer the other categories, the HR admin will have to click the tabs.
                                 <img src="/manual/admin/performance assessment/tabs.jpg" class="w-100">
-                                <h6 class="text-center w-100 p-3">4.1.3 Tabs for navigating through the questionaire</h6>
+                                <h6 class="text-center w-100 p-3">4.1.3 Tabs for navigating through the questionnaire</h6>
                             </p>
 
                             <div class="p-3"></div>
-                            <h6 class="text-success">Here are some sample of the questions in the questionaire.</h6>
+                            <h6 class="text-success">Here are some sample of the questions in the questionnaire.</h6>
                             <div class="row">
                                 <div class="col">
                                     <img src="/manual/admin/performance assessment/survey1.jpg" class="w-100">
-                                    <h6 class="text-center w-100 p-3">4.1.4 Sample Questions on Attendance part of the questionaire</h6>
+                                    <h6 class="text-center w-100 p-3">4.1.4 Sample Questions on Attendance part of the questionnaire</h6>
                                 </div>
                                 <div class="col">
                                     <img src="/manual/admin/performance assessment/survey2.jpg" class="w-100">
-                                    <h6 class="text-center w-100 p-3">4.1.5 Sample Questions on Cooperation part of the questionaire</h6>
+                                    <h6 class="text-center w-100 p-3">4.1.5 Sample Questions on Cooperation part of the questionnaire</h6>
                                 </div>
                             </div>
 
@@ -577,7 +577,7 @@
 
                             <div class="row py-3">
                                 <div class="col">
-                                    After clicking the "View Assessmen History" button, the user will be redirected to the Assessment history page.
+                                    After clicking the "View AssessmentHistory" button, the user will be redirected to the Assessment history page.
                                     In here, the HR admin will be able to see all of the assessment of the employee.
 
                                     <div class="p-2"></div>
@@ -587,7 +587,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/admin/performance assessment/assessment history platform.jpg" class="w-100 m-auto">
-                                    <h6 class="text-center w-100 p-3">4.2.2 View Assessmen History button</h6>
+                                    <h6 class="text-center w-100 p-3">4.2.2 View AssessmentHistory button</h6>
                                 </div>
                             </div>
 
@@ -596,8 +596,8 @@
                                     below the assessments will be the graphical representation of the employee assessments.
                                 </div>
                                 <div class="col">
-                                    <img src="/manual/admin/performance assessment/asssesment history graphs.jpg" class="w-100 m-auto">
-                                    <h6 class="text-center w-100 p-3">4.2.3 Asssesment History Graphs</h6>
+                                    <img src="/manual/admin/performance assessment/Assessment history graphs.jpg" class="w-100 m-auto">
+                                    <h6 class="text-center w-100 p-3">4.2.3 Assessment History Graphs</h6>
                                 </div>
                             </div>
                         </div>
@@ -630,10 +630,10 @@
                     <div id="learning/function1">
                         <div class="row my-5">
                             <h4 class="text-primary">Module Management</h4>
-                            <p class="w-75">In this part of the learing modules, the HR admin will be able to view all of the lesson of the learning module, reorganize the order of the lesson, edit lesson, as well as remove lessons.</p>
+                            <p class="w-75">In this part of the learning modules, the HR admin will be able to view all of the lesson of the learning module, reorganize the order of the lesson, edit lesson, as well as remove lessons.</p>
                             <div class="row my-3">
                                 <div class="col-3">
-                                    This is where the HR admin will be able to to view all of the lessons and see all of the controls to manage the lessons.
+                                    This is where the HR admin will be able to view all of the lessons and see all of the controls to manage the lessons.
                                 </div>
                                 <div class="col">
                                     <img src="/manual/admin/orientation module/video uploaded successfuly.jpg" class="w-100">
@@ -755,7 +755,7 @@
 
                             <div class="row my-3">
                                 <div class="col-3">
-                                    When the employee have reached the 100% progress in the module, the HR admin will be able to "mark as complete". Once it is marked as completed, it will be in the completed table and the employee will be removed from the enrolled employee on the learing module.
+                                    When the employee have reached the 100% progress in the module, the HR admin will be able to "mark as complete". Once it is marked as completed, it will be in the completed table and the employee will be removed from the enrolled employee on the learning module.
                                 </div>
                                 <div class="col">
                                     <img src="/manual/admin/orientation module/orientation module employee complete.jpg" class="w-100">
@@ -769,7 +769,7 @@
                                 </div>
                                 <div class="col">
                                     <img src="/manual/admin/orientation module/orientation module employee completed list.jpg" class="w-100">
-                                    <h6 class="text-center w-100 p-3">5.2.3 View of all Finshed and Completed</h6>
+                                    <h6 class="text-center w-100 p-3">5.2.3 View of all Finished and Completed</h6>
                                 </div>
                             </div>
                         </div>
@@ -840,8 +840,8 @@
                     <h6 class="text-primary">Description</h6>
                     <p class="w-75">
                         In the Audit Logs Module is where all of the HR admin actions are listed. The HR admin can search through the records using the search bar as well as change the number of records using the entries filter.
-                        The table displays all necessary informations such as the HR admin name, a brief description of the activity, affected employee name, and activity details.
-                        The displayed records can also be generetad into a PDF report. All report is stored in the system a can be viewed in this module.
+                        The table displays all necessary informationsuch as the HR admin name, a brief description of the activity, affected employee name, and activity details.
+                        The displayed records can also be generated into a PDF report. All report is stored in the system a can be viewed in this module.
                     </p>
                     <br>
                     <img src="/manual/admin/audit/audit trail homepage for admin.jpg" class="w-100">
@@ -1001,7 +1001,7 @@
                             </div>
                             <div class="col">
                                 <h5 class="text-primary">Accomplished SSS Forms</h5>
-                                <p>In the Accomplished SSS Forms, the HR admin will able able to view and upload all of the accomplished SSS forms </p>
+                                <p>In the Accomplished SSS Forms, the HR admin will able to view and upload all of the accomplished SSS forms </p>
                                 <img src="/manual/admin/legal forms/uploaded accomplished sss forms.jpg" class="w-100">
                                 <h6 class="text-center w-100 p-3">8.1.3 Accomplished SSS Forms</h6>
                             </div>
@@ -1026,7 +1026,7 @@
                             </div>
                             <div class="col">
                                 <h5 class="text-primary">Accomplished Pagibig Forms</h5>
-                                <p>In the Accomplished Pagibig Forms, the HR admin will able able to view and upload all of the accomplished Pagibig forms </p>
+                                <p>In the Accomplished Pagibig Forms, the HR admin will able to view and upload all of the accomplished Pagibig forms </p>
                                 <img src="/manual/admin/legal forms/philhealth acconplished forms complete.jpg" class="w-100">
                                 <h6 class="text-center w-100 p-3">8.2.3 Accomplished Pagibig Forms</h6>
                             </div>
@@ -1051,7 +1051,7 @@
                             </div>
                             <div class="col">
                                 <h5 class="text-primary">Accomplished Philhealth Forms</h5>
-                                <p>In the Accomplished Philhealth Forms, the HR admin will able able to view and upload all of the accomplished Philhealth forms </p>
+                                <p>In the Accomplished Philhealth Forms, the HR admin will able to view and upload all of the accomplished Philhealth forms </p>
                                 <img src="/manual/admin/legal forms/accomplished philhealth forms.jpg" class="w-100">
                                 <h6 class="text-center w-100 p-3">8.3.3 Accomplished Philhealth Forms</h6>
                             </div>
@@ -1076,7 +1076,7 @@
                             </div>
                             <div class="col">
                                 <h5 class="text-primary">Accomplished BIR Forms</h5>
-                                <p>In the Accomplished BIR Forms, the HR admin will able able to view and upload all of the accomplished BIR forms </p>
+                                <p>In the Accomplished BIR Forms, the HR admin will able to view and upload all of the accomplished BIR forms </p>
                                 <img src="/manual/admin/legal forms/BIR forms accomplished.jpg" class="w-100">
                                 <h6 class="text-center w-100 p-3">8.4.3 Accomplished BIR Forms</h6>
                             </div>

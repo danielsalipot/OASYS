@@ -28,7 +28,7 @@
             <h4 class="text-primary">Sending Private Messages</h4>
             <div class="row">
                 <div class="col">
-                    To send a messsage to other user, first the sender will have to select a recipient on the users table by clicking it.
+                    To send a message to other user, first the sender will have to select a recipient on the users table by clicking it.
                 </div>
                 <div class="col">
                     <img src="/manual/common/message/3.jpg" class="w-50">

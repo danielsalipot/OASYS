@@ -245,7 +245,7 @@
                 <h3 class="alert-light p-4">Payroll Dashboard / Home</h3>
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
-                    <p class="w-75">The Payroll dashboard is the first page that welcomes the Payroll Manager user. The information that are displayed in this page are the complete Payroll details for the selected cut off date.</p>
+                    <p class="w-75">The Payroll dashboard is the first page that welcomes the Payroll Manager user. The information that are displayed in this page are the complete Payroll details for the selected cut-off date.</p>
 
                     <br>
                     <h6 class="text-primary">Functions</h6>
@@ -253,7 +253,7 @@
                     <ul class="ms-5">
                         <li><a class="ps-3 m-3" href="#home/function1">Displaying of Payroll Details</a></li>
                         <li><a class="ps-3 m-3" href="#home/function2">Payroll Summary Creation</a></li>
-                        <li><a class="ps-3 m-3" href="#home/function3">Filering of Payroll Details using date filter</a></li>
+                        <li><a class="ps-3 m-3" href="#home/function3">Filtering of Payroll Details using date filter</a></li>
                     </ul>
 
                     <br><br>
@@ -266,7 +266,7 @@
                                 Just below the page, you will locate the Payroll details Table. The table willthe details of the employee as well as the automatically computed Payroll Details.
                                 <br>
                                 <br>
-                                The payroll details will include Total hours, Rate/hr, Bonus, Gross Pay, SSS, Pag-ibg, Philhealth, Deductions, Cash Advances, Taxable Net, Witholding Tax, and Total Salary.
+                                The payroll details will include Total hours, Rate/hr, Bonus, Gross Pay, SSS, Pag-ibig, Philhealth, Deductions, Cash Advances, Taxable Net, Withholding Tax, and Total Salary.
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/dashboard/function1.jpg" class="w-100">
@@ -280,7 +280,7 @@
                             </div>
                             <div class="col p-3">
                                 <h4 class="text-primary">2. Search Bar</h4>
-                                Select the Search bar located on the top right of the table and type your inteded information to be searched. The table will automaticallyall rows with that information
+                                Select the Search bar located on the top right of the table and type your intended information to be searched. The table will automatically show all rows with that information
                             </div>
                         </div>
                     </div>
@@ -292,13 +292,13 @@
                             <h4 class="text-primary">Payroll Summary Creation</h4>
                             <div class="col-3">
                                 <br>
-                                    The "Payroll Report Generation Buttons" container contains the <b>"current cut off duration"</b>whichthe currently selected cutoff dates.
+                                    The "Payroll Report Generation Buttons" container contains the <b>"current cut-off duration" </b>which the currently selected cutoff dates.
                                 <br>
                                 <br>
-                                    Below the "current cut off duration" is the <b>"Create Payroll" button</b> which is used to create the Payroll Summary PDF
+                                    Below the "current cut-off duration"  is the <b>"Create Payroll" button</b> which is used to create the Payroll Summary PDF
                                 <br>
                                 <br>
-                                    Below the "Create Payroll" button is the <b>"View Payroll History" button</b> which will redirect the user the the Payroll history</b>
+                                    Below the "Create Payroll" button is the <b>"View Payroll History" button</b> which will redirect the user the Payroll history</b>
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/dashboard/function2.jpg" class="w-100">
@@ -310,7 +310,7 @@
                                 <h4 class="text-primary">Create Payroll Button</h4>
                                 <div class="row">
                                     <div class="col">
-                                        When the Create Payroll button is click, the payroll manager will have to upload there e-signature that is in png format.
+                                        When the Create Payroll button is click, the payroll manager will have to upload their e-signature that is in png format.
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/dashboard/function2-2.jpg" class="w-100">
@@ -331,10 +331,10 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <h4 class="text-success">View Payroll History button</h4>
-                                By Clicking the View Payroll History button, it will redirect you the the Payroll/Payslip History Page where in you can view generated payrolls and payslips
+                                <h4 class="text-success">Payroll History Page</h4>
+                                By Clicking the Payroll History Page, it will redirect you the Payroll/Payslip History Page where in you can view generated payrolls and payslips
                                 <img src="/manual/payroll/dashboard/function2-3.jpg" class="w-100">
-                                <h6 class="text-center w-100 p-3">1.2.3 View Payroll History button</h6>
+                                <h6 class="text-center w-100 p-3">1.2.3 Payroll History Page</h6>
                             </div>
                         </div>
                     </div>
@@ -342,15 +342,15 @@
                     <br><br>
 
                     <div id="home/function3">
-                        <h4 class="text-primary">Filering of Payroll Details using date filter</h4>
+                        <h4 class="text-primary">Filtering of Payroll Details using date filter</h4>
                         <div class="row">
                             <div class="col">
-                                To filter the current cut off duration, you can you the "from date date picker" and the "to date date picker". Click a date picker then a calendar willwhich you can use to select a date. Both date picker should have a date value. After selecting you can click the "filter" button to change the current cut off duration and the payroll details.
+                                To filter the current cut-off duration, you can you the "from date picker" and the "to date picker". Click a date picker then a calendar will which you can use to select a date. Both date picker should have a date value. After selecting you can click the "filter" button to change the current cut-off duration and the payroll details.
 
                                 <br>
                                 <br>
 
-                                If you click the "refresh" button it will bring you back to the current cut off date, which is based on the current date and selects the appropriate 15 day duration
+                                If you click the "refresh" button it will bring you back to the current cut-off date, which is based on the current date and selects the appropriate 15-day duration
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/dashboard/function3.jpg" class="w-100">
@@ -387,7 +387,7 @@
                             <h4 class="text-primary">Average Salary of Positions</h4>
                             <img src="/manual/payroll/salary/function1.jpg" class="w-100">
                             <h6 class="text-center w-100 p-3">2.1.1 Salary Averages</h6>
-                            Located at the top of the Salary Management Page is the summary of all the salary of each positions. In thi section, the payroll manager will be able to see the avarage salary of each position as well as the top earners of each position.
+                            Located at the top of the Salary Management Page is the summary of all the salary of each positions. In thesection, the payroll manager will be able to see the avarage salary of each position as well as the top earners of each position.
                         </div>
                     </div>
 
@@ -398,7 +398,7 @@
                             <h4 class="text-primary">View employees salary</h4>
                             <img src="/manual/payroll/salary/function2.jpg" class="w-100">
                             <h6 class="text-center w-100 p-3">2.2.1 Employees Salary View</h6>
-                            Located just below the "Average Salary of Positions" section, will be the Employee Salary table. This table willsome basic information of employees as well as there Rate/hr. The payroll manager can use the search bar and entries filter to change the view of the table.
+                            Located just below the "Average Salary of Positions" section, will be the Employee Salary table. This table will show some basic information of employees as well as there Rate/hr. The payroll manager can use the search bar and entries filter to change the view of the table.
                         </div>
                     </div>
 
@@ -468,7 +468,7 @@
                             <div class="col">
                                 <ul>
                                     <li class="p-5">Located in the Delete Column of the Deductions Table you will find the "Remove" buttons of each deduction.</li>
-                                    <li class="p-5">By clicking the Remove button, you will be promted with a dialog box which confirms your deletion of that dedution.</li>
+                                    <li class="p-5">By clicking the Remove button, you will be prompted with a dialog box which confirms your deletion of that deduction.</li>
                                     <li class="p-5">If the "OK" button was clicked, the deduction will be remove on that payroll.</li>
                                 </ul>
 
@@ -510,7 +510,7 @@
                             <li><b>Adding Deduction Details</b></li>
                             <div class="row">
                                 <div class="col">
-                                    After Selecting employees for the deduction, the payroll manager will need to add the deduction period, deduction name, and the deduction amoumt. After adding the deduction details, the payroll manager will click the "Add deduction" button.
+                                    After Selecting employees for the deduction, the payroll manager will need to add the deduction period, deduction name, and the deduction amount. After adding the deduction details, the payroll manager will click the "Add deduction" button.
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/deductions/5.jpg" class="w-100">
@@ -662,7 +662,7 @@
                             <div class="col-4">
                                 The Cash Advance Table displays all the Cash Advance Record with the employee details and the cash advance details.
                                 Using the date filter above the payroll manager will be able to view records on the selected period of date.
-                                The manager can use the search bar and the entries filter to change the view of the table and search tbro<br>ugh the records.
+                                The manager can use the search bar and the entries filter to change the view of the table and search through the records.
                             </div>
                             <div class="col">
                                 <img src="/manual/payroll/cashAdvance/1.jpg" class="w-100">
@@ -719,7 +719,7 @@
                             <li><b>Adding Cash Advance Details</b></li>
                             <div class="row">
                                 <div class="col">
-                                    After Selecting employees for the Cash Advance, the payroll manager will need to add the Cash Advance date and the Cash Advance amoumt. After adding the Cash Advance details, the payroll manager will click the "Add Cash Advance" button.
+                                    After Selecting employees for the Cash Advance, the payroll manager will need to add the Cash Advance date and the Cash Advance amount. After adding the Cash Advance details, the payroll manager will click the "Add Cash Advance" button.
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/cashAdvance/7.jpg" class="w-100">
@@ -989,7 +989,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <br><br><br><br>
-                                        The payroll manager will be able to delete bonus record in hte Employee Bonus History table using the "Remove" button in the delete column of each record.
+                                        The payroll manager will be able to delete bonus record in theEmployee Bonus History table using the "Remove" button in the delete column of each record.
                                         <br><br><br>
                                         <br><br><br>
                                         <br>
@@ -1035,7 +1035,7 @@
                                 <li><b>Adding Bonus Details</b></li>
                                 <div class="row">
                                     <div class="col">
-                                        After Selecting employees for the Bonus, the payroll manager will need to add the Bonus period, Bonus name, and the Bonus amoumt. After adding the Bonus details, the payroll manager will click the "Add Bonus" button.
+                                        After Selecting employees for the Bonus, the payroll manager will need to add the Bonus period, Bonus name, and the Bonus amount. After adding the Bonus details, the payroll manager will click the "Add Bonus" button.
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/bonus/7.jpg" class="w-100">
@@ -1100,7 +1100,7 @@
                 <div class="px-4 mx-5">
                     <h6 class="text-primary">Description</h6>
                     <p class="w-75">
-                        The Multi Pay Management is the module where the Double/Triple pay records and where the payroll manager will be able to record these additional payments in the attedances of employees.</p>
+                        The Multi Pay Management is the module where the Double/Triple pay records and where the payroll manager will be able to record these additional payments in the attendances of employees.</p>
                         <br>
                     <h6 class="text-primary">Functions</h6>
                     <p class="w-75" >The functions of the Multi Pay Management page are listed below:</p>
@@ -1115,8 +1115,8 @@
                         <div class="row my-5">
                             <h4 class="text-primary">Multi Pay Management</h4>
                             In the "Multi Pay Management" table are all the attendance records that are in the date period filter. The payroll manager can use the date filter at the top of the table to filter the attendances.
-                            The payroll manager can also use the "Entries" Filter below the date filter to change the nubmer of records that are displayed.
-                            A search bar on the upper right of the table is also provided for the payroll manager to search through therecords.
+                            The payroll manager can also use the "Entries" Filter below the date filter to change the number of records that are displayed.
+                            A search bar on the upper right of the table is also provided for the payroll manager to search through the records.
                             <br>
 
                             <img src="/manual/payroll/multipay/1.jpg" class="w-100">
@@ -1161,7 +1161,7 @@
                             <h4 class="text-primary">Multi Pay History</h4>
 
                             In the "Multi Pay History" table is where the payroll manager can view all of the recorded multi pay within the selected date period.
-                            The payroll managaer can change the date period, using the date filter at the top left of the table. The payroll manager can chage the number of records in the table using the "Entries" filter and search through the table using the search bar.
+                            The payroll manager can change the date period, using the date filter at the top left of the table. The payroll manager canchange the number of records in the table using the "Entries" filter and search through the table using the search bar.
                             <br>
 
                             <img src="/manual/payroll/multipay/3.jpg" class="w-100">
@@ -1219,7 +1219,7 @@
                             <h4 class="text-primary">Listed Holidays</h4>
                             <div class="col-4">
                                 In this part of the module, the payroll manager will be able to view all of the recorded holidays using the calendar view that is provided.
-                                The Calendar view have different function such as searching throught different date period, monthly view, weekly view, and day view.
+                                The Calendar view have different function such as searching through different date period, monthly view, weekly view, and day view.
                                 The holiday will be displayed on the dates that it covers and it will be highlighted with blue color.
                             </div>
                             <div class="col">
@@ -1299,7 +1299,7 @@
                                 <li><b>Clicking "Submit" button</b></li>
                                 <div class="row">
                                     <div class="col">
-                                        After clicking the "Submit" button, a prompt will appear which confirms the selected employees and the seleted Holiday. By clicking the "Submit" button, the holiday pay will be added.
+                                        After clicking the "Submit" button, a prompt will appear which confirms the selected employees and the selected Holiday. By clicking the "Submit" button, the holiday pay will be added.
                                     </div>
                                     <div class="col">
                                         <img src="/manual/payroll/cashAdvance/8.jpg" class="w-100">
@@ -1442,7 +1442,7 @@
                     <div id="leave/function4">
                         <div class="row my-5">
                             <h4 class="text-primary">Paid Leave History</h4>
-                            In the Paid Leave Histoy part of the leave management module is where all of the Paid Leave records will be found. The payroll manager will be able to delete Paid Leave records in this section as well.
+                            In the Paid Leave History part of the leave management module is where all of the Paid Leave records will be found. The payroll manager will be able to delete Paid Leave records in this section as well.
                             <div class="row">
                                 <div class="col">
                                     This is the "Paid Leave History" table. This is where all of the Paid Leave record is located.
@@ -1476,8 +1476,8 @@
                     <h6 class="text-primary">Description</h6>
                     <p class="w-75">
                         In the Audit Logs Module is where all of the payroll managers actions are listed. The payroll manager can search through the records using the search bar as well as change the number of records using the entries filter.
-                        The table displays all necessary informations such as the payroll manager name, a brief description of the activity, affected employee name, and activity details.
-                        The displayed records can also be generetad into a PDF report. All report is stored in the system a can be viewed in this module.
+                        The table displays all necessary informationsuch as the payroll manager name, a brief description of the activity, affected employee name, and activity details.
+                        The displayed records can also be generated into a PDF report. All report is stored in the system a can be viewed in this module.
                     </p>
                     <br>
                     <img src="/manual/payroll/audit/1.jpg" class="w-100">
@@ -1615,7 +1615,7 @@
                             <div class="row">
                                 <div class="col">
                                     In the Payroll update controls is where the "Generate Payslip" is located. Once the progress of a payroll has reached 100%, the "Generate Payslip" button will become available to click.
-                                    Once clicked a new tab will show which will generate the individual payslip for employees along with the signitures of the payroll managers.
+                                    Once clicked a new tab will show which will generate the individual payslip for employees along with the signature of the payroll managers.
                                 </div>
                                 <div class="col">
                                     <img src="/manual/payroll/approvals/forPayslip.jpg" class="w-100">

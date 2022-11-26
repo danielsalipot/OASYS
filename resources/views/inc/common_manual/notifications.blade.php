@@ -21,11 +21,11 @@
             Sending custom notifications to employees and applicants involves three steps:
 
             <ol>
-                <li><b>Selecting Recepients</b></li>
+                <li><b>Selecting Recipients</b></li>
                 <div class="p-3"></div>
                 <div class="row">
                     <div class="col">
-                        In the Recepient table, you will be able to search, filter employees and applicants, and select employees and applicants by clicking the "select" button beside the user details.
+                        In the recipient table, you will be able to search, filter employees and applicants, and select employees and applicants by clicking the "select" button beside the user details.
                         The button will show green if the employee is selected.
                         <img src="/manual/common/notification/2.jpg" class="w-100">
                         <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.1.1 User Selection Table</h6>
@@ -51,7 +51,7 @@
                 <li><b>Clicking "Send Notification" button</b></li>
                 <div class="row">
                     <div class="col">
-                        After clicking the "Send Notification" button, the notification will be sent to the selected recepients.
+                        After clicking the "Send Notification" button, the notification will be sent to the selected recipients.
                     </div>
                     <div class="col">
                         <img src="/manual/common/notification/6.jpg" class="w-100">
@@ -67,12 +67,12 @@
             <h4 class="text-primary">View Sent Notifications</h4>
             <div class="row">
                 <div class="col">
-                    To view all of the sent notifications, the HR user will have to click the "View Sent Notificaions" button above the recipient table.
-                    After clickin the user will be redirected to the notification history page.
+                    To view all of the sent notifications, the HR user will have to click the "View Sent Notifications" button above the recipient table.
+                    After clicking the user will be redirected to the notification history page.
                 </div>
                 <div class="col">
                     <img src="/manual/common/notification/7.jpg" class="w-100">\
-                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.1 View Sent Notificaions Button</h6>
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.1 View Sent Notifications Button</h6>
                 </div>
             </div>
             <div class="row">
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col">
                     <img src="/manual/common/notification/4.jpg" class="w-100">
-                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.2 Sent Notificaions Record</h6>
+                    <h6 class="text-center w-100 p-3">{{ $manual_variable_number }}.2.2 Sent Notifications Record</h6>
                 </div>
             </div>
         </div>

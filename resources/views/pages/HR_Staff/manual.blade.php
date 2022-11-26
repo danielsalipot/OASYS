@@ -343,7 +343,7 @@
                                 <h6>Time in and Time out</h6>
                                 To set the time in and time out of the applicant, the HR staff will have to use the time picker that is provided.
                                 They will have to click the control and select the time that is available.
-
+                                <div class="p-2"></div>
                                 <br><br>
                                 Once the HR staff have set all of the onboarding details, they will have to click the "Onboard" button to onboard the applicant to the company.
                             </div>
@@ -426,7 +426,7 @@
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/offboarding/4.jpg" class="w-100">
-                                <h6 class="text-center w-100 p-3">3.2.1 Resination Management Controls</h6>
+                                <h6 class="text-center w-100 p-3">3.2.1 Resignation Management Controls</h6>
                             </div>
                         </div>
                         <div class="row">
@@ -501,7 +501,7 @@
                                 Once the offboardee is down with the clearance, the HR staff will be able to delete their records and account.
                                 The HR staff will have to click the "Delete" button which will delete the account of the offboardee.
                                 An email will be sent to the deleted employee which will contain their Certificate of Employment.
-                                The employee can also request the Certificate of Employmeny after deletion.
+                                The employee can also request the Certificate of Employmentafter deletion.
                             </div>
                             <div class="col">
                                 <img src="/manual/staff/offboardee/3.jpg" class="w-100">
@@ -870,8 +870,8 @@
                     <h6 class="text-primary">Description</h6>
                     <p class="w-75">
                         In the Audit Logs Module is where all of the HR staffs actions are listed. The HR staff can search through the records using the search bar as well as change the number of records using the entries filter.
-                        The table displays all necessary informations such as the HR staff name, a brief description of the activity, affected employee name, and activity details.
-                        The displayed records can also be generetad into a PDF report. All report is stored in the system a can be viewed in this module.
+                        The table displays all necessary informationsuch as the HR staff name, a brief description of the activity, affected employee name, and activity details.
+                        The displayed records can also be generated into a PDF report. All report is stored in the system a can be viewed in this module.
                     </p>
                     <br>
                     <img src="/manual/staff/audit/1.jpg" class="w-100">

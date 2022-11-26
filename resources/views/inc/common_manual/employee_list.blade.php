@@ -36,7 +36,7 @@
             <h4 class="text-primary">Message</h4>
             <div class="row">
                 <div class="col">
-                    Beside the "View Profile" button is the "Message" button, upon clicking the user will be redirected to the messeging module where in the employee name is flitered and ready to be chatted.
+                    Beside the "View Profile" button is the "Message" button, upon clicking the user will be redirected to the messaging module where in the employee name is filtered and ready to be chatted.
                 </div>
                 <div class="col">
                     <img src="/manual/common/employeeList/3.jpg" class="w-100">
