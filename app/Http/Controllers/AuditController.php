@@ -10,9 +10,10 @@ use App\Http\Controllers\Controller;
 class AuditController extends Controller
 {
     function audit(Request $request){
+
         $audit = Audit::with('payroll_manager')
-            ->whereBetween('created_at',[$request->from,$request->to])
-            ->where('activity_type',$request->type)
+            ->whereBetween('created_at',[$request->from . " 00:00:00",$request->to . " 23:59:59"])
+            ->where('activity_type','admin')
             ->get();
 
         $pdf=new mc_table();

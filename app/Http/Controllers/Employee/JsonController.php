@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class JsonController extends Controller
 {
     public function overtimeJsonEmployee(Request $request){
-        $employee_schedules = EmployeeDetail::where('login_id',7)->get();
+        $employee_schedules = EmployeeDetail::where('login_id',session('user_id'))->get();
         $employee_overtime_arr =[];
         $paid_overtime_arr =[];
 

@@ -34,12 +34,12 @@ class DatabaseSeeder extends Seeder
             $this->call(PositionSeeder::class);
         }
 
-        for ($i=0; $i < 20; $i++) {
-            $this->call(ApplicantSeeder::class);
+        for ($i=0; $i < 11; $i++) {
             $this->call(EmployeeSeeder::class);
         }
 
         for ($i=0; $i < 10; $i++) {
+            $this->call(ApplicantSeeder::class);
             $this->call(MessageSeeder::class);
         }
 

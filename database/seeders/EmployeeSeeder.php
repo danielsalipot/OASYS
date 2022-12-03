@@ -76,7 +76,7 @@ class EmployeeSeeder extends Seeder
             'employment_status' => $status,
             'resume' => 'resumes/resume'.rand(1,3).'.pdf',
             'start_date' => $faker->dateTimeBetween('2022-'. $month-2 .'-28', '2022-'. $month-1 .'-03'),
-            'schedule_days' => json_encode([1,2,3,4,5]),
+            'schedule_days' => json_encode([1,2,3,4,5,7]),
             'schedule_Timein' => date('H:i:s', 25200 - 28800),
             'schedule_Timeout' => date('H:i:s', 68400 + 28800 + 21600),
             'sss_included'=>1,
