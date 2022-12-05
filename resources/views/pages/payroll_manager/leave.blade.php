@@ -9,6 +9,7 @@
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Add Paid Leave</a></li>
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu2">Paid Application History</a></li>
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu3">Paid Leave History</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu4">Employee Leave Management</a></li>
 @endsection
 
 @section('first')
@@ -90,6 +91,7 @@
                             <th class="col" data-priority="1">Employee Name</th>
                             <th class="col">Department</th>
                             <th class="col">Position</th>
+                            <th class="col">Leaves</th>
                             <th class="col" data-priority="1">Select</th>
                         </tr>
                     </thead>
@@ -236,6 +238,27 @@
 </div>
 @endsection
 
+@section('fifth')
+<div id="menu4" class="tab-pane">
+    <div class="container p-5 border shadow-lg">
+        <h1 class="display-4 pb-5 mt-5 text-center w-100">Employee Leave Management</h1>
+        <table class="table table-striped  text-center responsive w-100" id="employee_table_leave_edit">
+            <thead>
+                <tr class="text-center">
+                    <th class="col">Employee ID</th>
+                    <th class="col">Picture</th>
+                    <th class="col" data-priority="1">Employee Details</th>
+                    <th class="col">Department</th>
+                    <th class="col">Position</th>
+                    <th class="col" data-priority="1">Leave</th>
+                    <th class="col-2" data-priority="2">Edit</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@endsection
+
 @section('modal')
     <!-- The Modal -->
     <div class="modal" id="edit_modal">
@@ -255,14 +278,14 @@
                             <hr>
                             <table class="w-100 m-auto text-center">
                                 <thead>
-                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Rate</th>
+                                    <th>Leaves</th>
                                 </thead>
                                 <tbody>
-                                    <td><h6 id='modal_emp_id'></h6></td>
                                     <td><h6 id='modal_emp_names'></h6></td>
                                     <td><h6 id='modal_rate'></h6></td>
+                                    <td><h6 id='modal_leaves'></h6></td>
                                 </tbody>
                             </table>
                         </div>
@@ -306,10 +329,144 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal" id="leave_modal_edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title w-100">Edit Employee Rate</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body row">
+                    <div id="edit_pic" class="col-3"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <p id='id_txt'></p>
+                                <p id='name_txt'></p>
+                                <p id='department_txt'></p>
+                            </div>
+                            <div class="col">
+                                <p id='position_txt'></p>
+                                <p id='start_date_txt'></p>
+                                <p id='status_txt'></p>
+                            </div>
+                        </div>
+
+                        {!! Form::open(['action'=>'App\Http\Controllers\Payroll\PayrollUpdateController@editleave','class'=>['text-center']]) !!}
+                            {{ Form::hidden('emp_id', '',['id' => 'emp_id']) }}
+                            {{Form::label('', 'Annual Leave Count', 'rate')}}
+                        {!! Form::text('leave','', ['id'=>'rate_txt','class'=>'form-control w-50 m-auto']) !!}
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+
+                    <div class="row w-100">
+                        <div class="col-3 border border-secondary rounded text-center pt-2">
+                            {{ Form::label('chk', 'Notifications', ['class' => 'control-label']) }}
+                            {!! Form::checkbox('chk', 'value', true,['class'=>'form-check-input']) !!}
+                        </div>
+                        <div class="col">
+                            {!! Form::submit('Save', ['class'=>'btn btn-success m-auto h-100 w-75']) !!}
+                            {!! Form::close() !!}
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger m-auto h-100 w-75 " data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
 <script>
+
+$(document).ready(function(){
+        $('#employee_table_leave_edit').DataTable({
+            ajax: {
+                    url: '/employeelistjson',
+                },
+            columns: [
+                { data: 'employee_id',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'user_detail.picture',
+                    render : (data,type,row)=>{
+                        return `<img src="{{ URL::asset('${data}') }}" class="rounded" width="50" height="50">`
+                    }
+                },
+                { data: 'user_detail.fname',
+                    render : (data,type,row)=>{
+                        return  `
+                                    <b>${row.user_detail.fname} ${row.user_detail.mname} ${row.user_detail.lname}</b><br>
+                                        Sex: ${row.user_detail.sex}<br>
+                                        age: ${row.user_detail.age}
+                                `
+                    }
+                },
+                { data: 'department',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'position',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
+                { data: 'leave_days',
+                    render : (data,type,row)=>{
+                        return `<h3 class="text-primary">${data}</h3>`
+                    }
+                },
+                { data: 'employee_id',
+                    render : (data,type,row)=>{
+                        return `
+                        <div class="row p-0 w-100 mx-auto">
+                            <div class="col p-0">
+                                <button type="button" id="${data}" onclick="editLeave(${data})" class="btn btn-outline-dark w-100 h-100" data-toggle="modal" data-target="#leave_modal_edit"><i class="bi bi-briefcase"></i><br>Edit Leave</button>
+                            </div>
+                            <div class="col-4 p-0">
+                                <a href="/payroll/employee/profile/${row.login_id}" class="btn btn-outline-primary w-100"><i class="bi bi-person-square h3 p-2"></i><br>Profile</a>
+                            </div>
+                        </div>`
+                    }
+                },
+            ]
+        })
+    })
+
+    function editLeave(id){
+            $.ajax({
+                url: '/fetchSingleEmployee',
+                type: 'get',
+                data: {employee_id: id},
+                success: function(response){
+                    $('#edit_pic').html(` <img src="{{ URL::asset('${response.user_detail.picture}')}}" class="border rounded-circle"height="100px" width="100px" >`)
+                    $('#emp_id').val(response.employee_id)
+                    $('#id_txt').html(`<b>Employee ID: </b> <br>${response.employee_id}`)
+                    $('#name_txt').html(`<b>Employee Name: </b> <br>${response.user_detail.fname} ${response.user_detail.mname} ${response.user_detail.lname}`)
+                    $('#department_txt').html(`<b>Department: </b> <br>${response.department}`)
+                    $('#position_txt').html(`<b>Position: </b> <br>${response.position}`)
+                    $('#start_date_txt').html(`<b>Start Date: </b> <br>${response.start_date}`)
+                    $('#status_txt').html(`<b>Employment Status:</b> <br>${response.employment_status}`)
+                    $('#rate_txt').val(response.leave_days)
+                }
+            });
+        }
+
     $(document).ready(function(){
 
         let { start_date, end_date } = getDateToday();
@@ -416,6 +573,11 @@
                         return `<b>${data}</b>`
                     }
                 },
+                { data: 'leave_total',
+                    render : (data,type,row)=>{
+                        return `<b>${data}</b>`
+                    }
+                },
                 { data: 'employee_id',
                     render : (data,type,row)=>{
                         return row.select
@@ -436,82 +598,93 @@
         $('#hidden_leave_to_input').val($('#leave_to_date_input').val())
 
         $('#modal_from_date').val($('#leave_from_date_input').val())
-        $('#modal_to_date').val($('#leave_from_date_input').val())
+        $('#modal_to_date').val($('#leave_to_date_input').val())
 
+
+        var from = document.getElementById('modal_from_date').value
+        var to = document.getElementById('modal_to_date').value
+        const diffTime = Math.abs(new Date(to) - new Date(from));
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        var elems = document.querySelectorAll("#modal_emp_leave_count");
+        for(var i = 0; i < elems.length; i++) {
+            elems[i].innerHTML = elems[i].innerHTML - diffDays
+        }
     }
 
     function getDateToday(){
-            var today = new Date();
-            var start_date = ''
-            var end_date = ''
+        var today = new Date();
+        var start_date = ''
+        var end_date = ''
 
-            if(today.getDate() < 16){
-                start_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1);
-                end_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15);
-            }
-            else{
-                start_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16);
-                end_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30);
-            }
-
-            return {start_date,end_date};
+        if(today.getDate() < 16){
+            start_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+1);
+            end_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+15);
+        }
+        else{
+            start_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+16);
+            end_date = formatDate(today.getFullYear()+'-'+(today.getMonth()+1)+'-'+30);
         }
 
+        return {start_date,end_date};
+    }
 
-        function formatDate(date) {
-            var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
 
-            if (month.length < 2)
-                month = '0' + month;
-            if (day.length < 2)
-                day = '0' + day;
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
-            return [year, month, day].join('-');
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+
+    function selectEmployee(btn, emp_id, emp_picture, emp_name, emp_department, emp_position, rate, leave_total = ''){
+        if(btn.innerHTML == "Select"){
+            btn.innerHTML = 'Selected'
+            btn.className = 'btn btn-success';
+
+            $('#hidden_emp_id').val(`${$('#hidden_emp_id').val()}${emp_id};`)
+
+            $('#modal_emp_names').html(`${$('#modal_emp_names').html()}${emp_name}<br>`)
+            $('#modal_rate').html(`${$('#modal_rate').html()}${rate}<br>`)
+            $('#modal_leaves').html(`${$('#modal_leaves').html()}<p class="m-0 p-0" id="modal_emp_leave_count">${leave_total}</p>`)
+
+            $('#selected_employee_table').html(
+            `${$('#selected_employee_table').html()}
+
+            <tr>
+                <td>${emp_id}</td>
+                <td><img src="{{ URL::asset('${emp_picture}')}}" class="rounded" width="50" height="50"></td>
+                <td>${emp_name}</td>
+                <td>${emp_department}</td>
+                <td>${emp_position}</td>
+            </tr>
+            `)
+        }else{
+            btn.innerHTML = 'Select'
+            btn.className = 'btn btn-outline-primary text-primary';
+
+            $('#hidden_emp_id').val($('#hidden_emp_id').val().replace(`${emp_id};`,''))
+
+            $('#modal_emp_names').html(`${$('#modal_emp_names').html().replace(`${emp_name}<br>`,'')}`)
+            $('#modal_rate').html(`${$('#modal_rate').html().replace(`${rate}<br>`,'')}`)
+            $('#modal_leaves').html(`${$('#modal_leaves').html().replace(`<p class="m-0 p-0" id="modal_emp_leave_count">${leave_total}</p>`,'')}`)
+
+            $('#selected_employee_table').html($('#selected_employee_table').html().replace(`<tr>
+                <td>${emp_id}</td>
+                <td><img src="{{ URL::asset('${emp_picture}')}}" class="rounded" width="50" height="50"></td>
+                <td>${emp_name}</td>
+                <td>${emp_department}</td>
+                <td>${emp_position}</td>
+            </tr>`,''))
         }
-
-    function selectEmployee(btn, emp_id, emp_picture, emp_name, emp_department, emp_position, rate){
-            if(btn.innerHTML == "Select"){
-                btn.innerHTML = 'Selected'
-                btn.className = 'btn btn-success';
-
-                $('#hidden_emp_id').val(`${$('#hidden_emp_id').val()}${emp_id};`)
-
-                $('#modal_emp_id').html(`${$('#modal_emp_id').html()}${emp_id}<br>`)
-                $('#modal_emp_names').html(`${$('#modal_emp_names').html()}${emp_name}<br>`)
-                $('#modal_rate').html(`${$('#modal_rate').html()}${rate}<br>`)
-
-                $('#selected_employee_table').html(
-                `${$('#selected_employee_table').html()}
-
-                <tr>
-                    <td>${emp_id}</td>
-                    <td><img src="{{ URL::asset('${emp_picture}')}}" class="rounded" width="50" height="50"></td>
-                    <td>${emp_name}</td>
-                    <td>${emp_department}</td>
-                    <td>${emp_position}</td>
-                </tr>
-                `)
-            }else{
-                btn.innerHTML = 'Select'
-                btn.className = 'btn btn-outline-primary text-primary';
-
-                $('#hidden_emp_id').val($('#hidden_emp_id').val().replace(`${emp_id};`,''))
-
-                $('#modal_emp_id').html(`${$('#modal_emp_id').html().replace(`${emp_id}<br>`,'')}`)
-                $('#modal_emp_names').html(`${$('#modal_emp_names').html().replace(`${emp_name}<br>`,'')}`)
-                $('#modal_rate').html(`${$('#modal_rate').html().replace(`${rate}<br>`,'')}`)
-
-                $('#selected_employee_table').html($('#selected_employee_table').html().replace(`<tr>
-                    <td>${emp_id}</td>
-                    <td><img src="{{ URL::asset('${emp_picture}')}}" class="rounded" width="50" height="50"></td>
-                    <td>${emp_name}</td>
-                    <td>${emp_department}</td>
-                    <td>${emp_position}</td>
-                </tr>`,''))
-            }
-        }
+    }
 </script>
 @endsection

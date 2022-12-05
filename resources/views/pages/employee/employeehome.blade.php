@@ -28,7 +28,7 @@
                     @else
                         <div class="row alert-success w-100 mx-auto" >
                     @endif
-                        @if ($health_check->score == 0)
+                        @if ($health_check->score <= 0)
                             <div class="col text-center card m-2 p-0">
                                 <h5 class="w-100 alert-primary text-center p-2 m-0 rounded-top">Score</h5>
                                 <h3 class="mt-2 display-6">Sick</h3>

@@ -14,6 +14,9 @@
         <div class="row h-100">
             <div class="col p-0 m-0 d-none d-md-block">
                 <img src="https://wallpaperaccess.com/full/155741.jpg"  class=" w-100 h-100 " style="clip-path: circle(64.3% at 73% 42%)" alt="">
+                <div style="position:absolute; z-index:99999; left:65vh; bottom:11vh">
+                    <p class="text-white" style="font-size:10px">*The picture is taken from <b><a class="text-white" href="https://wallpaperaccess.com">wallpaperaccess.com</a></b>*</p>
+                </div>
             </div>
             <div class="col card h-100 rounded-0 rounded-end shadow-lg">
                 <div class="text-primary">

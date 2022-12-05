@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('employee_id');
             $table->bigInteger('attendance_id');
             $table->bigInteger('payrollManager_id');
+            $table->integer('applied_status');
             $table->timestamps();
         });
     }

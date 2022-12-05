@@ -53,12 +53,19 @@
                                 </div>
                             </div>
                             <div class="row my-5">
-                                {!! Form::label('days', 'Days', ['class'=>'h5']) !!}
-                                <input type="text" name="days" id="days_display" class="form-control h-100 text-center" readonly value='0'>
+                                <div class="col-6">
+                                    {!! Form::label('days', 'Days', ['class'=>'h5 mt-3']) !!}
+                                    <input type="text" name="days" id="days_display" class="form-control text-center" readonly value='0'>
+                                </div>
+                                <div class="col"></div>
+                                <div class="col-4 alert-primary h-100 text-center p-1 m-0 rounded">
+                                    <h6 class="alert-light w-100 p-2 rounded">Remaining Leave Days</h6>
+                                    <h4 class="h-100 p-2" id="remaining_days">{{$employee->leave_days - count($applied_leaves) - count($unapplied_leaves)}}</h4>
+                                </div>
                             </div>
                             <div class="row mb-0" style="margin-top:22vh;">
                                 <div class="col">
-                                    <button type='submit' class="btn btn-success btn-lg w-100 p-3 "> Send Application</button>
+                                    <button type='submit' id="send_application" disabled class="btn btn-success btn-lg w-100 p-3 "> Send Application</button>
                                 </div>
                                 <div class="col">
                                     <button class="btn btn-danger w-100 btn-lg p-3" onclick="location.reload()"> Cancel</button>
@@ -68,11 +75,30 @@
                     </div>
                     </form>
                 </div>
+
                 <div id="menu1" class="tab-pane">
                     <div class="container p-5 border shadow-lg">
-                        <div class="row w-75 mx-auto my-5">
-                            <div class="col card p-0 m-3">
-                                <h5 class="w-100 text-center alert-primary p-3">Number of Application</h5>
+                        <div class="row w-100 mx-auto my-5">
+                            <div class="col shadow-sm p-0 m-3">
+                                <h5 class="w-100 text-center alert-primary p-3">Leave Days of {{ date('Y') }}</h5>
+                                <div class="row m-2">
+                                    <div class="col card mx-2 bg-primary text-white">
+                                        <h6 class="w-100 p-2 text-center">Total</h6>
+                                        <h3 class="w-100 text-center">{{ count($unapplied_leaves) + count($applied_leaves)}} / {{ $employee->leave_days }}</h4>
+                                    </div>
+                                    <div class="col card mx-2">
+                                        <h6 class="alert-light w-100 p-2 text-success text-center">Applied</h6>
+                                        <h1 class="w-100 text-center text-success">{{ count($applied_leaves) }}</h1>
+                                    </div>
+                                    <div class="col card mx-2">
+                                        <h6 class="alert-light w-100 p-2 text-warning text-center">Unapplied</h6>
+                                        <h1 class="w-100 text-center text-warning">{{ count($unapplied_leaves) }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col-2 shadow-sm p-0 m-3">
+                                <h5 class="w-100 text-center alert-light p-3">Number of Application</h5>
                                 <div class="row m-2">
                                     <div class="col card mx-2">
                                         <h6 class="alert-light w-100 p-2 text-center">Total</h6>
@@ -84,8 +110,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col card p-0 m-3">
-                                <h5 class="w-100 text-center alert-success p-3">Number of Approved Application</h5>
+                            <div class="col-2 shadow-sm p-0 m-3">
+                                <h5 class="w-100 text-center alert-light p-3">Approved Application</h5>
                                 <div class="row m-2">
                                     <div class="col card mx-2">
                                         <h6 class="alert-light w-100 p-2 text-center">Total</h6>
@@ -97,8 +123,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col card p-0 m-3">
-                                <h5 class="w-100 text-center alert-danger p-3">Number of Denied Application</h5>
+                            <div class="col-2 shadow-sm p-0 m-3">
+                                <h5 class="w-100 text-center alert-light p-3">Denied Application</h5>
                                 <div class="row m-2">
                                     <div class="col card mx-2">
                                         <h6 class="alert-light w-100 p-2 text-center">Total</h6>
@@ -200,6 +226,15 @@
             let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
 
             document.getElementById('days_display').value = TotalDays
+
+            var remaining_days =  document.getElementById('remaining_days')
+            remaining_days.innerHTML = '{{$employee->leave_days - count($applied_leaves) - count($unapplied_leaves)}}' - TotalDays
+
+            if('{{$employee->leave_days - count($applied_leaves) - count($unapplied_leaves)}}' - TotalDays >= 0){
+                document.getElementById('send_application').disabled = false
+            }else{
+                document.getElementById('send_application').disabled = true
+            }
         }
     </script>
 @endsection

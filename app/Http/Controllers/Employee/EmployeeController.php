@@ -11,6 +11,7 @@ use App\Models\HealthCheck;
 use App\Models\Holiday;
 use App\Models\holiday_attendance;
 use App\Models\Learners;
+use App\Models\Leave;
 use App\Models\leave_approval;
 use App\Models\notification_acknowledgements;
 use App\Models\notification_receiver;
@@ -246,6 +247,18 @@ class EmployeeController extends Controller
         $applications = leave_approval::where('employee_id',$employee->employee_id)->orderBy('created_at','DESC')->get();
 
         $leaves = leave_approval::where('employee_id',$employee->employee_id)->get();
+        $applied_leaves = Leave::join('attendances','attendances.attendance_id','=','leaves.attendance_id')
+            ->where('leaves.employee_id',$employee->employee_id)
+            ->where('leaves.applied_status',1)
+            ->whereBetween('attendances.attendance_date',[date('Y'). "-01-01 00:00:00", date('Y'). "-12-31 23:59:59"])
+            ->get();
+
+        $unapplied_leaves = Leave::join('attendances','attendances.attendance_id','=','leaves.attendance_id')
+            ->where('leaves.employee_id',$employee->employee_id)
+            ->where('leaves.applied_status',0)
+            ->whereBetween('attendances.attendance_date',[date('Y'). "-01-01 00:00:00", date('Y'). "-12-31 23:59:59"])
+            ->get();
+
 
         // [total, current year]
         $total_count = [0,0];
@@ -259,7 +272,6 @@ class EmployeeController extends Controller
                     if($value->status){
                         $approved_count[$key] += 1;
                         $approved_count[0] += 1;
-
                     }else{
                         $denied_count[$key] += 1;
                         $denied_count[0] += 1;
@@ -284,15 +296,19 @@ class EmployeeController extends Controller
             }
         }
 
+
         foreach ($applications as $key => $value) {
             $value->manager = UserDetail::where('login_id',$value->approver_id)->first();
         }
+
         return view('pages.employee.leave')->with([
             'employee' => $employee,
             'applications' => $applications,
             'total_count' => $total_count,
             'approved_count' => $approved_count,
-            'denied_count' => $denied_count
+            'denied_count' => $denied_count,
+            'applied_leaves' => $applied_leaves,
+            'unapplied_leaves' => $unapplied_leaves,
         ]);
     }
 

@@ -115,7 +115,7 @@
                             <th scope="col">Scheduled Time in</th>
                             <th scope="col">Time in</th>
                             <th scope="col">Health Check</th>
-                            <th scope="col"></th>
+                            <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -160,6 +160,9 @@
                                         @break
 
                                     @default
+                                    @if($item->healthCheck->score < 0)
+                                        <td><h4 class="m-0 p-0">🤢</h4>Sick</td>
+                                    @endif
                                 @endswitch
                             @else
                                 <td><h4 class="m-0 p-0">❌</h4>No health Check</td>

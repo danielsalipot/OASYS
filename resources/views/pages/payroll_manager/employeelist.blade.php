@@ -155,7 +155,7 @@
                     },
                     { data: 'rate',
                         render : (data,type,row)=>{
-                            return `<b class="h5">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                            return `<h3 class="text-success">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>`
                         }
                     },
                     { data: 'start_date',

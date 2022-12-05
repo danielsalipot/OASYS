@@ -106,7 +106,8 @@ class PayrollUpdateController extends Controller
                 $id = Leave::create([
                     'employee_id' => $employee->employee_id,
                     'attendance_id' => $attendance->attendance_id,
-                    'payrollManager_id' =>session('user_id')
+                    'payrollManager_id' =>session('user_id'),
+                    'applied_status' => 1,
                 ]);
             }
 
@@ -294,6 +295,50 @@ class PayrollUpdateController extends Controller
         }
 
         EmployeeDetail::where('employee_id',$request->emp_id)->update(['rate' => $request->rate]);
+
+        return back()->with(['success'=>'Post Created']);
+    }
+
+    function editleave(Request $request){
+        $request->validate([
+            'leave' => 'required'
+        ]);
+        $emp_leave = EmployeeDetail::where('employee_id',$request->emp_id)->first();
+        $employee = EmployeeDetail::with('UserDetail')->where('employee_id', $emp_leave->employee_id)->first();
+
+        Audit::create(['activity_type' => 'payroll',
+            'payroll_manager_id' => session()->get('user_id'),
+            'type' => 'Employee Leave',
+            'employee' => $employee->userDetail->fname. ' '. $employee->userDetail->mname . ' '. $employee->userDetail->lname,
+            'activity' => 'Update Annual leave Count',
+            'amount' => $emp_leave->leave_days.' -> '. $request->leave,
+            'tid' => $emp_leave->employee_id,
+        ]);
+
+        if(isset($request->chk)){
+            // AUTOMATIC SENDING OF NOTIFICATION
+            $employee = EmployeeDetail::with('UserDetail')->where('employee_id',$emp_leave->employee_id)->first();
+
+            $head = 'Pay rate Adjusted';
+            $text = $employee->userDetail->fname . " " . $employee->userDetail->mname . " " . $employee->userDetail->lname .
+            " Your Annual Leave Count has been adjusted from " . $emp_leave->leave_days . " to " . $request->leave;
+
+            $notif = notification_message::create([
+                'sender_id' => session()->get('user_id'),
+                'title' => $head,
+                'message' => $text
+            ]);
+
+            $notif->receivers()->createMany([
+                ['receiver_id' => $emp_leave->employee_id]
+            ]);
+
+            app('App\Http\Controllers\EmailSendingController')->sendNotifEmail($head,$text,
+                [['email' => $employee->userDetail->email, 'name' => $employee->userDetail->fname . ' ' . $employee->userDetail->lname]]
+            );
+        }
+
+        EmployeeDetail::where('employee_id',$request->emp_id)->update(['leave_days' => $request->leave]);
 
         return back()->with(['success'=>'Post Created']);
     }

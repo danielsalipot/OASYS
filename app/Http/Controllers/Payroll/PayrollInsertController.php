@@ -327,7 +327,8 @@ class PayrollInsertController extends Controller
                 $id = Leave::create([
                     'employee_id' => $employee->employee_id,
                     'attendance_id' => $attendance_id->attendance_id,
-                    'payrollManager_id' =>session()->get('user_id')
+                    'payrollManager_id' =>session()->get('user_id'),
+                    'applied_status' => 0,
                 ]);
             }
 

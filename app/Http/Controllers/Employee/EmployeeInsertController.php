@@ -39,11 +39,14 @@ class EmployeeInsertController extends Controller
         for ($i=0; $i < 7; $i++) {
             $score += $request['choice_'.$i];
         }
-
         if($temp = round(($score-1 + $request->health_check_option ) / 2)){
             $score = $temp;
         }
         else{
+            $score = 0;
+        }
+
+        if($score < 0){
             $score = 0;
         }
 

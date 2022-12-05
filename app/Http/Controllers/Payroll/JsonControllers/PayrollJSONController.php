@@ -78,6 +78,11 @@ class PayrollJSONController extends Controller
     public function EmployeeDetails(){
         $employeeDetails = EmployeeDetail::with('UserDetail')->get();
         return datatables()->of($employeeDetails)->addColumn('select',function($data){
+            $leaves_count = Leave::join('attendances','attendances.attendance_id','=','leaves.attendance_id')
+                ->where('leaves.employee_id',$data->employee_id)
+                ->whereBetween('attendances.attendance_date',[date('Y'). "-01-01 00:00:00", date('Y'). "-12-31 23:59:59"])
+                ->count();
+
             $button = '<button type="button"
             onclick="selectEmployee(
                 this,
@@ -86,9 +91,18 @@ class PayrollJSONController extends Controller
                 \''. addslashes($data->userDetail->fname) . ' ' . addslashes($data->userDetail->mname) . ' ' . addslashes($data->userDetail->lname) .'\',
                 \''. addslashes($data->department) .'\',
                 \''. addslashes($data->position) .'\',
-                \''. $data->rate .'\'
+                \''. $data->rate .'\',
+                \''. $data->leave_days - $leaves_count .'\'
                 )" class="btn btn-outline-primary">Select</button>';
             return $button;
+        })
+        ->addColumn('leave_total',function($data){
+            $leaves_count = Leave::join('attendances','attendances.attendance_id','=','leaves.attendance_id')
+                ->where('leaves.employee_id',$data->employee_id)
+                ->whereBetween('attendances.attendance_date',[date('Y'). "-01-01 00:00:00", date('Y'). "-12-31 23:59:59"])
+                ->count();
+
+            return $data->leave_days - $leaves_count;
         })
         ->rawColumns(['select'])
         ->make(true);

@@ -51,6 +51,7 @@
                         @yield('third')
                     </div>
                     @yield('fourth')
+                    @yield('fifth')
                 </div>
             </div>
         </div>

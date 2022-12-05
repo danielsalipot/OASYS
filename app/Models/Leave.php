@@ -12,5 +12,5 @@ class Leave extends Model
     use HasFactory;
     protected $keyType = 'string';
 
-    protected $fillable = ['employee_id','attendance_id','payrollManager_id'];
+    protected $fillable = ['employee_id','attendance_id','payrollManager_id','applied_status'];
 }

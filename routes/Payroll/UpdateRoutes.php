@@ -14,6 +14,7 @@ Route::prefix('')->group(function () {
 
     // Employee Rate UPDATE ROUTE
     Route::post('/editrate', [PayrollUpdateController::class, 'editrate']);
+    Route::post('/editleave', [PayrollUpdateController::class, 'editleave']);
 
     // overtime deny UPDATE ROUTE
     Route::post('/updateDenyOvertime', [PayrollUpdateController::class, 'updateDenyOvertime']);

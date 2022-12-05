@@ -5,6 +5,7 @@
             overflow: hidden;
         }
     </style>
+
     <div class="row m-3 p-0 rounded bg-white" style="height: 95vh">
         <div class="index col justify-content-center text-center text-primary">
             <h1 class="pt-5 mt-3 mb-0" style="font-size: 80px">OASYS</h1>
@@ -40,7 +41,12 @@
             <div class="row h-100">
                 <img class="rounded-end h-100 m-0 w-100" src="https://cdn.dribbble.com/users/5508583/screenshots/14363324/media/dd7e3060eeb472c9a882e203403cca21.gif" style="clip-path: circle(70.7% at 71% 50%)" >
             </div>
+
+            <div class="text-white" style="position:absolute; z-index:99999; right:10px">
+                <p style="font-size:10px">*The Animation is taken from <a class="text-white" href="https://www.dribbble.com">dribbble.com</a>*</p>
+            </div>
         </div>
+
 
         <style>
             body{

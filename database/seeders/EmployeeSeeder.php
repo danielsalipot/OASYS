@@ -48,7 +48,7 @@ class EmployeeSeeder extends Seeder
             'bday' => $faker->date($format = 'Y-m-d'),
             'cnum' => $faker->e164PhoneNumber,
             'email' => 'danielsalipot1@gmail.com',
-            'picture' => 'pictures/temp'.rand(1,9).'.jpg',
+            'picture' => 'pictures/employee_temp'.'.jpg',
         ]);
 
         $decimals = 2; // number of decimal places
@@ -70,15 +70,19 @@ class EmployeeSeeder extends Seeder
             'login_id' => $login_id->login_id,
             'information_id' =>$info_id->information_id,
             'educ' => 'College',
+
             'position' => $positions[(rand(0,count($positions) - 1))]->position_title,
             'department' => $departments[(rand(0,count($departments)-1  ))]->department_name,
             'rate' => rand(50,100) + mt_rand(0.01 * $div, 0.05 * $div) / $div,
             'employment_status' => $status,
             'resume' => 'resumes/resume'.rand(1,3).'.pdf',
             'start_date' => $faker->dateTimeBetween('2022-'. $month-2 .'-28', '2022-'. $month-1 .'-03'),
+            'leave_days'=>rand(18,25),
+
             'schedule_days' => json_encode([1,2,5,6,0]),
             'schedule_Timein' => date('H:i:s', 25200 - 28800),
             'schedule_Timeout' => date('H:i:s', 68400 + 28800 + 21600),
+
             'sss_included'=>1,
             'philhealth_included'=>1,
             'pagibig_included'=>1,

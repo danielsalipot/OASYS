@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             $this->call(PositionSeeder::class);
         }
 
-        for ($i=0; $i < 11; $i++) {
+        for ($i=0; $i < 20; $i++) {
             $this->call(EmployeeSeeder::class);
         }
 

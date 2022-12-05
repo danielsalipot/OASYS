@@ -96,6 +96,9 @@
                 </div>
                 <div class="col m-0 p-0 me-5">
                     <img src="https://wallpaperaccess.com/full/155741.jpg"  class=" w-100 h-100  rounded-end shadow-sm" alt="">
+                    <div class="text-white" style="position:absolute; z-index:99999; right:30px; bottom:20px;">
+                        <p style="font-size:10px">*This picture is taken from <b><a class="text-white" href="https://wallpaperaccess.com">wallpaperaccess.com</a>*</b></p>
+                    </div>
                 </div>
             </div>
         </div>
