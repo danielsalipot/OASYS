@@ -231,7 +231,11 @@
                         },
                         { data: 'total_bonus',
                             render : (data,type,row)=>{
-                                return `<b class="text-info">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                                if(row.leave_cashout.length){
+                                    return `<b class="text-info">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b> <br> <p class="text-success" style="font-size:10px">with Leave Cashout</p>`
+                                }else{
+                                    return `<b class="text-info">₱${data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b>`
+                                }
                             }
                         },
                         { data: 'gross_pay',

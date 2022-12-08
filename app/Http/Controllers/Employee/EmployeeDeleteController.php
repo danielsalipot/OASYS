@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\employee_activity;
 use App\Models\EmployeeDetail;
 use App\Models\leave_approval;
+use App\Models\leave_cashout;
 use App\Models\overtime_approval;
 use App\Models\Resigned;
 use Illuminate\Http\Request;
@@ -25,6 +26,20 @@ class EmployeeDeleteController extends Controller
         overtime_approval::find($request->id)->delete();
         return back()->with(['delete'=>'Overtime appplication has been removed']);
 
+    }
+
+    function deleteCashoutApplication(Request $request){
+        $application = leave_cashout::find($request->id)->first();
+
+        $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Removed leave cashout application',
+            'activity_date' => date('Y-m-d h:i:s')
+        ]);
+
+        leave_cashout::find($request->id)->delete();
+        return back()->with(['delete'=>'Leave cashout appplication has been removed']);
     }
 
     function deleteEmployeeLeave(Request $request){

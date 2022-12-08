@@ -14,6 +14,7 @@ use App\Models\MultiPay;
 use App\Models\Overtime;
 use App\Models\Bonus;
 use App\Models\Contributions;
+use App\Models\leave_cashout;
 use App\Models\philhealth;
 use App\Models\Pagibig;
 use Carbon\Carbon;
@@ -29,6 +30,11 @@ class PDFJsonController extends Controller
 
         //FETCH ALL RECORDS OF:
         foreach ($PayrollDetails as $key => $value) {
+            $value->leave_cashout = leave_cashout::where('employee_id', $value->employee_id)
+                ->whereBetween('created_at',[$request->from_date . " 00:00:00",$request->to_date . " 23:59:59"])
+                ->where('approval_status', 1)
+                ->get();
+
             $value->attendance = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
             $value->deduction = $value->FilteredDeductions($value->employee_id, $request->from_date,$request->to_date);
             $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id, $request->from_date,$request->to_date);
@@ -115,6 +121,11 @@ class PDFJsonController extends Controller
                 $detail->total_bonus += $bonus->bonus_amount;
                 $detail->total_bonus = round($detail->total_bonus,2);
             };
+
+            foreach($detail->leave_cashout as $key => $cashout){
+                $detail->total_bonus += $cashout->total_cashout;
+                $detail->total_bonus = round($detail->total_bonus,2);
+            }
 
             $detail->gross_pay = round($detail->gross_pay + $detail->total_bonus,2);
 

@@ -8,12 +8,39 @@ use App\Models\employee_activity;
 use App\Models\EmployeeDetail;
 use App\Models\HealthCheck;
 use App\Models\leave_approval;
+use App\Models\leave_cashout;
 use App\Models\overtime_approval;
 use App\Models\Resigned;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EmployeeInsertController extends Controller
 {
+    function LeaveCashoutInsert(Request $request){
+        $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
+
+        $startTime = Carbon::parse($employee->schedule_Timein);
+        $finishTime = Carbon::parse($employee->schedule_Timeout);
+        $totalDuration = $finishTime->diffInSeconds($startTime) / 3600;
+
+        $total = $employee->rate * $request->cashout_leave_number * $totalDuration;
+        leave_cashout::create([
+            'employee_id' => $employee->employee_id,
+            'leave_days' =>$request->cashout_leave_number,
+            'total_cashout' => round($total,2)
+        ]);
+
+        employee_activity::create([
+            'employee_id' => $employee->employee_id,
+            'description' => 'Applied for Leave Cashout',
+            'activity_date' => date('Y-m-d h:i:s')
+        ]);
+
+        return back()->with([
+            'insert'=>'Leave Cashout Application Created Successfully',
+        ]);
+    }
+
     function TimeInInsert(Request $request){
         $employee = EmployeeDetail::where('login_id',session('user_id'))->first();
         Attendance::create([

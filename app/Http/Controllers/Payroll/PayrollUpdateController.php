@@ -13,6 +13,7 @@ use App\Models\philhealth;
 use App\Models\Audit;
 use App\Models\Leave;
 use App\Models\leave_approval;
+use App\Models\leave_cashout;
 use App\Models\notification_message;
 use App\Models\overtime_approval;
 use Carbon\CarbonPeriod;
@@ -172,6 +173,21 @@ class PayrollUpdateController extends Controller
         }
 
         return back()->with(['update'=>$str]);
+    }
+
+    public function updateApprovalLeaveCashout(Request $request){
+        $leave = leave_cashout::find($request->id);
+        leave_cashout::find($request->id)->update([
+            'approval_status' => $request->status,
+            'approver_id' => session('user_id'),
+            'approval_date' => date('Y-m-d')
+        ]);
+
+        if($request->status){
+            return back()->with(['update'=>'Leave Cashout application has been approved']);
+        }
+        return back()->with(['update'=>'Leave Cashout application has been denied']);
+
     }
 
 

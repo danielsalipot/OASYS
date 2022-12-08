@@ -16,6 +16,7 @@ use App\Models\Audit;
 use App\Models\Deduction;
 use App\Models\employee_activity;
 use App\Models\leave_approval;
+use App\Models\leave_cashout;
 use App\Models\payroll_approval;
 use App\Models\Payroll;
 use App\Models\UserDetail;
@@ -194,9 +195,15 @@ class PayrollController extends Controller
 
         function leave(){
             $applications = leave_approval::where('status',null)->orderBy('created_at','DESC')->get();
+            $leave_cashout = leave_cashout::where('approval_status',null)->orderBy('created_at','DESC')->get();
+
             foreach ($applications as $key => $value) {
                 $value->employee = EmployeeDetail::with('UserDetail')->where('employee_id',$value->employee_id)->first();
             }
+            foreach ($leave_cashout as $key => $value) {
+                $value->employee = EmployeeDetail::with('UserDetail')->where('employee_id',$value->employee_id)->first();
+            }
+
             $updated = leave_approval::where('status','!=',null)->orderBy('created_at','DESC')->get();
 
             foreach ($updated as $key => $value) {
@@ -208,7 +215,8 @@ class PayrollController extends Controller
             return view('pages.payroll_manager.leave')->with([
                 'profile'=>$profile,
                 'applications' => $applications,
-                'updatedApplications' => $updated
+                'updatedApplications' => $updated,
+                'leave_cashout' => $leave_cashout
             ]);
         }
 

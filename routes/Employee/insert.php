@@ -10,6 +10,5 @@ Route::prefix('')->group(function () {
     Route::post('/insertEmployeeLeave', [EmployeeInsertController::class,'insertEmployeeLeave']);
     Route::post('/insertEmployeeResignation', [EmployeeInsertController::class,'insertEmployeeResignation']);
     Route::post('/insertHealthCheck', [EmployeeInsertController::class,'insertHealthCheck']);
-
-
+    Route::post('/LeaveCashoutInsert', [EmployeeInsertController::class,'LeaveCashoutInsert']);
 });

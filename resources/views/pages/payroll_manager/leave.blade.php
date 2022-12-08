@@ -6,6 +6,7 @@
 
 @section('controls')
     <li class="active"><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#home">Paid Leave Approvals</a></li>
+    <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu5">Leave Cashout Approvals</a></li>
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu1">Add Paid Leave</a></li>
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu2">Paid Application History</a></li>
     <li><a data-toggle="tab" class="h5 text-decoration-none m-0" href="#menu3">Paid Leave History</a></li>
@@ -257,7 +258,69 @@
         </table>
     </div>
 </div>
+
+<div id="menu5" class="tab-pane">
+    <div class="container p-5 border shadow-lg">
+    @foreach ($leave_cashout as $item)
+    <div class="container my-3">
+        <div class="row">
+            <div class="col card text-center shadow-sm p-4 rounded-0 rounded-start">
+                <div class="display-6 alert-light mb-4">Cashout Application</div>
+                <div class="row mb-4">
+                    <div class="col text-center">
+                        <img src="/{{$item->employee->userDetail->picture}}" class="w-25 h-100 rounded-circle shadow-sm">
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <h6 class='text-secondary'>Employee Name</h6>
+                    <h3 class="w-100 text-center">{{ $item->employee->userDetail->fname }} {{ $item->employee->userDetail->mname }} {{ $item->employee->userDetail->lname }}</h3>
+                    <p>Position: {{ $item->employee->position }} | Department: {{ $item->employee->department }}</p>
+                </div>
+            </div>
+            <div class="col card shadow-sm p-4 rounded-0">
+                <h5 class="alert-success text-center w-100 p-3 mb-4 rounded">Cashout Details</h5>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="w-100 text-center alert-light p-2">Number of Leave Days</h6>
+                        <h1 class="w-100 text-center">{{ $item->leave_days }}</h1>
+                    </div>
+                    <div class="col text-center">
+                        <h6 class="w-100 text-center alert-light p-2">Employee Rate</h6>
+                        <h3 class="text-success">₱{{ $item->employee->rate }}/hr</h3>
+                    </div>
+                </div>
+                <div class="row mt-4 text-center">
+                    <h6 class="w-100 text-center alert-light p-2">Total Payout</h6>
+                    <h1 class="text-success">₱{{ number_format($item->total_cashout) }}</h1>
+                </div>
+            </div>
+            <div class="col card shadow-sm p-4 rounded-0 rounded-end">
+                <div class="display-6 alert-light mb-4">Approval Controls</div>
+                <div class="m-3">
+                    <h6 class='text-secondary'>Approval Date</h6>
+                    <input type="text" name="" id="" class='form-control form-control-lg mb-4' readonly value="{{ date('Y-m-d') }}">
+                    <form action="/updateApprovalLeaveCashout" method="POST">
+                        @csrf
+                        {!! Form::hidden('id', $item->id) !!}
+                        {!! Form::hidden('status', 1) !!}
+                        <button type="submit" class="btn btn-success btn-lg w-100 p-4 my-2">Approve</button>
+                    </form>
+                    <form action="/updateApprovalLeaveCashout" method="POST">
+                        @csrf
+                        {!! Form::hidden('id', $item->id) !!}
+                        {!! Form::hidden('status', 0) !!}
+                        <button class="btn btn-outline-danger btn-lg w-100 p-4 my-2 ">Disapprove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    </div>
+</div>
 @endsection
+
+
 
 @section('modal')
     <!-- The Modal -->

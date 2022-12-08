@@ -14,6 +14,7 @@ use App\Models\MultiPay;
 use App\Models\Overtime;
 use App\Models\Bonus;
 use App\Models\Contributions;
+use App\Models\leave_cashout;
 use App\Models\philhealth;
 use App\Models\Pagibig;
 use Carbon\Carbon;
@@ -30,6 +31,11 @@ class ComputationController extends Controller
 
             //FETCH ALL RECORDS OF:
             foreach ($PayrollDetails as $key => $value) {
+                $value->leave_cashout = leave_cashout::where('employee_id', $value->employee_id)
+                    ->whereBetween('created_at',[$request->from_date . " 00:00:00",$request->to_date . " 23:59:59"])
+                    ->where('approval_status', 1)
+                    ->get();
+
                 $value->attendance = $value->FilteredAttendance($value->employee_id, $request->from_date,$request->to_date);
                 $value->deduction = $value->FilteredDeductions($value->employee_id, $request->from_date,$request->to_date);
                 $value->cashAdvance = $value->FilteredCashAdvance($value->employee_id, $request->from_date,$request->to_date);
@@ -117,6 +123,11 @@ class ComputationController extends Controller
                     $detail->total_bonus = round($detail->total_bonus,2);
                 };
 
+                foreach($detail->leave_cashout as $key => $cashout){
+                    $detail->total_bonus += $cashout->total_cashout;
+                    $detail->total_bonus = round($detail->total_bonus,2);
+                }
+
                 $detail->gross_pay = round($detail->gross_pay + $detail->total_bonus,2);
 
     /*=============================================================================
@@ -134,46 +145,46 @@ class ComputationController extends Controller
     |
     *==============================================================================*/
 
-            $pagibig = Pagibig::first();
+    $pagibig = Pagibig::first();
 
-            $detail->employee_pagibig_contribution = 0;
-            $detail->employer_pagibig_contribution = 0;
+    $detail->employee_pagibig_contribution = 0;
+    $detail->employer_pagibig_contribution = 0;
 
-            if($detail->gross_pay < $pagibig->divider){
-                $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_min_rate / 100);
-                $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
-            }
-            if($detail->gross_pay > $pagibig->divider){
-                if($detail->gross_pay * ($pagibig->ee_max_rate / 100) > $pagibig->maximum){
-                    $detail->employee_pagibig_contribution = $pagibig->maximum;
-                    $detail->employer_pagibig_contribution = $pagibig->maximum;
-                }else{
-                    $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_max_rate / 100);
-                    $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
+    if($detail->gross_pay < $pagibig->divider){
+        $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_min_rate / 100);
+        $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
+    }
+    if($detail->gross_pay > $pagibig->divider){
+        if($detail->gross_pay * ($pagibig->ee_max_rate / 100) > $pagibig->maximum){
+            $detail->employee_pagibig_contribution = $pagibig->maximum;
+            $detail->employer_pagibig_contribution = $pagibig->maximum;
+        }else{
+            $detail->employee_pagibig_contribution = $detail->gross_pay * ($pagibig->ee_max_rate / 100);
+            $detail->employer_pagibig_contribution = $detail->gross_pay * ($pagibig->er_rate / 100);
 
-                    if($detail->employer_pagibig_contribution > $pagibig->maximum){
-                        $temp = $detail->employer_pagibig_contribution - $pagibig->maximum;
-                        $detail->employer_pagibig_contribution -= $temp;
-                        $detail->employee_pagibig_contribution += $temp;
-                    }
-
-                    if($detail->employee_pagibig_contribution > $pagibig->maximum){
-                        $temp = $detail->employee_pagibig_contribution -= $pagibig->maximum;
-                        $detail->employee_pagibig_contribution -= $temp;
-                        $detail->employer_pagibig_contribution += $temp;
-                    }
-                }
+            if($detail->employer_pagibig_contribution > $pagibig->maximum){
+                $temp = $detail->employer_pagibig_contribution - $pagibig->maximum;
+                $detail->employer_pagibig_contribution -= $temp;
+                $detail->employee_pagibig_contribution += $temp;
             }
 
-            $detail->employee_pagibig_contribution = round($detail->employee_pagibig_contribution * ($diff / 30),2);
-            $detail->employer_pagibig_contribution = round($detail->employer_pagibig_contribution * ($diff / 30),2);
-            $detail->total_pagibig_contribution = round($detail->employee_pagibig_contribution + $detail->employer_pagibig_contribution,2);
-
-            if(!$detail->philhealth_included){
-                $detail->employee_pagibig_contribution = 0;
-                $detail->employer_pagibig_contribution = 0;
-                $detail->total_pagibig_contribution = 0;
+            if($detail->employee_pagibig_contribution > $pagibig->maximum){
+                $temp = $detail->employee_pagibig_contribution -= $pagibig->maximum;
+                $detail->employee_pagibig_contribution -= $temp;
+                $detail->employer_pagibig_contribution += $temp;
             }
+        }
+    }
+
+    $detail->employee_pagibig_contribution = round($detail->employee_pagibig_contribution * ($diff / 30),2);
+    $detail->employer_pagibig_contribution = round($detail->employer_pagibig_contribution * ($diff / 30),2);
+    $detail->total_pagibig_contribution = round($detail->employee_pagibig_contribution + $detail->employer_pagibig_contribution,2);
+
+    if(!$detail->philhealth_included){
+        $detail->employee_pagibig_contribution = 0;
+        $detail->employer_pagibig_contribution = 0;
+        $detail->total_pagibig_contribution = 0;
+    }
     /*=============================================================================
     |                                   END
     *==============================================================================*/
@@ -189,36 +200,36 @@ class ComputationController extends Controller
     |
     *==============================================================================*/
 
-        $philhealth = philhealth::first();
+    $philhealth = philhealth::first();
 
+    $detail->employer_philhealth_contribution = 0;
+    $detail->employee_philhealth_contribution = 0;
+
+    if($detail->gross_pay < $philhealth->minimum){
+        $total_philhealth_payment = $philhealth->minimum_contribution;
+        $detail->employer_philhealth_contribution +=  ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 30);
+        $detail->employee_philhealth_contribution +=  ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 30);
+    }
+    elseif($detail->gross_pay > $philhealth->maximum){
+        $total_philhealth_payment = $philhealth->ph_cap;
+        $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 30);
+        $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 30);
+    }else{
+        $total_philhealth_payment = $detail->gross_pay * ($philhealth->ph_rate/100);
+        $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100) * ($diff / 30));
+        $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100) * ($diff / 30));
+    }
+
+    $detail->employer_philhealth_contribution = round($detail->employer_philhealth_contribution,2);
+    $detail->employee_philhealth_contribution = round($detail->employee_philhealth_contribution,2);
+
+    $detail->total_philhealth_contribution = round($detail->employer_philhealth_contribution + $detail->employee_philhealth_contribution,2);
+
+    if(!$detail->philhealth_included){
         $detail->employer_philhealth_contribution = 0;
         $detail->employee_philhealth_contribution = 0;
-
-        if($detail->gross_pay < $philhealth->minimum){
-            $total_philhealth_payment = $philhealth->minimum_contribution;
-            $detail->employer_philhealth_contribution +=  ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 30);
-            $detail->employee_philhealth_contribution +=  ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 30);
-        }
-        elseif($detail->gross_pay > $philhealth->maximum){
-            $total_philhealth_payment = $philhealth->ph_cap;
-            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100)) * ($diff / 30);
-            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100)) * ($diff / 30);
-        }else{
-            $total_philhealth_payment = $detail->gross_pay * ($philhealth->ph_rate/100);
-            $detail->employer_philhealth_contribution = ($total_philhealth_payment * ($philhealth->er_rate / 100) * ($diff / 30));
-            $detail->employee_philhealth_contribution = ($total_philhealth_payment * ($philhealth->ee_rate / 100) * ($diff / 30));
-        }
-
-        $detail->employer_philhealth_contribution = round($detail->employer_philhealth_contribution,2);
-        $detail->employee_philhealth_contribution = round($detail->employee_philhealth_contribution,2);
-
-        $detail->total_philhealth_contribution = round($detail->employer_philhealth_contribution + $detail->employee_philhealth_contribution,2);
-
-        if(!$detail->philhealth_included){
-            $detail->employer_philhealth_contribution = 0;
-            $detail->employee_philhealth_contribution = 0;
-            $detail->total_philhealth_contribution = 0;
-        }
+        $detail->total_philhealth_contribution = 0;
+    }
 
     /*=============================================================================
     |                                   END
@@ -236,51 +247,52 @@ class ComputationController extends Controller
     |                           total_sss |
     *==============================================================================*/
 
-                $detail->employer_contribution = 0;
-                $detail->employee_contribution = 0;
-
-                $start = 3000;
-                $gross_pay = $detail->gross_pay;
-                $er_add = 0;
-
-                $sss_rate = Contributions::first();
-
-                $ee_rate = $sss_rate->employee_contribution / 100;
-                $er_rate = $sss_rate->employer_contribution / 100;
-
-                // Check Additional for ER
-                if($gross_pay < $sss_rate->high_limit){$er_add = $sss_rate->add_low;}
-                else{$er_add = $sss_rate->add_high;}
-
-                for ($i=0; $i < 40; $i++){
-                    if($gross_pay == 0){
-                        $start = 0;
-                        $er_add = 0;
-                        break;
-                    }
-                    if($gross_pay < 3001){
-                        break;
-                    }
-                    $start += 500;
-                    if($gross_pay >= $start - 250  && $gross_pay <= $start + 249){
-                        break;
-                    }
-                    if($gross_pay >= 25000){
-                        $start = 25000;
-                        break;
-                    }
-                }
-
-
-                $detail->employer_contribution = round(($start * $er_rate + $er_add),1);
-                $detail->employee_contribution = round($start * $ee_rate,1);
-                $detail->total_sss = $detail->employer_contribution + $detail->employee_contribution;
-
-                if(!$detail->sss_included){
                     $detail->employer_contribution = 0;
                     $detail->employee_contribution = 0;
-                    $detail->total_sss = 0;
-                }
+
+                    $start = 3000;
+                    $gross_pay = $detail->gross_pay;
+                    $er_add = 0;
+
+                    $sss_rate = Contributions::first();
+
+                    $ee_rate = $sss_rate->employee_contribution / 100;
+                    $er_rate = $sss_rate->employer_contribution / 100;
+
+                    // Check Additional for ER
+                    if($gross_pay < $sss_rate->high_limit){$er_add = $sss_rate->add_low;}
+                    else{$er_add = $sss_rate->add_high;}
+
+                    for ($i=0; $i < 40; $i++){
+                        if($gross_pay == 0){
+                            $start = 0;
+                            $er_add = 0;
+                            break;
+                        }
+                        if($gross_pay < 3001){
+                            break;
+                        }
+                        $start += 500;
+                        if($gross_pay >= $start - 250  && $gross_pay <= $start + 249){
+                            break;
+                        }
+                        if($gross_pay >= 25000){
+                            $start = 25000;
+                            break;
+                        }
+                    }
+
+
+                    $detail->employer_contribution = round(($start * $er_rate + $er_add),1);
+                    $detail->employee_contribution = round($start * $ee_rate,1);
+                    $detail->total_sss = $detail->employer_contribution + $detail->employee_contribution;
+
+                    if(!$detail->sss_included){
+                        $detail->employer_contribution = 0;
+                        $detail->employee_contribution = 0;
+                        $detail->total_sss = 0;
+                    }
+
 
     /*=============================================================================
     |                                   END
@@ -296,27 +308,27 @@ class ComputationController extends Controller
     |                      witholding_tax | taxable_net
     *==============================================================================*/
 
-                $detail->taxable_net = round($detail->gross_pay,2);
+                    $detail->taxable_net = round($detail->gross_pay,2);
 
-                $detail->witholding_tax = 0;
+                    $detail->witholding_tax = 0;
 
-                if($detail->taxable_net >= 10417 && $detail->taxable_net <= 16666){
-                    $detail->witholding_tax += ($detail->taxable_net - 10417) * 0.2;
-                }
-                if($detail->taxable_net >= 16667 && $detail->taxable_net <= 33332){
-                    $detail->witholding_tax += 1250 + (($detail->taxable_net - 16667) * 0.25);
-                }
-                if($detail->taxable_net >= 33333 && $detail->taxable_net <= 83332){
-                    $detail->witholding_tax += 5416.67 + (($detail->taxable_net - 33333) * 0.3);
-                }
-                if($detail->taxable_net >= 83333 && $detail->taxable_net <= 333332){
-                    $detail->witholding_tax += 20416.67 + (($detail->taxable_net - 83333) * 0.32);
-                }
-                if($detail->taxable_net >= 333333){
-                    $detail->witholding_tax += 100416.67 + (($detail->taxable_net - 333333) * 0.35);
-                }
+                    if($detail->taxable_net >= 10417 && $detail->taxable_net <= 16666){
+                        $detail->witholding_tax += ($detail->taxable_net - 10417) * 0.2;
+                    }
+                    if($detail->taxable_net >= 16667 && $detail->taxable_net <= 33332){
+                        $detail->witholding_tax += 1250 + (($detail->taxable_net - 16667) * 0.25);
+                    }
+                    if($detail->taxable_net >= 33333 && $detail->taxable_net <= 83332){
+                        $detail->witholding_tax += 5416.67 + (($detail->taxable_net - 33333) * 0.3);
+                    }
+                    if($detail->taxable_net >= 83333 && $detail->taxable_net <= 333332){
+                        $detail->witholding_tax += 20416.67 + (($detail->taxable_net - 83333) * 0.32);
+                    }
+                    if($detail->taxable_net >= 333333){
+                        $detail->witholding_tax += 100416.67 + (($detail->taxable_net - 333333) * 0.35);
+                    }
 
-                $detail->witholding_tax = round($detail->witholding_tax,2);
+                    $detail->witholding_tax = round($detail->witholding_tax,2);
 
     /*=============================================================================
     |                                   END
@@ -328,6 +340,7 @@ class ComputationController extends Controller
 
                 $detail->net_pay = round($detail->gross_pay - ($detail->witholding_tax + $detail->total_deduction + $detail->employee_contribution + $detail->total_cash_advance + $detail->employee_philhealth_contribution + $detail->employee_pagibig_contribution) ,2);
                 $detail->gross_pay = round($detail->gross_pay,2);
+
 
                 //Full name of employee
                 $detail->prm_id = session('user_id');

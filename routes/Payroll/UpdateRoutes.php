@@ -24,5 +24,5 @@ Route::prefix('')->group(function () {
     Route::post('/updateRecoverLeave', [PayrollUpdateController::class, 'updateRecoverLeave']);
 
     Route::post('/updateContributionInclude', [PayrollUpdateController::class, 'updateContributionInclude']);
-
+    Route::post('/updateApprovalLeaveCashout', [PayrollUpdateController::class, 'updateApprovalLeaveCashout']);
 });

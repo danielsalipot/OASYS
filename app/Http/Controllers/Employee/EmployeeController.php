@@ -13,6 +13,7 @@ use App\Models\holiday_attendance;
 use App\Models\Learners;
 use App\Models\Leave;
 use App\Models\leave_approval;
+use App\Models\leave_cashout;
 use App\Models\notification_acknowledgements;
 use App\Models\notification_receiver;
 use App\Models\overtime_approval;
@@ -259,6 +260,21 @@ class EmployeeController extends Controller
             ->whereBetween('attendances.attendance_date',[date('Y'). "-01-01 00:00:00", date('Y'). "-12-31 23:59:59"])
             ->get();
 
+        $to_be_approved_leaves = leave_approval::where('employee_id',$employee->employee_id)->where('status',null)->where('start_date','like',date('Y').'%')->get();
+        $total_to_be_approved = 0;
+        foreach ($to_be_approved_leaves as $key => $value) {
+            $date1 = Carbon::parse($value->start_date);
+            $date2 = Carbon::parse($value->end_date);
+
+            $total_to_be_approved += $date1->diffInDays($date2) + 1;
+        }
+
+
+        $leave_cashout_application = leave_cashout::where('employee_id',$employee->employee_id)->where('created_at','like',date('Y').'%')->get();
+        $total_cashout_days = 0;
+        foreach ($leave_cashout_application as $key => $value) {
+            $total_cashout_days += $value->leave_days;
+        }
 
         // [total, current year]
         $total_count = [0,0];
@@ -296,6 +312,9 @@ class EmployeeController extends Controller
             }
         }
 
+        foreach ($leave_cashout_application as $key => $value) {
+            $value->manager = UserDetail::where('login_id',$value->approver_id)->first();
+        }
 
         foreach ($applications as $key => $value) {
             $value->manager = UserDetail::where('login_id',$value->approver_id)->first();
@@ -309,6 +328,9 @@ class EmployeeController extends Controller
             'denied_count' => $denied_count,
             'applied_leaves' => $applied_leaves,
             'unapplied_leaves' => $unapplied_leaves,
+            'total_to_be_approved' => $total_to_be_approved,
+            'leave_cashout_application' => $leave_cashout_application,
+            'total_cashout_days' => $total_cashout_days
         ]);
     }
 
